@@ -1,0 +1,61 @@
+import { Theme } from '../types/index.js';
+
+export const ICONS_PER_LINE = 15;
+export const THEMES: Theme[] = ['light', 'dark'];
+
+export const CONTENT = {
+  JSON: { 'content-type': 'application/json;charset=UTF-8' },
+  HTML: { 'content-type': 'text/html;charset=UTF-8' },
+  SVG: { 'content-type': 'image/svg+xml' },
+};
+
+export const ERRORS = {
+  INVALID_THEME: `Theme must be ${THEMES.join(' or ')}`,
+  INVALID_PERLINE: 'Icons per line must be a number between 1 and 50',
+  NO_ICON_PARAM: 'You must specify ?i=icon1,icon2 or i=all',
+  NO_ICONS_FOUND: 'No valid icons found from the given parameters',
+  NOT_FOUND: 'Not found',
+};
+
+export const shortNames: Record<string, string> = {
+  js: 'javascript',
+  ts: 'typescript',
+  py: 'python',
+  tailwind: 'tailwindcss',
+  vue: 'vuejs',
+  nuxt: 'nuxtjs',
+  go: 'golang',
+  cf: 'cloudflare',
+  wasm: 'webassembly',
+  postgres: 'postgresql',
+  k8s: 'kubernetes',
+  next: 'nextjs',
+  mongo: 'mongodb',
+  md: 'markdown',
+  ps: 'photoshop',
+  ai: 'illustrator',
+  pr: 'premiere',
+  ae: 'aftereffects',
+  scss: 'sass',
+  sc: 'scala',
+  net: 'dotnet',
+  gatsbyjs: 'gatsby',
+  gql: 'graphql',
+  vlang: 'v',
+  amazonwebservices: 'aws',
+  bots: 'discordbots',
+  express: 'expressjs',
+  googlecloud: 'gcp',
+  mui: 'materialui',
+  windi: 'windicss',
+  unreal: 'unrealengine',
+  nest: 'nestjs',
+  ktorio: 'ktor',
+  pwsh: 'powershell',
+  au: 'audition',
+  rollup: 'rollupjs',
+  rxjs: 'reactivex',
+  rxjava: 'reactivex',
+  ghactions: 'githubactions',
+  sklearn: 'scikitlearn',
+};

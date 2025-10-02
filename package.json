@@ -7,7 +7,10 @@
   "scripts": {
     "dev": "npx wrangler dev",
     "build": "bun run build.ts",
-    "deploy": "bun run build.ts && wrangler deploy"
+    "deploy": "bun run build.ts && wrangler deploy",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "test": "vitest"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.45.0",

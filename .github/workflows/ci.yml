@@ -22,7 +22,5 @@ jobs:
       - name: Build project
         run: bun run build
 
-      # - name: Publish to Cloudflare
-      #   uses: cloudflare/wrangler-action@3
-      #   with:
-      #     apiToken: ${{ secrets.CF_API_TOKEN }}
+      - name: Run tests
+        run: bun run test
