@@ -1,5 +1,5 @@
 {
-  "name": "alpicon",
+  "name": "icoziv",
   "version": "1.0.0",
   "main": "index.ts",
   "license": "MIT",
@@ -9,14 +9,13 @@
     "deploy": "bun run build.ts && wrangler deploy"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
+    "@vitest/ui": "^3.2.4",
     "eslint": "^9.36.0",
     "miniflare": "^2.3.0",
     "prettier": "^2.5.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "vitest": "^3.2.4",
     "wrangler": "^4.40.3"
   }
 }

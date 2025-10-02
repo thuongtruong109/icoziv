@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Vitest",
+      "type": "shell",
+      "command": "bunx vitest run",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Vitest UI",
+      "type": "shell",
+      "command": "bunx vitest",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build with Bun",
+      "type": "shell",
+      "command": "bun build",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
