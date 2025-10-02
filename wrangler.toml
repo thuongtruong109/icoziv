@@ -1,8 +1,5 @@
 name = "alpicon"
-type = "webpack"
-route = ''
-zone_id = ''
-usage_model = ''
-compatibility_flags = []
-workers_dev = true
+main = "index.ts"
+type = "javascript"
 compatibility_date = "2025-10-02"
+workers_dev = true
