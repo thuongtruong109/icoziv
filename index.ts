@@ -143,8 +143,19 @@ async function handleRequest(request: Request): Promise<Response> {
     return jsonResponse(iconNameList);
   } else if (path === 'api/svgs') {
     return jsonResponse(icons);
+  } else if (path === '') {
+    return new Response(
+      `<h1>Alpicon Worker</h1>
+       <p>Welcome! Try:</p>
+       <ul>
+         <li><a href="/icons?i=js,ts,go&t=dark">/icons?i=js,ts,go&t=dark</a></li>
+         <li><a href="/api/icons">/api/icons</a></li>
+         <li><a href="/api/svgs">/api/svgs</a></li>
+       </ul>`,
+      { headers: { 'content-type': 'text/html;charset=UTF-8' } }
+    );
   } else {
-    return fetch(request);
+    return errorResponse('Not found', 404);
   }
 }
 
