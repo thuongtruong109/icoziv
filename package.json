@@ -1,16 +1,22 @@
 {
-	"name": "alpicon",
-	"version": "1.0.0",
-	"main": "index.js",
-	"license": "MIT",
-	"scripts": {
-		"dev": "node build.js && miniflare --watch",
-		"build": "node build.js",
-		"deploy": "node build.js && wrangler publish"
-	},
-	"devDependencies": {
-		"@cloudflare/wrangler": "^1.19.8",
-		"miniflare": "^2.3.0",
-		"prettier": "^2.5.1"
-	}
+  "name": "alpicon",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "bun run build.ts && miniflare --watch",
+    "build": "bun run build.ts",
+    "deploy": "bun run build.ts && wrangler publish"
+  },
+  "devDependencies": {
+    "@cloudflare/wrangler": "^1.19.8",
+    "@types/node": "^20.11.17",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "miniflare": "^2.3.0",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }

@@ -1,6 +1,10 @@
-const icons = require('./dist/icons.json');
-const iconNameList = [...new Set(Object.keys(icons).map(i => i.split('-')[0]))];
-const shortNames = {
+import iconsJson from './dist/icons.json';
+const icons: Record<string, string> = iconsJson as Record<string, string>;
+
+const iconNameList: string[] = [
+  ...new Set(Object.keys(icons).map(i => i.split('-')[0])),
+];
+const shortNames: Record<string, string> = {
   js: 'javascript',
   ts: 'typescript',
   py: 'python',
@@ -42,7 +46,7 @@ const shortNames = {
   ghactions: 'githubactions',
   sklearn: 'scikitlearn',
 };
-const themedIcons = [
+const themedIcons: string[] = [
   ...Object.keys(icons)
     .filter(i => i.includes('-light') || i.includes('-dark'))
     .map(i => i.split('-')[0]),
@@ -52,7 +56,7 @@ const ICONS_PER_LINE = 15;
 const ONE_ICON = 48;
 const SCALE = ONE_ICON / (300 - 44);
 
-function generateSvg(iconNames, perLine) {
+function generateSvg(iconNames: string[], perLine: number): string {
   const iconSvgList = iconNames.map(i => icons[i]);
 
   const length = Math.min(perLine * 300, iconNames.length * 300) - 44;
@@ -78,7 +82,7 @@ function generateSvg(iconNames, perLine) {
   `;
 }
 
-function parseShortNames(names, theme = 'dark') {
+function parseShortNames(names: string[], theme: string = 'dark'): string[] {
   return names.map(name => {
     if (iconNameList.includes(name))
       return name + (themedIcons.includes(name) ? `-${theme}` : '');
@@ -87,10 +91,11 @@ function parseShortNames(names, theme = 'dark') {
         shortNames[name] +
         (themedIcons.includes(shortNames[name]) ? `-${theme}` : '')
       );
+    return '';
   });
 }
 
-async function handleRequest(request) {
+async function handleRequest(request: Request): Promise<Response> {
   const { pathname, searchParams } = new URL(request.url);
 
   const path = pathname.replace(/^\/|\/$/g, '');
@@ -104,13 +109,13 @@ async function handleRequest(request) {
       return new Response('Theme must be either "light" or "dark"', {
         status: 400,
       });
-    const perLine = searchParams.get('perline') || ICONS_PER_LINE;
+    const perLine = Number(searchParams.get('perline')) || ICONS_PER_LINE;
     if (isNaN(perLine) || perLine < -1 || perLine > 50)
       return new Response('Icons per line must be a number between 1 and 50', {
         status: 400,
       });
 
-    let iconShortNames = [];
+    let iconShortNames: string[] = [];
     if (iconParam === 'all') iconShortNames = iconNameList;
     else iconShortNames = iconParam.split(',');
 
@@ -140,10 +145,10 @@ async function handleRequest(request) {
   }
 }
 
-addEventListener('fetch', event => {
+addEventListener('fetch', (event: any) => {
   event.respondWith(
     handleRequest(event.request).catch(
-      err => new Response(err.stack, { status: 500 })
+      err => new Response((err as Error).stack, { status: 500 })
     )
   );
 });
