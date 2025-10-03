@@ -2117,12 +2117,7 @@
                 ? 'Light'
                 : 'Common';
             const typeClass = `type-${icon.type}`;
-            const iconUrl =
-              allIcons === defaultIcons
-                ? `https://api.iconify.design/lucide/${
-                    icon.displayName
-                  }.svg?color=%23${isDark ? 'fafafa' : '09090b'}`
-                : `./${icon.filename}`;
+            const iconUrl = `/icons/${icon.filename}`;
 
             return `
                     <div class="icon-card" onclick="copyIconName('${icon.filename}')">

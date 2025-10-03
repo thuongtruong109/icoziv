@@ -3,3 +3,7 @@ main = "index.ts"
 compatibility_date = "2025-10-02"
 workers_dev = true
 account_id = "b19946d3edbafe04ab6c83e3c5084b3a"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"

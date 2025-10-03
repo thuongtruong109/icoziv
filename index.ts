@@ -15,6 +15,9 @@ import {
   generateSvg,
 } from './utils/index.js';
 
+// Asset binding
+declare const ASSETS: any;
+
 function jsonResponse(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -71,16 +74,10 @@ async function handleRequest(request: Request): Promise<Response> {
       return jsonResponse(icons);
 
     case '':
-      return new Response(
-        `<h1>Alpicon Worker</h1>
-         <p>Welcome! Try:</p>
-         <ul>
-           <li><a href="/icons?i=js,ts,go&t=dark">/icons?i=js,ts,go&t=dark</a></li>
-           <li><a href="/api/icons">/api/icons</a></li>
-           <li><a href="/api/svgs">/api/svgs</a></li>
-         </ul>`,
-        { headers: CONTENT.HTML }
-      );
+      const page = await ASSETS.fetch(new URL('/index.html', request.url));
+      return new Response(page.body, {
+        headers: { 'Content-Type': 'text/html' },
+      });
 
     default:
       return errorResponse(ERRORS.NOT_FOUND, 404);
