@@ -558,46 +558,47 @@
     <div class="toast" id="toast"></div>
 
     <script>
-      let iconGroups = {}; // Chứa các nhóm icon đã được gom lại (key: displayName)
+      let iconGroups = {};
       let searchQuery = '';
       let isDark = false;
 
       const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>`;
       const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
 
-      // Xử lý dữ liệu JSON (chỉ dùng keys) thành Icon Groups
+      // HÀM CẬP NHẬT QUAN TRỌNG: Đảm bảo chuyển key sang lowercase để nhóm chính xác
       function processJsonData(jsonData) {
         const groups = {};
 
         for (const key in jsonData) {
-          const filenameBase = key; // Ví dụ: '1c', 'ableton-dark'
+          // *** FIX CRITICAL: Chuyển key sang lowercase ngay lập tức ***
+          const filenameBase = key.toLowerCase();
 
           let type = 'common';
           let displayName = filenameBase;
-          let filename = `${filenameBase}.svg`; // Tạo lại filename đầy đủ
+          let filename = `${key}.svg`; // Giữ key gốc cho tên file để đảm bảo match với server
 
-          // Xác định loại và tên hiển thị cơ bản
+          // Kiểm tra suffix trên base name đã lowercase
           if (filenameBase.endsWith('-dark')) {
             type = 'dark';
-            displayName = filenameBase.slice(0, -5); // Cắt '-dark'
+            displayName = filenameBase.slice(0, -5);
+            // Tạo lại filename từ key gốc để match với file trên server
+            filename = `${key}.svg`;
           } else if (filenameBase.endsWith('-light')) {
             type = 'light';
-            displayName = filenameBase.slice(0, -6); // Cắt '-light'
+            displayName = filenameBase.slice(0, -6);
+            // Tạo lại filename từ key gốc để match với file trên server
+            filename = `${key}.svg`;
           }
-
-          // Chuẩn hóa tên hiển thị (lowercase)
-          displayName = displayName.toLowerCase();
 
           if (!groups[displayName]) {
             groups[displayName] = {
               displayName:
                 displayName.charAt(0).toUpperCase() + displayName.slice(1),
               inCart: false,
-              filenames: {}, // Lưu đường dẫn file
+              filenames: {},
             };
           }
 
-          // Thêm đường dẫn file vào nhóm
           groups[displayName].filenames[type] = filename;
         }
 
@@ -606,7 +607,6 @@
 
       async function loadIcons() {
         try {
-          // Tải file icons.json
           const response = await fetch('/dist/icons.json');
           if (!response.ok) throw new Error('Failed to load icons.json');
           const json = await response.json();
@@ -626,37 +626,40 @@
         renderIcons();
       }
 
-      // HÀM QUAN TRỌNG: Lấy TÊN FILE thích hợp dựa trên theme và sự tồn tại của file
+      // HÀM CHỌN FILE: Logic đã được tinh chỉnh theo yêu cầu mới
       function getActiveFileForGroup(iconGroup) {
         const files = iconGroup.filenames;
 
         let preferredFile = null;
 
         if (isDark) {
-          // 1. Nếu Dark mode, ưu tiên Dark file
+          // 1. Ưu tiên Dark file (-Dark.svg)
           if (files['dark']) {
             preferredFile = files['dark'];
           }
-          // 2. Nếu không có Dark, ưu tiên Common
+          // 2. Nếu không có Dark, ưu tiên Common (icon_name.svg)
           else if (files['common']) {
             preferredFile = files['common'];
           }
-          // 3. Nếu không có Dark/Common, fallback sang Light (nếu có)
-          else if (files['light']) {
-            preferredFile = files['light'];
-          }
+          // 3. KHÔNG FALLBACK sang Light mode file
         } else {
-          // 1. Nếu Light mode, ưu tiên Light file
+          // 1. Ưu tiên Light file (-Light.svg)
           if (files['light']) {
             preferredFile = files['light'];
           }
-          // 2. Nếu không có Light, ưu tiên Common
+          // 2. Nếu không có Light, ưu tiên Common (icon_name.svg)
           else if (files['common']) {
             preferredFile = files['common'];
           }
-          // 3. Nếu không có Light/Common, fallback sang Dark (nếu có)
-          else if (files['dark']) {
-            preferredFile = files['dark'];
+          // 3. KHÔNG FALLBACK sang Dark mode file
+        }
+
+        // Fallback cuối cùng: Nếu không tìm thấy Dark/Light/Common theo theme,
+        // lấy bất kỳ file nào có sẵn trong group để tránh hiển thị khoảng trống
+        if (!preferredFile) {
+          const anyFile = Object.values(files)[0];
+          if (anyFile) {
+            preferredFile = anyFile;
           }
         }
 
@@ -694,16 +697,15 @@
         } else {
           cartSection.style.display = 'block';
 
-          // Lấy ra TÊN FILE thích hợp cho từng nhóm trong giỏ hàng
           const visibleCartItems = cartGroups
             .map(getActiveFileForGroup)
             .filter(Boolean);
 
           cartGrid.innerHTML = visibleCartItems
             .map(iconData => {
+              // Dùng đường dẫn /icons/filename.svg
               const iconUrl = `/icons/${iconData.filename}`;
 
-              // Sử dụng thẻ <img> và đường dẫn URL
               return `
                         <div class="icon-card">
                             <div class="remove-from-cart" onclick="removeFromCart(event, '${iconData.displayName}')">x</div>
@@ -745,9 +747,9 @@
 
           grid.innerHTML = visibleMainItems
             .map(iconData => {
+              // Dùng đường dẫn /icons/filename.svg
               const iconUrl = `/icons/${iconData.filename}`;
 
-              // Sử dụng thẻ <img> và đường dẫn URL
               return `
                         <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
                             <div class="icon-preview-wrapper">
