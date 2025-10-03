@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "bunx wrangler dev --local --persist",
+    "dev": "bun run build --watch && wrangler dev",
     "build": "bun run build.ts",
     "deploy": "bun run build.ts && wrangler deploy",
     "lint": "eslint . --ext .ts",

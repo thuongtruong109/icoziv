@@ -332,6 +332,4 @@ Thank you so much already for using my projects! If you want to go a step furthe
 
 To support the project directly, feel free to open issues for icon suggestions, or contribute with a pull request!
 
-<!-- https://i.colizizast.workers.dev
-https://i.colizix.workers.dev
-not have: https://i.colirix.workers.dev -->
+<!-- https://github.com/syvixor/skills-icons -->

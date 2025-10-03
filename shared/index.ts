@@ -73,4 +73,5 @@ export const shortNames: Record<string, string> = {
   pd: 'pandas',
   plt: 'matplotlib',
   langchain: 'langchain',
+  fm: 'framermotion',
 };
