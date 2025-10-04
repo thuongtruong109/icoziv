@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Icoziv ✨ Instantly flex your skills</title>
+    <meta
+      name="description"
+      content="Instantly flex your skills with a curated collection of 300+ developer and design icons. Search, select, and copy icons to showcase your tech stack effortlessly."
+    />
+    <link rel="shortcut icon" href="./public/logo.png" type="image/x-icon" />
     <style>
       * {
         margin: 0;
@@ -11,12 +16,20 @@
         box-sizing: border-box;
       }
       body {
-        /* UPDATED FONT to match reference: -apple-system -> Inter */
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-          'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          'Roboto',
+          'Oxygen',
+          'Ubuntu',
+          sans-serif;
         background: #fafafa;
         color: #09090b;
-        transition: background 0.3s ease, color 0.3s ease;
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
         line-height: 1.5;
         min-height: 100vh;
       }
@@ -24,7 +37,6 @@
         background: #0a0a0a;
         color: #fafafa;
       }
-      /* NEW: Keyframes for brand animations */
       @keyframes shimmer {
         0% {
           background-position: -200% center;
@@ -44,11 +56,10 @@
           opacity: 1;
         }
       }
-      /* END NEW: Keyframes */
       .container {
         max-width: 1400px;
         margin: 0 auto;
-        padding: 2.5rem 1.5rem;
+        padding: 1.5rem;
       }
       .header {
         display: flex;
@@ -59,44 +70,16 @@
         flex-wrap: wrap;
       }
       .brand-group {
-        /* Wrapper for brand and tagline */
         display: flex;
-        flex-direction: column;
-        gap: 0;
+        align-items: flex-center;
       }
-      .brand {
-        display: flex;
-        align-items: flex-start; /* UPDATED for better alignment with text group height */
-        /* UPDATED gap: 0.625rem -> 14px */
-        gap: 14px;
-      }
-      .brand-icon {
-        /* UPDATED size: 36px -> 48px */
+
+      .brand-group > img {
         width: 48px;
         height: 48px;
-        /* UPDATED gradient and shadow */
-        background: linear-gradient(
-          135deg,
-          #a855f7 0%,
-          #7c3aed 50%,
-          #6366f1 100%
-        );
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35),
-          0 4px 12px rgba(168, 85, 247, 0.25),
-          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        transition: all 0.3s ease;
-        color: #ffffff;
-        /* NEW */
         position: relative;
-        flex-shrink: 0;
       }
-      /* NEW: Glass/Shine Effect */
-      .brand-icon::before {
+      .brand-group > img::before {
         content: '';
         position: absolute;
         inset: 2px;
@@ -107,8 +90,7 @@
         );
         pointer-events: none;
       }
-      /* NEW: Shimmer animation */
-      .brand-icon::after {
+      .brand-group > img::after {
         content: '';
         position: absolute;
         inset: 0;
@@ -122,80 +104,52 @@
         animation: shimmer 3s ease-in-out infinite;
         pointer-events: none;
       }
-      /* UPDATED hover effect */
-      .brand:hover .brand-icon {
-        transform: scale(1.05) rotate(2deg);
-        box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45),
-          0 6px 16px rgba(168, 85, 247, 0.35),
-          0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-      }
-      /* NEW: Style for the ✨ icon */
-      .sparkle {
-        font-size: 26px;
-        filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.4));
-        position: relative;
-        z-index: 2;
-        animation: pulse 3s ease-in-out infinite;
+      .brand {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 48px;
+        margin-left: 1rem;
       }
       .brand-text {
-        /* UPDATED size: 1.5rem -> 32px */
-        font-size: 32px;
-        /* UPDATED weight: 700 -> 800 */
-        font-weight: 800;
-        background: linear-gradient(
-          135deg,
-          #6366f1 0%,
-          #a855f7 50%,
-          #ec4899 100%
-        );
+        font-size: 1.7rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #10b981 0%, #3babf6 50%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        /* UPDATED spacing: -0.03em -> -1px */
-        letter-spacing: -1px;
-        /* NEW: Drop shadow */
         filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.15));
         transition: all 0.3s ease;
-        /* NEW: Font family for modern look */
         font-family: 'Urbanist', 'Poppins', 'Inter', sans-serif;
       }
-      /* NEW: Text hover effect */
-      .brand:hover .brand-text {
-        background: linear-gradient(
-          135deg,
-          #4f46e5 0%,
-          #9333ea 50%,
-          #db2777 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      /* NEW: Brand Tagline Styles */
       .brand-tagline {
-        /* UPDATED size: 0.875rem -> 14px */
-        font-size: 13px; /* REDUCED from 14px */
+        font-size: 0.65rem;
         font-weight: 500;
-        color: #6366f1; /* Primary color for visibility */
-        /* UPDATED margin-left: 42px -> 62px */
-        margin-left: 62px; /* Align with brand-text */
-        /* UPDATED spacing: 0.01em -> 0.2px */
+        color: #5898c4e8;
         letter-spacing: 0.2px;
-        /* UPDATED margin-top: -4px -> 2px */
-        margin-top: 2px;
       }
-      body.dark .brand-tagline {
-        color: #a855f7; /* Lighter primary color in dark mode */
-      }
-      /* END NEW: Brand Tagline Styles */
       .controls {
         display: flex;
         gap: 0.75rem;
         align-items: center;
       }
+      .header-right {
+        display: flex;
+        flex-direction: column;
+      }
+      .header-info {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+      }
+      .header-info span {
+        color: #71717ad5;
+        margin: 0 0.25rem;
+      }
       .search-wrapper {
         position: relative;
-        width: 320px;
+        width: 18rem;
       }
       .search-icon {
         position: absolute;
@@ -205,7 +159,6 @@
         color: #71717a;
         pointer-events: none;
         transition: color 0.2s ease;
-        /* UPDATED for SVG */
         width: 1rem;
         height: 1rem;
       }
@@ -251,7 +204,6 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
-        /* UPDATED for SVG */
         font-size: 16px;
       }
       body.dark .theme-toggle {
@@ -329,22 +281,15 @@
         background: #9333ea;
         box-shadow: 0 2px 4px rgba(168, 85, 247, 0.2);
       }
-      /* --- Icon Grids (UPDATED 1: Decreased gaps) --- */
       .icon-grid {
-        /* Default grid for ALL ICONS */
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
         display: grid;
       }
       #cartGrid {
-        /* UPDATED: Further reduced gap for CART LIST */
-        grid-template-columns: repeat(
-          auto-fill,
-          minmax(65px, 1fr)
-        ); /* Smaller min width */
-        gap: 0.3rem; /* Further reduced from 0.4rem */
+        grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+        gap: 0.3rem;
       }
-      /* --- Icon Card Base (Square Shape) --- */
       .icon-card {
         background: #ffffff;
         border: 1px solid #e4e4e7;
@@ -377,7 +322,8 @@
         border-radius: 12px;
         padding: 1px;
         background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
           linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
@@ -454,7 +400,6 @@
       body.dark .icon-name {
         color: #fafafa;
       }
-      /* --- Cart List Overrides --- */
       .icon-card.in-cart {
         padding-top: 100%;
         border: none;
@@ -491,14 +436,12 @@
       .icon-card.in-cart .icon-preview img {
         filter: none;
       }
-      /* --- Empty State & Toast --- */
       .empty-state {
         text-align: center;
         padding: 4rem 1rem;
         color: #71717a;
       }
       .empty-icon {
-        /* UPDATED for SVG */
         width: 64px;
         height: 64px;
         margin: 0 auto 1.25rem;
@@ -540,7 +483,6 @@
         opacity: 1;
         transform: translateY(0) scale(1);
       }
-      /* --- MODAL (UPDATED 2: New Modal CSS) --- */
       .modal-overlay {
         position: fixed;
         top: 0;
@@ -554,7 +496,9 @@
         justify-content: center;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
         z-index: 2000;
       }
       .modal-overlay.open {
@@ -608,7 +552,6 @@
       .modal-close:hover {
         color: #ef4444;
       }
-      /* New styles for copy fields in modal (1) */
       .copy-field-group {
         margin-bottom: 1rem;
       }
@@ -636,20 +579,26 @@
       .copy-display {
         flex-grow: 1;
         padding: 0.5rem 0.75rem;
-        font-size: 0.875rem; /* UPDATED: Nhỏ hơn một chút */
+        font-size: 0.875rem;
         line-height: 1.2;
-        color: #52525b; /* UPDATED: Mờ hơn một chút (dark mode) */
+        color: #52525b;
         background: transparent;
         border: none;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        /* UPDATED: Chỉnh font family cho hiển thị bên trái */
-        font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-          Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family:
+          'Noto Sans',
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          Roboto,
+          'Helvetica Neue',
+          Arial,
+          sans-serif;
       }
       body.dark .copy-display {
-        color: #e4e4e7; /* UPDATED: Mờ hơn một chút (light mode) */
+        color: #e4e4e7;
       }
       .copy-action-btn {
         padding: 0.5rem 1rem;
@@ -659,7 +608,9 @@
         border-left: 1px solid #e4e4e7;
         cursor: pointer;
         font-weight: 500;
-        transition: background 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s;
         flex-shrink: 0;
       }
       body.dark .copy-action-btn {
@@ -679,14 +630,12 @@
         display: flex;
         justify-content: flex-end;
       }
-      /* Original modal list/actions kept but repurposed for structure */
       .modal-list {
         display: none;
       }
       .modal-copy-btn {
         display: none;
       }
-      /* --- Media Queries --- */
       @media (max-width: 768px) {
         .container {
           padding: 1.5rem 1rem;
@@ -703,23 +652,19 @@
           justify-content: center;
         }
         .brand-icon {
-          /* Mobile size */
           width: 40px;
           height: 40px;
         }
         .sparkle {
-          /* Mobile size */
           font-size: 22px;
         }
         .brand-text {
-          /* Mobile size */
           font-size: 28px;
         }
         .brand-tagline {
-          /* UPDATED margin-left for center alignment on mobile */
-          margin-left: 54px; /* Align with 40px icon + 14px gap */
+          margin-left: 54px;
           text-align: center;
-          font-size: 13px; /* REDUCED from 14px */
+          font-size: 13px;
         }
         .search-wrapper {
           width: 100%;
@@ -728,12 +673,10 @@
           width: 100%;
         }
         .icon-grid {
-          /* Main grid on mobile */
           grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
           gap: 0.75rem;
         }
         #cartGrid {
-          /* Cart grid on mobile - UPDATED min-width and gap */
           grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
           gap: 0.2rem;
         }
@@ -759,41 +702,65 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
+    <section class="container">
+      <header class="header">
         <div class="brand-group">
+          <img
+            src="./public/logo.png"
+            alt="Icoziv Logo"
+            width="48"
+            height="48"
+          />
           <div class="brand">
-            <div class="brand-icon"><span class="sparkle">✨</span></div>
-            <div class="brand-text">Icoziv</div>
+            <div class="brand-text">icoziv</div>
+            <div class="brand-tagline">Instantly flex your skills</div>
           </div>
-          <div class="brand-tagline">Instantly flex your skills</div>
         </div>
-        <div class="controls">
-          <div class="search-wrapper">
-            <div class="search-icon" id="searchIcon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
+        <div class="header-right">
+          <div class="controls">
+            <div class="search-wrapper">
+              <div class="search-icon" id="searchIcon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search icons..."
+              />
             </div>
-            <input type="text" id="searchInput" placeholder="Search icons..." />
+            <button class="theme-toggle" id="themeToggle"></button>
           </div>
-          <button class="theme-toggle" id="themeToggle"></button>
+          <div class="header-info">
+            <span>Crafted by Thuong Truong</span>
+            <span> • </span>
+            <a href="https://github.com/thuongtruong109/icoziv" target="_blank"
+              >GitHub</a
+            >
+            <span> • </span>
+            <a
+              href="https://github.com/thuongtruong109/icoziv/issues"
+              target="_blank"
+              >Report bugs</a
+            >
+          </div>
         </div>
-      </div>
+      </header>
       <div class="cart-section" id="cartSection" style="display: none">
         <div class="subheader">
-          <div class="section-title">Cart List</div>
+          <div class="section-title">Picked Icons</div>
           <div class="cart-controls">
             <div class="stats" id="cartStats">0 items</div>
             <button class="copy-button" id="copyCartButton" disabled>
@@ -834,8 +801,8 @@
         <div class="stats" id="stats">0 icons</div>
       </div>
       <div class="icon-grid" id="iconGrid"></div>
-    </div>
-    <div class="modal-overlay" id="copyModal">
+    </section>
+    <section class="modal-overlay" id="copyModal">
       <div class="modal-content">
         <div class="modal-header">
           <div class="modal-title">Copy Cart Icons</div>
@@ -875,7 +842,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </section>
     <div class="toast" id="toast"></div>
     <script>
       let iconGroups = {};
@@ -883,16 +850,14 @@
       let isDark = false;
       const iconsBaseUrl = '/icons';
       const base_url = 'https://i.icoziv.workers.dev';
-      const assetsLocation = 'public';
+      const assetsLocation = './public';
       const iconDataBaseUrl = `${assetsLocation}/icons.json`;
 
-      // UPDATED: SVG icons
       const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
       const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
       const emptySearchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M5 12h2"/><path d="M9 12h2"/></svg>`;
 
-      // Thêm hàm tiện ích để lấy tên icon đã chuẩn hóa (loại bỏ hậu tố)
       function getNormalizedIconName(filename) {
         if (filename.endsWith('-dark.svg')) {
           return filename.slice(0, -9);
@@ -961,12 +926,11 @@
         } catch (error) {
           console.error(
             'Error loading or processing icons.json. Check network tab and file location.',
-            error
+            error,
           );
           iconGroups = {};
         }
 
-        // Set initial theme toggle icon
         document.getElementById('themeToggle').innerHTML = isDark
           ? sunIcon
           : moonIcon;
@@ -1002,7 +966,7 @@
         if (preferredFile) {
           const key = iconGroup.displayName.toLowerCase();
           const allFilenames = Object.keys(iconGroups[key].filenames).map(
-            type => iconGroups[key].filenames[type]
+            type => iconGroups[key].filenames[type],
           );
           const baseFilename = preferredFile.replace('.svg', '');
 
@@ -1025,15 +989,13 @@
       function renderIcons() {
         const groupsArray = Object.values(iconGroups);
 
-        // --- Cart Icon Grid Rendering ---
         const cartGrid = document.getElementById('cartGrid');
         const cartSection = document.getElementById('cartSection');
         const copyButton = document.getElementById('copyCartButton');
 
         let cartGroups = groupsArray.filter(group => group.inCart);
-        document.getElementById(
-          'cartStats'
-        ).textContent = `${cartGroups.length} icons`;
+        document.getElementById('cartStats').textContent =
+          `${cartGroups.length} icons`;
 
         if (cartGroups.length === 0) {
           cartSection.style.display = 'none';
@@ -1063,19 +1025,16 @@
             .join('');
         }
 
-        // --- Main Icon Grid Rendering ---
         const filteredGroupsBySearch = groupsArray.filter(isIconGroupVisible);
         let availableGroups = filteredGroupsBySearch.filter(
-          group => !group.inCart
+          group => !group.inCart,
         );
 
-        document.getElementById(
-          'stats'
-        ).textContent = `${availableGroups.length} icons`;
+        document.getElementById('stats').textContent =
+          `${availableGroups.length} icons`;
         const grid = document.getElementById('iconGrid');
 
         if (availableGroups.length === 0) {
-          // UPDATED: Replaced empty icon with SVG content
           grid.innerHTML = `
                      <div class="empty-state" style="grid-column: 1/-1;">
                      <div class="empty-icon">${emptySearchIcon}</div>
@@ -1137,8 +1096,6 @@
         }
       }
 
-      // --- Modal Functions (UPDATED) ---
-
       function getCartIconData() {
         return Object.values(iconGroups)
           .filter(group => group.inCart)
@@ -1147,24 +1104,19 @@
       }
 
       function generateCopyContent(type, cartData) {
-        // Lấy danh sách tên icon đã chuẩn hóa (chỉ tên, không có hậu tố)
         const iconNames = cartData.map(d => d.displayName).join(',');
 
-        // Lấy danh sách TÊN FILE ĐÃ CHUẨN HÓA (alpinejs, vue, react) để dùng cho tham số 'i' trong URL
         const iconFileNamesNormalized = cartData
           .map(d => getNormalizedIconName(d.filename))
           .join(',');
 
-        // Xây dựng URL hình ảnh theo yêu cầu: thêm &theme=light nếu đang ở light mode
         const themeQuery = isDark ? '' : '&theme=light';
         const fullImageUrl = `${base_url}${iconsBaseUrl}?i=${iconFileNamesNormalized}${themeQuery}`;
 
-        // Base URL để làm href
         const hrefBaseUrl = base_url;
 
         switch (type) {
           case 'image':
-            // 1. in modal, list icons name should display as: "icon1,icon2,icon3..."
             return fullImageUrl;
           case 'html':
             return `<a href="${hrefBaseUrl}" title="Open Icoziv"><img src="${fullImageUrl}" alt="skill_dev_tech_icons"></a>`;
@@ -1178,7 +1130,6 @@
       function formatPreviewText(text) {
         const lines = text.split('\n');
         if (lines.length > 0) {
-          // If the line is very long, truncate for display
           const preview = lines[0];
           if (preview.length > 50) {
             return preview.substring(0, 47) + '...';
@@ -1197,12 +1148,10 @@
           return;
         }
 
-        // 1. Generate contents
         const imageContent = generateCopyContent('image', cartData);
         const htmlContent = generateCopyContent('html', cartData);
         const markdownContent = generateCopyContent('markdown', cartData);
 
-        // 2. Set full content as a data attribute for copying
         document
           .getElementById('copyImageDisplay')
           .setAttribute('data-full-content', imageContent);
@@ -1213,7 +1162,6 @@
           .getElementById('copyMarkdownDisplay')
           .setAttribute('data-full-content', markdownContent);
 
-        // 3. Set truncated preview content in the display field
         document.getElementById('copyImageDisplay').textContent = imageContent;
 
         document.getElementById('copyHtmlDisplay').textContent =
@@ -1221,7 +1169,6 @@
         document.getElementById('copyMarkdownDisplay').textContent =
           formatPreviewText(markdownContent);
 
-        // 4. Show modal
         modal.classList.add('open');
       }
 
@@ -1244,21 +1191,17 @@
       function toggleTheme() {
         isDark = !isDark;
         document.body.classList.toggle('dark', isDark);
-        // UPDATED: Use SVG content
         document.getElementById('themeToggle').innerHTML = isDark
           ? sunIcon
           : moonIcon;
-        renderIcons(); // Re-render to show correct icon variant
+        renderIcons();
       }
 
-      // --- Initialization and Event Listeners ---
       document.addEventListener('DOMContentLoaded', () => {
-        // Initial setup
         isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         document.body.classList.toggle('dark', isDark);
         loadIcons();
 
-        // Event Listeners
         document
           .getElementById('themeToggle')
           .addEventListener('click', toggleTheme);
@@ -1290,7 +1233,7 @@
             const displayElement = document.getElementById(
               `copy${
                 targetType.charAt(0).toUpperCase() + targetType.slice(1)
-              }Display`
+              }Display`,
             );
             const content = displayElement.getAttribute('data-full-content');
             copyToClipboard(content);
