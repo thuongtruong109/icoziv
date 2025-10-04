@@ -9,7 +9,9 @@ import {
 const iconsDir = readdirSync('./icons');
 const icons: Record<string, string> = {};
 for (const icon of iconsDir) {
-  const name = icon.replace('.svg', '').toLowerCase();
+  // const name = icon.replace('.svg', '').toLowerCase();
+  const name = icon.replace('.svg', '');
+
   icons[name] = String(readFileSync(`./icons/${icon}`));
 }
 
