@@ -4,13 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Icoziv - Modern Icon Gallery</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJzL31r+Q706e9R/T/e/4vX5x9zW4pT6/4+P8w4pB4yX+H6g7JjK4v5w9w9pQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
     <style>
       * {
         margin: 0;
@@ -18,8 +11,9 @@
         box-sizing: border-box;
       }
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-          'Oxygen', 'Ubuntu', sans-serif;
+        /* UPDATED FONT to match reference: -apple-system -> Inter */
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
         background: #fafafa;
         color: #09090b;
         transition: background 0.3s ease, color 0.3s ease;
@@ -30,6 +24,27 @@
         background: #0a0a0a;
         color: #fafafa;
       }
+      /* NEW: Keyframes for brand animations */
+      @keyframes shimmer {
+        0% {
+          background-position: -200% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      }
+      /* END NEW: Keyframes */
       .container {
         max-width: 1400px;
         margin: 0 auto;
@@ -43,35 +58,90 @@
         gap: 1.5rem;
         flex-wrap: wrap;
       }
+      .brand-group {
+        /* Wrapper for brand and tagline */
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
       .brand {
         display: flex;
-        align-items: center;
-        gap: 0.625rem;
+        align-items: flex-start; /* UPDATED for better alignment with text group height */
+        /* UPDATED gap: 0.625rem -> 14px */
+        gap: 14px;
       }
       .brand-icon {
-        width: 36px;
-        height: 36px;
+        /* UPDATED size: 36px -> 48px */
+        width: 48px;
+        height: 48px;
+        /* UPDATED gradient and shadow */
         background: linear-gradient(
           135deg,
-          #6366f1 0%,
-          #a855f7 50%,
-          #ec4899 100%
+          #a855f7 0%,
+          #7c3aed 50%,
+          #6366f1 100%
         );
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 20px;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35),
+          0 4px 12px rgba(168, 85, 247, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        transition: all 0.3s ease;
+        color: #ffffff;
+        /* NEW */
+        position: relative;
+        flex-shrink: 0;
       }
-      .brand-icon:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+      /* NEW: Glass/Shine Effect */
+      .brand-icon::before {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        pointer-events: none;
+      }
+      /* NEW: Shimmer animation */
+      .brand-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+        background-size: 200% 100%;
+        animation: shimmer 3s ease-in-out infinite;
+        pointer-events: none;
+      }
+      /* UPDATED hover effect */
+      .brand:hover .brand-icon {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45),
+          0 6px 16px rgba(168, 85, 247, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+      }
+      /* NEW: Style for the ✨ icon */
+      .sparkle {
+        font-size: 26px;
+        filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.4));
+        position: relative;
+        z-index: 2;
+        animation: pulse 3s ease-in-out infinite;
       }
       .brand-text {
-        font-size: 1.5rem;
-        font-weight: 700;
+        /* UPDATED size: 1.5rem -> 32px */
+        font-size: 32px;
+        /* UPDATED weight: 700 -> 800 */
+        font-weight: 800;
         background: linear-gradient(
           135deg,
           #6366f1 0%,
@@ -81,8 +151,43 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        letter-spacing: -0.03em;
+        /* UPDATED spacing: -0.03em -> -1px */
+        letter-spacing: -1px;
+        /* NEW: Drop shadow */
+        filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.15));
+        transition: all 0.3s ease;
+        /* NEW: Font family for modern look */
+        font-family: 'Urbanist', 'Poppins', 'Inter', sans-serif;
       }
+      /* NEW: Text hover effect */
+      .brand:hover .brand-text {
+        background: linear-gradient(
+          135deg,
+          #4f46e5 0%,
+          #9333ea 50%,
+          #db2777 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      /* NEW: Brand Tagline Styles */
+      .brand-tagline {
+        /* UPDATED size: 0.875rem -> 14px */
+        font-size: 13px; /* REDUCED from 14px */
+        font-weight: 500;
+        color: #6366f1; /* Primary color for visibility */
+        /* UPDATED margin-left: 42px -> 62px */
+        margin-left: 62px; /* Align with brand-text */
+        /* UPDATED spacing: 0.01em -> 0.2px */
+        letter-spacing: 0.2px;
+        /* UPDATED margin-top: -4px -> 2px */
+        margin-top: 2px;
+      }
+      body.dark .brand-tagline {
+        color: #a855f7; /* Lighter primary color in dark mode */
+      }
+      /* END NEW: Brand Tagline Styles */
       .controls {
         display: flex;
         gap: 0.75rem;
@@ -100,6 +205,9 @@
         color: #71717a;
         pointer-events: none;
         transition: color 0.2s ease;
+        /* UPDATED for SVG */
+        width: 1rem;
+        height: 1rem;
       }
       .search-wrapper:focus-within .search-icon {
         color: #6366f1;
@@ -143,6 +251,7 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
+        /* UPDATED for SVG */
         font-size: 16px;
       }
       body.dark .theme-toggle {
@@ -389,9 +498,16 @@
         color: #71717a;
       }
       .empty-icon {
-        font-size: 64px;
-        margin-bottom: 1.25rem;
+        /* UPDATED for SVG */
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1.25rem;
         opacity: 0.4;
+      }
+      .empty-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
       }
       .empty-text {
         font-size: 1rem;
@@ -498,7 +614,7 @@
       }
       .copy-field-label {
         display: block;
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         font-weight: 600;
         color: #3f3f46;
         margin-bottom: 0.25rem;
@@ -520,18 +636,20 @@
       .copy-display {
         flex-grow: 1;
         padding: 0.5rem 0.75rem;
-        font-size: 0.9375rem;
+        font-size: 0.875rem; /* UPDATED: Nhỏ hơn một chút */
         line-height: 1.2;
-        color: #09090b;
+        color: #52525b; /* UPDATED: Mờ hơn một chút (dark mode) */
         background: transparent;
         border: none;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-family: monospace;
+        /* UPDATED: Chỉnh font family cho hiển thị bên trái */
+        font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, 'Helvetica Neue', Arial, sans-serif;
       }
       body.dark .copy-display {
-        color: #fafafa;
+        color: #e4e4e7; /* UPDATED: Mờ hơn một chút (light mode) */
       }
       .copy-action-btn {
         padding: 0.5rem 1rem;
@@ -578,8 +696,30 @@
           align-items: stretch;
           margin-bottom: 2rem;
         }
+        .brand-group {
+          align-items: center;
+        }
         .brand {
           justify-content: center;
+        }
+        .brand-icon {
+          /* Mobile size */
+          width: 40px;
+          height: 40px;
+        }
+        .sparkle {
+          /* Mobile size */
+          font-size: 22px;
+        }
+        .brand-text {
+          /* Mobile size */
+          font-size: 28px;
+        }
+        .brand-tagline {
+          /* UPDATED margin-left for center alignment on mobile */
+          margin-left: 54px; /* Align with 40px icon + 14px gap */
+          text-align: center;
+          font-size: 13px; /* REDUCED from 14px */
         }
         .search-wrapper {
           width: 100%;
@@ -621,21 +761,34 @@
   <body>
     <div class="container">
       <div class="header">
-        <div class="brand">
-          <div class="brand-icon"><i class="fas fa-rocket"></i></div>
-          <div class="brand-text">Icoziv</div>
+        <div class="brand-group">
+          <div class="brand">
+            <div class="brand-icon"><span class="sparkle">✨</span></div>
+            <div class="brand-text">Icoziv</div>
+          </div>
+          <div class="brand-tagline">Instantly flex your skills</div>
         </div>
         <div class="controls">
           <div class="search-wrapper">
-            <i
-              class="fas fa-search search-icon"
-              style="font-size: 0.9375rem"
-            ></i>
+            <div class="search-icon" id="searchIcon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
             <input type="text" id="searchInput" placeholder="Search icons..." />
           </div>
-          <button class="theme-toggle" id="themeToggle">
-            <i class="fas fa-moon"></i>
-          </button>
+          <button class="theme-toggle" id="themeToggle"></button>
         </div>
       </div>
       <div class="cart-section" id="cartSection" style="display: none">
@@ -644,7 +797,32 @@
           <div class="cart-controls">
             <div class="stats" id="cartStats">0 items</div>
             <button class="copy-button" id="copyCartButton" disabled>
-              <i class="fas fa-copy" style="font-size: 0.875rem"></i>
+              <div
+                style="
+                  width: 1rem;
+                  height: 1rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                  <path
+                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                  />
+                </svg>
+              </div>
               Copy
             </button>
           </div>
@@ -673,19 +851,19 @@
           </div>
         </div>
         <div class="copy-field-group">
-          <label class="copy-field-label">Copy as HTML</label>
+          <label class="copy-field-label">Copy as Markdown</label>
           <div class="copy-input-wrapper">
-            <div class="copy-display" id="copyHtmlDisplay"></div>
-            <button class="copy-action-btn" data-copy-target="html">
+            <div class="copy-display" id="copyMarkdownDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="markdown">
               Copy
             </button>
           </div>
         </div>
         <div class="copy-field-group">
-          <label class="copy-field-label">Copy as Markdown</label>
+          <label class="copy-field-label">Copy as HTML</label>
           <div class="copy-input-wrapper">
-            <div class="copy-display" id="copyMarkdownDisplay"></div>
-            <button class="copy-action-btn" data-copy-target="markdown">
+            <div class="copy-display" id="copyHtmlDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="html">
               Copy
             </button>
           </div>
@@ -705,12 +883,13 @@
       let isDark = false;
       const iconsBaseUrl = '/icons';
       const base_url = 'https://i.icoziv.workers.dev';
-      const iconDataBaseUrl = '/dist/icons.json';
+      const iconDataBaseUrl = 'icons.json';
 
-      // UPDATED: Font Awesome icons
-      const sunIcon = `<i class="fas fa-sun"></i>`;
-      const moonIcon = `<i class="fas fa-moon"></i>`;
-      const emptySearchIcon = `<i class="fas fa-search-dollar"></i>`; // New icon for empty state
+      // UPDATED: SVG icons
+      const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+      const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
+      const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
+      const emptySearchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M5 12h2"/><path d="M9 12h2"/></svg>`;
 
       // Thêm hàm tiện ích để lấy tên icon đã chuẩn hóa (loại bỏ hậu tố)
       function getNormalizedIconName(filename) {
@@ -786,6 +965,7 @@
           iconGroups = {};
         }
 
+        // Set initial theme toggle icon
         document.getElementById('themeToggle').innerHTML = isDark
           ? sunIcon
           : moonIcon;
@@ -852,7 +1032,7 @@
         let cartGroups = groupsArray.filter(group => group.inCart);
         document.getElementById(
           'cartStats'
-        ).textContent = `${cartGroups.length} items`;
+        ).textContent = `${cartGroups.length} icons`;
 
         if (cartGroups.length === 0) {
           cartSection.style.display = 'none';
@@ -870,14 +1050,14 @@
               const iconUrl = `${iconsBaseUrl}/${iconData.filename}`;
 
               return `
-            <div class="icon-card in-cart" onclick="removeFromCart(event, '${iconData.displayName}')">
-             <div class="icon-preview-wrapper">
-            <div class="icon-preview">
-              <img src="${iconUrl}" alt="${iconData.displayName}">
-            </div>
-             </div>
-            </div>
-            `;
+                     <div class="icon-card in-cart" onclick="removeFromCart(event, '${iconData.displayName}')">
+                      <div class="icon-preview-wrapper">
+                     <div class="icon-preview">
+                       <img src="${iconUrl}" alt="${iconData.displayName}">
+                     </div>
+                      </div>
+                     </div>
+                     `;
             })
             .join('');
         }
@@ -894,13 +1074,13 @@
         const grid = document.getElementById('iconGrid');
 
         if (availableGroups.length === 0) {
-          // UPDATED: Replaced empty icon with Font Awesome icon
+          // UPDATED: Replaced empty icon with SVG content
           grid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1/-1;">
-            <div class="empty-icon">${emptySearchIcon}</div>
-            <div class="empty-text">No icons found matching "${searchQuery}"</div>
-            </div>
-            `;
+                     <div class="empty-state" style="grid-column: 1/-1;">
+                     <div class="empty-icon">${emptySearchIcon}</div>
+                     <div class="empty-text">No icons found matching "${searchQuery}"</div>
+                     </div>
+                     `;
         } else {
           const visibleMainItems = availableGroups
             .map(getActiveFileForGroup)
@@ -911,17 +1091,17 @@
               const iconUrl = `${iconsBaseUrl}/${iconData.filename}`;
 
               return `
-            <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
-             <div class="icon-preview-wrapper">
-            <div class="icon-preview">
-              <img src="${iconUrl}" alt="${iconData.displayName}">
-            </div>
-             </div>
-             <div class="icon-info">
-            <div class="icon-name">${iconData.displayName}</div>
-             </div>
-            </div>
-            `;
+                     <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
+                      <div class="icon-preview-wrapper">
+                     <div class="icon-preview">
+                       <img src="${iconUrl}" alt="${iconData.displayName}">
+                     </div>
+                      </div>
+                      <div class="icon-info">
+                     <div class="icon-name">${iconData.displayName}</div>
+                      </div>
+                     </div>
+                     `;
             })
             .join('');
         }
@@ -1063,6 +1243,7 @@
       function toggleTheme() {
         isDark = !isDark;
         document.body.classList.toggle('dark', isDark);
+        // UPDATED: Use SVG content
         document.getElementById('themeToggle').innerHTML = isDark
           ? sunIcon
           : moonIcon;

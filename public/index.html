@@ -3,35 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IconHub - Modern Icon Gallery</title>
+    <title>Icoziv - Modern Icon Gallery</title>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-          'Oxygen', 'Ubuntu', sans-serif;
+        /* UPDATED FONT to match reference: -apple-system -> Inter */
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
         background: #fafafa;
         color: #09090b;
         transition: background 0.3s ease, color 0.3s ease;
         line-height: 1.5;
         min-height: 100vh;
       }
-
       body.dark {
         background: #0a0a0a;
         color: #fafafa;
       }
-
+      /* NEW: Keyframes for brand animations */
+      @keyframes shimmer {
+        0% {
+          background-position: -200% center;
+        }
+        100% {
+          background-position: 200% center;
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 1;
+        }
+      }
+      /* END NEW: Keyframes */
       .container {
         max-width: 1400px;
         margin: 0 auto;
         padding: 2.5rem 1.5rem;
       }
-
       .header {
         display: flex;
         align-items: center;
@@ -40,39 +58,90 @@
         gap: 1.5rem;
         flex-wrap: wrap;
       }
-
+      .brand-group {
+        /* Wrapper for brand and tagline */
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
       .brand {
         display: flex;
-        align-items: center;
-        gap: 0.625rem;
+        align-items: flex-start; /* UPDATED for better alignment with text group height */
+        /* UPDATED gap: 0.625rem -> 14px */
+        gap: 14px;
       }
-
       .brand-icon {
-        width: 36px;
-        height: 36px;
+        /* UPDATED size: 36px -> 48px */
+        width: 48px;
+        height: 48px;
+        /* UPDATED gradient and shadow */
         background: linear-gradient(
           135deg,
-          #6366f1 0%,
-          #a855f7 50%,
-          #ec4899 100%
+          #a855f7 0%,
+          #7c3aed 50%,
+          #6366f1 100%
         );
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 20px;
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35),
+          0 4px 12px rgba(168, 85, 247, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        transition: all 0.3s ease;
+        color: #ffffff;
+        /* NEW */
+        position: relative;
+        flex-shrink: 0;
       }
-
-      .brand-icon:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+      /* NEW: Glass/Shine Effect */
+      .brand-icon::before {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        pointer-events: none;
       }
-
+      /* NEW: Shimmer animation */
+      .brand-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+        background-size: 200% 100%;
+        animation: shimmer 3s ease-in-out infinite;
+        pointer-events: none;
+      }
+      /* UPDATED hover effect */
+      .brand:hover .brand-icon {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45),
+          0 6px 16px rgba(168, 85, 247, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+      }
+      /* NEW: Style for the ✨ icon */
+      .sparkle {
+        font-size: 26px;
+        filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.4));
+        position: relative;
+        z-index: 2;
+        animation: pulse 3s ease-in-out infinite;
+      }
       .brand-text {
-        font-size: 1.5rem;
-        font-weight: 700;
+        /* UPDATED size: 1.5rem -> 32px */
+        font-size: 32px;
+        /* UPDATED weight: 700 -> 800 */
+        font-weight: 800;
         background: linear-gradient(
           135deg,
           #6366f1 0%,
@@ -82,20 +151,52 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        letter-spacing: -0.03em;
+        /* UPDATED spacing: -0.03em -> -1px */
+        letter-spacing: -1px;
+        /* NEW: Drop shadow */
+        filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.15));
+        transition: all 0.3s ease;
+        /* NEW: Font family for modern look */
+        font-family: 'Urbanist', 'Poppins', 'Inter', sans-serif;
       }
-
+      /* NEW: Text hover effect */
+      .brand:hover .brand-text {
+        background: linear-gradient(
+          135deg,
+          #4f46e5 0%,
+          #9333ea 50%,
+          #db2777 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      /* NEW: Brand Tagline Styles */
+      .brand-tagline {
+        /* UPDATED size: 0.875rem -> 14px */
+        font-size: 13px; /* REDUCED from 14px */
+        font-weight: 500;
+        color: #6366f1; /* Primary color for visibility */
+        /* UPDATED margin-left: 42px -> 62px */
+        margin-left: 62px; /* Align with brand-text */
+        /* UPDATED spacing: 0.01em -> 0.2px */
+        letter-spacing: 0.2px;
+        /* UPDATED margin-top: -4px -> 2px */
+        margin-top: 2px;
+      }
+      body.dark .brand-tagline {
+        color: #a855f7; /* Lighter primary color in dark mode */
+      }
+      /* END NEW: Brand Tagline Styles */
       .controls {
         display: flex;
         gap: 0.75rem;
         align-items: center;
       }
-
       .search-wrapper {
         position: relative;
         width: 320px;
       }
-
       .search-icon {
         position: absolute;
         left: 0.875rem;
@@ -104,12 +205,13 @@
         color: #71717a;
         pointer-events: none;
         transition: color 0.2s ease;
+        /* UPDATED for SVG */
+        width: 1rem;
+        height: 1rem;
       }
-
       .search-wrapper:focus-within .search-icon {
         color: #6366f1;
       }
-
       input[type='text'] {
         width: 100%;
         padding: 0.625rem 0.875rem 0.625rem 2.5rem;
@@ -122,26 +224,21 @@
         transition: all 0.2s ease;
         font-weight: 400;
       }
-
       body.dark input[type='text'] {
         background: #18181b;
         border-color: #27272a;
         color: #fafafa;
       }
-
       input[type='text']:focus {
         border-color: #6366f1;
         box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
       }
-
       body.dark input[type='text']:focus {
         box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
       }
-
       input[type='text']::placeholder {
         color: #a1a1aa;
       }
-
       .theme-toggle {
         width: 40px;
         height: 40px;
@@ -154,28 +251,28 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
+        /* UPDATED for SVG */
         font-size: 16px;
       }
-
       body.dark .theme-toggle {
         background: #18181b;
         border-color: #27272a;
         color: #a1a1aa;
       }
-
       .theme-toggle:hover {
         background: #f4f4f5;
         border-color: #d4d4d8;
         color: #09090b;
         transform: translateY(-1px);
       }
-
       body.dark .theme-toggle:hover {
         background: #27272a;
         border-color: #3f3f46;
         color: #fafafa;
       }
-
+      .cart-section {
+        margin-bottom: 2rem;
+      }
       .subheader {
         display: flex;
         align-items: center;
@@ -184,54 +281,95 @@
         padding-bottom: 1rem;
         border-bottom: 1px solid #e4e4e7;
       }
-
       body.dark .subheader {
         border-color: #27272a;
       }
-
       .section-title {
         font-size: 0.9375rem;
         font-weight: 600;
         color: #09090b;
         letter-spacing: -0.01em;
       }
-
       body.dark .section-title {
         color: #fafafa;
       }
-
+      .cart-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
       .stats {
         font-size: 0.875rem;
         color: #71717a;
         font-weight: 500;
       }
-
-      .icon-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 1.25rem;
+      .copy-button {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #ffffff;
+        background: #6366f1;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
       }
-
+      .copy-button:hover {
+        background: #4f46e5;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+      }
+      body.dark .copy-button {
+        background: #a855f7;
+      }
+      body.dark .copy-button:hover {
+        background: #9333ea;
+        box-shadow: 0 2px 4px rgba(168, 85, 247, 0.2);
+      }
+      /* --- Icon Grids (UPDATED 1: Decreased gaps) --- */
+      .icon-grid {
+        /* Default grid for ALL ICONS */
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        display: grid;
+      }
+      #cartGrid {
+        /* UPDATED: Further reduced gap for CART LIST */
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(65px, 1fr)
+        ); /* Smaller min width */
+        gap: 0.3rem; /* Further reduced from 0.4rem */
+      }
+      /* --- Icon Card Base (Square Shape) --- */
       .icon-card {
         background: #ffffff;
         border: 1px solid #e4e4e7;
         border-radius: 12px;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
         cursor: pointer;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        padding-top: 100%;
+        width: 100%;
+        height: 0;
       }
-
       body.dark .icon-card {
         background: #18181b;
         border-color: #27272a;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }
-
+      .icon-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      }
+      body.dark .icon-card:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+      }
       .icon-card::after {
         content: '';
         position: absolute;
@@ -246,33 +384,28 @@
         opacity: 0;
         transition: opacity 0.25s ease;
       }
-
-      .icon-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-      }
-
-      body.dark .icon-card:hover {
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-      }
-
       .icon-card:hover::after {
         opacity: 1;
       }
-
-      .icon-preview-wrapper {
-        padding: 2rem 1.5rem 1.5rem;
-        background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+      .icon-preview-wrapper,
+      .icon-info {
+        position: absolute;
+        inset: 0;
         display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .icon-preview-wrapper {
+        top: 0;
+        bottom: 2.5rem;
+        padding: 0;
+        background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
         align-items: center;
         justify-content: center;
-        position: relative;
       }
-
       body.dark .icon-preview-wrapper {
         background: linear-gradient(180deg, #27272a 0%, #18181b 100%);
       }
-
       .icon-card:hover .icon-preview-wrapper {
         background: linear-gradient(
           180deg,
@@ -280,39 +413,36 @@
           rgba(168, 85, 247, 0.03) 100%
         );
       }
-
       .icon-preview {
-        width: 64px;
-        height: 64px;
+        width: 56px;
+        height: 56px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
+        transform: translateY(0);
       }
-
       .icon-preview img {
         max-width: 100%;
         max-height: 100%;
         transition: all 0.25s ease;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
       }
-
       .icon-card:hover .icon-preview img {
         transform: scale(1.15) rotate(-5deg);
       }
-
       .icon-info {
-        padding: 1rem 1.25rem 1.25rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.625rem;
+        height: 2.5rem;
+        position: absolute;
+        bottom: 0;
+        top: auto;
+        padding: 0.25rem 0.5rem;
         background: #ffffff;
+        justify-content: center;
       }
-
       body.dark .icon-info {
         background: #18181b;
       }
-
       .icon-name {
         font-size: 0.875rem;
         font-weight: 600;
@@ -321,54 +451,68 @@
         word-break: break-word;
         line-height: 1.4;
       }
-
       body.dark .icon-name {
         color: #fafafa;
       }
-
-      .icon-type {
-        font-size: 0.6875rem;
-        padding: 0.25rem 0.625rem;
-        border-radius: 6px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        text-align: center;
-        align-self: center;
+      /* --- Cart List Overrides --- */
+      .icon-card.in-cart {
+        padding-top: 100%;
+        border: none;
+        box-shadow: none;
+        background: transparent;
       }
-
-      .icon-type.type-dark {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
-        color: white;
+      .icon-card.in-cart:hover {
+        transform: none;
+        box-shadow: none;
       }
-
-      .icon-type.type-light {
-        background: linear-gradient(135deg, #f59e0b, #f97316);
-        color: white;
+      .icon-card.in-cart::after {
+        display: none;
       }
-
-      .icon-type.type-common {
-        background: linear-gradient(135deg, #10b981, #06b6d4);
-        color: white;
+      .icon-card.in-cart .icon-info {
+        display: none;
       }
-
+      .icon-card.in-cart .icon-preview-wrapper {
+        bottom: 0;
+        padding: 0;
+        background: transparent;
+      }
+      .icon-card.in-cart .icon-preview-wrapper:hover {
+        background: transparent;
+      }
+      .icon-card.in-cart .icon-preview {
+        width: 56px;
+        height: 56px;
+        transform: none;
+        transition: transform 0.2s ease;
+      }
+      .icon-card.in-cart:hover .icon-preview {
+        transform: scale(1.05);
+      }
+      .icon-card.in-cart .icon-preview img {
+        filter: none;
+      }
+      /* --- Empty State & Toast --- */
       .empty-state {
         text-align: center;
         padding: 4rem 1rem;
         color: #71717a;
       }
-
       .empty-icon {
-        font-size: 64px;
-        margin-bottom: 1.25rem;
+        /* UPDATED for SVG */
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1.25rem;
         opacity: 0.4;
       }
-
+      .empty-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
       .empty-text {
         font-size: 1rem;
         font-weight: 500;
       }
-
       .toast {
         position: fixed;
         bottom: 2rem;
@@ -387,1752 +531,580 @@
         z-index: 1000;
         border: 1px solid #27272a;
       }
-
       body.dark .toast {
         background: #fafafa;
         color: #18181b;
         border-color: #e4e4e7;
       }
-
       .toast.show {
         opacity: 1;
         transform: translateY(0) scale(1);
       }
-
+      /* --- MODAL (UPDATED 2: New Modal CSS) --- */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 2000;
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        visibility: visible;
+      }
+      .modal-content {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+      .modal-overlay.open .modal-content {
+        transform: scale(1);
+      }
+      body.dark .modal-content {
+        background: #18181b;
+        border: 1px solid #27272a;
+      }
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e4e4e7;
+      }
+      body.dark .modal-header {
+        border-color: #27272a;
+      }
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #09090b;
+      }
+      body.dark .modal-title {
+        color: #fafafa;
+      }
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #71717a;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .modal-close:hover {
+        color: #ef4444;
+      }
+      /* New styles for copy fields in modal (1) */
+      .copy-field-group {
+        margin-bottom: 1rem;
+      }
+      .copy-field-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #3f3f46;
+        margin-bottom: 0.25rem;
+      }
+      body.dark .copy-field-label {
+        color: #d4d4d8;
+      }
+      .copy-input-wrapper {
+        display: flex;
+        border: 1px solid #e4e4e7;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #ffffff;
+      }
+      body.dark .copy-input-wrapper {
+        background: #0a0a0a;
+        border-color: #27272a;
+      }
+      .copy-display {
+        flex-grow: 1;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem; /* UPDATED: Nhỏ hơn một chút */
+        line-height: 1.2;
+        color: #52525b; /* UPDATED: Mờ hơn một chút (dark mode) */
+        background: transparent;
+        border: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* UPDATED: Chỉnh font family cho hiển thị bên trái */
+        font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+      body.dark .copy-display {
+        color: #e4e4e7; /* UPDATED: Mờ hơn một chút (light mode) */
+      }
+      .copy-action-btn {
+        padding: 0.5rem 1rem;
+        background: #e5e7eb;
+        color: #374151;
+        border: none;
+        border-left: 1px solid #e4e4e7;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+        flex-shrink: 0;
+      }
+      body.dark .copy-action-btn {
+        background: #27272a;
+        color: #a1a1aa;
+        border-color: #3f3f46;
+      }
+      .copy-action-btn:hover {
+        background: #d1d5db;
+      }
+      body.dark .copy-action-btn:hover {
+        background: #3f3f46;
+        color: #fafafa;
+      }
+      .modal-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+      /* Original modal list/actions kept but repurposed for structure */
+      .modal-list {
+        display: none;
+      }
+      .modal-copy-btn {
+        display: none;
+      }
+      /* --- Media Queries --- */
       @media (max-width: 768px) {
         .container {
           padding: 1.5rem 1rem;
         }
-
         .header {
           flex-direction: column;
           align-items: stretch;
           margin-bottom: 2rem;
         }
-
+        .brand-group {
+          align-items: center;
+        }
         .brand {
           justify-content: center;
         }
-
+        .brand-icon {
+          /* Mobile size */
+          width: 40px;
+          height: 40px;
+        }
+        .sparkle {
+          /* Mobile size */
+          font-size: 22px;
+        }
+        .brand-text {
+          /* Mobile size */
+          font-size: 28px;
+        }
+        .brand-tagline {
+          /* UPDATED margin-left for center alignment on mobile */
+          margin-left: 54px; /* Align with 40px icon + 14px gap */
+          text-align: center;
+          font-size: 13px; /* REDUCED from 14px */
+        }
         .search-wrapper {
           width: 100%;
         }
-
         .controls {
           width: 100%;
         }
-
         .icon-grid {
-          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-          gap: 1rem;
+          /* Main grid on mobile */
+          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+          gap: 0.75rem;
         }
-
-        .icon-preview-wrapper {
-          padding: 1.5rem 1rem 1rem;
+        #cartGrid {
+          /* Cart grid on mobile - UPDATED min-width and gap */
+          grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+          gap: 0.2rem;
         }
-
         .icon-preview {
-          width: 56px;
-          height: 56px;
+          width: 48px;
+          height: 48px;
+          transform: none;
         }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
+        .icon-info {
+          height: 2rem;
+          padding: 0.15rem 0.5rem;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        .icon-name {
+          font-size: 0.8rem;
         }
-      }
-
-      .icon-card {
-        animation: fadeIn 0.4s ease backwards;
-      }
-
-      .icon-card:nth-child(1) {
-        animation-delay: 0.03s;
-      }
-      .icon-card:nth-child(2) {
-        animation-delay: 0.06s;
-      }
-      .icon-card:nth-child(3) {
-        animation-delay: 0.09s;
-      }
-      .icon-card:nth-child(4) {
-        animation-delay: 0.12s;
-      }
-      .icon-card:nth-child(5) {
-        animation-delay: 0.15s;
-      }
-      .icon-card:nth-child(6) {
-        animation-delay: 0.18s;
-      }
-      .icon-card:nth-child(7) {
-        animation-delay: 0.21s;
-      }
-      .icon-card:nth-child(8) {
-        animation-delay: 0.24s;
+        .empty-state {
+          padding: 2rem 1rem;
+        }
+        .copy-button {
+          padding: 0.3rem 0.6rem;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <div class="brand">
-          <div class="brand-icon">✦</div>
-          <div class="brand-text">IconHub</div>
+        <div class="brand-group">
+          <div class="brand">
+            <div class="brand-icon"><span class="sparkle">✨</span></div>
+            <div class="brand-text">Icoziv</div>
+          </div>
+          <div class="brand-tagline">Instantly flex your skills</div>
         </div>
         <div class="controls">
           <div class="search-wrapper">
-            <svg
-              class="search-icon"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.35-4.35"></path>
-            </svg>
+            <div class="search-icon" id="searchIcon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
             <input type="text" id="searchInput" placeholder="Search icons..." />
           </div>
-          <button class="theme-toggle" id="themeToggle">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </button>
+          <button class="theme-toggle" id="themeToggle"></button>
         </div>
       </div>
-
+      <div class="cart-section" id="cartSection" style="display: none">
+        <div class="subheader">
+          <div class="section-title">Cart List</div>
+          <div class="cart-controls">
+            <div class="stats" id="cartStats">0 items</div>
+            <button class="copy-button" id="copyCartButton" disabled>
+              <div
+                style="
+                  width: 1rem;
+                  height: 1rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                  <path
+                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                  />
+                </svg>
+              </div>
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="icon-grid" id="cartGrid"></div>
+      </div>
       <div class="subheader">
         <div class="section-title">All Icons</div>
         <div class="stats" id="stats">0 icons</div>
       </div>
-
       <div class="icon-grid" id="iconGrid"></div>
     </div>
-
+    <div class="modal-overlay" id="copyModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">Copy Cart Icons</div>
+          <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="copy-field-group">
+          <label class="copy-field-label">Copy image URL</label>
+          <div class="copy-input-wrapper">
+            <div class="copy-display" id="copyImageDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="image">
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="copy-field-group">
+          <label class="copy-field-label">Copy as Markdown</label>
+          <div class="copy-input-wrapper">
+            <div class="copy-display" id="copyMarkdownDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="markdown">
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="copy-field-group">
+          <label class="copy-field-label">Copy as HTML</label>
+          <div class="copy-input-wrapper">
+            <div class="copy-display" id="copyHtmlDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="html">
+              Copy
+            </button>
+          </div>
+        </div>
+        <pre class="modal-list" id="modalIconList"></pre>
+        <div class="modal-actions">
+          <button class="modal-copy-btn" id="modalCopyAction">
+            Copy All Names
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="toast" id="toast"></div>
-
     <script>
-      let allIcons = [];
+      let iconGroups = {};
       let searchQuery = '';
       let isDark = false;
+      const iconsBaseUrl = '/icons';
+      const base_url = 'https://i.icoziv.workers.dev';
+      const iconDataBaseUrl = 'icons.json';
 
-      const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>`;
-      const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+      // UPDATED: SVG icons
+      const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+      const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
+      const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
+      const emptySearchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M5 12h2"/><path d="M9 12h2"/></svg>`;
 
-      // Default test icons
-      const defaultIcons = [
-        { filename: '1c.svg', type: 'common', displayName: '1c' },
-        { filename: 'Ableton-Dark.svg', type: 'dark', displayName: 'Ableton' },
-        {
-          filename: 'Ableton-Light.svg',
-          type: 'light',
-          displayName: 'Ableton',
-        },
-        {
-          filename: 'ActivityPub-Dark.svg',
-          type: 'dark',
-          displayName: 'ActivityPub',
-        },
-        {
-          filename: 'ActivityPub-Light.svg',
-          type: 'light',
-          displayName: 'ActivityPub',
-        },
-        { filename: 'Actix-Dark.svg', type: 'dark', displayName: 'Actix' },
-        { filename: 'Actix-Light.svg', type: 'light', displayName: 'Actix' },
-        { filename: 'Adonis.svg', type: 'common', displayName: 'Adonis' },
-        {
-          filename: 'AfterEffects.svg',
-          type: 'common',
-          displayName: 'AfterEffects',
-        },
-        {
-          filename: 'AiScript-Dark.svg',
-          type: 'dark',
-          displayName: 'AiScript',
-        },
-        {
-          filename: 'AiScript-Light.svg',
-          type: 'light',
-          displayName: 'AiScript',
-        },
-        {
-          filename: 'AlpineJS-Dark.svg',
-          type: 'dark',
-          displayName: 'AlpineJS',
-        },
-        {
-          filename: 'AlpineJS-Light.svg',
-          type: 'light',
-          displayName: 'AlpineJS',
-        },
-        {
-          filename: 'Anaconda-Dark.svg',
-          type: 'dark',
-          displayName: 'Anaconda',
-        },
-        {
-          filename: 'Anaconda-Light.svg',
-          type: 'light',
-          displayName: 'Anaconda',
-        },
-        {
-          filename: 'AndroidStudio-Dark.svg',
-          type: 'dark',
-          displayName: 'AndroidStudio',
-        },
-        {
-          filename: 'AndroidStudio-Light.svg',
-          type: 'light',
-          displayName: 'AndroidStudio',
-        },
-        { filename: 'Angular-Dark.svg', type: 'dark', displayName: 'Angular' },
-        {
-          filename: 'Angular-Light.svg',
-          type: 'light',
-          displayName: 'Angular',
-        },
-        { filename: 'Ansible.svg', type: 'common', displayName: 'Ansible' },
-        { filename: 'Apollo.svg', type: 'common', displayName: 'Apollo' },
-        {
-          filename: 'Appcelerator-Dark.svg',
-          type: 'dark',
-          displayName: 'Appcelerator',
-        },
-        {
-          filename: 'Appcelerator-Light.svg',
-          type: 'light',
-          displayName: 'Appcelerator',
-        },
-        { filename: 'Apple-Dark.svg', type: 'dark', displayName: 'Apple' },
-        { filename: 'Apple-Light.svg', type: 'light', displayName: 'Apple' },
-        {
-          filename: 'Appwrite-Dark.svg',
-          type: 'dark',
-          displayName: 'Appwrite',
-        },
-        {
-          filename: 'Appwrite-Light.svg',
-          type: 'light',
-          displayName: 'Appwrite',
-        },
-        { filename: 'Arch-Dark.svg', type: 'dark', displayName: 'Arch' },
-        { filename: 'Arch-Light.svg', type: 'light', displayName: 'Arch' },
-        { filename: 'Arduino.svg', type: 'common', displayName: 'Arduino' },
-        { filename: 'Arm.svg', type: 'common', displayName: 'Arm' },
-        { filename: 'Asm.svg', type: 'common', displayName: 'Asm' },
-        { filename: 'Astro.svg', type: 'common', displayName: 'Astro' },
-        { filename: 'Atom.svg', type: 'common', displayName: 'Atom' },
-        { filename: 'Audition.svg', type: 'common', displayName: 'Audition' },
-        { filename: 'AutoCAD-Dark.svg', type: 'dark', displayName: 'AutoCAD' },
-        {
-          filename: 'AutoCAD-Light.svg',
-          type: 'light',
-          displayName: 'AutoCAD',
-        },
-        { filename: 'AWS-Dark.svg', type: 'dark', displayName: 'AWS' },
-        { filename: 'AWS-Light.svg', type: 'light', displayName: 'AWS' },
-        { filename: 'Azul.svg', type: 'common', displayName: 'Azul' },
-        { filename: 'Azure-Dark.svg', type: 'dark', displayName: 'Azure' },
-        { filename: 'Azure-Light.svg', type: 'light', displayName: 'Azure' },
-        {
-          filename: 'AzureSQLDatabase-Dark.svg',
-          type: 'dark',
-          displayName: 'AzureSQLDatabase',
-        },
-        {
-          filename: 'AzureSQLDatabase-Light.svg',
-          type: 'light',
-          displayName: 'AzureSQLDatabase',
-        },
-        { filename: 'Babel.svg', type: 'common', displayName: 'Babel' },
-        {
-          filename: 'Backbone-Dark.svg',
-          type: 'dark',
-          displayName: 'Backbone',
-        },
-        {
-          filename: 'Backbone-Light.svg',
-          type: 'light',
-          displayName: 'Backbone',
-        },
-        { filename: 'Bash-Dark.svg', type: 'dark', displayName: 'Bash' },
-        { filename: 'Bash-Light.svg', type: 'light', displayName: 'Bash' },
-        { filename: 'Behance-Dark.svg', type: 'dark', displayName: 'Behance' },
-        {
-          filename: 'Behance-Light.svg',
-          type: 'light',
-          displayName: 'Behance',
-        },
-        { filename: 'Bevy-Dark.svg', type: 'dark', displayName: 'Bevy' },
-        { filename: 'Bevy-Light.svg', type: 'light', displayName: 'Bevy' },
-        {
-          filename: 'BitBucket-Dark.svg',
-          type: 'dark',
-          displayName: 'BitBucket',
-        },
-        {
-          filename: 'BitBucket-Light.svg',
-          type: 'light',
-          displayName: 'BitBucket',
-        },
-        { filename: 'Blazor-Dark.svg', type: 'dark', displayName: 'Blazor' },
-        { filename: 'Blazor-Light.svg', type: 'light', displayName: 'Blazor' },
-        { filename: 'Blender-Dark.svg', type: 'dark', displayName: 'Blender' },
-        {
-          filename: 'Blender-Light.svg',
-          type: 'light',
-          displayName: 'Blender',
-        },
-        { filename: 'Bootstrap.svg', type: 'common', displayName: 'Bootstrap' },
-        { filename: 'BSD-Dark.svg', type: 'dark', displayName: 'BSD' },
-        { filename: 'BSD-Light.svg', type: 'light', displayName: 'BSD' },
-        { filename: 'Bulma-Dark.svg', type: 'dark', displayName: 'Bulma' },
-        { filename: 'Bulma-Light.svg', type: 'light', displayName: 'Bulma' },
-        { filename: 'Bun-Dark.svg', type: 'dark', displayName: 'Bun' },
-        { filename: 'Bun-Light.svg', type: 'light', displayName: 'Bun' },
-        { filename: 'C.svg', type: 'common', displayName: 'C' },
-        { filename: 'CakePhp-Dark.svg', type: 'dark', displayName: 'CakePhp' },
-        {
-          filename: 'CakePhp-Light.svg',
-          type: 'light',
-          displayName: 'CakePhp',
-        },
-        { filename: 'Canva.svg', type: 'common', displayName: 'Canva' },
-        {
-          filename: 'Cassandra-Dark.svg',
-          type: 'dark',
-          displayName: 'Cassandra',
-        },
-        {
-          filename: 'Cassandra-Light.svg',
-          type: 'light',
-          displayName: 'Cassandra',
-        },
-        { filename: 'Chai-Dark.svg', type: 'dark', displayName: 'Chai' },
-        { filename: 'Chai-Light.svg', type: 'light', displayName: 'Chai' },
-        { filename: 'ChartJS-Dark.svg', type: 'dark', displayName: 'ChartJS' },
-        {
-          filename: 'ChartJS-Light.svg',
-          type: 'light',
-          displayName: 'ChartJS',
-        },
-        { filename: 'CLion-Dark.svg', type: 'dark', displayName: 'CLion' },
-        { filename: 'CLion-Light.svg', type: 'light', displayName: 'CLion' },
-        { filename: 'Clojure-Dark.svg', type: 'dark', displayName: 'Clojure' },
-        {
-          filename: 'Clojure-Light.svg',
-          type: 'light',
-          displayName: 'Clojure',
-        },
-        {
-          filename: 'Cloudflare-Dark.svg',
-          type: 'dark',
-          displayName: 'Cloudflare',
-        },
-        {
-          filename: 'Cloudflare-Light.svg',
-          type: 'light',
-          displayName: 'Cloudflare',
-        },
-        {
-          filename: 'Cloudinary-Dark.svg',
-          type: 'dark',
-          displayName: 'Cloudinary',
-        },
-        {
-          filename: 'Cloudinary-Light.svg',
-          type: 'light',
-          displayName: 'Cloudinary',
-        },
-        { filename: 'CMake-Dark.svg', type: 'dark', displayName: 'CMake' },
-        { filename: 'CMake-Light.svg', type: 'light', displayName: 'CMake' },
-        {
-          filename: 'CodeIgniter-Dark.svg',
-          type: 'dark',
-          displayName: 'CodeIgniter',
-        },
-        {
-          filename: 'CodeIgniter-Light.svg',
-          type: 'light',
-          displayName: 'CodeIgniter',
-        },
-        { filename: 'CodePen-Dark.svg', type: 'dark', displayName: 'CodePen' },
-        {
-          filename: 'CodePen-Light.svg',
-          type: 'light',
-          displayName: 'CodePen',
-        },
-        {
-          filename: 'CoffeeScript-Dark.svg',
-          type: 'dark',
-          displayName: 'CoffeeScript',
-        },
-        {
-          filename: 'CoffeeScript-Light.svg',
-          type: 'light',
-          displayName: 'CoffeeScript',
-        },
-        { filename: 'Colab-Dark.svg', type: 'dark', displayName: 'Colab' },
-        { filename: 'Colab-Light.svg', type: 'light', displayName: 'Colab' },
-        { filename: 'Compose-Dark.svg', type: 'dark', displayName: 'Compose' },
-        {
-          filename: 'Compose-Light.svg',
-          type: 'light',
-          displayName: 'Compose',
-        },
-        { filename: 'CouchDB-Dark.svg', type: 'dark', displayName: 'CouchDB' },
-        {
-          filename: 'CouchDB-Light.svg',
-          type: 'light',
-          displayName: 'CouchDB',
-        },
-        { filename: 'CPP.svg', type: 'common', displayName: 'CPP' },
-        { filename: 'Crystal-Dark.svg', type: 'dark', displayName: 'Crystal' },
-        {
-          filename: 'Crystal-Light.svg',
-          type: 'light',
-          displayName: 'Crystal',
-        },
-        { filename: 'CS.svg', type: 'common', displayName: 'CS' },
-        { filename: 'CSS.svg', type: 'common', displayName: 'CSS' },
-        { filename: 'Cypress-Dark.svg', type: 'dark', displayName: 'Cypress' },
-        {
-          filename: 'Cypress-Light.svg',
-          type: 'light',
-          displayName: 'Cypress',
-        },
-        { filename: 'D3-Dark.svg', type: 'dark', displayName: 'D3' },
-        { filename: 'D3-Light.svg', type: 'light', displayName: 'D3' },
-        { filename: 'Dart-Dark.svg', type: 'dark', displayName: 'Dart' },
-        { filename: 'Dart-Light.svg', type: 'light', displayName: 'Dart' },
-        { filename: 'DBeaver-Dark.svg', type: 'dark', displayName: 'DBeaver' },
-        {
-          filename: 'DBeaver-Light.svg',
-          type: 'light',
-          displayName: 'DBeaver',
-        },
-        { filename: 'Debian-Dark.svg', type: 'dark', displayName: 'Debian' },
-        { filename: 'Debian-Light.svg', type: 'light', displayName: 'Debian' },
-        { filename: 'DENO-Dark.svg', type: 'dark', displayName: 'DENO' },
-        { filename: 'DENO-Light.svg', type: 'light', displayName: 'DENO' },
-        { filename: 'DevTo-Dark.svg', type: 'dark', displayName: 'DevTo' },
-        { filename: 'DevTo-Light.svg', type: 'light', displayName: 'DevTo' },
-        { filename: 'DirectX-Dark.svg', type: 'dark', displayName: 'DirectX' },
-        {
-          filename: 'DirectX-Light.svg',
-          type: 'light',
-          displayName: 'DirectX',
-        },
-        { filename: 'Discord.svg', type: 'common', displayName: 'Discord' },
-        {
-          filename: 'DiscordBots.svg',
-          type: 'common',
-          displayName: 'DiscordBots',
-        },
-        {
-          filename: 'DiscordJS-Dark.svg',
-          type: 'dark',
-          displayName: 'DiscordJS',
-        },
-        {
-          filename: 'DiscordJS-Light.svg',
-          type: 'light',
-          displayName: 'DiscordJS',
-        },
-        { filename: 'Django.svg', type: 'common', displayName: 'Django' },
-        { filename: 'Docker.svg', type: 'common', displayName: 'Docker' },
-        { filename: 'DotNet.svg', type: 'common', displayName: 'DotNet' },
-        { filename: 'Dribble-Dark.svg', type: 'dark', displayName: 'Dribble' },
-        {
-          filename: 'Dribble-Light.svg',
-          type: 'light',
-          displayName: 'Dribble',
-        },
-        {
-          filename: 'DynamoDB-Dark.svg',
-          type: 'dark',
-          displayName: 'DynamoDB',
-        },
-        {
-          filename: 'DynamoDB-Light.svg',
-          type: 'light',
-          displayName: 'DynamoDB',
-        },
-        { filename: 'ECharts.svg', type: 'common', displayName: 'ECharts' },
-        { filename: 'Eclipse-Dark.svg', type: 'dark', displayName: 'Eclipse' },
-        {
-          filename: 'Eclipse-Light.svg',
-          type: 'light',
-          displayName: 'Eclipse',
-        },
-        {
-          filename: 'Elasticsearch-Dark.svg',
-          type: 'dark',
-          displayName: 'Elasticsearch',
-        },
-        {
-          filename: 'Elasticsearch-Light.svg',
-          type: 'light',
-          displayName: 'Elasticsearch',
-        },
-        { filename: 'Electron.svg', type: 'common', displayName: 'Electron' },
-        { filename: 'Elixir-Dark.svg', type: 'dark', displayName: 'Elixir' },
-        { filename: 'Elixir-Light.svg', type: 'light', displayName: 'Elixir' },
-        { filename: 'Elm-Dark.svg', type: 'dark', displayName: 'Elm' },
-        { filename: 'Elm-Light.svg', type: 'light', displayName: 'Elm' },
-        { filename: 'Elysia-Dark.svg', type: 'dark', displayName: 'Elysia' },
-        { filename: 'Elysia-Light.svg', type: 'light', displayName: 'Elysia' },
-        { filename: 'Emacs.svg', type: 'common', displayName: 'Emacs' },
-        { filename: 'Ember.svg', type: 'common', displayName: 'Ember' },
-        { filename: 'Emotion-Dark.svg', type: 'dark', displayName: 'Emotion' },
-        {
-          filename: 'Emotion-Light.svg',
-          type: 'light',
-          displayName: 'Emotion',
-        },
-        { filename: 'Eslint-Dark.svg', type: 'dark', displayName: 'Eslint' },
-        { filename: 'Eslint-Light.svg', type: 'light', displayName: 'Eslint' },
-        { filename: 'Excel-Dark.svg', type: 'dark', displayName: 'Excel' },
-        { filename: 'Excel-Light.svg', type: 'light', displayName: 'Excel' },
-        { filename: 'Expo-Dark.svg', type: 'dark', displayName: 'Expo' },
-        { filename: 'Expo-Light.svg', type: 'light', displayName: 'Expo' },
-        {
-          filename: 'ExpressJS-Dark.svg',
-          type: 'dark',
-          displayName: 'ExpressJS',
-        },
-        {
-          filename: 'ExpressJS-Light.svg',
-          type: 'light',
-          displayName: 'ExpressJS',
-        },
-        { filename: 'FastAPI.svg', type: 'common', displayName: 'FastAPI' },
-        {
-          filename: 'Fediverse-Dark.svg',
-          type: 'dark',
-          displayName: 'Fediverse',
-        },
-        {
-          filename: 'Fediverse-Light.svg',
-          type: 'light',
-          displayName: 'Fediverse',
-        },
-        { filename: 'Figma-Dark.svg', type: 'dark', displayName: 'Figma' },
-        { filename: 'Figma-Light.svg', type: 'light', displayName: 'Figma' },
-        {
-          filename: 'Firebase-Dark.svg',
-          type: 'dark',
-          displayName: 'Firebase',
-        },
-        {
-          filename: 'Firebase-Light.svg',
-          type: 'light',
-          displayName: 'Firebase',
-        },
-        { filename: 'Flask-Dark.svg', type: 'dark', displayName: 'Flask' },
-        { filename: 'Flask-Light.svg', type: 'light', displayName: 'Flask' },
-        { filename: 'Flutter-Dark.svg', type: 'dark', displayName: 'Flutter' },
-        {
-          filename: 'Flutter-Light.svg',
-          type: 'light',
-          displayName: 'Flutter',
-        },
-        { filename: 'Forth.svg', type: 'common', displayName: 'Forth' },
-        { filename: 'Fortran.svg', type: 'common', displayName: 'Fortran' },
-        {
-          filename: 'FramerMotion-Dark.svg',
-          type: 'dark',
-          displayName: 'FramerMotion',
-        },
-        {
-          filename: 'FramerMotion-Light.svg',
-          type: 'light',
-          displayName: 'FramerMotion',
-        },
-        { filename: 'FreeCAD-Dark.svg', type: 'dark', displayName: 'FreeCAD' },
-        {
-          filename: 'FreeCAD-Light.svg',
-          type: 'light',
-          displayName: 'FreeCAD',
-        },
-        {
-          filename: 'GameMakerStudio.svg',
-          type: 'common',
-          displayName: 'GameMakerStudio',
-        },
-        { filename: 'Gatsby.svg', type: 'common', displayName: 'Gatsby' },
-        { filename: 'GCP-Dark.svg', type: 'dark', displayName: 'GCP' },
-        { filename: 'GCP-Light.svg', type: 'light', displayName: 'GCP' },
-        { filename: 'Gentoo-Dark.svg', type: 'dark', displayName: 'Gentoo' },
-        { filename: 'Gentoo-Light.svg', type: 'light', displayName: 'Gentoo' },
-        { filename: 'Gherkin-Dark.svg', type: 'dark', displayName: 'Gherkin' },
-        {
-          filename: 'Gherkin-Light.svg',
-          type: 'light',
-          displayName: 'Gherkin',
-        },
-        { filename: 'Git-Dark.svg', type: 'dark', displayName: 'Git' },
-        { filename: 'Git-Light.svg', type: 'light', displayName: 'Git' },
-        { filename: 'Github-Dark.svg', type: 'dark', displayName: 'Github' },
-        { filename: 'Github-Light.svg', type: 'light', displayName: 'Github' },
-        {
-          filename: 'GithubActions-Dark.svg',
-          type: 'dark',
-          displayName: 'GithubActions',
-        },
-        {
-          filename: 'GithubActions-Light.svg',
-          type: 'light',
-          displayName: 'GithubActions',
-        },
-        { filename: 'GitLab-Dark.svg', type: 'dark', displayName: 'GitLab' },
-        { filename: 'GitLab-Light.svg', type: 'light', displayName: 'GitLab' },
-        { filename: 'Gmail-Dark.svg', type: 'dark', displayName: 'Gmail' },
-        { filename: 'Gmail-Light.svg', type: 'light', displayName: 'Gmail' },
-        { filename: 'Gmail.svg', type: 'common', displayName: 'Gmail' },
-        { filename: 'Godot-Dark.svg', type: 'dark', displayName: 'Godot' },
-        { filename: 'Godot-Light.svg', type: 'light', displayName: 'Godot' },
-        { filename: 'GoLang.svg', type: 'common', displayName: 'GoLang' },
-        {
-          filename: 'GoogleAnalytics-Dark.svg',
-          type: 'dark',
-          displayName: 'GoogleAnalytics',
-        },
-        {
-          filename: 'GoogleAnalytics-Light.svg',
-          type: 'light',
-          displayName: 'GoogleAnalytics',
-        },
-        {
-          filename: 'GoogleAppsScript-Dark.svg',
-          type: 'dark',
-          displayName: 'GoogleAppsScript',
-        },
-        {
-          filename: 'GoogleAppsScript-Light.svg',
-          type: 'light',
-          displayName: 'GoogleAppsScript',
-        },
-        { filename: 'Gradio-Dark.svg', type: 'dark', displayName: 'Gradio' },
-        { filename: 'Gradio-Light.svg', type: 'light', displayName: 'Gradio' },
-        { filename: 'Gradle-Dark.svg', type: 'dark', displayName: 'Gradle' },
-        { filename: 'Gradle-Light.svg', type: 'light', displayName: 'Gradle' },
-        { filename: 'Grafana-Dark.svg', type: 'dark', displayName: 'Grafana' },
-        {
-          filename: 'Grafana-Light.svg',
-          type: 'light',
-          displayName: 'Grafana',
-        },
-        { filename: 'GraphQL-Dark.svg', type: 'dark', displayName: 'GraphQL' },
-        {
-          filename: 'GraphQL-Light.svg',
-          type: 'light',
-          displayName: 'GraphQL',
-        },
-        { filename: 'GSAP-Dark.svg', type: 'dark', displayName: 'GSAP' },
-        { filename: 'GSAP-Light.svg', type: 'light', displayName: 'GSAP' },
-        { filename: 'GTK-Dark.svg', type: 'dark', displayName: 'GTK' },
-        { filename: 'GTK-Light.svg', type: 'light', displayName: 'GTK' },
-        { filename: 'Gulp.svg', type: 'common', displayName: 'Gulp' },
-        {
-          filename: 'Hackerrank-Dark.svg',
-          type: 'dark',
-          displayName: 'Hackerrank',
-        },
-        {
-          filename: 'Hackerrank-Light.svg',
-          type: 'light',
-          displayName: 'Hackerrank',
-        },
-        { filename: 'Hadoop.svg', type: 'common', displayName: 'Hadoop' },
-        { filename: 'Haskell-Dark.svg', type: 'dark', displayName: 'Haskell' },
-        {
-          filename: 'Haskell-Light.svg',
-          type: 'light',
-          displayName: 'Haskell',
-        },
-        { filename: 'Haxe-Dark.svg', type: 'dark', displayName: 'Haxe' },
-        { filename: 'Haxe-Light.svg', type: 'light', displayName: 'Haxe' },
-        {
-          filename: 'HaxeFlixel-Dark.svg',
-          type: 'dark',
-          displayName: 'HaxeFlixel',
-        },
-        {
-          filename: 'HaxeFlixel-Light.svg',
-          type: 'light',
-          displayName: 'HaxeFlixel',
-        },
-        { filename: 'Heroku.svg', type: 'common', displayName: 'Heroku' },
-        {
-          filename: 'Hibernate-Dark.svg',
-          type: 'dark',
-          displayName: 'Hibernate',
-        },
-        {
-          filename: 'Hibernate-Light.svg',
-          type: 'light',
-          displayName: 'Hibernate',
-        },
-        { filename: 'HTML.svg', type: 'common', displayName: 'HTML' },
-        { filename: 'Htmx-Dark.svg', type: 'dark', displayName: 'Htmx' },
-        { filename: 'Htmx-Light.svg', type: 'light', displayName: 'Htmx' },
-        {
-          filename: 'Hydrogen-Dark.svg',
-          type: 'dark',
-          displayName: 'Hydrogen',
-        },
-        {
-          filename: 'Hydrogen-Light.svg',
-          type: 'light',
-          displayName: 'Hydrogen',
-        },
-        { filename: 'Idea-Dark.svg', type: 'dark', displayName: 'Idea' },
-        { filename: 'Idea-Light.svg', type: 'light', displayName: 'Idea' },
-        {
-          filename: 'Illustrator.svg',
-          type: 'common',
-          displayName: 'Illustrator',
-        },
-        { filename: 'Indesign.svg', type: 'common', displayName: 'Indesign' },
-        { filename: 'Inkscape.svg', type: 'common', displayName: 'Inkscape' },
-        { filename: 'Instagram.svg', type: 'common', displayName: 'Instagram' },
-        { filename: 'Ionic-Dark.svg', type: 'dark', displayName: 'Ionic' },
-        { filename: 'Ionic-Light.svg', type: 'light', displayName: 'Ionic' },
-        { filename: 'IPFS-Dark.svg', type: 'dark', displayName: 'IPFS' },
-        { filename: 'IPFS-Light.svg', type: 'light', displayName: 'IPFS' },
-        { filename: 'Java-Dark.svg', type: 'dark', displayName: 'Java' },
-        { filename: 'Java-Light.svg', type: 'light', displayName: 'Java' },
-        {
-          filename: 'JavaScript.svg',
-          type: 'common',
-          displayName: 'JavaScript',
-        },
-        { filename: 'Jekyll-Dark.svg', type: 'dark', displayName: 'Jekyll' },
-        { filename: 'Jekyll-Light.svg', type: 'light', displayName: 'Jekyll' },
-        { filename: 'Jenkins-Dark.svg', type: 'dark', displayName: 'Jenkins' },
-        {
-          filename: 'Jenkins-Light.svg',
-          type: 'light',
-          displayName: 'Jenkins',
-        },
-        { filename: 'Jest.svg', type: 'common', displayName: 'Jest' },
-        {
-          filename: 'Jhipster-Dark.svg',
-          type: 'dark',
-          displayName: 'Jhipster',
-        },
-        {
-          filename: 'Jhipster-Light.svg',
-          type: 'light',
-          displayName: 'Jhipster',
-        },
-        { filename: 'JQuery.svg', type: 'common', displayName: 'JQuery' },
-        { filename: 'JSON-Dark.svg', type: 'dark', displayName: 'JSON' },
-        { filename: 'JSON-Light.svg', type: 'light', displayName: 'JSON' },
-        { filename: 'Julia-Dark.svg', type: 'dark', displayName: 'Julia' },
-        { filename: 'Julia-Light.svg', type: 'light', displayName: 'Julia' },
-        { filename: 'Jupiter-Dark.svg', type: 'dark', displayName: 'Jupiter' },
-        {
-          filename: 'Jupyter-Light.svg',
-          type: 'light',
-          displayName: 'Jupyter',
-        },
-        { filename: 'Kafka.svg', type: 'common', displayName: 'Kafka' },
-        { filename: 'Kali-Dark.svg', type: 'dark', displayName: 'Kali' },
-        { filename: 'Kali-Light.svg', type: 'light', displayName: 'Kali' },
-        { filename: 'Kotlin-Dark.svg', type: 'dark', displayName: 'Kotlin' },
-        { filename: 'Kotlin-Light.svg', type: 'light', displayName: 'Kotlin' },
-        { filename: 'Ktor-Dark.svg', type: 'dark', displayName: 'Ktor' },
-        { filename: 'Ktor-Light.svg', type: 'light', displayName: 'Ktor' },
-        {
-          filename: 'Kubernetes.svg',
-          type: 'common',
-          displayName: 'Kubernetes',
-        },
-        { filename: 'Lambda-Dark.svg', type: 'dark', displayName: 'Lambda' },
-        { filename: 'Lambda-Light.svg', type: 'light', displayName: 'Lambda' },
-        {
-          filename: 'Langchain-Dark.svg',
-          type: 'dark',
-          displayName: 'Langchain',
-        },
-        {
-          filename: 'Langchain-Light.svg',
-          type: 'light',
-          displayName: 'Langchain',
-        },
-        { filename: 'Laravel-Dark.svg', type: 'dark', displayName: 'Laravel' },
-        {
-          filename: 'Laravel-Light.svg',
-          type: 'light',
-          displayName: 'Laravel',
-        },
-        { filename: 'LaTeX-Dark.svg', type: 'dark', displayName: 'LaTeX' },
-        { filename: 'LaTeX-Light.svg', type: 'light', displayName: 'LaTeX' },
-        { filename: 'Less-Dark.svg', type: 'dark', displayName: 'Less' },
-        { filename: 'Less-Light.svg', type: 'light', displayName: 'Less' },
-        { filename: 'LinkedIn.svg', type: 'common', displayName: 'LinkedIn' },
-        { filename: 'Linux-Dark.svg', type: 'dark', displayName: 'Linux' },
-        { filename: 'Linux-Light.svg', type: 'light', displayName: 'Linux' },
-        { filename: 'Lit-Dark.svg', type: 'dark', displayName: 'Lit' },
-        { filename: 'Lit-Light.svg', type: 'light', displayName: 'Lit' },
-        {
-          filename: 'Livewire-Dark.svg',
-          type: 'dark',
-          displayName: 'Livewire',
-        },
-        {
-          filename: 'Livewire-Light.svg',
-          type: 'light',
-          displayName: 'Livewire',
-        },
-        { filename: 'Locofy-Dark.svg', type: 'dark', displayName: 'Locofy' },
-        { filename: 'Locofy-Light.svg', type: 'light', displayName: 'Locofy' },
-        { filename: 'Lua-Dark.svg', type: 'dark', displayName: 'Lua' },
-        { filename: 'Lua-Light.svg', type: 'light', displayName: 'Lua' },
-        { filename: 'Mailchimp.svg', type: 'common', displayName: 'Mailchimp' },
-        { filename: 'MariaDB-Dark.svg', type: 'dark', displayName: 'MariaDB' },
-        {
-          filename: 'MariaDB-Light.svg',
-          type: 'light',
-          displayName: 'MariaDB',
-        },
-        {
-          filename: 'Markdown-Dark.svg',
-          type: 'dark',
-          displayName: 'Markdown',
-        },
-        {
-          filename: 'Markdown-Light.svg',
-          type: 'light',
-          displayName: 'Markdown',
-        },
-        {
-          filename: 'Mastodon-Dark.svg',
-          type: 'dark',
-          displayName: 'Mastodon',
-        },
-        {
-          filename: 'Mastodon-Light.svg',
-          type: 'light',
-          displayName: 'Mastodon',
-        },
-        {
-          filename: 'Materialize-Dark.svg',
-          type: 'dark',
-          displayName: 'Materialize',
-        },
-        {
-          filename: 'Materialize-Light.svg',
-          type: 'light',
-          displayName: 'Materialize',
-        },
-        {
-          filename: 'MaterialUI-Dark.svg',
-          type: 'dark',
-          displayName: 'MaterialUI',
-        },
-        {
-          filename: 'MaterialUI-Light.svg',
-          type: 'light',
-          displayName: 'MaterialUI',
-        },
-        { filename: 'Matlab-Dark.svg', type: 'dark', displayName: 'Matlab' },
-        { filename: 'Matlab-Light.svg', type: 'light', displayName: 'Matlab' },
-        {
-          filename: 'Matplotlib-Dark.svg',
-          type: 'dark',
-          displayName: 'Matplotlib',
-        },
-        {
-          filename: 'Matplotlib-Light.svg',
-          type: 'light',
-          displayName: 'Matplotlib',
-        },
-        { filename: 'Maven-Dark.svg', type: 'dark', displayName: 'Maven' },
-        { filename: 'Maven-Light.svg', type: 'light', displayName: 'Maven' },
-        {
-          filename: 'Meshtastic.svg',
-          type: 'common',
-          displayName: 'Meshtastic',
-        },
-        { filename: 'Metal.svg', type: 'common', displayName: 'Metal' },
-        { filename: 'Meteor-Dark.svg', type: 'dark', displayName: 'Meteor' },
-        { filename: 'Meteor-Light.svg', type: 'light', displayName: 'Meteor' },
-        { filename: 'Mint-Dark.svg', type: 'dark', displayName: 'Mint' },
-        { filename: 'Mint-Light.svg', type: 'light', displayName: 'Mint' },
-        { filename: 'Misskey-Dark.svg', type: 'dark', displayName: 'Misskey' },
-        {
-          filename: 'Misskey-Light.svg',
-          type: 'light',
-          displayName: 'Misskey',
-        },
-        { filename: 'ML5-Dark.svg', type: 'dark', displayName: 'ML5' },
-        { filename: 'ML5-Light.svg', type: 'light', displayName: 'ML5' },
-        { filename: 'Mocha-Dark.svg', type: 'dark', displayName: 'Mocha' },
-        { filename: 'Mocha-Light.svg', type: 'light', displayName: 'Mocha' },
-        { filename: 'MongoDB.svg', type: 'common', displayName: 'MongoDB' },
-        {
-          filename: 'Mongoose-Dark.svg',
-          type: 'dark',
-          displayName: 'Mongoose',
-        },
-        {
-          filename: 'Mongoose-Light.svg',
-          type: 'light',
-          displayName: 'Mongoose',
-        },
-        { filename: 'Mybatis-Dark.svg', type: 'dark', displayName: 'Mybatis' },
-        {
-          filename: 'Mybatis-Light.svg',
-          type: 'light',
-          displayName: 'Mybatis',
-        },
-        {
-          filename: 'MybatisPlus-Dark.svg',
-          type: 'dark',
-          displayName: 'MybatisPlus',
-        },
-        {
-          filename: 'MybatisPlus-Light.svg',
-          type: 'light',
-          displayName: 'MybatisPlus',
-        },
-        { filename: 'MySQL-Dark.svg', type: 'dark', displayName: 'MySQL' },
-        { filename: 'MySQL-Light.svg', type: 'light', displayName: 'MySQL' },
-        {
-          filename: 'NativeScript-Dark.svg',
-          type: 'dark',
-          displayName: 'NativeScript',
-        },
-        {
-          filename: 'NativeScript-Light.svg',
-          type: 'light',
-          displayName: 'NativeScript',
-        },
-        { filename: 'Neo4j-Dark.svg', type: 'dark', displayName: 'Neo4j' },
-        { filename: 'Neo4j-Light.svg', type: 'light', displayName: 'Neo4j' },
-        { filename: 'NeoVim-Dark.svg', type: 'dark', displayName: 'NeoVim' },
-        { filename: 'NeoVim-Light.svg', type: 'light', displayName: 'NeoVim' },
-        { filename: 'NestJS-Dark.svg', type: 'dark', displayName: 'NestJS' },
-        { filename: 'NestJS-Light.svg', type: 'light', displayName: 'NestJS' },
-        { filename: 'Netlify-Dark.svg', type: 'dark', displayName: 'Netlify' },
-        {
-          filename: 'Netlify-Light.svg',
-          type: 'light',
-          displayName: 'Netlify',
-        },
-        { filename: 'Netty-Dark.svg', type: 'dark', displayName: 'Netty' },
-        { filename: 'Netty-Light.svg', type: 'light', displayName: 'Netty' },
-        { filename: 'NextJS-Dark.svg', type: 'dark', displayName: 'NextJS' },
-        { filename: 'NextJS-Light.svg', type: 'light', displayName: 'NextJS' },
-        { filename: 'Nginx.svg', type: 'common', displayName: 'Nginx' },
-        { filename: 'Nim-Dark.svg', type: 'dark', displayName: 'Nim' },
-        { filename: 'Nim-Light.svg', type: 'light', displayName: 'Nim' },
-        { filename: 'Nix-Dark.svg', type: 'dark', displayName: 'Nix' },
-        { filename: 'Nix-Light.svg', type: 'light', displayName: 'Nix' },
-        { filename: 'NodeJS-Dark.svg', type: 'dark', displayName: 'NodeJS' },
-        { filename: 'NodeJS-Light.svg', type: 'light', displayName: 'NodeJS' },
-        { filename: 'NodeRED.svg', type: 'common', displayName: 'NodeRED' },
-        { filename: 'Notion-Dark.svg', type: 'dark', displayName: 'Notion' },
-        { filename: 'Notion-Light.svg', type: 'light', displayName: 'Notion' },
-        { filename: 'Npm-Dark.svg', type: 'dark', displayName: 'Npm' },
-        { filename: 'Npm-Light.svg', type: 'light', displayName: 'Npm' },
-        { filename: 'Numpy-Dark.svg', type: 'dark', displayName: 'Numpy' },
-        { filename: 'Numpy-Light.svg', type: 'light', displayName: 'Numpy' },
-        { filename: 'NuxtJS-Dark.svg', type: 'dark', displayName: 'NuxtJS' },
-        { filename: 'NuxtJS-Light.svg', type: 'light', displayName: 'NuxtJS' },
-        {
-          filename: 'Obsidian-Dark.svg',
-          type: 'dark',
-          displayName: 'Obsidian',
-        },
-        {
-          filename: 'Obsidian-Light.svg',
-          type: 'light',
-          displayName: 'Obsidian',
-        },
-        { filename: 'OCaml.svg', type: 'common', displayName: 'OCaml' },
-        { filename: 'Octave-Dark.svg', type: 'dark', displayName: 'Octave' },
-        { filename: 'Octave-Light.svg', type: 'light', displayName: 'Octave' },
-        { filename: 'OpenAI.svg', type: 'common', displayName: 'OpenAI' },
-        { filename: 'OpenCV-Dark.svg', type: 'dark', displayName: 'OpenCV' },
-        { filename: 'OpenCV-Light.svg', type: 'light', displayName: 'OpenCV' },
-        { filename: 'Opencv.svg', type: 'common', displayName: 'Opencv' },
-        { filename: 'OpenGL-Dark.svg', type: 'dark', displayName: 'OpenGL' },
-        { filename: 'OpenGL-Light.svg', type: 'light', displayName: 'OpenGL' },
-        { filename: 'OpenShift.svg', type: 'common', displayName: 'OpenShift' },
-        {
-          filename: 'OpenStack-Dark.svg',
-          type: 'dark',
-          displayName: 'OpenStack',
-        },
-        {
-          filename: 'OpenStack-Light.svg',
-          type: 'light',
-          displayName: 'OpenStack',
-        },
-        { filename: 'Oracle-Dark.svg', type: 'dark', displayName: 'Oracle' },
-        { filename: 'Oracle-Light.svg', type: 'light', displayName: 'Oracle' },
-        { filename: 'P5JS-Dark.svg', type: 'dark', displayName: 'P5JS' },
-        { filename: 'P5JS-Light.svg', type: 'light', displayName: 'P5JS' },
-        { filename: 'Pandas-Dark.svg', type: 'dark', displayName: 'Pandas' },
-        { filename: 'Pandas-Light.svg', type: 'light', displayName: 'Pandas' },
-        { filename: 'Perl.svg', type: 'common', displayName: 'Perl' },
-        { filename: 'Photoshop.svg', type: 'common', displayName: 'Photoshop' },
-        { filename: 'PHP-Dark.svg', type: 'dark', displayName: 'PHP' },
-        { filename: 'PHP-Light.svg', type: 'light', displayName: 'PHP' },
-        {
-          filename: 'PhpStorm-Dark.svg',
-          type: 'dark',
-          displayName: 'PhpStorm',
-        },
-        {
-          filename: 'PhpStorm-Light.svg',
-          type: 'light',
-          displayName: 'PhpStorm',
-        },
-        { filename: 'Pinia-Dark.svg', type: 'dark', displayName: 'Pinia' },
-        { filename: 'Pinia-Light.svg', type: 'light', displayName: 'Pinia' },
-        { filename: 'Pkl-Dark.svg', type: 'dark', displayName: 'Pkl' },
-        { filename: 'Pkl-Light.svg', type: 'light', displayName: 'Pkl' },
-        { filename: 'Plan9-Dark.svg', type: 'dark', displayName: 'Plan9' },
-        { filename: 'Plan9-Light.svg', type: 'light', displayName: 'Plan9' },
-        {
-          filename: 'PlanetScale-Dark.svg',
-          type: 'dark',
-          displayName: 'PlanetScale',
-        },
-        {
-          filename: 'PlanetScale-Light.svg',
-          type: 'light',
-          displayName: 'PlanetScale',
-        },
-        {
-          filename: 'PlayWright-Dark.svg',
-          type: 'dark',
-          displayName: 'PlayWright',
-        },
-        {
-          filename: 'PlayWright-Light.svg',
-          type: 'light',
-          displayName: 'PlayWright',
-        },
-        { filename: 'Pnpm-Dark.svg', type: 'dark', displayName: 'Pnpm' },
-        { filename: 'Pnpm-Light.svg', type: 'light', displayName: 'Pnpm' },
-        { filename: 'PostCSS-Dark.svg', type: 'dark', displayName: 'PostCSS' },
-        {
-          filename: 'PostCSS-Light.svg',
-          type: 'light',
-          displayName: 'PostCSS',
-        },
-        {
-          filename: 'PostgreSQL-Dark.svg',
-          type: 'dark',
-          displayName: 'PostgreSQL',
-        },
-        {
-          filename: 'PostgreSQL-Light.svg',
-          type: 'light',
-          displayName: 'PostgreSQL',
-        },
-        { filename: 'Postman.svg', type: 'common', displayName: 'Postman' },
-        {
-          filename: 'Powershell-Dark.svg',
-          type: 'dark',
-          displayName: 'Powershell',
-        },
-        {
-          filename: 'Powershell-Light.svg',
-          type: 'light',
-          displayName: 'Powershell',
-        },
-        { filename: 'Preact-Dark.svg', type: 'dark', displayName: 'Preact' },
-        { filename: 'Preact-Light.svg', type: 'light', displayName: 'Preact' },
-        { filename: 'Premiere.svg', type: 'common', displayName: 'Premiere' },
-        { filename: 'Prisma.svg', type: 'common', displayName: 'Prisma' },
-        {
-          filename: 'Processing-Dark.svg',
-          type: 'dark',
-          displayName: 'Processing',
-        },
-        {
-          filename: 'Processing-Light.svg',
-          type: 'light',
-          displayName: 'Processing',
-        },
-        {
-          filename: 'Prometheus.svg',
-          type: 'common',
-          displayName: 'Prometheus',
-        },
-        {
-          filename: 'ProtonMail-Dark.svg',
-          type: 'dark',
-          displayName: 'ProtonMail',
-        },
-        {
-          filename: 'ProtonMail-Light.svg',
-          type: 'light',
-          displayName: 'ProtonMail',
-        },
-        { filename: 'Pug-Dark.svg', type: 'dark', displayName: 'Pug' },
-        { filename: 'Pug-Light.svg', type: 'light', displayName: 'Pug' },
-        {
-          filename: 'Puppeteer-Dark.svg',
-          type: 'dark',
-          displayName: 'Puppeteer',
-        },
-        {
-          filename: 'Puppeteer-Light.svg',
-          type: 'light',
-          displayName: 'Puppeteer',
-        },
-        { filename: 'Putty-Dark.svg', type: 'dark', displayName: 'Putty' },
-        { filename: 'Putty-Light.svg', type: 'light', displayName: 'Putty' },
-        { filename: 'PWA-Dark.svg', type: 'dark', displayName: 'PWA' },
-        { filename: 'PWA-Light.svg', type: 'light', displayName: 'PWA' },
-        { filename: 'PyCharm-Dark.svg', type: 'dark', displayName: 'PyCharm' },
-        {
-          filename: 'PyCharm-Light.svg',
-          type: 'light',
-          displayName: 'PyCharm',
-        },
-        { filename: 'Python-Dark.svg', type: 'dark', displayName: 'Python' },
-        { filename: 'Python-Light.svg', type: 'light', displayName: 'Python' },
-        { filename: 'PyTorch-Dark.svg', type: 'dark', displayName: 'PyTorch' },
-        {
-          filename: 'PyTorch-Light.svg',
-          type: 'light',
-          displayName: 'PyTorch',
-        },
-        { filename: 'QT-Dark.svg', type: 'dark', displayName: 'QT' },
-        { filename: 'QT-Light.svg', type: 'light', displayName: 'QT' },
-        { filename: 'Quasar-Dark.svg', type: 'dark', displayName: 'Quasar' },
-        { filename: 'Quasar-Light.svg', type: 'light', displayName: 'Quasar' },
-        { filename: 'Qwik-Dark.svg', type: 'dark', displayName: 'Qwik' },
-        { filename: 'Qwik-Light.svg', type: 'light', displayName: 'Qwik' },
-        { filename: 'R-Dark.svg', type: 'dark', displayName: 'R' },
-        { filename: 'R-Light.svg', type: 'light', displayName: 'R' },
-        {
-          filename: 'RabbitMQ-Dark.svg',
-          type: 'dark',
-          displayName: 'RabbitMQ',
-        },
-        {
-          filename: 'RabbitMQ-Light.svg',
-          type: 'light',
-          displayName: 'RabbitMQ',
-        },
-        { filename: 'Rails.svg', type: 'common', displayName: 'Rails' },
-        {
-          filename: 'RaspberryPi-Dark.svg',
-          type: 'dark',
-          displayName: 'RaspberryPi',
-        },
-        {
-          filename: 'RaspberryPi-Light.svg',
-          type: 'light',
-          displayName: 'RaspberryPi',
-        },
-        { filename: 'React-Dark.svg', type: 'dark', displayName: 'React' },
-        { filename: 'React-Light.svg', type: 'light', displayName: 'React' },
-        {
-          filename: 'ReactiveX-Dark.svg',
-          type: 'dark',
-          displayName: 'ReactiveX',
-        },
-        {
-          filename: 'ReactiveX-Light.svg',
-          type: 'light',
-          displayName: 'ReactiveX',
-        },
-        {
-          filename: 'ReactQuery-Dark.svg',
-          type: 'dark',
-          displayName: 'ReactQuery',
-        },
-        {
-          filename: 'ReactQuery-Light.svg',
-          type: 'light',
-          displayName: 'ReactQuery',
-        },
-        {
-          filename: 'ReactRelay-Dark.svg',
-          type: 'dark',
-          displayName: 'ReactRelay',
-        },
-        {
-          filename: 'ReactRelay-Light.svg',
-          type: 'light',
-          displayName: 'ReactRelay',
-        },
-        { filename: 'Recoil.svg', type: 'common', displayName: 'Recoil' },
-        { filename: 'RedHat-Dark.svg', type: 'dark', displayName: 'RedHat' },
-        { filename: 'RedHat-Light.svg', type: 'light', displayName: 'RedHat' },
-        { filename: 'Redis-Dark.svg', type: 'dark', displayName: 'Redis' },
-        { filename: 'Redis-Light.svg', type: 'light', displayName: 'Redis' },
-        { filename: 'Redux.svg', type: 'common', displayName: 'Redux' },
-        { filename: 'Regex-Dark.svg', type: 'dark', displayName: 'Regex' },
-        { filename: 'Regex-Light.svg', type: 'light', displayName: 'Regex' },
-        { filename: 'Remix-Dark.svg', type: 'dark', displayName: 'Remix' },
-        { filename: 'Remix-Light.svg', type: 'light', displayName: 'Remix' },
-        { filename: 'Render-Dark.svg', type: 'dark', displayName: 'Render' },
-        { filename: 'Render-Light.svg', type: 'light', displayName: 'Render' },
-        { filename: 'Replit-Dark.svg', type: 'dark', displayName: 'Replit' },
-        { filename: 'Replit-Light.svg', type: 'light', displayName: 'Replit' },
-        { filename: 'Rider-Dark.svg', type: 'dark', displayName: 'Rider' },
-        { filename: 'Rider-Light.svg', type: 'light', displayName: 'Rider' },
-        { filename: 'RISC-V-Dark.svg', type: 'dark', displayName: 'RISC-V' },
-        { filename: 'RISC-V-Light.svg', type: 'light', displayName: 'RISC-V' },
-        {
-          filename: 'RobloxStudio.svg',
-          type: 'common',
-          displayName: 'RobloxStudio',
-        },
-        { filename: 'Rocket.svg', type: 'common', displayName: 'Rocket' },
-        {
-          filename: 'RollupJS-Dark.svg',
-          type: 'dark',
-          displayName: 'RollupJS',
-        },
-        {
-          filename: 'RollupJS-Light.svg',
-          type: 'light',
-          displayName: 'RollupJS',
-        },
-        { filename: 'ROS-Dark.svg', type: 'dark', displayName: 'ROS' },
-        { filename: 'ROS-Light.svg', type: 'light', displayName: 'ROS' },
-        { filename: 'Ruby.svg', type: 'common', displayName: 'Ruby' },
-        { filename: 'Rust.svg', type: 'common', displayName: 'Rust' },
-        {
-          filename: 'Salesforce-Dark.svg',
-          type: 'dark',
-          displayName: 'Salesforce',
-        },
-        {
-          filename: 'Salesforce-Light.svg',
-          type: 'light',
-          displayName: 'Salesforce',
-        },
-        { filename: 'Sass.svg', type: 'common', displayName: 'Sass' },
-        { filename: 'Scala-Dark.svg', type: 'dark', displayName: 'Scala' },
-        { filename: 'Scala-Light.svg', type: 'light', displayName: 'Scala' },
-        {
-          filename: 'ScikitLearn-Dark.svg',
-          type: 'dark',
-          displayName: 'ScikitLearn',
-        },
-        {
-          filename: 'SciKitLearn-Light.svg',
-          type: 'light',
-          displayName: 'SciKitLearn',
-        },
-        { filename: 'Selenium.svg', type: 'common', displayName: 'Selenium' },
-        { filename: 'Sentry.svg', type: 'common', displayName: 'Sentry' },
-        {
-          filename: 'Sequelize-Dark.svg',
-          type: 'dark',
-          displayName: 'Sequelize',
-        },
-        {
-          filename: 'Sequelize-Light.svg',
-          type: 'light',
-          displayName: 'Sequelize',
-        },
-        {
-          filename: 'Serverless-Dark.svg',
-          type: 'dark',
-          displayName: 'Serverless',
-        },
-        {
-          filename: 'Serverless-Light.svg',
-          type: 'light',
-          displayName: 'Serverless',
-        },
-        {
-          filename: 'Servicenow-Dark.svg',
-          type: 'dark',
-          displayName: 'Servicenow',
-        },
-        { filename: 'Shadcn-Dark.svg', type: 'dark', displayName: 'Shadcn' },
-        { filename: 'Shadcn-Light.svg', type: 'light', displayName: 'Shadcn' },
-        { filename: 'Shopify-Dark.svg', type: 'dark', displayName: 'Shopify' },
-        {
-          filename: 'Shopify-Light.svg',
-          type: 'light',
-          displayName: 'Shopify',
-        },
-        {
-          filename: 'Sketchup-Dark.svg',
-          type: 'dark',
-          displayName: 'Sketchup',
-        },
-        {
-          filename: 'Sketchup-Light.svg',
-          type: 'light',
-          displayName: 'Sketchup',
-        },
-        { filename: 'Slack-Dark.svg', type: 'dark', displayName: 'Slack' },
-        { filename: 'Slack-Light.svg', type: 'light', displayName: 'Slack' },
-        {
-          filename: 'SocketIO-Dark.svg',
-          type: 'dark',
-          displayName: 'SocketIO',
-        },
-        {
-          filename: 'SocketIO-Light.svg',
-          type: 'light',
-          displayName: 'SocketIO',
-        },
-        { filename: 'Solidity.svg', type: 'common', displayName: 'Solidity' },
-        { filename: 'SolidJS-Dark.svg', type: 'dark', displayName: 'SolidJS' },
-        {
-          filename: 'SolidJS-Light.svg',
-          type: 'light',
-          displayName: 'SolidJS',
-        },
-        {
-          filename: 'Sonarqube-Dark.svg',
-          type: 'dark',
-          displayName: 'Sonarqube',
-        },
-        {
-          filename: 'Sonarqube-Light.svg',
-          type: 'light',
-          displayName: 'Sonarqube',
-        },
-        { filename: 'Spring-Dark.svg', type: 'dark', displayName: 'Spring' },
-        { filename: 'Spring-Light.svg', type: 'light', displayName: 'Spring' },
-        {
-          filename: 'SpringBoot-Dark.svg',
-          type: 'dark',
-          displayName: 'SpringBoot',
-        },
-        {
-          filename: 'SpringBoot-Light.svg',
-          type: 'light',
-          displayName: 'SpringBoot',
-        },
-        {
-          filename: 'SpringCloud-Dark.svg',
-          type: 'dark',
-          displayName: 'SpringCloud',
-        },
-        {
-          filename: 'SpringCloud-Light.svg',
-          type: 'light',
-          displayName: 'SpringCloud',
-        },
-        { filename: 'Spyder-Dark.svg', type: 'dark', displayName: 'Spyder' },
-        { filename: 'Spyder-Light.svg', type: 'light', displayName: 'Spyder' },
-        { filename: 'SQLite.svg', type: 'common', displayName: 'SQLite' },
-        {
-          filename: 'Sqlserver-Dark.svg',
-          type: 'dark',
-          displayName: 'Sqlserver',
-        },
-        {
-          filename: 'Sqlserver-Light.svg',
-          type: 'light',
-          displayName: 'Sqlserver',
-        },
-        {
-          filename: 'StackOverflow-Dark.svg',
-          type: 'dark',
-          displayName: 'StackOverflow',
-        },
-        {
-          filename: 'StackOverflow-Light.svg',
-          type: 'light',
-          displayName: 'StackOverflow',
-        },
-        {
-          filename: 'StoryBook-Dark.svg',
-          type: 'dark',
-          displayName: 'StoryBook',
-        },
-        {
-          filename: 'StoryBook-Light.svg',
-          type: 'light',
-          displayName: 'StoryBook',
-        },
-        {
-          filename: 'StorybookJS-Dark.svg',
-          type: 'dark',
-          displayName: 'StorybookJS',
-        },
-        {
-          filename: 'StorybookJS-Light.svg',
-          type: 'light',
-          displayName: 'StorybookJS',
-        },
-        {
-          filename: 'Streamlit-Dark.svg',
-          type: 'dark',
-          displayName: 'Streamlit',
-        },
-        {
-          filename: 'Streamlit-Light.svg',
-          type: 'light',
-          displayName: 'Streamlit',
-        },
-        {
-          filename: 'StyledComponents.svg',
-          type: 'common',
-          displayName: 'StyledComponents',
-        },
-        { filename: 'Sublime-Dark.svg', type: 'dark', displayName: 'Sublime' },
-        {
-          filename: 'Sublime-Light.svg',
-          type: 'light',
-          displayName: 'Sublime',
-        },
-        {
-          filename: 'Supabase-Dark.svg',
-          type: 'dark',
-          displayName: 'Supabase',
-        },
-        {
-          filename: 'Supabase-Light.svg',
-          type: 'light',
-          displayName: 'Supabase',
-        },
-        { filename: 'Svelte.svg', type: 'common', displayName: 'Svelte' },
-        { filename: 'SVG-Dark.svg', type: 'dark', displayName: 'SVG' },
-        { filename: 'SVG-Light.svg', type: 'light', displayName: 'SVG' },
-        { filename: 'Swagger-Dark.svg', type: 'dark', displayName: 'Swagger' },
-        {
-          filename: 'Swagger-Light.svg',
-          type: 'light',
-          displayName: 'Swagger',
-        },
-        { filename: 'Swift.svg', type: 'common', displayName: 'Swift' },
-        { filename: 'SwiftUI.svg', type: 'common', displayName: 'SwiftUI' },
-        { filename: 'Symfony-Dark.svg', type: 'dark', displayName: 'Symfony' },
-        {
-          filename: 'Symfony-Light.svg',
-          type: 'light',
-          displayName: 'Symfony',
-        },
-        {
-          filename: 'TailwindCSS-Dark.svg',
-          type: 'dark',
-          displayName: 'TailwindCSS',
-        },
-        {
-          filename: 'TailwindCSS-Light.svg',
-          type: 'light',
-          displayName: 'TailwindCSS',
-        },
-        { filename: 'Tauri-Dark.svg', type: 'dark', displayName: 'Tauri' },
-        { filename: 'Tauri-Light.svg', type: 'light', displayName: 'Tauri' },
-        {
-          filename: 'TensorFlow-Dark.svg',
-          type: 'dark',
-          displayName: 'TensorFlow',
-        },
-        {
-          filename: 'TensorFlow-Light.svg',
-          type: 'light',
-          displayName: 'TensorFlow',
-        },
-        {
-          filename: 'Terraform-Dark.svg',
-          type: 'dark',
-          displayName: 'Terraform',
-        },
-        {
-          filename: 'Terraform-Light.svg',
-          type: 'light',
-          displayName: 'Terraform',
-        },
-        {
-          filename: 'TestingLibrary-Dark.svg',
-          type: 'dark',
-          displayName: 'TestingLibrary',
-        },
-        {
-          filename: 'TestingLibrary-Light.svg',
-          type: 'light',
-          displayName: 'TestingLibrary',
-        },
-        { filename: 'Threads-Dark.svg', type: 'dark', displayName: 'Threads' },
-        {
-          filename: 'Threads-Light.svg',
-          type: 'light',
-          displayName: 'Threads',
-        },
-        { filename: 'ThreeJS-Dark.svg', type: 'dark', displayName: 'ThreeJS' },
-        {
-          filename: 'ThreeJS-Light.svg',
-          type: 'light',
-          displayName: 'ThreeJS',
-        },
-        {
-          filename: 'ThunderClient.svg',
-          type: 'common',
-          displayName: 'ThunderClient',
-        },
-        { filename: 'Thymeleaf.svg', type: 'common', displayName: 'Thymeleaf' },
-        { filename: 'Trello.svg', type: 'common', displayName: 'Trello' },
-        { filename: 'Twitter.svg', type: 'common', displayName: 'Twitter' },
-        {
-          filename: 'TypeScript.svg',
-          type: 'common',
-          displayName: 'TypeScript',
-        },
-        { filename: 'Ubuntu-Dark.svg', type: 'dark', displayName: 'Ubuntu' },
-        { filename: 'Ubuntu-Light.svg', type: 'light', displayName: 'Ubuntu' },
-        { filename: 'Unity-Dark.svg', type: 'dark', displayName: 'Unity' },
-        { filename: 'Unity-Light.svg', type: 'light', displayName: 'Unity' },
-        {
-          filename: 'UnrealEngine.svg',
-          type: 'common',
-          displayName: 'UnrealEngine',
-        },
-        { filename: 'V-Dark.svg', type: 'dark', displayName: 'V' },
-        { filename: 'V-Light.svg', type: 'light', displayName: 'V' },
-        { filename: 'Vala.svg', type: 'common', displayName: 'Vala' },
-        { filename: 'Vercel-Dark.svg', type: 'dark', displayName: 'Vercel' },
-        { filename: 'Vercel-Light.svg', type: 'light', displayName: 'Vercel' },
-        { filename: 'VIM-Dark.svg', type: 'dark', displayName: 'VIM' },
-        { filename: 'VIM-Light.svg', type: 'light', displayName: 'VIM' },
-        {
-          filename: 'VisualBasic-Dark.svg',
-          type: 'dark',
-          displayName: 'VisualBasic',
-        },
-        {
-          filename: 'VisualBasic-Light.svg',
-          type: 'light',
-          displayName: 'VisualBasic',
-        },
-        {
-          filename: 'VisualStudio-Dark.svg',
-          type: 'dark',
-          displayName: 'VisualStudio',
-        },
-        {
-          filename: 'VisualStudio-Light.svg',
-          type: 'light',
-          displayName: 'VisualStudio',
-        },
-        {
-          filename: 'VisualStudioCode-Dark.svg',
-          type: 'dark',
-          displayName: 'VisualStudioCode',
-        },
-        {
-          filename: 'VisualStudioCode-Light.svg',
-          type: 'light',
-          displayName: 'VisualStudioCode',
-        },
-        { filename: 'Vite-Dark.svg', type: 'dark', displayName: 'Vite' },
-        { filename: 'Vite-Light.svg', type: 'light', displayName: 'Vite' },
-        { filename: 'Vitest-Dark.svg', type: 'dark', displayName: 'Vitest' },
-        { filename: 'Vitest-Light.svg', type: 'light', displayName: 'Vitest' },
-        { filename: 'VSCode-Dark.svg', type: 'dark', displayName: 'VSCode' },
-        { filename: 'VSCode-Light.svg', type: 'light', displayName: 'VSCode' },
-        {
-          filename: 'VSCodium-Dark.svg',
-          type: 'dark',
-          displayName: 'VSCodium',
-        },
-        {
-          filename: 'VSCodium-Light.svg',
-          type: 'light',
-          displayName: 'VSCodium',
-        },
-        { filename: 'VueJS-Dark.svg', type: 'dark', displayName: 'VueJS' },
-        { filename: 'VueJS-Light.svg', type: 'light', displayName: 'VueJS' },
-        { filename: 'Vuetify-Dark.svg', type: 'dark', displayName: 'Vuetify' },
-        {
-          filename: 'Vuetify-Light.svg',
-          type: 'light',
-          displayName: 'Vuetify',
-        },
-        { filename: 'Vulkan-Dark.svg', type: 'dark', displayName: 'Vulkan' },
-        { filename: 'Vulkan-Light.svg', type: 'light', displayName: 'Vulkan' },
-        {
-          filename: 'WebAssembly.svg',
-          type: 'common',
-          displayName: 'WebAssembly',
-        },
-        { filename: 'Webflow.svg', type: 'common', displayName: 'Webflow' },
-        { filename: 'Webpack-Dark.svg', type: 'dark', displayName: 'Webpack' },
-        {
-          filename: 'Webpack-Light.svg',
-          type: 'light',
-          displayName: 'Webpack',
-        },
-        {
-          filename: 'WebStorm-Dark.svg',
-          type: 'dark',
-          displayName: 'WebStorm',
-        },
-        {
-          filename: 'WebStorm-Light.svg',
-          type: 'light',
-          displayName: 'WebStorm',
-        },
-        {
-          filename: 'WindiCSS-Dark.svg',
-          type: 'dark',
-          displayName: 'WindiCSS',
-        },
-        {
-          filename: 'WindiCSS-Light.svg',
-          type: 'light',
-          displayName: 'WindiCSS',
-        },
-        { filename: 'Windows-Dark.svg', type: 'dark', displayName: 'Windows' },
-        {
-          filename: 'Windows-Light.svg',
-          type: 'light',
-          displayName: 'Windows',
-        },
-        { filename: 'Word-Dark.svg', type: 'dark', displayName: 'Word' },
-        { filename: 'Word-Light.svg', type: 'light', displayName: 'Word' },
-        { filename: 'Wordpress.svg', type: 'common', displayName: 'Wordpress' },
-        { filename: 'Workers-Dark.svg', type: 'dark', displayName: 'Workers' },
-        {
-          filename: 'Workers-Light.svg',
-          type: 'light',
-          displayName: 'Workers',
-        },
-        { filename: 'Xamarin-Dark.svg', type: 'dark', displayName: 'Xamarin' },
-        {
-          filename: 'Xamarin-Light.svg',
-          type: 'light',
-          displayName: 'Xamarin',
-        },
-        { filename: 'Xcode-Dark.svg', type: 'dark', displayName: 'Xcode' },
-        { filename: 'Xcode-Light.svg', type: 'light', displayName: 'Xcode' },
-        { filename: 'XD.svg', type: 'common', displayName: 'XD' },
-        { filename: 'XML-Dark.svg', type: 'dark', displayName: 'XML' },
-        { filename: 'XML-Light.svg', type: 'light', displayName: 'XML' },
-        { filename: 'Yarn-Dark.svg', type: 'dark', displayName: 'Yarn' },
-        { filename: 'Yarn-Light.svg', type: 'light', displayName: 'Yarn' },
-        { filename: 'Yew-Dark.svg', type: 'dark', displayName: 'Yew' },
-        { filename: 'Yew-Light.svg', type: 'light', displayName: 'Yew' },
-        { filename: 'Zabbix.svg', type: 'common', displayName: 'Zabbix' },
-        { filename: 'Zig-Dark.svg', type: 'dark', displayName: 'Zig' },
-        { filename: 'Zig-Light.svg', type: 'light', displayName: 'Zig' },
-      ];
+      // Thêm hàm tiện ích để lấy tên icon đã chuẩn hóa (loại bỏ hậu tố)
+      function getNormalizedIconName(filename) {
+        if (filename.endsWith('-dark.svg')) {
+          return filename.slice(0, -9);
+        }
+        if (filename.endsWith('-light.svg')) {
+          return filename.slice(0, -10);
+        }
+        if (filename.endsWith('.svg')) {
+          return filename.slice(0, -4);
+        }
+        return filename;
+      }
+
+      function processJsonData(jsonData) {
+        const groups = {};
+
+        for (const key in jsonData) {
+          const filenameBase = key.toLowerCase();
+
+          let type = 'common';
+          let displayName = filenameBase;
+          let filename = `${key}.svg`;
+
+          if (filenameBase.endsWith('-dark')) {
+            type = 'dark';
+            displayName = filenameBase.slice(0, -5);
+            filename = `${key}.svg`;
+          } else if (filenameBase.endsWith('-light')) {
+            type = 'light';
+            displayName = filenameBase.slice(0, -6);
+            filename = `${key}.svg`;
+          }
+
+          if (!groups[displayName]) {
+            groups[displayName] = {
+              displayName:
+                displayName.charAt(0).toUpperCase() + displayName.slice(1),
+              inCart: false,
+              filenames: {},
+              svgContent: jsonData[key],
+            };
+          }
+
+          groups[displayName].filenames[type] = filename;
+          if (
+            type === 'common' ||
+            (type === 'dark' && isDark) ||
+            (type === 'light' && !isDark)
+          ) {
+            groups[displayName].svgContent = jsonData[key];
+          } else if (!groups[displayName].svgContent) {
+            groups[displayName].svgContent = jsonData[key];
+          }
+        }
+
+        return groups;
+      }
 
       async function loadIcons() {
         try {
-          const response = await fetch('/icons/');
-          const text = await response.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(text, 'text/html');
-          const links = doc.querySelectorAll('a');
+          const response = await fetch(iconDataBaseUrl);
+          if (!response.ok) throw new Error('Failed to load icons.json');
+          const json = await response.json();
 
-          allIcons = Array.from(links)
-            .map(link => link.getAttribute('href'))
-            .filter(href => href && href.endsWith('.svg'))
-            .map(filename => {
-              let type = 'common';
-              let displayName = filename.replace('.svg', '');
-
-              if (filename.endsWith('-Dark.svg')) {
-                type = 'dark';
-                displayName = displayName.replace('-Dark', '');
-              } else if (filename.endsWith('-Light.svg')) {
-                type = 'light';
-                displayName = displayName.replace('-Light', '');
-              }
-
-              return { filename, type, displayName };
-            });
-
-          if (allIcons.length === 0) {
-            allIcons = defaultIcons;
-          }
-
-          renderIcons();
+          iconGroups = processJsonData(json);
         } catch (error) {
-          console.log('Using default test icons');
-          allIcons = defaultIcons;
-          renderIcons();
+          console.error(
+            'Error loading or processing icons.json. Check network tab and file location.',
+            error
+          );
+          iconGroups = {};
         }
+
+        // Set initial theme toggle icon
+        document.getElementById('themeToggle').innerHTML = isDark
+          ? sunIcon
+          : moonIcon;
+        renderIcons();
+      }
+
+      function getActiveFileForGroup(iconGroup) {
+        const files = iconGroup.filenames;
+
+        let preferredFile = null;
+
+        if (isDark) {
+          if (files['dark']) {
+            preferredFile = files['dark'];
+          } else if (files['common']) {
+            preferredFile = files['common'];
+          }
+        } else {
+          if (files['light']) {
+            preferredFile = files['light'];
+          } else if (files['common']) {
+            preferredFile = files['common'];
+          }
+        }
+
+        if (!preferredFile) {
+          const anyFile = Object.values(files)[0];
+          if (anyFile) {
+            preferredFile = anyFile;
+          }
+        }
+
+        if (preferredFile) {
+          const key = iconGroup.displayName.toLowerCase();
+          const allFilenames = Object.keys(iconGroups[key].filenames).map(
+            type => iconGroups[key].filenames[type]
+          );
+          const baseFilename = preferredFile.replace('.svg', '');
+
+          return {
+            filename: preferredFile,
+            displayName: iconGroup.displayName,
+            svgContent: iconGroups[key].svgContent || '',
+          };
+        }
+
+        return null;
+      }
+
+      function isIconGroupVisible(iconGroup) {
+        return iconGroup.displayName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
       }
 
       function renderIcons() {
-        // Filter by search query
-        let filtered = allIcons.filter(icon =>
-          icon.displayName.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+        const groupsArray = Object.values(iconGroups);
 
-        // Filter by theme mode
-        filtered = filtered.filter(icon => {
-          if (icon.type === 'common') return true;
-          if (isDark && icon.type === 'dark') return true;
-          if (!isDark && icon.type === 'light') return true;
-          return false;
-        });
+        // --- Cart Icon Grid Rendering ---
+        const cartGrid = document.getElementById('cartGrid');
+        const cartSection = document.getElementById('cartSection');
+        const copyButton = document.getElementById('copyCartButton');
+
+        let cartGroups = groupsArray.filter(group => group.inCart);
+        document.getElementById(
+          'cartStats'
+        ).textContent = `${cartGroups.length} icons`;
+
+        if (cartGroups.length === 0) {
+          cartSection.style.display = 'none';
+          copyButton.disabled = true;
+        } else {
+          cartSection.style.display = 'block';
+          copyButton.disabled = false;
+
+          const visibleCartItems = cartGroups
+            .map(getActiveFileForGroup)
+            .filter(Boolean);
+
+          cartGrid.innerHTML = visibleCartItems
+            .map(iconData => {
+              const iconUrl = `${iconsBaseUrl}/${iconData.filename}`;
+
+              return `
+                     <div class="icon-card in-cart" onclick="removeFromCart(event, '${iconData.displayName}')">
+                      <div class="icon-preview-wrapper">
+                     <div class="icon-preview">
+                       <img src="${iconUrl}" alt="${iconData.displayName}">
+                     </div>
+                      </div>
+                     </div>
+                     `;
+            })
+            .join('');
+        }
+
+        // --- Main Icon Grid Rendering ---
+        const filteredGroupsBySearch = groupsArray.filter(isIconGroupVisible);
+        let availableGroups = filteredGroupsBySearch.filter(
+          group => !group.inCart
+        );
 
         document.getElementById(
           'stats'
-        ).textContent = `${filtered.length} icons`;
-
+        ).textContent = `${availableGroups.length} icons`;
         const grid = document.getElementById('iconGrid');
 
-        if (filtered.length === 0) {
+        if (availableGroups.length === 0) {
+          // UPDATED: Replaced empty icon with SVG content
           grid.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1/-1;">
-                        <div class="empty-icon">🔍</div>
-                        <div class="empty-text">No icons found</div>
-                    </div>
-                `;
-          return;
+                     <div class="empty-state" style="grid-column: 1/-1;">
+                     <div class="empty-icon">${emptySearchIcon}</div>
+                     <div class="empty-text">No icons found matching "${searchQuery}"</div>
+                     </div>
+                     `;
+        } else {
+          const visibleMainItems = availableGroups
+            .map(getActiveFileForGroup)
+            .filter(Boolean);
+
+          grid.innerHTML = visibleMainItems
+            .map(iconData => {
+              const iconUrl = `${iconsBaseUrl}/${iconData.filename}`;
+
+              return `
+                     <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
+                      <div class="icon-preview-wrapper">
+                     <div class="icon-preview">
+                       <img src="${iconUrl}" alt="${iconData.displayName}">
+                     </div>
+                      </div>
+                      <div class="icon-info">
+                     <div class="icon-name">${iconData.displayName}</div>
+                      </div>
+                     </div>
+                     `;
+            })
+            .join('');
         }
-
-        grid.innerHTML = filtered
-          .map(icon => {
-            const typeLabel =
-              icon.type === 'dark'
-                ? 'Dark'
-                : icon.type === 'light'
-                ? 'Light'
-                : 'Common';
-            const typeClass = `type-${icon.type}`;
-            const iconUrl = `/icons/${icon.filename}`;
-
-            return `
-                    <div class="icon-card" onclick="copyIconName('${icon.filename}')">
-                        <div class="icon-preview-wrapper">
-                            <div class="icon-preview">
-                                <img src="${iconUrl}" alt="${icon.displayName}">
-                            </div>
-                        </div>
-                        <div class="icon-info">
-                            <div class="icon-type ${typeClass}">${typeLabel}</div>
-                        </div>
-                    </div>
-                `;
-          })
-          .join('');
       }
 
       function showToast(message) {
@@ -2144,27 +1116,186 @@
         }, 2000);
       }
 
-      function copyIconName(filename) {
-        navigator.clipboard.writeText(filename).then(() => {
-          showToast(`✓ Copied: ${filename}`);
-        });
+      function addToCart(displayName) {
+        const key = displayName.toLowerCase();
+        const iconGroup = iconGroups[key];
+        if (iconGroup) {
+          iconGroup.inCart = true;
+          showToast(`+ Added ${iconGroup.displayName}`);
+          renderIcons();
+        }
       }
 
-      document.getElementById('searchInput').addEventListener('input', e => {
-        searchQuery = e.target.value;
-        renderIcons();
-      });
+      function removeFromCart(event, displayName) {
+        const key = displayName.toLowerCase();
+        const iconGroup = iconGroups[key];
+        if (iconGroup) {
+          iconGroup.inCart = false;
+          showToast(`- Removed ${iconGroup.displayName}`);
+          renderIcons();
+        }
+      }
 
-      document.getElementById('themeToggle').addEventListener('click', () => {
+      // --- Modal Functions (UPDATED) ---
+
+      function getCartIconData() {
+        return Object.values(iconGroups)
+          .filter(group => group.inCart)
+          .map(group => getActiveFileForGroup(group))
+          .filter(Boolean);
+      }
+
+      function generateCopyContent(type, cartData) {
+        // Lấy danh sách tên icon đã chuẩn hóa (chỉ tên, không có hậu tố)
+        const iconNames = cartData.map(d => d.displayName).join(',');
+
+        // Lấy danh sách TÊN FILE ĐÃ CHUẨN HÓA (alpinejs, vue, react) để dùng cho tham số 'i' trong URL
+        const iconFileNamesNormalized = cartData
+          .map(d => getNormalizedIconName(d.filename))
+          .join(',');
+
+        // Xây dựng URL hình ảnh theo yêu cầu: thêm &theme=light nếu đang ở light mode
+        const themeQuery = isDark ? '' : '&theme=light';
+        const fullImageUrl = `${base_url}${iconsBaseUrl}?i=${iconFileNamesNormalized}${themeQuery}`;
+
+        // Base URL để làm href
+        const hrefBaseUrl = base_url;
+
+        switch (type) {
+          case 'image':
+            // 1. in modal, list icons name should display as: "icon1,icon2,icon3..."
+            return fullImageUrl;
+          case 'html':
+            return `<a href="${hrefBaseUrl}" title="Open Icoziv"><img src="${fullImageUrl}" alt="skill_dev_tech_icons"></a>`;
+          case 'markdown':
+            return `[![skill_dev_tech_icons](${fullImageUrl})](${hrefBaseUrl})`;
+          default:
+            return '';
+        }
+      }
+
+      function formatPreviewText(text) {
+        const lines = text.split('\n');
+        if (lines.length > 0) {
+          // If the line is very long, truncate for display
+          const preview = lines[0];
+          if (preview.length > 50) {
+            return preview.substring(0, 47) + '...';
+          }
+          return preview;
+        }
+        return '';
+      }
+
+      function openModal() {
+        const modal = document.getElementById('copyModal');
+        const cartData = getCartIconData();
+
+        if (cartData.length === 0) {
+          showToast('Cart is empty. Nothing to copy.');
+          return;
+        }
+
+        // 1. Generate contents
+        const imageContent = generateCopyContent('image', cartData);
+        const htmlContent = generateCopyContent('html', cartData);
+        const markdownContent = generateCopyContent('markdown', cartData);
+
+        // 2. Set full content as a data attribute for copying
+        document
+          .getElementById('copyImageDisplay')
+          .setAttribute('data-full-content', imageContent);
+        document
+          .getElementById('copyHtmlDisplay')
+          .setAttribute('data-full-content', htmlContent);
+        document
+          .getElementById('copyMarkdownDisplay')
+          .setAttribute('data-full-content', markdownContent);
+
+        // 3. Set truncated preview content in the display field
+        document.getElementById('copyImageDisplay').textContent = imageContent;
+
+        document.getElementById('copyHtmlDisplay').textContent =
+          formatPreviewText(htmlContent);
+        document.getElementById('copyMarkdownDisplay').textContent =
+          formatPreviewText(markdownContent);
+
+        // 4. Show modal
+        modal.classList.add('open');
+      }
+
+      function closeModal() {
+        document.getElementById('copyModal').classList.remove('open');
+      }
+
+      async function copyToClipboard(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast('Copied to clipboard!');
+          return true;
+        } catch (err) {
+          console.error('Failed to copy: ', err);
+          showToast('Failed to copy text.');
+          return false;
+        }
+      }
+
+      function toggleTheme() {
         isDark = !isDark;
-        document.body.classList.toggle('dark');
+        document.body.classList.toggle('dark', isDark);
+        // UPDATED: Use SVG content
         document.getElementById('themeToggle').innerHTML = isDark
           ? sunIcon
           : moonIcon;
-        renderIcons(); // Re-render to filter by theme
-      });
+        renderIcons(); // Re-render to show correct icon variant
+      }
 
-      loadIcons();
+      // --- Initialization and Event Listeners ---
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initial setup
+        isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.toggle('dark', isDark);
+        loadIcons();
+
+        // Event Listeners
+        document
+          .getElementById('themeToggle')
+          .addEventListener('click', toggleTheme);
+
+        document
+          .getElementById('searchInput')
+          .addEventListener('input', event => {
+            searchQuery = event.target.value;
+            renderIcons();
+          });
+
+        document
+          .getElementById('copyCartButton')
+          .addEventListener('click', openModal);
+        document
+          .getElementById('closeModal')
+          .addEventListener('click', closeModal);
+        document
+          .getElementById('copyModal')
+          .addEventListener('click', event => {
+            if (event.target === event.currentTarget) {
+              closeModal();
+            }
+          });
+
+        document.querySelectorAll('.copy-action-btn').forEach(button => {
+          button.addEventListener('click', event => {
+            const targetType = event.target.getAttribute('data-copy-target');
+            const displayElement = document.getElementById(
+              `copy${
+                targetType.charAt(0).toUpperCase() + targetType.slice(1)
+              }Display`
+            );
+            const content = displayElement.getAttribute('data-full-content');
+            copyToClipboard(content);
+          });
+        });
+      });
     </script>
   </body>
 </html>
