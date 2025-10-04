@@ -2,11 +2,15 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>IconHub - Modern Icon Gallery</title>
-
+    <title>Icoziv - Modern Icon Gallery</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJzL31r+Q706e9R/T/e/4vX5x9zW4pT6/4+P8w4pB4yX+H6g7JjK4v5w9w9pQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       * {
         margin: 0;
@@ -220,13 +224,16 @@
       .icon-grid {
         /* Default grid for ALL ICONS */
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 1rem; /* Decreased from 1.25rem */
+        gap: 1rem;
         display: grid;
       }
       #cartGrid {
-        /* Grid for CART LIST - Smaller size */
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 0.5rem; /* Decreased from 0.75rem */
+        /* UPDATED: Further reduced gap for CART LIST */
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(65px, 1fr)
+        ); /* Smaller min width */
+        gap: 0.3rem; /* Further reduced from 0.4rem */
       }
       /* --- Icon Card Base (Square Shape) --- */
       .icon-card {
@@ -460,6 +467,11 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e4e4e7;
+      }
+      body.dark .modal-header {
+        border-color: #27272a;
       }
       .modal-title {
         font-size: 1.25rem;
@@ -480,50 +492,81 @@
       .modal-close:hover {
         color: #ef4444;
       }
-      .modal-list {
-        background: #f4f4f5;
-        border: 1px solid #e4e4e7;
-        border-radius: 8px;
-        padding: 1rem;
-        max-height: 250px;
-        overflow-y: auto;
-        font-size: 0.9375rem;
-        line-height: 1.6;
-        white-space: pre-wrap;
-        color: #3f3f46;
+      /* New styles for copy fields in modal (1) */
+      .copy-field-group {
+        margin-bottom: 1rem;
       }
-      body.dark .modal-list {
-        background: #0a0a0a;
-        border-color: #27272a;
+      .copy-field-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #3f3f46;
+        margin-bottom: 0.25rem;
+      }
+      body.dark .copy-field-label {
         color: #d4d4d8;
       }
+      .copy-input-wrapper {
+        display: flex;
+        border: 1px solid #e4e4e7;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #ffffff;
+      }
+      body.dark .copy-input-wrapper {
+        background: #0a0a0a;
+        border-color: #27272a;
+      }
+      .copy-display {
+        flex-grow: 1;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9375rem;
+        line-height: 1.2;
+        color: #09090b;
+        background: transparent;
+        border: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: monospace;
+      }
+      body.dark .copy-display {
+        color: #fafafa;
+      }
+      .copy-action-btn {
+        padding: 0.5rem 1rem;
+        background: #e5e7eb;
+        color: #374151;
+        border: none;
+        border-left: 1px solid #e4e4e7;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+        flex-shrink: 0;
+      }
+      body.dark .copy-action-btn {
+        background: #27272a;
+        color: #a1a1aa;
+        border-color: #3f3f46;
+      }
+      .copy-action-btn:hover {
+        background: #d1d5db;
+      }
+      body.dark .copy-action-btn:hover {
+        background: #3f3f46;
+        color: #fafafa;
+      }
       .modal-actions {
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         display: flex;
         justify-content: flex-end;
       }
+      /* Original modal list/actions kept but repurposed for structure */
+      .modal-list {
+        display: none;
+      }
       .modal-copy-btn {
-        padding: 0.5rem 1rem;
-        background: #6366f1;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: background 0.2s, transform 0.1s;
-      }
-      .modal-copy-btn:hover {
-        background: #4f46e5;
-      }
-      body.dark .modal-copy-btn {
-        background: #a855f7;
-      }
-      body.dark .modal-copy-btn:hover {
-        background: #9333ea;
-      }
-      .modal-copy-btn:disabled {
-        background: #9ca3af;
-        cursor: not-allowed;
+        display: none;
       }
       /* --- Media Queries --- */
       @media (max-width: 768px) {
@@ -547,12 +590,12 @@
         .icon-grid {
           /* Main grid on mobile */
           grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-          gap: 0.75rem; /* Slightly reduced for mobile */
+          gap: 0.75rem;
         }
         #cartGrid {
-          /* Cart grid on mobile */
-          grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-          gap: 0.4rem; /* Reduced for mobile cart */
+          /* Cart grid on mobile - UPDATED min-width and gap */
+          grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+          gap: 0.2rem;
         }
         .icon-preview {
           width: 48px;
@@ -575,100 +618,79 @@
       }
     </style>
   </head>
-
   <body>
     <div class="container">
       <div class="header">
         <div class="brand">
-          <div class="brand-icon">✦</div>
-
-          <div class="brand-text">IconHub</div>
+          <div class="brand-icon"><i class="fas fa-rocket"></i></div>
+          <div class="brand-text">Icoziv</div>
         </div>
-
         <div class="controls">
           <div class="search-wrapper">
-            <svg
-              class="search-icon"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-
-              <path d="m21 21-4.35-4.35"></path>
-            </svg>
+            <i
+              class="fas fa-search search-icon"
+              style="font-size: 0.9375rem"
+            ></i>
             <input type="text" id="searchInput" placeholder="Search icons..." />
           </div>
-
           <button class="theme-toggle" id="themeToggle">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
+            <i class="fas fa-moon"></i>
           </button>
         </div>
       </div>
-
       <div class="cart-section" id="cartSection" style="display: none">
         <div class="subheader">
           <div class="section-title">Cart List</div>
-
           <div class="cart-controls">
             <div class="stats" id="cartStats">0 items</div>
-
             <button class="copy-button" id="copyCartButton" disabled>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path
-                  d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                ></path>
-              </svg>
+              <i class="fas fa-copy" style="font-size: 0.875rem"></i>
               Copy
             </button>
           </div>
         </div>
-
         <div class="icon-grid" id="cartGrid"></div>
       </div>
-
       <div class="subheader">
         <div class="section-title">All Icons</div>
-
         <div class="stats" id="stats">0 icons</div>
       </div>
-
       <div class="icon-grid" id="iconGrid"></div>
     </div>
-
     <div class="modal-overlay" id="copyModal">
       <div class="modal-content">
         <div class="modal-header">
-          <div class="modal-title">Cart Icon Names</div>
+          <div class="modal-title">Copy Cart Icons</div>
           <button class="modal-close" id="closeModal">&times;</button>
         </div>
-
+        <div class="copy-field-group">
+          <label class="copy-field-label">Copy image URL</label>
+          <div class="copy-input-wrapper">
+            <div class="copy-display" id="copyImageDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="image">
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="copy-field-group">
+          <label class="copy-field-label">Copy as HTML</label>
+          <div class="copy-input-wrapper">
+            <div class="copy-display" id="copyHtmlDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="html">
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="copy-field-group">
+          <label class="copy-field-label">Copy as Markdown</label>
+          <div class="copy-input-wrapper">
+            <div class="copy-display" id="copyMarkdownDisplay"></div>
+            <button class="copy-action-btn" data-copy-target="markdown">
+              Copy
+            </button>
+          </div>
+        </div>
         <pre class="modal-list" id="modalIconList"></pre>
-
         <div class="modal-actions">
           <button class="modal-copy-btn" id="modalCopyAction">
             Copy All Names
@@ -676,15 +698,33 @@
         </div>
       </div>
     </div>
-
     <div class="toast" id="toast"></div>
     <script>
       let iconGroups = {};
       let searchQuery = '';
       let isDark = false;
+      const iconsBaseUrl = '/icons';
+      const base_url = 'https://i.icoziv.workers.dev';
+      const iconDataBaseUrl = '/dist/icons.json';
 
-      const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>`;
-      const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+      // UPDATED: Font Awesome icons
+      const sunIcon = `<i class="fas fa-sun"></i>`;
+      const moonIcon = `<i class="fas fa-moon"></i>`;
+      const emptySearchIcon = `<i class="fas fa-search-dollar"></i>`; // New icon for empty state
+
+      // Thêm hàm tiện ích để lấy tên icon đã chuẩn hóa (loại bỏ hậu tố)
+      function getNormalizedIconName(filename) {
+        if (filename.endsWith('-dark.svg')) {
+          return filename.slice(0, -9);
+        }
+        if (filename.endsWith('-light.svg')) {
+          return filename.slice(0, -10);
+        }
+        if (filename.endsWith('.svg')) {
+          return filename.slice(0, -4);
+        }
+        return filename;
+      }
 
       function processJsonData(jsonData) {
         const groups = {};
@@ -712,10 +752,20 @@
                 displayName.charAt(0).toUpperCase() + displayName.slice(1),
               inCart: false,
               filenames: {},
+              svgContent: jsonData[key],
             };
           }
 
           groups[displayName].filenames[type] = filename;
+          if (
+            type === 'common' ||
+            (type === 'dark' && isDark) ||
+            (type === 'light' && !isDark)
+          ) {
+            groups[displayName].svgContent = jsonData[key];
+          } else if (!groups[displayName].svgContent) {
+            groups[displayName].svgContent = jsonData[key];
+          }
         }
 
         return groups;
@@ -723,8 +773,7 @@
 
       async function loadIcons() {
         try {
-          // Giả định rằng tệp icons.json nằm ở thư mục gốc /dist/
-          const response = await fetch('/dist/icons.json');
+          const response = await fetch(iconDataBaseUrl);
           if (!response.ok) throw new Error('Failed to load icons.json');
           const json = await response.json();
 
@@ -770,9 +819,16 @@
         }
 
         if (preferredFile) {
+          const key = iconGroup.displayName.toLowerCase();
+          const allFilenames = Object.keys(iconGroups[key].filenames).map(
+            type => iconGroups[key].filenames[type]
+          );
+          const baseFilename = preferredFile.replace('.svg', '');
+
           return {
             filename: preferredFile,
             displayName: iconGroup.displayName,
+            svgContent: iconGroups[key].svgContent || '',
           };
         }
 
@@ -811,17 +867,17 @@
 
           cartGrid.innerHTML = visibleCartItems
             .map(iconData => {
-              const iconUrl = `/icons/${iconData.filename}`;
+              const iconUrl = `${iconsBaseUrl}/${iconData.filename}`;
 
               return `
-                                            <div class="icon-card in-cart" onclick="removeFromCart(event, '${iconData.displayName}')">
-                                                <div class="icon-preview-wrapper">
-                                                    <div class="icon-preview">
-                                                        <img src="${iconUrl}" alt="${iconData.displayName}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        `;
+            <div class="icon-card in-cart" onclick="removeFromCart(event, '${iconData.displayName}')">
+             <div class="icon-preview-wrapper">
+            <div class="icon-preview">
+              <img src="${iconUrl}" alt="${iconData.displayName}">
+            </div>
+             </div>
+            </div>
+            `;
             })
             .join('');
         }
@@ -838,12 +894,13 @@
         const grid = document.getElementById('iconGrid');
 
         if (availableGroups.length === 0) {
+          // UPDATED: Replaced empty icon with Font Awesome icon
           grid.innerHTML = `
-                                            <div class="empty-state" style="grid-column: 1/-1;">
-                                                <div class="empty-icon">🔍</div>
-                                                <div class="empty-text">No icons found</div>
-                                            </div>
-                                        `;
+            <div class="empty-state" style="grid-column: 1/-1;">
+            <div class="empty-icon">${emptySearchIcon}</div>
+            <div class="empty-text">No icons found matching "${searchQuery}"</div>
+            </div>
+            `;
         } else {
           const visibleMainItems = availableGroups
             .map(getActiveFileForGroup)
@@ -851,20 +908,20 @@
 
           grid.innerHTML = visibleMainItems
             .map(iconData => {
-              const iconUrl = `/icons/${iconData.filename}`;
+              const iconUrl = `${iconsBaseUrl}/${iconData.filename}`;
 
               return `
-                                            <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
-                                                <div class="icon-preview-wrapper">
-                                                    <div class="icon-preview">
-                                                        <img src="${iconUrl}" alt="${iconData.displayName}">
-                                                    </div>
-                                                </div>
-                                                <div class="icon-info">
-                                                    <div class="icon-name">${iconData.displayName}</div>
-                                                </div>
-                                            </div>
-                                        `;
+            <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
+             <div class="icon-preview-wrapper">
+            <div class="icon-preview">
+              <img src="${iconUrl}" alt="${iconData.displayName}">
+            </div>
+             </div>
+             <div class="icon-info">
+            <div class="icon-name">${iconData.displayName}</div>
+             </div>
+            </div>
+            `;
             })
             .join('');
         }
@@ -899,25 +956,91 @@
         }
       }
 
-      // --- Modal Functions (UPDATED 2) ---
+      // --- Modal Functions (UPDATED) ---
 
-      function getCartNames() {
+      function getCartIconData() {
         return Object.values(iconGroups)
           .filter(group => group.inCart)
-          .map(group => group.displayName);
+          .map(group => getActiveFileForGroup(group))
+          .filter(Boolean);
+      }
+
+      function generateCopyContent(type, cartData) {
+        // Lấy danh sách tên icon đã chuẩn hóa (chỉ tên, không có hậu tố)
+        const iconNames = cartData.map(d => d.displayName).join(',');
+
+        // Lấy danh sách TÊN FILE ĐÃ CHUẨN HÓA (alpinejs, vue, react) để dùng cho tham số 'i' trong URL
+        const iconFileNamesNormalized = cartData
+          .map(d => getNormalizedIconName(d.filename))
+          .join(',');
+
+        // Xây dựng URL hình ảnh theo yêu cầu: thêm &theme=light nếu đang ở light mode
+        const themeQuery = isDark ? '' : '&theme=light';
+        const fullImageUrl = `${base_url}${iconsBaseUrl}?i=${iconFileNamesNormalized}${themeQuery}`;
+
+        // Base URL để làm href
+        const hrefBaseUrl = base_url;
+
+        switch (type) {
+          case 'image':
+            // 1. in modal, list icons name should display as: "icon1,icon2,icon3..."
+            return fullImageUrl;
+          case 'html':
+            return `<a href="${hrefBaseUrl}" title="Open Icoziv"><img src="${fullImageUrl}" alt="skill_dev_tech_icons"></a>`;
+          case 'markdown':
+            return `[![skill_dev_tech_icons](${fullImageUrl})](${hrefBaseUrl})`;
+          default:
+            return '';
+        }
+      }
+
+      function formatPreviewText(text) {
+        const lines = text.split('\n');
+        if (lines.length > 0) {
+          // If the line is very long, truncate for display
+          const preview = lines[0];
+          if (preview.length > 50) {
+            return preview.substring(0, 47) + '...';
+          }
+          return preview;
+        }
+        return '';
       }
 
       function openModal() {
         const modal = document.getElementById('copyModal');
-        const listElement = document.getElementById('modalIconList');
-        const cartNames = getCartNames();
+        const cartData = getCartIconData();
 
-        if (cartNames.length === 0) {
+        if (cartData.length === 0) {
           showToast('Cart is empty. Nothing to copy.');
           return;
         }
 
-        listElement.textContent = cartNames.join('\n'); // Dùng \n để xuống dòng trong <pre>
+        // 1. Generate contents
+        const imageContent = generateCopyContent('image', cartData);
+        const htmlContent = generateCopyContent('html', cartData);
+        const markdownContent = generateCopyContent('markdown', cartData);
+
+        // 2. Set full content as a data attribute for copying
+        document
+          .getElementById('copyImageDisplay')
+          .setAttribute('data-full-content', imageContent);
+        document
+          .getElementById('copyHtmlDisplay')
+          .setAttribute('data-full-content', htmlContent);
+        document
+          .getElementById('copyMarkdownDisplay')
+          .setAttribute('data-full-content', markdownContent);
+
+        // 3. Set truncated preview content in the display field
+        document.getElementById('copyImageDisplay').textContent = imageContent;
+
+        document.getElementById('copyHtmlDisplay').textContent =
+          formatPreviewText(htmlContent);
+        document.getElementById('copyMarkdownDisplay').textContent =
+          formatPreviewText(markdownContent);
+
+        // 4. Show modal
         modal.classList.add('open');
       }
 
@@ -925,57 +1048,73 @@
         document.getElementById('copyModal').classList.remove('open');
       }
 
-      function copyModalContent() {
-        const textToCopy = document.getElementById('modalIconList').textContent;
-        if (textToCopy) {
-          navigator.clipboard
-            .writeText(textToCopy)
-            .then(() => {
-              showToast(`✅ Copied all icon names!`);
-              closeModal();
-            })
-            .catch(err => {
-              console.error('Could not copy text: ', err);
-              showToast(`❌ Failed to copy names.`);
-            });
+      async function copyToClipboard(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast('Copied to clipboard!');
+          return true;
+        } catch (err) {
+          console.error('Failed to copy: ', err);
+          showToast('Failed to copy text.');
+          return false;
         }
       }
 
-      // --- Event Listeners ---
-
-      document
-        .getElementById('copyCartButton')
-        .addEventListener('click', openModal);
-
-      document
-        .getElementById('closeModal')
-        .addEventListener('click', closeModal);
-
-      document.getElementById('copyModal').addEventListener('click', e => {
-        if (e.target.id === 'copyModal') {
-          closeModal();
-        }
-      });
-
-      document
-        .getElementById('modalCopyAction')
-        .addEventListener('click', copyModalContent);
-
-      document.getElementById('searchInput').addEventListener('input', e => {
-        searchQuery = e.target.value;
-        renderIcons();
-      });
-
-      document.getElementById('themeToggle').addEventListener('click', () => {
+      function toggleTheme() {
         isDark = !isDark;
-        document.body.classList.toggle('dark');
+        document.body.classList.toggle('dark', isDark);
         document.getElementById('themeToggle').innerHTML = isDark
           ? sunIcon
           : moonIcon;
-        renderIcons();
-      });
+        renderIcons(); // Re-render to show correct icon variant
+      }
 
-      loadIcons();
+      // --- Initialization and Event Listeners ---
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initial setup
+        isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.toggle('dark', isDark);
+        loadIcons();
+
+        // Event Listeners
+        document
+          .getElementById('themeToggle')
+          .addEventListener('click', toggleTheme);
+
+        document
+          .getElementById('searchInput')
+          .addEventListener('input', event => {
+            searchQuery = event.target.value;
+            renderIcons();
+          });
+
+        document
+          .getElementById('copyCartButton')
+          .addEventListener('click', openModal);
+        document
+          .getElementById('closeModal')
+          .addEventListener('click', closeModal);
+        document
+          .getElementById('copyModal')
+          .addEventListener('click', event => {
+            if (event.target === event.currentTarget) {
+              closeModal();
+            }
+          });
+
+        document.querySelectorAll('.copy-action-btn').forEach(button => {
+          button.addEventListener('click', event => {
+            const targetType = event.target.getAttribute('data-copy-target');
+            const displayElement = document.getElementById(
+              `copy${
+                targetType.charAt(0).toUpperCase() + targetType.slice(1)
+              }Display`
+            );
+            const content = displayElement.getAttribute('data-full-content');
+            copyToClipboard(content);
+          });
+        });
+      });
     </script>
   </body>
 </html>
