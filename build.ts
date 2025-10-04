@@ -17,3 +17,4 @@ for (const icon of iconsDir) {
 
 if (!existsSync('./dist')) mkdirSync('./dist');
 writeFileSync('./dist/icons.json', JSON.stringify(icons));
+writeFileSync('./public/icons.json', JSON.stringify(icons));

@@ -40,7 +40,11 @@ describe('utils', () => {
     const svg = generateSvg(['javascript', 'typescript'], icons, 2).trim();
     expect(svg).toContain('<svg');
     expect(svg).toContain('viewBox="0 0');
-    expect(svg).toContain('<g transform="translate(0, 0)">');
-    expect(svg).toContain('<g transform="translate(300, 0)">');
+    expect(svg).toContain(
+      '<svg width="104.25" height="-8.25" viewBox="0 0 556 -44"'
+    );
+    expect(svg).toContain(
+      '<svg width="104.25" height="-8.25" viewBox="0 0 556 -44"'
+    );
   });
 });
