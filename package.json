@@ -1,7 +1,7 @@
 {
   "name": "icoziv",
   "version": "1.0.0",
-  "main": "api/icons.ts",
+  "main": "index.ts",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -18,7 +18,9 @@
     "@vitest/ui": "^3.2.4",
     "eslint": "^9.36.0",
     "prettier": "^2.5.1",
-    "vitest": "^3.2.4",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
     "wrangler": "^4.42.0"
   }
 }

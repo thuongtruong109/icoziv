@@ -15,9 +15,6 @@ import {
   generateSvg,
 } from './utils/index.js';
 
-// Asset binding
-declare const ASSETS: any;
-
 function jsonResponse(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -73,14 +70,11 @@ async function handleRequest(request: Request): Promise<Response> {
     case 'api/svgs':
       return jsonResponse(icons);
 
-    case '':
-      const page = await ASSETS.fetch(new URL('/index.html', request.url));
-      return new Response(page.body, {
-        headers: { 'Content-Type': 'text/html' },
-      });
-
     default:
-      return errorResponse(ERRORS.NOT_FOUND, 404);
+      return Response.redirect(
+        'https://github.com/thuongtruong109/icoziv',
+        302
+      );
   }
 }
 
