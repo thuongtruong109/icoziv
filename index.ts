@@ -25,7 +25,7 @@ function jsonResponse(data: unknown, status = 200): Response {
 function errorResponse(
   message: string,
   status = 400,
-  asJson = false
+  asJson = false,
 ): Response {
   return asJson
     ? jsonResponse({ error: message }, status)
@@ -56,7 +56,7 @@ async function handleRequest(request: Request): Promise<Response> {
         themeParam,
         iconNameList,
         shortNames,
-        themedIcons
+        themedIcons,
       );
       if (!iconNames.length) return errorResponse(ERRORS.NO_ICONS_FOUND);
 
@@ -71,10 +71,7 @@ async function handleRequest(request: Request): Promise<Response> {
       return jsonResponse(icons);
 
     default:
-      return Response.redirect(
-        'https://github.com/thuongtruong109/icoziv',
-        302
-      );
+      return Response.redirect('https://thuongtruong109.github.io/icoziv', 302);
   }
 }
 

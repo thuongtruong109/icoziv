@@ -3,9 +3,7 @@
   <img src="./.github/assets/brand-light.png#gh-light-mode-only" alt="Brand Light" />
 </div>
 
-<hr>
-
-# Docs
+## 📚 Contents
 
 - [Example](#example)
 - [Specifying Icons](#specifying-icons)
@@ -14,24 +12,24 @@
 - [Centering Icons](#centering-icons)
 - [Icons List](#icons-list)
 
-# Example
+## 🔍 Example
 
 <p align="center"><img align="center" src="./.github/example-dark.png#gh-dark-mode-only"/></p>
 <p align="center"><img align="center" src="./.github/example-light.png#gh-light-mode-only"/></p>
 
-# Specifying Icons
+## 🏷️ Specifying Icons
 
 Copy and paste the code block below into your readme to add the skills icon element!
 
 Change the `?i=js,html,css` to a list of your skills separated by ","s! You can find a full list of icons [here](#icons-list).
 
 ```md
-[![My Skills](https://i.icoziv.workers.dev/icons?i=js,html,css,wasm)](https://github.com/thuongtruong109/icoziv)
+[![Skills Stack Icoziv](https://i.icoziv.workers.dev/icons?i=js,html,css,wasm)](https://github.com/thuongtruong109/icoziv)
 ```
 
-[![My Skills](https://i.icoziv.workers.dev/icons?i=js,html,css,wasm)](https://github.com/thuongtruong109/icoziv)
+[![Skills Stack Icoziv](https://i.icoziv.workers.dev/icons?i=js,html,css,wasm)](https://github.com/thuongtruong109/icoziv)
 
-# Themed Icons
+## 🎨 Themed Icons
 
 Some icons have a dark and light themed background. You can specify which theme you want as a url parameter.
 
@@ -42,24 +40,24 @@ Change the `&theme=light` to either `dark` or `light`. The theme is the backgrou
 **Light Theme Example:**
 
 ```md
-[![My Skills](https://i.icoziv.workers.dev/icons?i=java,kotlin,nodejs,figma&theme=light)](https://github.com/thuongtruong109/icoziv)
+[![Skills Stack Icoziv](https://i.icoziv.workers.dev/icons?i=java,kotlin,nodejs,figma&theme=light)](https://github.com/thuongtruong109/icoziv)
 ```
 
-[![My Skills](https://i.icoziv.workers.dev/icons?i=java,kotlin,nodejs,figma&theme=light)](https://github.com/thuongtruong109/icoziv)
+[![Skills Stack Icoziv](https://i.icoziv.workers.dev/icons?i=java,kotlin,nodejs,figma&theme=light)](https://github.com/thuongtruong109/icoziv)
 
-# Icons Per Line
+## 📏 Icons Per Line
 
 You can specify how many icons you would like per line! It's an optional argument, and the default is 15.
 
 Change the `&perline=3` to any number between 1 and 50.
 
 ```md
-[![My Skills](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
+[![Skills Stack Icoziv](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
 ```
 
-[![My Skills](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
+[![Skills Stack Icoziv](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
 
-# Centering Icons
+## 📐 Centering Icons
 
 Want to center the icons in your readme? The SVGs are automatically resized, so you can do it the same way you'd normally center an image.
 
@@ -79,11 +77,11 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
   </a>
 </p>
 
-# Icons List
+## 📋 Icons List
 
 Here's a list of all the icons currently supported. Feel free to open an issue to suggest icons to add!
 
-|      Icon ID       |                             Icon                             |
+|        Name        |                             Icon                             |
 | :----------------: | :----------------------------------------------------------: |
 |     `ableton`      |    <img src="./public/icons/Ableton-Dark.svg" width="48">    |
 |   `activitypub`    |  <img src="./public/icons/ActivityPub-Dark.svg" width="48">  |
@@ -331,5 +329,3 @@ Thank you so much already for using my projects! If you want to go a step furthe
 <a href='https://buymeacoffee.com/thuongtruong' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee' /></a>
 
 To support the project directly, feel free to open issues for icon suggestions, or contribute with a pull request!
-
-<!-- https://github.com/syvixor/skills-icons -->

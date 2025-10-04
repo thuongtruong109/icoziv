@@ -4,7 +4,7 @@ export function generateSvg(
   perLine: number,
   baseSize = 300,
   margin = 44,
-  scale = 48 / (300 - 44)
+  scale = 48 / (300 - 44),
 ): string {
   const iconSvgList = iconNames.map(i => icons[i]).filter(Boolean);
   const length =
@@ -20,10 +20,10 @@ export function generateSvg(
       .map(
         (i, idx) => `
       <g transform="translate(${(idx % perLine) * baseSize}, ${
-          Math.floor(idx / perLine) * baseSize
-        })">
+        Math.floor(idx / perLine) * baseSize
+      })">
         ${i}
-      </g>`
+      </g>`,
       )
       .join('')}
   </svg>`;

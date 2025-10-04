@@ -13,7 +13,7 @@ export function parseIconsParam(
   theme: Theme,
   iconNameList: string[],
   shortNames: Record<string, string>,
-  themedIcons: Set<string>
+  themedIcons: Set<string>,
 ): string[] {
   if (!param) return [];
   const requested = param === 'all' ? iconNameList : param.split(',');

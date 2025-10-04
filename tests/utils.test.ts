@@ -31,7 +31,7 @@ describe('utils', () => {
       'dark',
       iconNameList,
       shortNames,
-      themedIcons
+      themedIcons,
     );
     expect(result).toEqual(['javascript-dark', 'typescript', 'golang']);
   });
@@ -42,7 +42,7 @@ describe('utils', () => {
       'light',
       iconNameList,
       shortNames,
-      themedIcons
+      themedIcons,
     );
     expect(result).toEqual(['nestjs-light']);
   });
@@ -53,14 +53,14 @@ describe('utils', () => {
       'dark',
       iconNameList,
       shortNames,
-      themedIcons
+      themedIcons,
     );
     expect(result.length).toBe(iconNameList.length);
   });
 
   it('should return empty array for null param', () => {
     expect(
-      parseIconsParam(null, 'dark', iconNameList, shortNames, themedIcons)
+      parseIconsParam(null, 'dark', iconNameList, shortNames, themedIcons),
     ).toEqual([]);
   });
 
