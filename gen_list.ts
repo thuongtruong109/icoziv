@@ -39,23 +39,33 @@ Object.keys(baseToFiles).forEach((base: string) => {
 const sortedBases: string[] = Object.keys(baseToChosen).sort();
 
 let table =
-  '| Name | Icon |   | | Name | Icon |\n| :---: | :--: | :-: | :-: | :---: | :--: |\n';
+  '| Name | Icon | | Name | Icon | | Name | Icon |\n| :---: | :--: | :-: | :---: | :--: | :-: | :---: | :--: |\n';
 
-for (let i = 0; i < sortedBases.length; i += 2) {
+for (let i = 0; i < sortedBases.length; i += 3) {
   const base1 = sortedBases[i];
   const chosen1 = baseToChosen[base1];
-
   const col1 = `\`${base1}\` | <img src="./public/icons/${chosen1}" width="48">`;
 
-  let col2 = ' ';
+  let col2: string;
+  let col3: string;
 
   if (i + 1 < sortedBases.length) {
     const base2 = sortedBases[i + 1];
     const chosen2 = baseToChosen[base2];
-    col2 = `|  | \`${base2}\` | <img src="./public/icons/${chosen2}" width="48">`;
+    col2 = `| | \`${base2}\` | <img src="./public/icons/${chosen2}" width="48">`;
+  } else {
+    col2 = `| | | `;
   }
 
-  table += `| ${col1} |  ${col2} |\n`;
+  if (i + 2 < sortedBases.length) {
+    const base3 = sortedBases[i + 2];
+    const chosen3 = baseToChosen[base3];
+    col3 = `| | \`${base3}\` | <img src="./public/icons/${chosen3}" width="48">`;
+  } else {
+    col3 = `| | | `;
+  }
+
+  table += `| ${col1} ${col2} ${col3} |\n`;
 }
 
 console.log(table);

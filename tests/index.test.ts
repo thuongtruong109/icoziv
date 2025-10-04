@@ -41,10 +41,10 @@ describe('utils', () => {
     expect(svg).toContain('<svg');
     expect(svg).toContain('viewBox="0 0');
     expect(svg).toContain(
-      '<svg width="104.25" height="-8.25" viewBox="0 0 556 -44"',
+      '<svg width="104.25" height="48" viewBox="0 0 556 256"',
     );
     expect(svg).toContain(
-      '<svg width="104.25" height="-8.25" viewBox="0 0 556 -44"',
+      '<svg width="104.25" height="48" viewBox="0 0 556 256"',
     );
   });
 });
