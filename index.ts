@@ -13,24 +13,9 @@ import {
   normalizePath,
   parseIconsParam,
   generateSvg,
+  errorResponse,
+  jsonResponse,
 } from './utils/index.js';
-
-function jsonResponse(data: unknown, status = 200): Response {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: CONTENT.JSON,
-  });
-}
-
-function errorResponse(
-  message: string,
-  status = 400,
-  asJson = false,
-): Response {
-  return asJson
-    ? jsonResponse({ error: message }, status)
-    : new Response(message, { status });
-}
 
 async function handleRequest(request: Request): Promise<Response> {
   const { pathname, searchParams } = new URL(request.url);

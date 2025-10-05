@@ -1,10 +1,10 @@
 <div align="center">
 
-  ![CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/icoziv/ci.yml?branch=main&label=Test&logo=github&style=flat&colorA=080f12&colorB=1fa669)
-  ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)
+  ![CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/icoziv/ci.yml?branch=main&label=Test&logo=github&style=flat)
   ![Website](https://img.shields.io/badge/Playground-121013?style=flat&logo=github&logoColor=white)
-  ![License](https://img.shields.io/github/license/thuongtruong109/icoziv?style=flat&color=2b9348)
-  ![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-2025-blueviolet?style=flat&logo=Hacktoberfest&logoColor=white)
+  ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)
+  ![License](https://img.shields.io/badge/MIT%20License-2b9348?style=flat&logo=monkeytie&logoColor=white)
+  ![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-2025-blueviolet?style=flat&logo=hackster&logoColor=white)
   ![Contribute](https://img.shields.io/badge/Contributions-welcome-violet.svg?style=flat&logo=git)
   ![Star](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 
@@ -15,7 +15,13 @@
   <img src="./.github/assets/brand-light.png#gh-light-mode-only" alt="Brand Light" />
 </div>
 
-## 📚 Contents
+## � Hacktoberfest 2025
+
+> This project is participating in Hacktoberfest 2025! We're excited to welcome contributions from the community. Feel free to open pull requests to add new icons or improve the project. Let's make it even better together!
+
+![Hacktoberfest](.github/assets/hacktoberfest-2025.png)
+
+## �📚 Contents
 
 - [Example](#example)
 - [Specifying Icons](#specifying-icons)
@@ -26,8 +32,8 @@
 
 ## 🔍 Example
 
-<p align="center"><img align="center" src="./.github/example-dark.png#gh-dark-mode-only"/></p>
-<p align="center"><img align="center" src="./.github/example-light.png#gh-light-mode-only"/></p>
+<p align="center"><img align="center" src="./.github/assets/example-dark.png#gh-dark-mode-only"/></p>
+<p align="center"><img align="center" src="./.github/assets/example-light.png#gh-light-mode-only"/></p>
 
 ## 🏷️ Specifying Icons
 

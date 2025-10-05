@@ -1,3 +1,4 @@
+import { CONTENT } from '../shared/index.js';
 import { Theme } from '../types/index.js';
 
 export function isValidTheme(theme: string, themes: Theme[]): theme is Theme {
@@ -26,23 +27,19 @@ export function parseIconsParam(
     .filter((n): n is string => Boolean(n));
 }
 
-// export function jsonResponse(
-//   data: unknown,
-//   status = 200,
-//   headers: Record<string, string> = {}
-// ): Response {
-//   return new Response(JSON.stringify(data), {
-//     status,
-//     headers: headers,
-//   });
-// }
+export function jsonResponse(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: CONTENT.JSON,
+  });
+}
 
-// export function errorResponse(
-//   message: string,
-//   status = 400,
-//   asJson = false
-// ): Response {
-//   return asJson
-//     ? jsonResponse({ error: message }, status)
-//     : new Response(message, { status });
-// }
+export function errorResponse(
+  message: string,
+  status = 400,
+  asJson = false,
+): Response {
+  return asJson
+    ? jsonResponse({ error: message }, status)
+    : new Response(message, { status });
+}
