@@ -1,4 +1,16 @@
 <div align="center">
+
+  ![CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/icoziv/ci.yml?branch=main&label=Test&logo=github&style=flat&colorA=080f12&colorB=1fa669)
+  ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)
+  ![Website](https://img.shields.io/badge/Playground-121013?style=flat&logo=github&logoColor=white)
+  ![License](https://img.shields.io/github/license/thuongtruong109/icoziv?style=flat&color=2b9348)
+  ![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest-2025-blueviolet?style=flat&logo=Hacktoberfest&logoColor=white)
+  ![Contribute](https://img.shields.io/badge/Contributions-welcome-violet.svg?style=flat&logo=git)
+  ![Star](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
+
+  <!-- <a href="https://github.com/thuongtruong109/icoziv/pulls"><img src="https://img.shields.io/github/issues-pr/thuongtruong109/icoziv" alt="Pull Requests Badge"/></a> -->
+  <!-- <a href="https://github.com/thuongtruong109/icoziv/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/thuongtruong109/icoziv?color=2b9348"></a> -->
+
   <img src="./.github/assets/brand.png#gh-dark-mode-only" alt="Brand Dark" />
   <img src="./.github/assets/brand-light.png#gh-light-mode-only" alt="Brand Light" />
 </div>
@@ -180,8 +192,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `spring` | <img src="./public/icons/Spring-Dark.svg" width="48"> | | `springboot` | <img src="./public/icons/SpringBoot-Dark.svg" width="48"> | | `springcloud` | <img src="./public/icons/SpringCloud-Dark.svg" width="48"> |
 | `spyder` | <img src="./public/icons/Spyder-Dark.svg" width="48"> | | `sqlite` | <img src="./public/icons/SQLite.svg" width="48"> | | `sqlserver` | <img src="./public/icons/Sqlserver-Dark.svg" width="48"> |
 | `stackoverflow` | <img src="./public/icons/StackOverflow-Dark.svg" width="48"> | | `storybook` | <img src="./public/icons/StoryBook-Dark.svg" width="48"> | | `storybookjs` | <img src="./public/icons/StorybookJS-Dark.svg" width="48"> |
-| `streamlit` | <img src="./public/icons/Streamlit-Dark.svg" width="48"> | | `styledcomponents` | <img src="./public/icons/StyledComponents.svg" width="48"> | | `sublime` | <img src="./public/icons/Sublime-Dark.svg" width="48">
-|
+| `streamlit` | <img src="./public/icons/Streamlit-Dark.svg" width="48"> | | `styledcomponents` | <img src="./public/icons/StyledComponents.svg" width="48"> | | `sublime` | <img src="./public/icons/Sublime-Dark.svg" width="48">|
 | `supabase` | <img src="./public/icons/Supabase-Dark.svg" width="48"> | | `svelte` | <img src="./public/icons/Svelte.svg" width="48"> | | `svg` | <img src="./public/icons/SVG-Dark.svg" width="48"> |
 | `swagger` | <img src="./public/icons/Swagger-Dark.svg" width="48"> | | `swift` | <img src="./public/icons/Swift.svg" width="48"> | | `swiftui` | <img src="./public/icons/SwiftUI.svg" width="48"> |
 | `symfony` | <img src="./public/icons/Symfony-Dark.svg" width="48"> | | `tailwindcss` | <img src="./public/icons/TailwindCSS-Dark.svg" width="48"> | | `tauri` | <img src="./public/icons/Tauri-Dark.svg" width="48"> |
