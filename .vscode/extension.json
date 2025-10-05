@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ecmel.vscode-html-css",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "microsoft.typescript",
+    "ms-vscode.vscode-typescript-next",
+    "vitest.explorer"
+  ]
+}
