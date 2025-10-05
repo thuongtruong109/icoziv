@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const iconsDir = path.join(__dirname, 'public', 'icons');
+const iconsDir = path.join(__dirname, 'icons');
 const files: string[] = fs
   .readdirSync(iconsDir)
   .filter(f => f.endsWith('.svg'));
@@ -44,7 +44,7 @@ let table =
 for (let i = 0; i < sortedBases.length; i += 3) {
   const base1 = sortedBases[i];
   const chosen1 = baseToChosen[base1];
-  const col1 = `\`${base1}\` | <img src="./public/icons/${chosen1}" width="48">`;
+  const col1 = `\`${base1}\` | <img src="./icons/${chosen1}" width="48">`;
 
   let col2: string;
   let col3: string;
@@ -52,7 +52,7 @@ for (let i = 0; i < sortedBases.length; i += 3) {
   if (i + 1 < sortedBases.length) {
     const base2 = sortedBases[i + 1];
     const chosen2 = baseToChosen[base2];
-    col2 = `| | \`${base2}\` | <img src="./public/icons/${chosen2}" width="48">`;
+    col2 = `| | \`${base2}\` | <img src="./icons/${chosen2}" width="48">`;
   } else {
     col2 = `| | | `;
   }
@@ -60,7 +60,7 @@ for (let i = 0; i < sortedBases.length; i += 3) {
   if (i + 2 < sortedBases.length) {
     const base3 = sortedBases[i + 2];
     const chosen3 = baseToChosen[base3];
-    col3 = `| | \`${base3}\` | <img src="./public/icons/${chosen3}" width="48">`;
+    col3 = `| | \`${base3}\` | <img src="./icons/${chosen3}" width="48">`;
   } else {
     col3 = `| | | `;
   }

@@ -15,7 +15,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "check": "bun run lint && bun run format && vitest",
-    "check:fix": "bun run lint:fix && bun run format:fix && bun run test",
+    "check:fix": "bun run lint:fix && bun run format:fix",
     "list": "bun run gen_list.ts"
   },
   "devDependencies": {
