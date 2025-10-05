@@ -19,6 +19,6 @@ export default tseslint.config(
         { argsIgnorePattern: '^_' },
       ],
     },
-    ignores: ['dist', 'node_modules', 'public', '*.json'],
+    ignores: ['dist', 'node_modules', 'public', '*.json', 'playground'],
   },
 );
