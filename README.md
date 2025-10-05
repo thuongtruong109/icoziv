@@ -22,6 +22,11 @@
 
 ![Hacktoberfest](.github/assets/hacktoberfest-2025.png)
 
+#### How to Contribute
+
+- Add new icons to the collection at [/icons](./icons) folder (see the [contributing guide](./CONTRIBUTING.md) for details).
+- Add yourself to the [contributors list](./contributors.md) if you make a contribution.
+
 ## 📚 Contents
 
 [![About](https://img.shields.io/badge/1.%20About-yellow?style=flat)](#-about)
