@@ -2,12 +2,13 @@
 
   ![CI status](https://img.shields.io/github/actions/workflow/status/thuongtruong109/icoziv/ci.yml?branch=main&label=Test&logo=github&style=flat)
   [![Website](https://img.shields.io/badge/Playground-121013?style=flat&logo=github&logoColor=white)](https://thuongtruong109.github.io/icoziv)
+  ![Icons](public/count.svg)
   ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)
-  [![License](https://img.shields.io/badge/MIT%20License-2b9348?style=flat&logo=monkeytie&logoColor=white)](./LICENSE)
   ![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest%202025-blueviolet?style=flat&logo=hackster&logoColor=white)
   ![Contribute](https://img.shields.io/badge/Contributions-welcome-violet.svg?style=flat&logo=git)
   ![Star](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 
+  <!-- [![License](https://img.shields.io/badge/MIT%20License-2b9348?style=flat&logo=monkeytie&logoColor=white)](./LICENSE) -->
   <!-- <a href="https://github.com/thuongtruong109/icoziv/pulls"><img src="https://img.shields.io/github/issues-pr/thuongtruong109/icoziv" alt="Pull Requests Badge"/></a> -->
   <!-- <a href="https://github.com/thuongtruong109/icoziv/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/thuongtruong109/icoziv?color=2b9348"></a> -->
 
@@ -17,18 +18,25 @@
 
 ## 🐱‍💻 Hacktoberfest 2025
 
-> This project is participating in Hacktoberfest 2025! We're excited to welcome contributions from the community. Feel free to open pull requests to add new icons or improve the project. Let's make it even better together!
+> 💡 This project is participating in Hacktoberfest 2025! We're excited to welcome contributions from the community. Feel free to open pull requests to add new icons or improve the project. Let's make it even better together!
 
 ![Hacktoberfest](.github/assets/hacktoberfest-2025.png)
 
 ## 📚 Contents
 
-- [Example](#example)
-- [Specifying Icons](#specifying-icons)
-- [Themed Icons](#themed-icons)
-- [Icons Per Line](#icons-per-line)
-- [Centering Icons](#centering-icons)
-- [Icons List](#icons-list)
+[![About](https://img.shields.io/badge/1.%20About-yellow?style=flat)](#-about)
+[![Example](https://img.shields.io/badge/2.%20Example-blue?style=flat)](#example)
+[![Specifying Icons](https://img.shields.io/badge/3.%20Specifying%20Icons-success?style=flat)](#specifying-icons)
+[![Themed Icons](https://img.shields.io/badge/4.%20Themed%20Icons-orange?style=flat)](#themed-icons)
+[![Icons Per Line](https://img.shields.io/badge/5.%20Icons%20Per%20Line-informational?style=flat)](#icons-per-line)
+[![Centering Icons](https://img.shields.io/badge/6.%20Centering%20Icons-pink?style=flat)](#centering-icons)
+[![Icons List](https://img.shields.io/badge/7.%20Icons%20List-purple?style=flat)](#icons-list)
+
+## 🧩 About
+
+**Icoziv** is a fast, serverless service that generates beautiful skill and technology icon badges for your GitHub README files. Built with Cloudflare Workers for lightning-fast performance and global CDN distribution, it provides an easy way to showcase your tech stack with customizable themes and layouts.
+
+Simply specify the technologies you use, and get a professional-looking SVG badge that automatically adapts to your README's theme.
 
 ## 🔍 Example
 
@@ -94,6 +102,62 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
     <img src="https://i.icoziv.workers.dev/icons?i=git,kubernetes,docker,c,vim" />
   </a>
 </p>
+
+## 🗺️ API Reference
+
+### Generate Icons
+
+**Endpoint:** `GET /icons`
+
+Generate an SVG badge with specified icons.
+
+**Parameters:**
+- `i` or `icons` (required): Comma-separated list of icon names
+- `t` or `theme` (optional): Theme - `dark` (default) or `light`
+- `perline` (optional): Number of icons per line (1-50, default: 15)
+
+**Example:**
+```
+GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4
+```
+
+**Response:** SVG image
+
+### Get Icon List
+
+**Endpoint:** `GET /api/icons`
+
+Returns a JSON array of all available icon names.
+
+**Example:**
+```
+GET /api/icons
+```
+
+**Response:**
+```json
+["javascript", "typescript", "react", "vue", ...]
+```
+
+### Get SVG Data
+
+**Endpoint:** `GET /api/svgs`
+
+Returns a JSON object with all icon SVG data.
+
+**Example:**
+```
+GET /api/svgs
+```
+
+**Response:**
+```json
+{
+  "javascript": "<svg>...</svg>",
+  "typescript": "<svg>...</svg>",
+  ...
+}
+```
 
 ## 📋 Icons List
 
@@ -260,6 +324,10 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `xamarin` | <img src="./icons/Xamarin-Dark.svg" width="48"> | | `xcode` | <img src="./icons/Xcode-Dark.svg" width="48"> | | `xml` | <img src="./icons/XML-Dark.svg" width="48"> |
 | `yarn` | <img src="./icons/Yarn-Dark.svg" width="48"> | | `yew` | <img src="./icons/Yew-Dark.svg" width="48"> | | `zabbix` | <img src="./icons/Zabbix.svg" width="48"> |
 | `zig` | <img src="./icons/Zig-Dark.svg" width="48"> | | |  | | |  |
+
+## 🤝 Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## 💖 Support the Project
 

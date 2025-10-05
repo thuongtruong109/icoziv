@@ -131,7 +131,7 @@
       .controls {
         display: flex;
         gap: 0.75rem;
-        align-items: center;
+        justify-content: flex-end;
       }
       .header-right {
         display: flex;
@@ -152,16 +152,14 @@
         width: 18rem;
         display: none;
       }
-      /* NEW: Styles for the combined search and stats bar */
       .search-and-stats {
         display: flex;
         align-items: center;
         width: 100%;
         gap: 0.75rem;
       }
-      /* MODIFICATION 3: Style for search-and-stats when removing the .stats element */
       .search-and-stats > div {
-        flex-grow: 1; /* Make the search wrapper take all available space */
+        flex-grow: 1;
       }
 
       .search-icon {
@@ -175,7 +173,6 @@
         width: 1rem;
         height: 1rem;
       }
-      /* UPDATED: targeting search icon within sticky-controls */
       .sticky-controls:focus-within .search-icon {
         color: #6366f1;
       }
@@ -207,8 +204,8 @@
         color: #a1a1aa;
       }
       .action-button {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 35px;
         border: 1.5px solid #e4e4e7;
         border-radius: 8px;
         background: #ffffff;
@@ -218,7 +215,7 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
-        font-size: 16px;
+        font-size: 1rem;
       }
       body.dark .action-button {
         background: #18181b;
@@ -891,7 +888,7 @@
       <div class="main-content">
         <div class="cart-section" id="cartSection" style="display: none">
           <div class="subheader">
-            <div class="section-title">Picked Icons</div>
+            <div class="section-title">Picked</div>
             <div class="cart-controls">
               <div class="stats" id="cartStats">0 items</div>
               <button class="copy-button" id="copyCartButton" disabled>
@@ -954,7 +951,7 @@
                 <input
                   type="text"
                   id="searchInput"
-                  placeholder="Search for 300+ icons (e.g., React, Node, AWS)..."
+                  placeholder="Search for 400+ icons (e.g., React, Node, AWS)..."
                 />
               </div>
             </div>
@@ -1155,9 +1152,8 @@
         const copyButton = document.getElementById('copyCartButton');
 
         let cartGroups = groupsArray.filter(group => group.inCart);
-        // Cập nhật cartStats
         document.getElementById('cartStats').textContent =
-          `${cartGroups.length} items`;
+          `${cartGroups.length} icons`;
 
         if (cartGroups.length === 0) {
           cartSection.style.display = 'none';
@@ -1189,12 +1185,6 @@
 
         const filteredGroupsBySearch = groupsArray.filter(isIconGroupVisible);
         let availableGroups = filteredGroupsBySearch;
-
-        // MODIFICATION 3: Removed stat icon count in HTML, so no need to update it here
-        // const statsElement = document.getElementById('stats');
-        // if (statsElement) {
-        //   statsElement.textContent = `${availableGroups.length} icons`;
-        // }
 
         const grid = document.getElementById('iconGrid');
 
