@@ -129,4 +129,4 @@ dist
 # Cloudflare Worker
 worker/
 .wrangler/
-.playground/
+playground/

@@ -150,7 +150,20 @@
       .search-wrapper {
         position: relative;
         width: 18rem;
+        display: none;
       }
+      /* NEW: Styles for the combined search and stats bar */
+      .search-and-stats {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 0.75rem;
+      }
+      /* MODIFICATION 3: Style for search-and-stats when removing the .stats element */
+      .search-and-stats > div {
+        flex-grow: 1; /* Make the search wrapper take all available space */
+      }
+
       .search-icon {
         position: absolute;
         left: 0.875rem;
@@ -162,7 +175,8 @@
         width: 1rem;
         height: 1rem;
       }
-      .search-wrapper:focus-within .search-icon {
+      /* UPDATED: targeting search icon within sticky-controls */
+      .sticky-controls:focus-within .search-icon {
         color: #6366f1;
       }
       input[type='text'] {
@@ -192,7 +206,7 @@
       input[type='text']::placeholder {
         color: #a1a1aa;
       }
-      .theme-toggle {
+      .action-button {
         width: 40px;
         height: 40px;
         border: 1.5px solid #e4e4e7;
@@ -206,25 +220,78 @@
         transition: all 0.2s ease;
         font-size: 16px;
       }
-      body.dark .theme-toggle {
+      body.dark .action-button {
         background: #18181b;
         border-color: #27272a;
         color: #a1a1aa;
       }
-      .theme-toggle:hover {
+      .action-button:hover {
         background: #f4f4f5;
         border-color: #d4d4d8;
         color: #09090b;
         transform: translateY(-1px);
       }
-      body.dark .theme-toggle:hover {
+      body.dark .action-button:hover {
         background: #27272a;
         border-color: #3f3f46;
         color: #fafafa;
       }
-      .cart-section {
-        margin-bottom: 2rem;
+      .github-button {
+        text-decoration: none;
       }
+
+      .main-content {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+
+      .cart-section {
+        width: 280px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 1.5rem;
+        padding: 1rem;
+        background: #ffffff;
+        border: 1px solid #e4e4e7;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      body.dark .cart-section {
+        background: #18181b;
+        border-color: #27272a;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .icon-list-main {
+        flex-grow: 1;
+        min-width: 0;
+      }
+
+      /* NEW: Sticky Controls for Search and All Icons Header */
+      .sticky-controls {
+        position: sticky;
+        top: 0; /* Stick to the top of the viewport */
+        z-index: 100;
+        background: #fafafa;
+        padding: 1.5rem 0 1rem; /* Added padding to compensate for sticky bar */
+        margin: -1.5rem 0 0; /* Negative margin to pull it up into the padding area */
+        transition: background 0.3s ease;
+      }
+      body.dark .sticky-controls {
+        background: #0a0a0a;
+      }
+
+      .icon-list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding-top: 0.5rem;
+      }
+      /* REMOVED: .icon-list-header has been replaced by .search-and-stats container */
+
       .subheader {
         display: flex;
         align-items: center;
@@ -251,9 +318,11 @@
         gap: 0.75rem;
       }
       .stats {
-        font-size: 0.875rem;
+        /* UPDATED: Increased font size for better visibility next to search */
+        font-size: 1rem;
         color: #71717a;
         font-weight: 500;
+        flex-shrink: 0;
       }
       .copy-button {
         padding: 0.4rem 0.75rem;
@@ -285,10 +354,13 @@
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
         display: grid;
+        padding-top: 0.5rem; /* compensates for the sticky bar's margin */
       }
       #cartGrid {
         grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-        gap: 0.3rem;
+        gap: 0.5rem;
+        /* MODIFICATION 4: Remove all padding from the grid inside cart */
+        padding: 0;
       }
       .icon-card {
         background: #ffffff;
@@ -400,42 +472,72 @@
       body.dark .icon-name {
         color: #fafafa;
       }
-      .icon-card.in-cart {
-        padding-top: 100%;
+      .icon-card.in-cart .icon-preview-wrapper::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        background: rgba(99, 102, 241, 0.1);
+        z-index: 10;
+        transition: background 0.2s ease;
+      }
+      body.dark .icon-card.in-cart .icon-preview-wrapper::before {
+        background: rgba(168, 85, 247, 0.1);
+      }
+      .icon-card.in-cart .tick-icon {
+        display: flex;
+        position: absolute;
+        top: 0.3rem;
+        right: 0.3rem;
+        /* MODIFICATION 2: Changed z-index from 100 to 10 */
+        z-index: 10;
+        width: 1rem;
+        height: 1rem;
+        background: #6366f1;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      .icon-card.in-cart .tick-icon svg {
+        width: 0.65rem;
+        height: 0.65rem;
+        color: #ffffff;
+      }
+      /* START: MODIFICATION 2 - Cart Item Styling Changes */
+      .icon-card.in-cart-sidebar {
+        /* MODIFICATION 4: Removed border and shadow */
         border: none;
         box-shadow: none;
         background: transparent;
+        padding-top: 100%;
       }
-      .icon-card.in-cart:hover {
+      body.dark .icon-card.in-cart-sidebar {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+      .icon-card.in-cart-sidebar:hover {
+        /* MODIFICATION 4: Removed hover effect */
         transform: none;
         box-shadow: none;
       }
-      .icon-card.in-cart::after {
-        display: none;
-      }
-      .icon-card.in-cart .icon-info {
-        display: none;
-      }
-      .icon-card.in-cart .icon-preview-wrapper {
+      .icon-card.in-cart-sidebar .icon-preview-wrapper {
         bottom: 0;
+        /* MODIFICATION 4: Removed padding */
         padding: 0;
         background: transparent;
       }
-      .icon-card.in-cart .icon-preview-wrapper:hover {
-        background: transparent;
+      .icon-card.in-cart-sidebar .icon-preview {
+        /* Reduced size from 56px to 40px */
+        width: 40px;
+        height: 40px;
       }
-      .icon-card.in-cart .icon-preview {
-        width: 56px;
-        height: 56px;
-        transform: none;
-        transition: transform 0.2s ease;
-      }
-      .icon-card.in-cart:hover .icon-preview {
+      .icon-card.in-cart-sidebar:hover .icon-preview img {
         transform: scale(1.05);
       }
-      .icon-card.in-cart .icon-preview img {
-        filter: none;
-      }
+      /* END: MODIFICATION 2 */
+
       .empty-state {
         text-align: center;
         padding: 4rem 1rem;
@@ -672,6 +774,42 @@
         .controls {
           width: 100%;
         }
+        /* Adjusted for mobile: make search full width and stretch wrapper */
+        .search-and-stats {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .stats {
+          text-align: right;
+          margin-top: 0.5rem;
+        }
+        .main-content {
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .cart-section {
+          width: 100%;
+          position: relative;
+          top: 0;
+          padding: 0.75rem;
+        }
+
+        .icon-list-main {
+          width: 100%;
+        }
+
+        /* REMOVED: .subheader-search-wrapper, will be replaced by sticky-controls */
+
+        .sticky-controls {
+          padding: 1rem 0 0.5rem;
+          margin: -1rem 0 0;
+        }
+
+        .icon-list-header {
+          margin-bottom: 0.5rem;
+        }
+
         .icon-grid {
           grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
           gap: 0.75rem;
@@ -718,89 +856,112 @@
         </div>
         <div class="header-right">
           <div class="controls">
-            <div class="search-wrapper">
-              <div class="search-icon" id="searchIcon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="searchInput"
-                placeholder="Search icons..."
-              />
-            </div>
-            <button class="theme-toggle" id="themeToggle"></button>
+            <a
+              href="https://github.com/thuongtruong109/icoziv"
+              target="_blank"
+              class="action-button github-button"
+              aria-label="GitHub Repository"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.25 0 6.8-.7 6.8-7.7A5.5 5.5 0 0 0 20 4.2c.7-2.2 1.3-3.2 1.3-3.2s-2 0-3.3 1.2a11.1 11.1 0 0 0-3.2-.4c-1.6 0-3.2.1-4.7.4a11.1 11.1 0 0 0-3.2.4c-1.3-1.2-3.3-1.2-3.3-1.2s.6 1 1.3 3.2a5.5 5.5 0 0 0 1.6 3.3c0 7 3.5 7.7 6.8 7.7a4.8 4.8 0 0 0-1 3.6v4"
+                />
+                <path d="M9 19c-4.3 1.4-4.3-2.5-4.3-2.5" />
+              </svg>
+            </a>
+
+            <button class="action-button" id="themeToggle"></button>
           </div>
           <div class="header-info">
             <span>Crafted by Thuong Truong</span>
-            <span> • </span>
-            <a href="https://github.com/thuongtruong109/icoziv" target="_blank"
-              >GitHub</a
-            >
-            <span> • </span>
-            <a
-              href="https://github.com/thuongtruong109/icoziv/issues"
-              target="_blank"
-              >Report bugs</a
-            >
           </div>
         </div>
       </header>
-      <div class="cart-section" id="cartSection" style="display: none">
-        <div class="subheader">
-          <div class="section-title">Picked Icons</div>
-          <div class="cart-controls">
-            <div class="stats" id="cartStats">0 items</div>
-            <button class="copy-button" id="copyCartButton" disabled>
-              <div
-                style="
-                  width: 1rem;
-                  height: 1rem;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+
+      <div class="main-content">
+        <div class="cart-section" id="cartSection" style="display: none">
+          <div class="subheader">
+            <div class="section-title">Picked Icons</div>
+            <div class="cart-controls">
+              <div class="stats" id="cartStats">0 items</div>
+              <button class="copy-button" id="copyCartButton" disabled>
+                <div
+                  style="
+                    width: 1rem;
+                    height: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
                 >
-                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                  <path
-                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                  />
-                </svg>
-              </div>
-              Copy
-            </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </div>
+                Copy
+              </button>
+            </div>
           </div>
+          <div class="icon-grid" id="cartGrid"></div>
         </div>
-        <div class="icon-grid" id="cartGrid"></div>
+
+        <div class="icon-list-main">
+          <div class="sticky-controls">
+            <div class="search-and-stats">
+              <div
+                class="subheader-search-wrapper"
+                style="position: relative; flex-grow: 1"
+              >
+                <div class="search-icon" id="searchIcon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search for 300+ icons (e.g., React, Node, AWS)..."
+                />
+              </div>
+            </div>
+          </div>
+          <div class="icon-grid" id="iconGrid"></div>
+        </div>
       </div>
-      <div class="subheader">
-        <div class="section-title">All Icons</div>
-        <div class="stats" id="stats">0 icons</div>
-      </div>
-      <div class="icon-grid" id="iconGrid"></div>
     </section>
     <section class="modal-overlay" id="copyModal">
       <div class="modal-content">
@@ -856,6 +1017,7 @@
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
       const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
       const emptySearchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M5 12h2"/><path d="M9 12h2"/></svg>`;
+      const tickIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
 
       function getNormalizedIconName(filename) {
         if (filename.endsWith('-dark.svg')) {
@@ -993,8 +1155,9 @@
         const copyButton = document.getElementById('copyCartButton');
 
         let cartGroups = groupsArray.filter(group => group.inCart);
+        // Cập nhật cartStats
         document.getElementById('cartStats').textContent =
-          `${cartGroups.length} icons`;
+          `${cartGroups.length} items`;
 
         if (cartGroups.length === 0) {
           cartSection.style.display = 'none';
@@ -1012,7 +1175,7 @@
               const iconUrl = `${base_url_prefix}/${iconData.filename}`;
 
               return `
-                     <div class="icon-card in-cart" onclick="removeFromCart(event, '${iconData.displayName}')">
+                     <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
                       <div class="icon-preview-wrapper">
                      <div class="icon-preview">
                        <img src="${iconUrl}" alt="${iconData.displayName}">
@@ -1025,12 +1188,14 @@
         }
 
         const filteredGroupsBySearch = groupsArray.filter(isIconGroupVisible);
-        let availableGroups = filteredGroupsBySearch.filter(
-          group => !group.inCart,
-        );
+        let availableGroups = filteredGroupsBySearch;
 
-        document.getElementById('stats').textContent =
-          `${availableGroups.length} icons`;
+        // MODIFICATION 3: Removed stat icon count in HTML, so no need to update it here
+        // const statsElement = document.getElementById('stats');
+        // if (statsElement) {
+        //   statsElement.textContent = `${availableGroups.length} icons`;
+        // }
+
         const grid = document.getElementById('iconGrid');
 
         if (availableGroups.length === 0) {
@@ -1047,14 +1212,22 @@
 
           grid.innerHTML = visibleMainItems
             .map(iconData => {
+              const key = iconData.displayName.toLowerCase();
+              const iconGroup = iconGroups[key];
               const iconUrl = `${base_url_prefix}/${iconData.filename}`;
+              const inCartClass = iconGroup.inCart ? 'in-cart' : '';
+
+              const tickHtml = iconGroup.inCart
+                ? `<div class="tick-icon">${tickIcon}</div>`
+                : '';
 
               return `
-                     <div class="icon-card" onclick="addToCart('${iconData.displayName}')">
+                     <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
                       <div class="icon-preview-wrapper">
                      <div class="icon-preview">
                        <img src="${iconUrl}" alt="${iconData.displayName}">
                      </div>
+                     ${tickHtml}
                       </div>
                       <div class="icon-info">
                      <div class="icon-name">${iconData.displayName}</div>
@@ -1075,24 +1248,25 @@
         }, 2000);
       }
 
-      function addToCart(displayName) {
+      function toggleCart(event, displayName, isFromCart = false) {
         const key = displayName.toLowerCase();
         const iconGroup = iconGroups[key];
-        if (iconGroup) {
-          iconGroup.inCart = true;
-          showToast(`+ Added ${iconGroup.displayName}`);
-          renderIcons();
-        }
-      }
 
-      function removeFromCart(event, displayName) {
-        const key = displayName.toLowerCase();
-        const iconGroup = iconGroups[key];
-        if (iconGroup) {
+        if (!iconGroup) return;
+
+        if (isFromCart) {
           iconGroup.inCart = false;
           showToast(`- Removed ${iconGroup.displayName}`);
-          renderIcons();
+        } else {
+          iconGroup.inCart = !iconGroup.inCart;
+          if (iconGroup.inCart) {
+            showToast(`+ Added ${iconGroup.displayName}`);
+          } else {
+            showToast(`- Removed ${iconGroup.displayName}`);
+          }
         }
+
+        renderIcons();
       }
 
       function getCartIconData() {
