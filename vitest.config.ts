@@ -8,4 +8,5 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
     },
   },
+  assetsInclude: ['**/*.bin'],
 });

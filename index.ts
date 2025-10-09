@@ -24,7 +24,7 @@ async function handleRequest(request: Request): Promise<Response> {
 
   const icons = getIcons();
   const iconNameList = getIconNameList();
-  const themedIcons = getThemedIcons(); // ✅ Set<string>
+  const themedIcons = getThemedIcons();
 
   const { pathname, searchParams } = new URL(request.url);
   const path = normalizePath(pathname);

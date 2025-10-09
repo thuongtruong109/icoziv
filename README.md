@@ -368,6 +368,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 - TypeScript for type-safe development.
 - Node.js for fallback server-side JavaScript execution.
 - ESLint and Prettier for code quality and formatting.
+- Vitest for testing
 
 ## 🤝 Contributing
 
