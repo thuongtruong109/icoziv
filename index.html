@@ -834,6 +834,28 @@
           padding: 0.3rem 0.6rem;
         }
       }
+      #backToTopBtn {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        z-index: 999;
+        display: none; /* Initially hidden */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease,
+          transform 0.3s ease;
+      }
+      #backToTopBtn.show {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
     </style>
   </head>
   <body>
@@ -1002,6 +1024,23 @@
       </div>
     </section>
     <div class="toast" id="toast"></div>
+    <button class="action-button" id="backToTopBtn" title="Go to top">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m5 12 7-7 7 7" />
+        <path d="M12 19V5" />
+      </svg>
+    </button>
+
     <script>
       let iconGroups = {};
       let searchQuery = '';
@@ -1402,6 +1441,24 @@
             copyToClipboard(content);
           });
         });
+      });
+
+      // Back to Top Button Logic
+      const backToTopBtn = document.getElementById('backToTopBtn');
+
+      window.onscroll = function () {
+        if (
+          document.body.scrollTop > 300 ||
+          document.documentElement.scrollTop > 300
+        ) {
+          backToTopBtn.classList.add('show');
+        } else {
+          backToTopBtn.classList.remove('show');
+        }
+      };
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
