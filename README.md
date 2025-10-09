@@ -210,7 +210,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `camtasia` | <img src="./icons/Camtasia.svg" width="48"> | | `camunda` | <img src="./icons/Camunda.svg" width="48"> | | `canva` | <img src="./icons/Canva.svg" width="48"> |
 | `capacitorjs` | <img src="./icons/Capacitorjs.svg" width="48"> | | `capcut` | <img src="./icons/Capcut.svg" width="48"> | | `cassandra` | <img src="./icons/Cassandra-Dark.svg" width="48"> |
 | `centos` | <img src="./icons/CentOS.svg" width="48"> | | `chai` | <img src="./icons/Chai-Dark.svg" width="48"> | | `chakraui` | <img src="./icons/ChakraUI.svg" width="48"> |
-| `chartjs` | <img src="./icons/Chartjs-Dark.svg" width="48"> | | `chocolatey` | <img src="./icons/Chocolatey.svg" width="48"> | | `chromium` | <img src="./icons/Chromium.svg" width="48"> |
+| `chartjs` | <img src="./icons/ChartJS-Dark.svg" width="48"> | | `chocolatey` | <img src="./icons/Chocolatey.svg" width="48"> | | `chromium` | <img src="./icons/Chromium.svg" width="48"> |
 | `circleci` | <img src="./icons/CircleCI.svg" width="48"> | | `cisco` | <img src="./icons/Cisco.svg" width="48"> | | `civitai` | <img src="./icons/Civitai.svg" width="48"> |
 | `claudeai` | <img src="./icons/ClaudeAI.svg" width="48"> | | `clerk` | <img src="./icons/Clerk.svg" width="48"> | | `clickhouse` | <img src="./icons/ClickHouse.svg" width="48"> |
 | `clickup` | <img src="./icons/ClickUp.svg" width="48"> | | `cline` | <img src="./icons/Cline.svg" width="48"> | | `clion` | <img src="./icons/CLion-Dark.svg" width="48"> |
