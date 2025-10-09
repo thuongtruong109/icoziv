@@ -230,7 +230,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `databricks` | <img src="./icons/DataBricks.svg" width="48"> | | `datadog` | <img src="./icons/Datadog.svg" width="48"> | | `datagrip` | <img src="./icons/Datagrip.svg" width="48"> |
 | `datalore` | <img src="./icons/Datalore.svg" width="48"> | | `datefns` | <img src="./icons/Datefns.svg" width="48"> | | `dbeaver` | <img src="./icons/DBeaver-Dark.svg" width="48"> |
 | `dbt` | <img src="./icons/Dbt.svg" width="48"> | | `debian` | <img src="./icons/Debian.svg" width="48"> | | `deepin` | <img src="./icons/Deepin.svg" width="48"> |
-| `deepseek` | <img src="./icons/Deepseek.svg" width="48"> | | `deno` | <img src="./icons/Deno-Dark.svg" width="48"> | | `dependabot` | <img src="./icons/Dependabot.svg" width="48"> |
+| `deepseek` | <img src="./icons/Deepseek.svg" width="48"> | | `deno` | <img src="./icons/DENO-Dark.svg" width="48"> | | `dependabot` | <img src="./icons/Dependabot.svg" width="48"> |
 | `designali` | <img src="./icons/Designali.svg" width="48"> | | `devto` | <img src="./icons/DevTo-Dark.svg" width="48"> | | `digitalocean` | <img src="./icons/DigitalOcean.svg" width="48"> |
 | `directus` | <img src="./icons/Directus.svg" width="48"> | | `directx` | <img src="./icons/DirectX-Dark.svg" width="48"> | | `discord` | <img src="./icons/Discord.svg" width="48"> |
 | `discordbots` | <img src="./icons/DiscordBots.svg" width="48"> | | `discordjs` | <img src="./icons/DiscordJS-Dark.svg" width="48"> | | `disqus` | <img src="./icons/Disqus.svg" width="48"> |
