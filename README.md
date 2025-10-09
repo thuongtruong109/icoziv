@@ -191,7 +191,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `arturo` | <img src="./icons/Arturo.svg" width="48"> | | `asciidoctor` | <img src="./icons/Asciidoctor.svg" width="48"> | | `aseprite` | <img src="./icons/Aseprite.svg" width="48"> |
 | `asm` | <img src="./icons/Asm.svg" width="48"> | | `assembly` | <img src="./icons/Assembly.svg" width="48"> | | `astraluv` | <img src="./icons/Astraluv.svg" width="48"> |
 | `astro` | <img src="./icons/Astro-Dark.svg" width="48"> | | `atom` | <img src="./icons/Atom.svg" width="48"> | | `auth0` | <img src="./icons/Auth0.svg" width="48"> |
-| `authy` | <img src="./icons/Authy.svg" width="48"> | | `autocad` | <img src="./icons/Autocad-Dark.svg" width="48"> | | `autohotkey` | <img src="./icons/Autohotkey.svg" width="48"> |
+| `authy` | <img src="./icons/Authy.svg" width="48"> | | `autocad` | <img src="./icons/AutoCAD-Dark.svg" width="48"> | | `autohotkey` | <img src="./icons/Autohotkey.svg" width="48"> |
 | `avaloniaui` | <img src="./icons/AvaloniaUI.svg" width="48"> | | `axios` | <img src="./icons/Axios.svg" width="48"> | | `azul` | <img src="./icons/Azul.svg" width="48"> |
 | `azure` | <img src="./icons/Azure-Dark.svg" width="48"> | | `azuresqldatabase` | <img src="./icons/AzureSQLDatabase-Dark.svg" width="48"> | | `babel` | <img src="./icons/Babel-Dark.svg" width="48"> |
 | `babylonjs` | <img src="./icons/Babylonjs.svg" width="48"> | | `backbone` | <img src="./icons/Backbone-Dark.svg" width="48"> | | `balenaetcher` | <img src="./icons/BalenaEtcher.svg" width="48"> |
