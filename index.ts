@@ -5,10 +5,12 @@ import {
   shortNames,
   THEMES,
 } from './shared/index.js';
+
 import {
-  iconNameList,
-  icons,
-  themedIcons,
+  loadIcons,
+  getIcons,
+  getIconNameList,
+  getThemedIcons,
   isValidTheme,
   normalizePath,
   parseIconsParam,
@@ -18,6 +20,12 @@ import {
 } from './utils/index.js';
 
 async function handleRequest(request: Request): Promise<Response> {
+  await loadIcons();
+
+  const icons = getIcons();
+  const iconNameList = getIconNameList();
+  const themedIcons = getThemedIcons(); // ✅ Set<string>
+
   const { pathname, searchParams } = new URL(request.url);
   const path = normalizePath(pathname);
 
@@ -32,9 +40,8 @@ async function handleRequest(request: Request): Promise<Response> {
         return errorResponse(ERRORS.INVALID_THEME);
 
       const perLine = Number(searchParams.get('perline')) || ICONS_PER_LINE;
-      if (Number.isNaN(perLine) || perLine < 1 || perLine > 50) {
+      if (Number.isNaN(perLine) || perLine < 1 || perLine > 50)
         return errorResponse(ERRORS.INVALID_PERLINE);
-      }
 
       const iconNames = parseIconsParam(
         iconParam,
@@ -43,6 +50,7 @@ async function handleRequest(request: Request): Promise<Response> {
         shortNames,
         themedIcons,
       );
+
       if (!iconNames.length) return errorResponse(ERRORS.NO_ICONS_FOUND);
 
       const svg = generateSvg(iconNames, icons, perLine);

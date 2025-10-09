@@ -11,6 +11,6 @@
     "sourceMap": true,
     "resolveJsonModule": true
   },
-  "include": ["**/*.ts", "tests", "vitest.config.ts"],
+  "include": ["**/*.ts", "tests", "vitest.config.ts", "global.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

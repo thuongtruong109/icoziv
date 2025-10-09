@@ -1,10 +1,10 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-plugin-prettier';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
-
   ...tseslint.configs.recommended,
 
   {
@@ -19,6 +19,6 @@ export default tseslint.config(
         { argsIgnorePattern: '^_' },
       ],
     },
-    ignores: ['dist', 'node_modules', 'public', '*.json', 'playground'],
   },
+  globalIgnores(['dist', 'node_modules', 'public', '*.json', 'playground']),
 );

@@ -5,20 +5,37 @@ import {
   mkdirSync,
   writeFileSync,
 } from 'node:fs';
+import { encrypt } from '../utils/encrypt.js';
 
-const iconsDir = readdirSync('icons');
-const icons1: Record<string, string> = {};
-const icons2: Record<string, string> = {};
+const ICONS_DIR_PATH = 'icons';
+const DIST_DIR_PATH = 'dist';
+const OUTPUT_BIN_FILE = `${DIST_DIR_PATH}/icons.bin`;
 
-for (const icon of iconsDir) {
-  const tmp = icon.replace('.svg', '');
-  const name2 = tmp;
-  const name1 = tmp.toLowerCase();
+async function buildAssets(): Promise<void> {
+  const iconsDir = readdirSync(ICONS_DIR_PATH);
+  const icons: Record<string, string> = {};
+  const publicIcons: Record<string, string> = {};
 
-  icons1[name1] = String(readFileSync(`icons/${icon}`));
-  icons2[name2] = String(readFileSync(`icons/${icon}`));
+  for (const fileName of iconsDir) {
+    if (!fileName.endsWith('.svg')) continue;
+    const svg = readFileSync(`${ICONS_DIR_PATH}/${fileName}`, 'utf8');
+    const iconKey = fileName.replace('.svg', '');
+
+    const name1 = iconKey;
+    publicIcons[name1] = svg;
+
+    const iconName = iconKey.toLowerCase();
+    icons[iconName] = svg;
+  }
+
+  const encrypted = await encrypt(JSON.stringify(icons));
+  if (!existsSync(DIST_DIR_PATH)) mkdirSync(DIST_DIR_PATH, { recursive: true });
+  writeFileSync(OUTPUT_BIN_FILE, encrypted, 'utf8');
+
+  writeFileSync('public/icons.json', JSON.stringify(publicIcons), 'utf8');
 }
 
-if (!existsSync('dist')) mkdirSync('dist');
-writeFileSync('dist/icons.json', JSON.stringify(icons1));
-writeFileSync('public/icons.json', JSON.stringify(icons2));
+buildAssets().catch(err => {
+  console.error('❌ Build failed:', err);
+  process.exit(1);
+});

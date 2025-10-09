@@ -361,6 +361,14 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `xml` | <img src="./icons/XML-Dark.svg" width="48"> | | `yarn` | <img src="./icons/Yarn-Dark.svg" width="48"> | | `yew` | <img src="./icons/Yew-Dark.svg" width="48"> |
 | `zabbix` | <img src="./icons/Zabbix.svg" width="48"> | | `zig` | <img src="./icons/Zig-Dark.svg" width="48"> | | |  |
 
+## ⚙️ Technologies
+
+- Cloudflare Workers for hosting the icon API.
+- JSON → GZIP + AES-CBC 256 + Base64 encoding for efficient and secure icon data transmission.
+- TypeScript for type-safe development.
+- Node.js for fallback server-side JavaScript execution.
+- ESLint and Prettier for code quality and formatting.
+
 ## 🤝 Contributing
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.

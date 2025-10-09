@@ -17,14 +17,42 @@ export function parseIconsParam(
   themedIcons: Set<string>,
 ): string[] {
   if (!param) return [];
-  const requested = param === 'all' ? iconNameList : param.split(',');
-  return requested
-    .map(name => {
-      const resolved = iconNameList.includes(name) ? name : shortNames[name];
-      if (!resolved) return null;
-      return themedIcons.has(resolved) ? `${resolved}-${theme}` : resolved;
-    })
-    .filter((n): n is string => Boolean(n));
+
+  const requested =
+    param === 'all'
+      ? iconNameList.slice()
+      : param
+          .split(',')
+          .map(s => s.trim())
+          .filter(Boolean);
+
+  const seen = new Set<string>();
+  const out: string[] = [];
+
+  for (let raw of requested) {
+    const m = raw.match(/^(.*)-(light|dark)$/);
+    let explicitSuffix: 'light' | 'dark' | null = null;
+    if (m) {
+      raw = m[1];
+      explicitSuffix = m[2] as 'light' | 'dark';
+    }
+
+    const resolved = iconNameList.includes(raw) ? raw : shortNames[raw];
+    if (!resolved) continue;
+
+    const finalName = explicitSuffix
+      ? `${resolved}-${explicitSuffix}`
+      : themedIcons.has(resolved)
+        ? `${resolved}-${theme}`
+        : resolved;
+
+    if (!seen.has(finalName)) {
+      seen.add(finalName);
+      out.push(finalName);
+    }
+  }
+
+  return out;
 }
 
 export function jsonResponse(data: unknown, status = 200): Response {
