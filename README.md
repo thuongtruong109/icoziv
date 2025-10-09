@@ -24,7 +24,7 @@
 
 #### How to Contribute
 
-- Add new icons to the collection at [/icons](./icons) folder (see the [contributing guide](./CONTRIBUTING.md) for details).
+- Add new icons to the collection at [/icons](./icons) folder (see the [contributing guide](.github/CONTRIBUTING.md) for details).
 - Add yourself to the [contributors list](./contributors.md) if you make a contribution.
 
 ## 📚 Contents
@@ -372,7 +372,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 
 ## 🤝 Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+We welcome contributions! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details.
 
 ## 💖 Support the Project
 
