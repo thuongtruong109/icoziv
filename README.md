@@ -257,7 +257,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `fleet` | <img src="./icons/Fleet.svg" width="48"> | | `flowbite` | <img src="./icons/Flowbite.svg" width="48"> | | `flutter` | <img src="./icons/Flutter-Dark.svg" width="48"> |
 | `flutterflow` | <img src="./icons/Flutterflow.svg" width="48"> | | `flyio` | <img src="./icons/Flyio.svg" width="48"> | | `forem` | <img src="./icons/Forem.svg" width="48"> |
 | `forth` | <img src="./icons/Forth.svg" width="48"> | | `fortran` | <img src="./icons/Fortran.svg" width="48"> | | `framermotion` | <img src="./icons/FramerMotion-Dark.svg" width="48"> |
-| `freebsd` | <img src="./icons/FreeBSD.svg" width="48"> | | `freecad` | <img src="./icons/FreeCad-Dark.svg" width="48"> | | `fresh` | <img src="./icons/Fresh.svg" width="48"> |
+| `freebsd` | <img src="./icons/FreeBSD.svg" width="48"> | | `freecad` | <img src="./icons/FreeCAD-Dark.svg" width="48"> | | `fresh` | <img src="./icons/Fresh.svg" width="48"> |
 | `fsharp` | <img src="./icons/Fsharp.svg" width="48"> | | `gamemakerstudio` | <img src="./icons/GameMakerStudio.svg" width="48"> | | `ganache` | <img src="./icons/Ganache.svg" width="48"> |
 | `gatsby` | <img src="./icons/Gatsby.svg" width="48"> | | `gcp` | <img src="./icons/GCP-Dark.svg" width="48"> | | `geany` | <img src="./icons/Geany.svg" width="48"> |
 | `genkit` | <img src="./icons/Genkit.svg" width="48"> | | `gentoo` | <img src="./icons/Gentoo-Dark.svg" width="48"> | | `getx` | <img src="./icons/Getx.svg" width="48"> |
