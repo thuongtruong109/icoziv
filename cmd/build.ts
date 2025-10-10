@@ -15,18 +15,16 @@ const OUTPUT_BIN_FILE = `${DIST_DIR_PATH}/icons.bin`;
 async function buildAssets(): Promise<void> {
   const iconsDir = readdirSync(ICONS_DIR_PATH);
   const icons: Record<string, string> = {};
-  const publicIcons: Record<string, string> = {};
+  const publicIcons: string[] = [];
 
   for (const fileName of iconsDir) {
     if (!fileName.endsWith('.svg')) continue;
     const svg = readFileSync(`${ICONS_DIR_PATH}/${fileName}`, 'utf8');
-    const iconKey = fileName.replace('.svg', '');
+    const iconKey = fileName.replace('.svg', '').toLowerCase();
 
-    const name1 = iconKey;
-    publicIcons[name1] = svg;
+    publicIcons.push(iconKey);
 
-    const iconName = iconKey.toLowerCase();
-    icons[iconName] = svg;
+    icons[iconKey] = svg;
   }
 
   const encrypted = await encrypt(JSON.stringify(icons));

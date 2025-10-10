@@ -1,4 +1,6 @@
 - Demo page:
+  - [ ] Add loading spinner when fetching icons
+  - [ ] Add error message when fetch fails
   - [ ] Add panel to adjust perline, border radius, width/height, theme
   - [ ] Lazy loading for initial icons list rendering
   - [ ] Add pagination or infinite scroll
