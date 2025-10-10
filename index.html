@@ -728,6 +728,43 @@
         display: flex;
         justify-content: flex-end;
       }
+      .cart-footer {
+        margin-top: 0.75rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .clear-button {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #ffffff;
+        background: #ef4444;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .clear-button:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(220, 38, 38, 0.18);
+      }
+      .clear-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      body.dark .clear-button {
+        background: #ef4444;
+        color: #fff;
+      }
+      body.dark .clear-button:hover {
+        background: #dc2626;
+      }
       .modal-list {
         display: none;
       }
@@ -944,6 +981,29 @@
             </div>
           </div>
           <div class="icon-grid" id="cartGrid"></div>
+          <div class="cart-footer">
+            <button class="clear-button" id="clearCartButton" disabled>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="color: white"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                <path d="M10 11v6"></path>
+                <path d="M14 11v6"></path>
+                <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              Clear All
+            </button>
+          </div>
         </div>
 
         <div class="icon-list-main">
@@ -1208,6 +1268,7 @@
         const cartGrid = document.getElementById('cartGrid');
         const cartSection = document.getElementById('cartSection');
         const copyButton = document.getElementById('copyCartButton');
+        const clearButton = document.getElementById('clearCartButton');
 
         let cartGroups = groupsArray.filter(group => group.inCart);
         document.getElementById('cartStats').textContent =
@@ -1216,9 +1277,11 @@
         if (cartGroups.length === 0) {
           cartSection.style.display = 'none';
           copyButton.disabled = true;
+          if (clearButton) clearButton.disabled = true;
         } else {
           cartSection.style.display = 'block';
           copyButton.disabled = false;
+          if (clearButton) clearButton.disabled = false;
 
           const visibleCartItems = cartGroups
             .map(getActiveFileForGroup)
@@ -1322,6 +1385,21 @@
           .filter(group => group.inCart)
           .map(group => getActiveFileForGroup(group))
           .filter(Boolean);
+      }
+
+      function clearCart() {
+        const anyInCart = Object.values(iconGroups).some(g => g.inCart);
+        if (!anyInCart) {
+          showToast('Cart is already empty');
+          return;
+        }
+
+        Object.values(iconGroups).forEach(g => {
+          g.inCart = false;
+        });
+
+        renderIcons();
+        showToast('Cleared all picked icons');
       }
 
       function generateCopyContent(type, cartData) {
@@ -1463,6 +1541,13 @@
       });
 
       const backToTopBtn = document.getElementById('backToTopBtn');
+
+      const clearBtn = document.getElementById('clearCartButton');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          clearCart();
+        });
+      }
 
       window.onscroll = function () {
         if (
