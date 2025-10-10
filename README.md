@@ -191,7 +191,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `arturo` | <img src="./icons/Arturo.svg" width="48"> | | `asciidoctor` | <img src="./icons/Asciidoctor.svg" width="48"> | | `aseprite` | <img src="./icons/Aseprite.svg" width="48"> |
 | `asm` | <img src="./icons/Asm.svg" width="48"> | | `assembly` | <img src="./icons/Assembly.svg" width="48"> | | `astraluv` | <img src="./icons/Astraluv.svg" width="48"> |
 | `astro` | <img src="./icons/Astro-Dark.svg" width="48"> | | `atom` | <img src="./icons/Atom.svg" width="48"> | | `auth0` | <img src="./icons/Auth0.svg" width="48"> |
-| `authy` | <img src="./icons/Authy.svg" width="48"> | | `autocad` | <img src="./icons/Autocad-Dark.svg" width="48"> | | `autohotkey` | <img src="./icons/Autohotkey.svg" width="48"> |
+| `authy` | <img src="./icons/Authy.svg" width="48"> | | `autocad` | <img src="./icons/AutoCAD-Dark.svg" width="48"> | | `autohotkey` | <img src="./icons/Autohotkey.svg" width="48"> |
 | `avaloniaui` | <img src="./icons/AvaloniaUI.svg" width="48"> | | `axios` | <img src="./icons/Axios.svg" width="48"> | | `azul` | <img src="./icons/Azul.svg" width="48"> |
 | `azure` | <img src="./icons/Azure-Dark.svg" width="48"> | | `azuresqldatabase` | <img src="./icons/AzureSQLDatabase-Dark.svg" width="48"> | | `babel` | <img src="./icons/Babel-Dark.svg" width="48"> |
 | `babylonjs` | <img src="./icons/Babylonjs.svg" width="48"> | | `backbone` | <img src="./icons/Backbone-Dark.svg" width="48"> | | `balenaetcher` | <img src="./icons/BalenaEtcher.svg" width="48"> |
@@ -210,7 +210,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `camtasia` | <img src="./icons/Camtasia.svg" width="48"> | | `camunda` | <img src="./icons/Camunda.svg" width="48"> | | `canva` | <img src="./icons/Canva.svg" width="48"> |
 | `capacitorjs` | <img src="./icons/Capacitorjs.svg" width="48"> | | `capcut` | <img src="./icons/Capcut.svg" width="48"> | | `cassandra` | <img src="./icons/Cassandra-Dark.svg" width="48"> |
 | `centos` | <img src="./icons/CentOS.svg" width="48"> | | `chai` | <img src="./icons/Chai-Dark.svg" width="48"> | | `chakraui` | <img src="./icons/ChakraUI.svg" width="48"> |
-| `chartjs` | <img src="./icons/Chartjs-Dark.svg" width="48"> | | `chocolatey` | <img src="./icons/Chocolatey.svg" width="48"> | | `chromium` | <img src="./icons/Chromium.svg" width="48"> |
+| `chartjs` | <img src="./icons/ChartJS-Dark.svg" width="48"> | | `chocolatey` | <img src="./icons/Chocolatey.svg" width="48"> | | `chromium` | <img src="./icons/Chromium.svg" width="48"> |
 | `circleci` | <img src="./icons/CircleCI.svg" width="48"> | | `cisco` | <img src="./icons/Cisco.svg" width="48"> | | `civitai` | <img src="./icons/Civitai.svg" width="48"> |
 | `claudeai` | <img src="./icons/ClaudeAI.svg" width="48"> | | `clerk` | <img src="./icons/Clerk.svg" width="48"> | | `clickhouse` | <img src="./icons/ClickHouse.svg" width="48"> |
 | `clickup` | <img src="./icons/ClickUp.svg" width="48"> | | `cline` | <img src="./icons/Cline.svg" width="48"> | | `clion` | <img src="./icons/CLion-Dark.svg" width="48"> |
@@ -230,7 +230,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `databricks` | <img src="./icons/DataBricks.svg" width="48"> | | `datadog` | <img src="./icons/Datadog.svg" width="48"> | | `datagrip` | <img src="./icons/Datagrip.svg" width="48"> |
 | `datalore` | <img src="./icons/Datalore.svg" width="48"> | | `datefns` | <img src="./icons/Datefns.svg" width="48"> | | `dbeaver` | <img src="./icons/DBeaver-Dark.svg" width="48"> |
 | `dbt` | <img src="./icons/Dbt.svg" width="48"> | | `debian` | <img src="./icons/Debian.svg" width="48"> | | `deepin` | <img src="./icons/Deepin.svg" width="48"> |
-| `deepseek` | <img src="./icons/Deepseek.svg" width="48"> | | `deno` | <img src="./icons/Deno-Dark.svg" width="48"> | | `dependabot` | <img src="./icons/Dependabot.svg" width="48"> |
+| `deepseek` | <img src="./icons/Deepseek.svg" width="48"> | | `deno` | <img src="./icons/DENO-Dark.svg" width="48"> | | `dependabot` | <img src="./icons/Dependabot.svg" width="48"> |
 | `designali` | <img src="./icons/Designali.svg" width="48"> | | `devto` | <img src="./icons/DevTo-Dark.svg" width="48"> | | `digitalocean` | <img src="./icons/DigitalOcean.svg" width="48"> |
 | `directus` | <img src="./icons/Directus.svg" width="48"> | | `directx` | <img src="./icons/DirectX-Dark.svg" width="48"> | | `discord` | <img src="./icons/Discord.svg" width="48"> |
 | `discordbots` | <img src="./icons/DiscordBots.svg" width="48"> | | `discordjs` | <img src="./icons/DiscordJS-Dark.svg" width="48"> | | `disqus` | <img src="./icons/Disqus.svg" width="48"> |
@@ -257,7 +257,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `fleet` | <img src="./icons/Fleet.svg" width="48"> | | `flowbite` | <img src="./icons/Flowbite.svg" width="48"> | | `flutter` | <img src="./icons/Flutter-Dark.svg" width="48"> |
 | `flutterflow` | <img src="./icons/Flutterflow.svg" width="48"> | | `flyio` | <img src="./icons/Flyio.svg" width="48"> | | `forem` | <img src="./icons/Forem.svg" width="48"> |
 | `forth` | <img src="./icons/Forth.svg" width="48"> | | `fortran` | <img src="./icons/Fortran.svg" width="48"> | | `framermotion` | <img src="./icons/FramerMotion-Dark.svg" width="48"> |
-| `freebsd` | <img src="./icons/FreeBSD.svg" width="48"> | | `freecad` | <img src="./icons/FreeCad-Dark.svg" width="48"> | | `fresh` | <img src="./icons/Fresh.svg" width="48"> |
+| `freebsd` | <img src="./icons/FreeBSD.svg" width="48"> | | `freecad` | <img src="./icons/FreeCAD-Dark.svg" width="48"> | | `fresh` | <img src="./icons/Fresh.svg" width="48"> |
 | `fsharp` | <img src="./icons/Fsharp.svg" width="48"> | | `gamemakerstudio` | <img src="./icons/GameMakerStudio.svg" width="48"> | | `ganache` | <img src="./icons/Ganache.svg" width="48"> |
 | `gatsby` | <img src="./icons/Gatsby.svg" width="48"> | | `gcp` | <img src="./icons/GCP-Dark.svg" width="48"> | | `geany` | <img src="./icons/Geany.svg" width="48"> |
 | `genkit` | <img src="./icons/Genkit.svg" width="48"> | | `gentoo` | <img src="./icons/Gentoo-Dark.svg" width="48"> | | `getx` | <img src="./icons/Getx.svg" width="48"> |
