@@ -6,6 +6,7 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { encrypt } from '../utils/encrypt.js';
+import { hashPublicData } from './hash.js';
 
 const ICONS_DIR_PATH = 'icons';
 const DIST_DIR_PATH = 'dist';
@@ -32,7 +33,7 @@ async function buildAssets(): Promise<void> {
   if (!existsSync(DIST_DIR_PATH)) mkdirSync(DIST_DIR_PATH, { recursive: true });
   writeFileSync(OUTPUT_BIN_FILE, encrypted, 'utf8');
 
-  writeFileSync('public/icons.json', JSON.stringify(publicIcons), 'utf8');
+  hashPublicData(JSON.stringify(publicIcons));
 }
 
 buildAssets().catch(err => {

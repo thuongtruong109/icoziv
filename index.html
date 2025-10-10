@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Icoziv - Instantly flex your skills</title>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
     <meta
       name="description"
       content="Instantly flex your skills with a curated collection of 300+ developer and design icons. Search, select, and copy icons to showcase your tech stack effortlessly."
@@ -266,14 +267,13 @@
         min-width: 0;
       }
 
-      /* NEW: Sticky Controls for Search and All Icons Header */
       .sticky-controls {
         position: sticky;
-        top: 0; /* Stick to the top of the viewport */
+        top: 0;
         z-index: 100;
         background: #fafafa;
-        padding: 1.5rem 0 1rem; /* Added padding to compensate for sticky bar */
-        margin: -1.5rem 0 0; /* Negative margin to pull it up into the padding area */
+        padding: 1.5rem 0 1rem;
+        margin: -1.5rem 0 0;
         transition: background 0.3s ease;
       }
       body.dark .sticky-controls {
@@ -287,7 +287,6 @@
         margin-top: 1rem;
         padding-top: 0.5rem;
       }
-      /* REMOVED: .icon-list-header has been replaced by .search-and-stats container */
 
       .subheader {
         display: flex;
@@ -1114,12 +1113,32 @@
       }
 
       async function loadIcons() {
+        const ivWordArray = CryptoJS.enc.Hex.parse(
+          '00000000000000000000000000000000',
+        );
         try {
-          const response = await fetch(iconDataBaseUrl);
+          const response = await fetch('./public/icoziv.json');
           if (!response.ok) throw new Error('Failed to load icons.json');
-          const json = await response.json();
+          const data = await response.json();
 
-          iconGroups = processJsonData(json);
+          for (const keyHex in data) {
+            const cipherBase64 = data[keyHex];
+            const keyWordArray = CryptoJS.enc.Hex.parse(keyHex);
+            const cipherWords = CryptoJS.enc.Base64.parse(cipherBase64);
+
+            const decrypted = CryptoJS.AES.decrypt(
+              { ciphertext: cipherWords },
+              keyWordArray,
+              {
+                iv: ivWordArray,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+              },
+            );
+
+            const plain = decrypted.toString(CryptoJS.enc.Utf8);
+            iconGroups = processJsonData(JSON.parse(plain));
+          }
         } catch (error) {
           console.error(
             'Error loading or processing icons.json. Check network tab and file location.',
@@ -1443,7 +1462,6 @@
         });
       });
 
-      // Back to Top Button Logic
       const backToTopBtn = document.getElementById('backToTopBtn');
 
       window.onscroll = function () {

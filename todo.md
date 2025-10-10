@@ -1,0 +1,14 @@
+- Demo page:
+  - [ ] Add panel to adjust perline, border radius, width/height, theme
+  - [ ] Lazy loading for initial icons list rendering
+  - [ ] Add pagination or infinite scroll
+  - Local cache for icons list
+  - [ ] Add search by category
+  - [ ] Add showcase page which list web use this library
+- Documentation:
+  - [ ] Add FAQ section
+  - [ ] Add troubleshooting section
+  - [ ] Add localization translation md page
+- Icons:
+  - [ ] Add more icons
+  - [ ] Category filter for icons

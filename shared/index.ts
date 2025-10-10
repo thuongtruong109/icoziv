@@ -4,9 +4,21 @@ export const ICONS_PER_LINE = 15;
 export const THEMES: Theme[] = ['light', 'dark'];
 
 export const CONTENT = {
-  JSON: { 'content-type': 'application/json;charset=UTF-8' },
-  HTML: { 'content-type': 'text/html;charset=UTF-8' },
-  SVG: { 'content-type': 'image/svg+xml' },
+  JSON: {
+    'content-type': 'application/json;charset=UTF-8',
+    'Cache-Control': 'public, max-age=86400',
+    ETag: '"icons-json-tag"',
+  },
+  HTML: {
+    'content-type': 'text/html;charset=UTF-8',
+    'Cache-Control': 'public, max-age=86400',
+    ETag: '"icons-html-tag"',
+  },
+  SVG: {
+    'content-type': 'image/svg+xml',
+    'Cache-Control': 'public, max-age=86400',
+    ETag: '"icons-svg-tag"',
+  },
 };
 
 export const ERRORS = {
