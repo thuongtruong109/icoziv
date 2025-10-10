@@ -20,10 +20,11 @@ async function buildAssets(): Promise<void> {
   for (const fileName of iconsDir) {
     if (!fileName.endsWith('.svg')) continue;
     const svg = readFileSync(`${ICONS_DIR_PATH}/${fileName}`, 'utf8');
-    const iconKey = fileName.replace('.svg', '').toLowerCase();
+    const key = fileName.replace('.svg', '');
 
-    publicIcons.push(iconKey);
+    publicIcons.push(key);
 
+    const iconKey = key.toLowerCase();
     icons[iconKey] = svg;
   }
 

@@ -1134,7 +1134,7 @@
         const groups = {};
 
         for (const key of dataToProcess) {
-          const filenameBase = key;
+          const filenameBase = key.toLowerCase();
 
           let type = 'common';
           let displayName = filenameBase;

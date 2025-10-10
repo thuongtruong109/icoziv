@@ -35,9 +35,10 @@
 [![Example](https://img.shields.io/badge/2.%20Example-blue?style=flat)](#example)
 [![Specifying Icons](https://img.shields.io/badge/3.%20Specifying%20Icons-success?style=flat)](#specifying-icons)
 [![Themed Icons](https://img.shields.io/badge/4.%20Themed%20Icons-orange?style=flat)](#themed-icons)
-[![Icons Per Line](https://img.shields.io/badge/5.%20Icons%20Per%20Line-informational?style=flat)](#icons-per-line)
+[![Icons Per Line](https://img.shields.io/badge/5.%20Icons%20Per%20Line-00a6f4?style=flat)](#icons-per-line)
 [![Centering Icons](https://img.shields.io/badge/6.%20Centering%20Icons-pink?style=flat)](#centering-icons)
-[![Icons List](https://img.shields.io/badge/7.%20Icons%20List-purple?style=flat)](#icons-list)
+[![API Reference](https://img.shields.io/badge/7.%20API%20Reference-00bba7?style=flat)](#-api-reference)
+[![Icons List](https://img.shields.io/badge/8.%20Icons%20List-purple?style=flat)](#icons-list)
 
 ## 🧩 About
 
@@ -49,15 +50,6 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 
 <p align="center"><img align="center" src="./.github/assets/example-dark.png#gh-dark-mode-only"/></p>
 <p align="center"><img align="center" src="./.github/assets/example-light.png#gh-light-mode-only"/></p>
-
-## 🛠️ Configuration Options
-
-| Parameter | Short | Description | Required | Default |
-|-----------|-------|-------------|----------|---------|
-| `icons`   | `i`   | Comma-separated list of icon names                | Yes      | /       |
-| `theme`   | `t`   | Theme - `dark` (default) or `light`               | No       | dark    |
-| `perline` |       | Number of icons per line                          | No       | 15      |
-| `radius`  |       | Icon(s) corner radius (value between 25 and 85)   | No       | 40      |
 
 ## 🏷️ Specifying Icons
 
@@ -125,12 +117,12 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 
 **Endpoint:** `GET /icons`
 
-Generate an SVG badge with specified icons.
-
-**Parameters:**
-- `i` or `icons` (required): Comma-separated list of icon names
-- `t` or `theme` (optional): Theme - `dark` (default) or `light`
-- `perline` (optional): Number of icons per line (1-50, default: 15)
+| Parameter | Short | Description | Required | Default |
+|-----------|-------|-------------|----------|---------|
+| `icons`   | `i`   | Comma-separated list of icon names                | Yes      | /       |
+| `theme`   | `t`   | Theme - `dark` (default) or `light`               | No       | dark    |
+| `perline` |       | Number of icons per line (1-50)                          | No       | 15      |
+| `radius`  |       | Icon(s) corner radius (value between 25 and 85)   | No       | 40      |
 
 **Example:**
 ```
@@ -406,6 +398,11 @@ View the [changelog](CHANGELOG.md) for recent changes and [contributors](.github
 
 Thank you so much already for using my projects! If you want to go a step further and support my open source work, buy me a coffee:
 
-<a href='https://buymeacoffee.com/thuongtruong' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee' /></a>
+<a href='https://buymeacoffee.com/thuongtruong' target='_blank'><img style='border:0px;height:26px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee' /></a>
+<a href="https://github.com/sponsors/thuongtruong" target='_blank'><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86" style='border:0px;height:26px;'></a>
 
 To support the project directly, feel free to open issues for icon suggestions, or contribute with a pull request!
+
+## 📜 License
+
+This project is licensed under the [MIT LICENSE](LICENSE). Copyright (c) Thuong Truong 2025.
