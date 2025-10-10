@@ -1,16 +1,30 @@
-- Demo page:
-  - [ ] Add loading spinner when fetching icons
-  - [ ] Add error message when fetch fails
-  - [ ] Add panel to adjust perline, border radius, width/height, theme
-  - [ ] Lazy loading for initial icons list rendering
-  - [ ] Add pagination or infinite scroll
-  - Local cache for icons list
-  - [ ] Add search by category
-  - [ ] Add showcase page which list web use this library
-- Documentation:
-  - [ ] Add FAQ section
-  - [ ] Add troubleshooting section
-  - [ ] Add localization translation md page
-- Icons:
-  - [ ] Add more icons
-  - [ ] Category filter for icons
+## 🗺️ Todo roadmap
+
+### Demo page:
+
+- [ ] Add loading status when fetching icons
+- [ ] Add panel to adjust perline, border radius, width/height, theme
+- [ ] Split components and logic to multiple importable files
+- [ ] Lazy loading for initial icons list rendering
+- [ ] Add pagination or infinite scroll
+- [ ] Local cache for icons list
+- [ ] Add showcase page which list web use this library
+- [ ] Add search by category
+
+### Documentation:
+
+- [ ] Add localization translation md page
+- [ ] Add FAQ section
+
+### Icons:
+
+- [ ] Add more icons
+- [ ] Add dark version for single icons
+- [ ] Category filter for icons
+- [ ] Animation support for icons
+
+### Core:
+
+- [ ] Reduce response times
+- [ ] Rate limiting for fair usage
+- [ ] Optimize CDN delivery

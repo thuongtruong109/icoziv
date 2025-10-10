@@ -14,6 +14,8 @@ We welcome contributions! Here's how you can help improve Icoziv:
 5. **Test**: Run `bun run build` and verify the icon appears
 6. **Update README**: Run `bun run list` to regenerate the icons table
 
+👉 Check [todo.md](../todo.md) to get suitable ideas.
+
 ## Development Workflow
 
 1. Fork the repository
@@ -38,26 +40,6 @@ We welcome contributions! Here's how you can help improve Icoziv:
 - Use GitHub Issues to report bugs or request features
 - Provide clear descriptions and examples
 - Include screenshots for UI-related issues
-
-## 🗺️ Roadmap
-
-### Planned Features
-
-- [ ] **Icon Packs**: Curated collections (Frontend, Backend, DevOps, etc.)
-- [ ] **Custom Colors**: Allow custom color schemes beyond dark/light
-- [ ] **Animation Support**: Optional hover animations and transitions
-- [ ] **Icon Search API**: Search functionality for finding icons
-- [ ] **Bulk Generation**: Generate multiple badges at once
-- [ ] **Icon Statistics**: Usage analytics and popular icon tracking
-- [ ] **Community Submissions**: User-submitted icon approval workflow
-
-### Technical Improvements
-
-- [ ] **Performance Optimization**: Further reduce response times
-- [ ] **Caching Strategy**: Implement intelligent caching layers
-- [ ] **Rate Limiting**: Add proper rate limiting for fair usage
-- [ ] **Monitoring**: Add logging and error tracking
-- [ ] **CDN Optimization**: Optimize SVG delivery globally
 
 Thank you for your interest in contributing! This guide covers setup, development, testing, building, and publishing.
 
@@ -139,25 +121,6 @@ bun run build
   bun run format:fix
   ```
 
-## 📦 Publish
-
-1. **Update version:**
-
-   ```bash
-   npm version patch|minor|major
-   ```
-
-2. **Build the library:**
-
-   ```bash
-   bun run build
-   ```
-
-3. **Publish to npm:**
-   ```bash
-   npm publish
-   ```
-
 ## ✅ Quality Checks
 
 - **Run all checks:**
@@ -170,6 +133,12 @@ bun run build
   ```bash
   bun run check:fix
   ```
+
+## 📦 Build
+
+```bash
+bun run build
+```
 
 ## 💡 Tips
 
