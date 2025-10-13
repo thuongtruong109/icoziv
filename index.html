@@ -15,6 +15,9 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
       }
       body {
         font-family:
@@ -33,6 +36,20 @@
           color 0.3s ease;
         line-height: 1.5;
         min-height: 100vh;
+        position: relative;
+      }
+      body::after {
+        content: '';
+        width: 100%;
+        height: 25vh;
+        position: absolute;
+        display: block;
+        top: 0px;
+        z-index: -1;
+        background-image: linear-gradient(rgba(199, 246, 218, 0.63), #fafafa);
+      }
+      body.dark body::after {
+        height: 0;
       }
       body.dark {
         background: #0a0a0a;
@@ -115,11 +132,11 @@
       .brand-text {
         font-size: 1.7rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #10b981 0%, #3babf6 50%);
+        background: linear-gradient(135deg, #0ef1a6 0%, #3babf6 70%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.15));
+        text-shadow: 1px 2px 2px rgba(99, 102, 241, 0.25);
         transition: all 0.3s ease;
         font-family: 'Urbanist', 'Poppins', 'Inter', sans-serif;
       }
@@ -271,12 +288,14 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        background: #fafafa;
-        padding: 1.5rem 0 1rem;
-        margin: -1.5rem 0 0;
+        padding: 0.5rem 0 1rem;
+        margin: 0 0 0;
         transition: background 0.3s ease;
       }
-      body.dark .sticky-controls {
+      .sticky-controls.active {
+        background: #fafafa;
+      }
+      body.dark .sticky-controls.active {
         background: #0a0a0a;
       }
 
@@ -314,7 +333,6 @@
         gap: 0.75rem;
       }
       .stats {
-        /* UPDATED: Increased font size for better visibility next to search */
         font-size: 1rem;
         color: #71717a;
         font-weight: 500;
@@ -350,12 +368,11 @@
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
         display: grid;
-        padding-top: 0.5rem; /* compensates for the sticky bar's margin */
+        padding-top: 0.5rem;
       }
       #cartGrid {
         grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
         gap: 0.5rem;
-        /* MODIFICATION 4: Remove all padding from the grid inside cart */
         padding: 0;
       }
       .icon-card {
@@ -807,7 +824,7 @@
         .controls {
           width: 100%;
         }
-        /* Adjusted for mobile: make search full width and stretch wrapper */
+
         .search-and-stats {
           flex-direction: column;
           align-items: stretch;
@@ -832,10 +849,8 @@
           width: 100%;
         }
 
-        /* REMOVED: .subheader-search-wrapper, will be replaced by sticky-controls */
-
         .sticky-controls {
-          padding: 1rem 0 0.5rem;
+          padding: 0.5rem 0 0.5rem;
           margin: -1rem 0 0;
         }
 
@@ -872,15 +887,16 @@
       }
       #backToTopBtn {
         position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 50px;
-        height: 50px;
+        bottom: 1rem;
+        right: 1rem;
+        width: 3rem;
+        height: 3rem;
         z-index: 999;
-        display: none; /* Initially hidden */
+        display: none;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(10px);
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition:
           opacity 0.3s ease,
           visibility 0.3s ease,
@@ -890,7 +906,6 @@
         display: flex;
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
       }
     </style>
   </head>
@@ -1032,7 +1047,7 @@
                 <input
                   type="text"
                   id="searchInput"
-                  placeholder="Search for 600+ icons (e.g., React, Node, AWS)..."
+                  placeholder="Search for 600+ icons (e.g., React, Node, Go)..."
                 />
               </div>
             </div>
@@ -1086,8 +1101,8 @@
     <button class="action-button" id="backToTopBtn" title="Go to top">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="30"
-        height="30"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -1401,21 +1416,19 @@
         const iconNames = cartData.map(d => d.displayName).join(',');
 
         const iconFileNamesNormalized = cartData
-          .map(d => getNormalizedIconName(d.filename))
+          .map(d => getNormalizedIconName(d.filename).toLowerCase())
           .join(',');
 
         const themeQuery = isDark ? '' : '&theme=light';
         const fullImageUrl = `${base_url}/${base_url_prefix}?i=${iconFileNamesNormalized}${themeQuery}`;
 
-        const hrefBaseUrl = base_url;
-
         switch (type) {
           case 'image':
             return fullImageUrl;
           case 'html':
-            return `<a href="${hrefBaseUrl}" title="Open Icoziv"><img src="${fullImageUrl}" alt="skill_dev_tech_icons"></a>`;
+            return `<a href="${base_url}" title="Open Icoziv"><img src="${fullImageUrl}" alt="Icoziv-icons"></a>`;
           case 'markdown':
-            return `[![skill_dev_tech_icons](${fullImageUrl})](${hrefBaseUrl})`;
+            return `[![Icoziv-icons](${fullImageUrl})](${base_url})`;
           default:
             return '';
         }
@@ -1535,8 +1548,6 @@
         });
       });
 
-      const backToTopBtn = document.getElementById('backToTopBtn');
-
       const clearBtn = document.getElementById('clearCartButton');
       if (clearBtn) {
         clearBtn.addEventListener('click', () => {
@@ -1544,8 +1555,21 @@
         });
       }
 
+      const backToTopBtn = document.getElementById('backToTopBtn');
+      const headerSticky = document.querySelector('.sticky-controls');
+
       window.onscroll = function () {
         if (
+          document.body.scrollTop > 100 ||
+          document.documentElement.scrollTop > 100
+        ) {
+          headerSticky.classList.add('active');
+        } else if (
+          document.body.scrollTop <= 100 ||
+          document.documentElement.scrollTop <= 100
+        ) {
+          headerSticky.classList.remove('active');
+        } else if (
           document.body.scrollTop > 300 ||
           document.documentElement.scrollTop > 300
         ) {

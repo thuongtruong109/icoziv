@@ -64,8 +64,7 @@ async function handleRequest(request: Request): Promise<Response> {
       return jsonResponse(icons);
 
     default:
-      // return Response.redirect('https://thuongtruong109.github.io/icoziv', 302);
-      return jsonResponse({});
+      return Response.redirect('https://thuongtruong109.github.io/icoziv', 302);
   }
 }
 
