@@ -71,6 +71,12 @@ Thank you for your interest in contributing! This guide covers setup, developmen
 
 ## 🚀 Run
 
+- **Build source files before run functions serverless**
+
+  ```bash
+  bun run build
+  ```
+
 - **Start development server (watch mode):**
   ```bash
   bun run dev
