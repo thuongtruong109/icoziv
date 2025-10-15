@@ -4,7 +4,7 @@
 
 - [ ] Add loading status when fetching icons
 - [ ] Add panel to adjust perline, border radius, width/height, theme
-- [ ] Split components and logic to multiple importable files
+- [ ] Split components and logic to multiple importable files (styles, js)
 - [ ] Lazy loading for initial icons list rendering
 - [ ] Add pagination or infinite scroll
 - [ ] Local cache for icons list
@@ -14,12 +14,13 @@
 ### Documentation:
 
 - [ ] Add localization translation md page
+- [ ] Add examples for popular stacks
 - [ ] Add FAQ section
 
 ### Icons:
 
 - [ ] Add more icons
-- [ ] Add dark version for single icons
+- [ ] Add dark version for single or light version
 - [ ] Category filter for icons
 - [ ] Animation support for icons
 

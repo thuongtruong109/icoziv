@@ -46,8 +46,6 @@
 
 Simply specify the technologies you use, and get a professional-looking SVG badge that automatically adapts to your README's theme.
 
-## 🔍 Example
-
 <p align="center"><img align="center" src="./.github/assets/example-dark.png#gh-dark-mode-only"/></p>
 <p align="center"><img align="center" src="./.github/assets/example-light.png#gh-light-mode-only"/></p>
 
@@ -166,6 +164,8 @@ GET /api/svgs
   ...
 }
 ```
+
+<!-- ## 🔍 Example -->
 
 ## 📋 Icons List
 
