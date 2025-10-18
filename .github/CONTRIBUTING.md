@@ -11,8 +11,11 @@ We welcome contributions! Here's how you can help improve Icoziv:
    - Add `-Dark` or `-Light` suffix for themed variants
    - Keep names consistent with existing icons
 4. **Place in Directory**: Add to the `icons/` folder
-5. **Test**: Run `bun run build` and verify the icon appears
-6. **Update README**: Run `bun run list` to regenerate the icons table
+5. **Build**: Run `bun run build` and verify the icon is included
+6. **Check**: Run `bun run dev` to start the development server
+7. **Preview**: Open `http://localhost:8787/icons/icons?i=<icon-name>` to preview the icon
+8. **Update README**: Run `bun run list` to regenerate the icons table
+9. **Submit a PR**: Run `bun run check:fix` to ensure everything passes, then submit a pull request
 
 👉 Check [todo.md](../todo.md) to get suitable ideas.
 
