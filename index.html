@@ -1048,12 +1048,34 @@
       const base_url_prefix = 'icons';
       const base_url = 'https://i.icoziv.workers.dev';
       const iconDataBaseUrl = `public/icons.json`;
+      const CACHE_KEY = 'icoziv_icons_cache';
+      const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
       const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
       const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
       const emptySearchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M5 12h2"/><path d="M9 12h2"/></svg>`;
       const tickIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+      function getCachedData() {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (!cached) return null;
+
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_EXPIRY_MS) {
+          return data;
+        }
+        localStorage.removeItem(CACHE_KEY); // Expired cache, remove it
+        return null;
+      }
+
+      function setCachedData(data) {
+        const cacheData = {
+          data,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      }
 
       function getNormalizedIconName(filename) {
         if (filename.endsWith('-dark.svg')) {
@@ -1114,10 +1136,18 @@
       }
 
       async function loadIcons() {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        loadingIndicator.style.display = 'block'; // Show loading indicator
+
         try {
-          const response = await fetch(iconDataBaseUrl);
-          if (!response.ok) throw new Error('Failed to load icons.json');
-          const json = await response.json();
+          // Check if cached data is available
+          let json = getCachedData();
+          if (!json) {
+            const response = await fetch(iconDataBaseUrl);
+            if (!response.ok) throw new Error('Failed to load icons.json');
+            json = await response.json();
+            setCachedData(json); // Cache the new data
+          }
 
           iconGroups = processJsonData(json);
         } catch (error) {
@@ -1125,13 +1155,20 @@
             'Error loading or processing icons.json. Check network tab and file location.',
             error,
           );
-          iconGroups = {};
+          // Fall back to cached data if fetch fails
+          const cachedData = getCachedData();
+          if (cachedData) {
+            iconGroups = processJsonData(cachedData);
+          } else {
+            iconGroups = {}; // No cache, empty data
+          }
+        } finally {
+          loadingIndicator.style.display = 'none'; // Hide loading indicator
+          document.getElementById('themeToggle').innerHTML = isDark
+            ? sunIcon
+            : moonIcon;
+          renderIcons();
         }
-
-        document.getElementById('themeToggle').innerHTML = isDark
-          ? sunIcon
-          : moonIcon;
-        renderIcons();
       }
 
       function getActiveFileForGroup(iconGroup) {
