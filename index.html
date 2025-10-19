@@ -1250,13 +1250,13 @@
       paginationContainer.className = 'pagination-controls';
 
       paginationContainer.innerHTML = `
-        <button onclick="changePage(-1)" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
-        <span>Page ${currentPage} of ${totalPages} - Previous Page ${currentPage} of ${totalPages} Next</span>
-        <button onclick="changePage(1)" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
-      `;
+          <button onclick="changePage(-1)" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+          <span>Page ${currentPage} of ${totalPages}</span>
+          <button onclick="changePage(1)" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+        `;
 
-      document.getElementById('iconGrid').appendChild(paginationContainer);
-    }
+        document.getElementById('iconGrid').appendChild(paginationContainer);
+      }
 
       function changePage(delta) {
         currentPage += delta;
