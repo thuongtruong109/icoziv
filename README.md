@@ -177,7 +177,7 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 | `ableton` | <img src="./icons/Ableton-Dark.svg" width="48"> | | `activitypub` | <img src="./icons/ActivityPub-Dark.svg" width="48"> | | `actix` | <img src="./icons/Actix-Dark.svg" width="48"> |
 | `adobe` | <img src="./icons/Adobe.svg" width="48"> | | `adobeaftereffects` | <img src="./icons/AdobeAfterEffects.svg" width="48"> | | `adobeaudition` | <img src="./icons/AdobeAudition.svg" width="48"> |
 | `adobedreamweaver` | <img src="./icons/AdobeDreamWeaver.svg" width="48"> | | `adobeexpress` | <img src="./icons/AdobeExpress.svg" width="48"> | | `adobeillustrator` | <img src="./icons/AdobeIllustrator.svg" width="48"> |
-| `adobeindesign` | <img src="./icons/AdobeIndesign.svg" width="48"> | | `adobelightroom` | <img src="./icons/AdobeLightroom.svg" width="48"> | | `adobephotoshop` | <img src="./icons/AdobePhotoshop.svg" width="48"> |
+| `adobeindesign` | <img src="./icons/AdobeIndesign.svg" width="48"> | | `adobelightroom` | <img src="./icons/AdobeLightroom.svg" width="48"> | | `adobephotoshop` | <img src="./icons/AdobePhotoshop.svg" width="48"> |   
 | `adobepremiere` | <img src="./icons/AdobePremiere.svg" width="48"> | | `adobexd` | <img src="./icons/AdobeXD.svg" width="48"> | | `adonis` | <img src="./icons/Adonis.svg" width="48"> |
 | `airflow` | <img src="./icons/Airflow.svg" width="48"> | | `aiscript` | <img src="./icons/AiScript-Dark.svg" width="48"> | | `alacritty` | <img src="./icons/Alacritty.svg" width="48"> |
 | `alchemy` | <img src="./icons/Alchemy.svg" width="48"> | | `alpinejs` | <img src="./icons/AlpineJS-Dark.svg" width="48"> | | `alpinelinux` | <img src="./icons/AlpineLinux.svg" width="48"> |
