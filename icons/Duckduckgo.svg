@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" aria-label="DuckDuckGo" viewBox="-128 -128 256 256" id="duckduckgo">
+<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" aria-label="DuckDuckGo" viewBox="-128 -128 256 256" id="duckduckgo" width="256" height="256">
   <rect width="256" height="256" x="-128" y="-128" rx="15%"></rect>
   <circle r="108" fill="#d53"></circle>
   <circle r="96" fill="none" stroke="#fff" stroke-width="7"></circle>
