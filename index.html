@@ -342,9 +342,9 @@
         flex-shrink: 0;
       }
       #loadingIndicator {
-      font-size: 1.1rem;
-      font-weight: 500;
-      animation: pulse 1.5s infinite;
+        font-size: 1.1rem;
+        font-weight: 500;
+        animation: pulse 1.5s infinite;
       }
 
       body.dark #loadingIndicator {
@@ -1020,42 +1020,50 @@
           <div class="icon-grid" id="cartGrid"></div>
         </div>
 
-      <div class="icon-list-main">
-        <div class="sticky-controls">
-          <div class="search-and-stats">
-            <div
-              class="subheader-search-wrapper"
-              style="position: relative; flex-grow: 1"
-            >
-              <div class="search-icon" id="searchIcon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
+        <div class="icon-list-main">
+          <div class="sticky-controls">
+            <div class="search-and-stats">
+              <div
+                class="subheader-search-wrapper"
+                style="position: relative; flex-grow: 1"
+              >
+                <div class="search-icon" id="searchIcon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search for 800+ icons (e.g., React, Node, Go)..."
+                />
               </div>
-              <input
-                type="text"
-                id="searchInput"
-                placeholder="Search for 800+ icons (e.g., React, Node, Go)..."
-              />
             </div>
           </div>
+          <div
+            id="loadingIndicator"
+            style="
+              display: none;
+              text-align: center;
+              padding: 1rem;
+              color: #71717a;
+            "
+          >
+            Loading icons...
+          </div>
+          <div class="icon-grid" id="iconGrid"></div>
         </div>
-        <div id="loadingIndicator" style="display: none; text-align: center; padding: 1rem; color: #71717a;">
-          Loading icons...
-        </div>
-        <div class="icon-grid" id="iconGrid"></div>
-      </div>
       </div>
     </section>
     <section class="modal-overlay" id="copyModal">
