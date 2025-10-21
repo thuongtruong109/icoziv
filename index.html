@@ -495,10 +495,10 @@
       }
       .view-mode-section {
         flex-direction: row;
-          gap: 0.25rem;
-          padding: 0;
-          margin: 0;
-          align-items: center;
+        gap: 0.25rem;
+        padding: 0;
+        margin: 0;
+        align-items: center;
       }
 
       .view-mode-section label {
@@ -516,27 +516,27 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 1rem; 
+        gap: 1rem;
         margin-top: 1rem;
         margin-bottom: 0;
       }
 
       #paginationControls button {
-        padding: 0.5rem 1rem; 
-        border: 2px solid #6366f1; 
+        padding: 0.5rem 1rem;
+        border: 2px solid #6366f1;
         border-radius: 6px;
-        background: #ffffff; 
+        background: #ffffff;
         cursor: pointer;
-        font-size: 1rem; 
-        font-weight: 600; 
-        color: #6366f1; 
+        font-size: 1rem;
+        font-weight: 600;
+        color: #6366f1;
         transition: all 0.2s ease;
       }
       #paginationControls button:hover {
         background: #6366f1;
-        color: #ffffff; 
-        transform: translateY(-2px); 
-        box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3); 
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
       }
 
       #paginationControls button:disabled {
@@ -550,12 +550,12 @@
       }
 
       #paginationControls span {
-        font-size: 1rem; 
-          font-weight: 600;
-          color: #09090b;
-          padding: 0.5rem 1rem; 
-          background: #f4f4f5; 
-          border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #09090b;
+        padding: 0.5rem 1rem;
+        background: #f4f4f5;
+        border-radius: 6px;
       }
 
       .icon-card.in-cart .tick-icon {
@@ -1072,7 +1072,10 @@
         <div class="icon-list-main">
           <div class="sticky-controls">
             <div class="search-and-stats">
-              <div class="subheader-search-wrapper" style="position: relative; flex-grow: 1">
+              <div
+                class="subheader-search-wrapper"
+                style="position: relative; flex-grow: 1"
+              >
                 <div class="search-icon" id="searchIcon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -1097,14 +1100,18 @@
               </div>
             </div>
             <div class="view-mode-section">
-              <label for="viewModeToggle" style="font-weight: 600; color: #6366f1;">View Mode:</label>
+              <label
+                for="viewModeToggle"
+                style="font-weight: 600; color: #6366f1"
+                >View Mode:</label
+              >
               <select id="viewModeToggle">
                 <option value="pagination">Pagination</option>
                 <option value="infinite">Infinite Scroll</option>
               </select>
             </div>
           </div>
-          <div id="paginationControls" style="margin-bottom: 1rem;"></div>
+          <div id="paginationControls" style="margin-bottom: 1rem"></div>
           <div class="icon-grid" id="iconGrid"></div>
         </div>
       </div>
@@ -1333,10 +1340,13 @@
       }
 
       function renderIcons() {
-        const groupsArray = Object.values(iconGroups).filter(isIconGroupVisible);
+        const groupsArray =
+          Object.values(iconGroups).filter(isIconGroupVisible);
         const grid = document.getElementById('iconGrid');
 
-        let visibleMainItems = groupsArray.map(getActiveFileForGroup).filter(Boolean);
+        let visibleMainItems = groupsArray
+          .map(getActiveFileForGroup)
+          .filter(Boolean);
         const totalVisible = visibleMainItems.length;
 
         let start = 0;
@@ -1351,10 +1361,14 @@
 
         visibleMainItems = visibleMainItems.slice(start, end);
 
-        grid.innerHTML = visibleMainItems.map(iconData => {
-          const iconUrl = `${base_url_prefix}/${iconData.filename}`;
-          const inCartClass = iconGroups[iconData.displayName.toLowerCase()].inCart ? 'in-cart' : '';
-          return `
+        grid.innerHTML = visibleMainItems
+          .map(iconData => {
+            const iconUrl = `${base_url_prefix}/${iconData.filename}`;
+            const inCartClass = iconGroups[iconData.displayName.toLowerCase()]
+              .inCart
+              ? 'in-cart'
+              : '';
+            return `
             <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
               <div class="icon-preview-wrapper">
                 <div class="icon-preview">
@@ -1367,7 +1381,8 @@
               ${inCartClass ? '<div class="tick-icon">' + tickIcon + '</div>' : ''}
             </div>
           `;
-        }).join('');
+          })
+          .join('');
 
         renderPaginationControls(totalVisible);
       }
@@ -1399,7 +1414,8 @@
       }
 
       function changePage(delta) {
-        const groupsArray = Object.values(iconGroups).filter(isIconGroupVisible);
+        const groupsArray =
+          Object.values(iconGroups).filter(isIconGroupVisible);
         const totalVisible = groupsArray.length;
         const totalPages = Math.ceil(totalVisible / itemsPerPage);
         const newPage = currentPage + delta;
@@ -1411,8 +1427,12 @@
       function setupInfiniteScroll() {
         window.addEventListener('scroll', () => {
           if (viewMode !== 'infinite') return;
-          if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-            const groupsArray = Object.values(iconGroups).filter(isIconGroupVisible);
+          if (
+            window.innerHeight + window.scrollY >=
+            document.body.offsetHeight - 100
+          ) {
+            const groupsArray =
+              Object.values(iconGroups).filter(isIconGroupVisible);
             const totalVisible = groupsArray.length;
             const totalPages = Math.ceil(totalVisible / itemsPerPage);
             if (currentPage < totalPages) {
@@ -1423,7 +1443,7 @@
         });
       }
 
-      viewModeToggle.addEventListener('change', (e) => {
+      viewModeToggle.addEventListener('change', e => {
         viewMode = e.target.value;
         currentPage = 1;
         renderIcons();
@@ -1470,9 +1490,10 @@
       function renderCart() {
         const cartGrid = document.getElementById('cartGrid');
         const cartData = getCartIconData();
-        cartGrid.innerHTML = cartData.map(iconData => {
-          const iconUrl = `${base_url_prefix}/${iconData.filename}`;
-          return `
+        cartGrid.innerHTML = cartData
+          .map(iconData => {
+            const iconUrl = `${base_url_prefix}/${iconData.filename}`;
+            return `
             <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
               <div class="icon-preview-wrapper">
                 <div class="icon-preview">
@@ -1481,7 +1502,8 @@
               </div>
             </div>
           `;
-        }).join('');
+          })
+          .join('');
 
         const cartStats = document.getElementById('cartStats');
         cartStats.textContent = `${cartData.length} items`;
