@@ -23,7 +23,7 @@ export function parseIconsParam(
       ? iconNameList.slice()
       : param
           .split(',')
-          .map(s => s.trim())
+          .map(s => s.trim().toLowerCase())
           .filter(Boolean);
 
   const seen = new Set<string>();
