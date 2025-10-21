@@ -493,6 +493,24 @@
       body.dark .icon-card.in-cart .icon-preview-wrapper::before {
         background: rgba(168, 85, 247, 0.1);
       }
+      .view-mode-section {
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.75rem;
+        margin: 1rem 0;
+      }
+
+      .view-mode-section label {
+        font-size: 0.875rem;
+      }
+
+      .view-mode-section select {
+        padding: 0.5rem;
+        border: 1px solid #e4e4e7;
+        border-radius: 6px;
+        background: white;
+        min-width: 150px;
+      }
       .icon-card.in-cart .tick-icon {
         display: flex;
         position: absolute;
@@ -659,24 +677,6 @@
         color: #71717a;
         cursor: pointer;
         transition: color 0.2s;
-      }
-      .view-mode-section {
-        flex-direction: column;
-        gap: 0.25rem;
-        padding: 0.75rem;
-        margin: 1rem 0;
-      }
-      
-      .view-mode-section label {
-        font-size: 0.875rem;
-      }
-      
-      .view-mode-section select {
-        padding: 0.5rem;
-        border: 1px solid #e4e4e7;
-        border-radius: 6px;
-        background: white;
-        min-width: 150px;
       }
       .modal-close:hover {
         color: #ef4444;
@@ -1060,7 +1060,6 @@
               <option value="infinite">Infinite Scroll</option>
             </select>
           </div>
-          
           <div id="paginationControls" style="margin-bottom: 1rem;"></div>
           <div class="icon-grid" id="iconGrid"></div>
         </div>
@@ -1135,6 +1134,9 @@
       let viewMode = 'pagination';
       let currentPage = 1;
       const itemsPerPage = 50;
+      const viewModeToggle = document.getElementById('viewModeToggle');
+      const paginationControls = document.getElementById('paginationControls');
+      const iconGrid = document.querySelector('.icon-grid');
 
       const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
@@ -1234,6 +1236,7 @@
           ? sunIcon
           : moonIcon;
         renderIcons();
+        renderCart();
       }
 
       function getActiveFileForGroup(iconGroup) {
@@ -1288,20 +1291,27 @@
       function renderIcons() {
         const groupsArray = Object.values(iconGroups).filter(isIconGroupVisible);
         const grid = document.getElementById('iconGrid');
-        const clearButton = document.getElementById('clearCartButton');
 
         let visibleMainItems = groupsArray.map(getActiveFileForGroup).filter(Boolean);
+        const totalVisible = visibleMainItems.length;
+
+        let start = 0;
+        let end = totalVisible;
 
         if (viewMode === 'pagination') {
-          const start = (currentPage - 1) * itemsPerPage;
-          const end = start + itemsPerPage;
-          visibleMainItems = visibleMainItems.slice(start, end);
+          start = (currentPage - 1) * itemsPerPage;
+          end = Math.min(start + itemsPerPage, totalVisible);
+        } else {
+          end = Math.min(currentPage * itemsPerPage, totalVisible);
         }
+
+        visibleMainItems = visibleMainItems.slice(start, end);
 
         grid.innerHTML = visibleMainItems.map(iconData => {
           const iconUrl = `${base_url_prefix}/${iconData.filename}`;
+          const inCartClass = iconGroups[iconData.displayName.toLowerCase()].inCart ? 'in-cart' : '';
           return `
-            <div class="icon-card" onclick="toggleCart(event, '${iconData.displayName}')">
+            <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
               <div class="icon-preview-wrapper">
                 <div class="icon-preview">
                   <img src="${iconUrl}" alt="${iconData.displayName}">
@@ -1310,29 +1320,47 @@
               <div class="icon-info">
                 <div class="icon-name">${iconData.displayName}</div>
               </div>
+              ${inCartClass ? '<div class="tick-icon">' + tickIcon + '</div>' : ''}
             </div>
           `;
         }).join('');
 
-        if (viewMode === 'pagination') renderPaginationControls(groupsArray.length);
+        renderPaginationControls(totalVisible);
       }
 
-    function renderPaginationControls(totalItems) {
-      const totalPages = Math.ceil(totalItems / itemsPerPage);
-      const paginationContainer = document.createElement('div');
-      paginationContainer.className = 'pagination-controls';
+      function renderPaginationControls(totalItems) {
+        const container = document.getElementById('paginationControls');
+        container.innerHTML = '';
+        if (viewMode !== 'pagination') return;
 
-      paginationContainer.innerHTML = `
-          <button onclick="changePage(-1)" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
-          <span>Page ${currentPage} of ${totalPages}</span>
-          <button onclick="changePage(1)" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
-        `;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        if (totalPages <= 1) return;
 
-        document.getElementById('iconGrid').appendChild(paginationContainer);
+        const prevBtn = document.createElement('button');
+        prevBtn.textContent = 'Previous';
+        prevBtn.onclick = () => changePage(-1);
+        prevBtn.disabled = currentPage === 1;
+
+        const span = document.createElement('span');
+        span.textContent = `Page ${currentPage} of ${totalPages}`;
+
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = 'Next';
+        nextBtn.onclick = () => changePage(1);
+        nextBtn.disabled = currentPage === totalPages;
+
+        container.appendChild(prevBtn);
+        container.appendChild(span);
+        container.appendChild(nextBtn);
       }
 
       function changePage(delta) {
-        currentPage += delta;
+        const groupsArray = Object.values(iconGroups).filter(isIconGroupVisible);
+        const totalVisible = groupsArray.length;
+        const totalPages = Math.ceil(totalVisible / itemsPerPage);
+        const newPage = currentPage + delta;
+        if (newPage < 1 || newPage > totalPages) return;
+        currentPage = newPage;
         renderIcons();
       }
 
@@ -1340,95 +1368,22 @@
         window.addEventListener('scroll', () => {
           if (viewMode !== 'infinite') return;
           if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-            currentPage++;
-            renderIcons();
+            const groupsArray = Object.values(iconGroups).filter(isIconGroupVisible);
+            const totalVisible = groupsArray.length;
+            const totalPages = Math.ceil(totalVisible / itemsPerPage);
+            if (currentPage < totalPages) {
+              currentPage++;
+              renderIcons();
+            }
           }
         });
       }
 
-      document.getElementById('viewModeToggle').addEventListener('change', (e) => {
-      viewMode = e.target.value;
-      currentPage = 1;
-      renderIcons();
-    });
-
-        
-        
-        if (cartGroups.length === 0) {
-          cartSection.style.display = 'none';
-          copyButton.disabled = true;
-          if (clearButton) clearButton.disabled = true;
-        } else {
-          cartSection.style.display = 'block';
-          copyButton.disabled = false;
-          if (clearButton) clearButton.disabled = false;
-
-          const visibleCartItems = cartGroups
-            .map(getActiveFileForGroup)
-            .filter(Boolean);
-
-          cartGrid.innerHTML = visibleCartItems
-            .map(iconData => {
-              const iconUrl = `${base_url_prefix}/${iconData.filename}`;
-
-              return `
-                     <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
-                      <div class="icon-preview-wrapper">
-                     <div class="icon-preview">
-                       <img src="${iconUrl}" alt="${iconData.displayName}">
-                     </div>
-                      </div>
-                     </div>
-                     `;
-            })
-            .join('');
-        }
-
-        const filteredGroupsBySearch = groupsArray.filter(isIconGroupVisible);
-        let availableGroups = filteredGroupsBySearch;
-
-        const grid = document.getElementById('iconGrid');
-
-        if (availableGroups.length === 0) {
-          grid.innerHTML = `
-                     <div class="empty-state" style="grid-column: 1/-1;">
-                     <div class="empty-icon">${emptySearchIcon}</div>
-                     <div class="empty-text">No icons found matching "${searchQuery}"</div>
-                     </div>
-                     `;
-        } else {
-          const visibleMainItems = availableGroups
-            .map(getActiveFileForGroup)
-            .filter(Boolean);
-
-          grid.innerHTML = visibleMainItems
-            .map(iconData => {
-              const key = iconData.displayName.toLowerCase();
-              const iconGroup = iconGroups[key];
-              const iconUrl = `${base_url_prefix}/${iconData.filename}`;
-              const inCartClass = iconGroup.inCart ? 'in-cart' : '';
-
-              const tickHtml = iconGroup.inCart
-                ? `<div class="tick-icon">${tickIcon}</div>`
-                : '';
-
-              return `
-                     <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
-                      <div class="icon-preview-wrapper">
-                     <div class="icon-preview">
-                       <img src="${iconUrl}" alt="${iconData.displayName}">
-                     </div>
-                     ${tickHtml}
-                      </div>
-                      <div class="icon-info">
-                     <div class="icon-name">${iconData.displayName}</div>
-                      </div>
-                     </div>
-                     `;
-            })
-            .join('');
-        }
-      }
+      viewModeToggle.addEventListener('change', (e) => {
+        viewMode = e.target.value;
+        currentPage = 1;
+        renderIcons();
+      });
 
       function showToast(message) {
         const toast = document.getElementById('toast');
@@ -1458,6 +1413,7 @@
         }
 
         renderIcons();
+        renderCart();
       }
 
       function getCartIconData() {
@@ -1465,6 +1421,35 @@
           .filter(group => group.inCart)
           .map(group => getActiveFileForGroup(group))
           .filter(Boolean);
+      }
+
+      function renderCart() {
+        const cartGrid = document.getElementById('cartGrid');
+        const cartData = getCartIconData();
+        cartGrid.innerHTML = cartData.map(iconData => {
+          const iconUrl = `${base_url_prefix}/${iconData.filename}`;
+          return `
+            <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
+              <div class="icon-preview-wrapper">
+                <div class="icon-preview">
+                  <img src="${iconUrl}" alt="${iconData.displayName}">
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const cartStats = document.getElementById('cartStats');
+        cartStats.textContent = `${cartData.length} items`;
+
+        const copyButton = document.getElementById('copyCartButton');
+        copyButton.disabled = cartData.length === 0;
+
+        const clearButton = document.getElementById('clearCartButton');
+        clearButton.disabled = cartData.length === 0;
+
+        const cartSection = document.getElementById('cartSection');
+        cartSection.style.display = cartData.length > 0 ? 'block' : 'none';
       }
 
       function clearCart() {
@@ -1479,6 +1464,7 @@
         });
 
         renderIcons();
+        renderCart();
         showToast('Cleared all picked icons');
       }
 
@@ -1569,8 +1555,8 @@
         isDark = !isDark;
         document.body.classList.toggle('dark', isDark);
         document.getElementById('themeToggle').innerHTML = isDark
-          ? moonIcon
-          : sunIcon;
+          ? sunIcon
+          : moonIcon;
 
         localStorage.setItem(
           'icoziv-dark-mode',
@@ -1578,6 +1564,7 @@
         );
 
         renderIcons();
+        renderCart();
       }
 
       document.addEventListener('DOMContentLoaded', () => {
@@ -1599,6 +1586,7 @@
         }
 
         loadIcons();
+        setupInfiniteScroll();
 
         document
           .getElementById('themeToggle')
@@ -1608,18 +1596,9 @@
           .getElementById('searchInput')
           .addEventListener('input', event => {
             searchQuery = event.target.value;
+            currentPage = 1;
             renderIcons();
           });
-
-        document
-            .getElementById('viewModeToggle')
-            .addEventListener('change', (e) => {
-              viewMode = e.target.value;
-              currentPage = 1;
-              renderIcons();
-            });
-
-          setupInfiniteScroll();
 
         document
           .getElementById('copyCartButton')
