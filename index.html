@@ -1215,12 +1215,34 @@
       const viewModeToggle = document.getElementById('viewModeToggle');
       const paginationControls = document.getElementById('paginationControls');
       const iconGrid = document.querySelector('.icon-grid');
+      const CACHE_KEY = 'icoziv_icons_cache';
+      const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
       const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
       const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
       const emptySearchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M5 12h2"/><path d="M9 12h2"/></svg>`;
       const tickIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+      function getCachedData() {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (!cached) return null;
+
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_EXPIRY_MS) {
+          return data;
+        }
+        localStorage.removeItem(CACHE_KEY); // Expired cache, remove it
+        return null;
+      }
+
+      function setCachedData(data) {
+        const cacheData = {
+          data,
+          timestamp: Date.now(),
+        };
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+      }
 
       function getNormalizedIconName(filename) {
         if (filename.endsWith('-dark.svg')) {
@@ -1278,46 +1300,79 @@
         const loadingIndicator = document.getElementById('loadingIndicator');
         loadingIndicator.style.display = 'block'; // Show loading indicator
 
+        const cachedData = getCachedData();
+        if (cachedData) {
+          iconGroups = processJsonData(cachedData);
+          renderIcons();
+          return;
+        }
+
         const ivWordArray = CryptoJS.enc.Hex.parse(
           '00000000000000000000000000000000',
         );
+        let decryptedData = [];
+
         try {
           const response = await fetch(iconDataBaseUrl);
-          if (!response.ok)
-            throw new Error(`Failed to load ${iconDataBaseUrl}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
           const data = await response.json();
 
-          for (const keyHex in data) {
-            const cipherBase64 = data[keyHex];
-            const keyWordArray = CryptoJS.enc.Hex.parse(keyHex);
-            const cipherWords = CryptoJS.enc.Base64.parse(cipherBase64);
+          // Check if data is an object with encrypted keys
+          if (!Array.isArray(data)) {
+            for (const keyHex in data) {
+              const cipherBase64 = data[keyHex];
+              const keyWordArray = CryptoJS.enc.Hex.parse(keyHex);
+              const cipherWords = CryptoJS.enc.Base64.parse(cipherBase64);
 
-            const decrypted = CryptoJS.AES.decrypt(
-              { ciphertext: cipherWords },
-              keyWordArray,
-              {
-                iv: ivWordArray,
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Pkcs7,
-              },
-            );
+              const decrypted = CryptoJS.AES.decrypt(
+                { ciphertext: cipherWords },
+                keyWordArray,
+                {
+                  iv: ivWordArray,
+                  mode: CryptoJS.mode.CBC,
+                  padding: CryptoJS.pad.Pkcs7,
+                },
+              );
 
-            const plain = decrypted.toString(CryptoJS.enc.Utf8);
-            iconGroups = processJsonData(JSON.parse(plain));
+              const plain = decrypted.toString(CryptoJS.enc.Utf8);
+              try {
+                decryptedData = decryptedData.concat(JSON.parse(plain));
+              } catch (parseError) {
+                console.error(
+                  `Error parsing decrypted JSON for key ${keyHex}:`,
+                  parseError,
+                );
+              }
+            }
+          } else {
+            // If data is already an array, use it directly
+            decryptedData = data;
           }
+
+          setCachedData(decryptedData);
+          iconGroups = processJsonData(decryptedData);
+          renderIcons();
         } catch (error) {
           console.error(
             `Error loading or processing ${iconDataBaseUrl}. Check network tab and file location.`,
             error,
           );
-          iconGroups = {};
+          // Display empty state if loading fails
+          const grid = document.getElementById('iconGrid');
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+              <div class="empty-icon">${emptySearchIcon}</div>
+              <div class="empty-text">Failed to load icons. Please try again later.</div>
+            </div>
+          `;
         } finally {
           loadingIndicator.style.display = 'none'; // Hide loading indicator
           document.getElementById('themeToggle').innerHTML = isDark
             ? sunIcon
             : moonIcon;
-          renderIcons();
-        }
+          }
       }
 
       function getActiveFileForGroup(iconGroup) {
@@ -1622,7 +1677,6 @@
           .setAttribute('data-full-content', markdownContent);
 
         document.getElementById('copyImageDisplay').textContent = imageContent;
-
         document.getElementById('copyHtmlDisplay').textContent =
           formatPreviewText(htmlContent);
         document.getElementById('copyMarkdownDisplay').textContent =
@@ -1714,9 +1768,7 @@
           button.addEventListener('click', event => {
             const targetType = event.target.getAttribute('data-copy-target');
             const displayElement = document.getElementById(
-              `copy${
-                targetType.charAt(0).toUpperCase() + targetType.slice(1)
-              }Display`,
+              `copy${targetType.charAt(0).toUpperCase() + targetType.slice(1)}Display`,
             );
             const content = displayElement.getAttribute('data-full-content');
             copyToClipboard(content);
@@ -1740,12 +1792,10 @@
           document.documentElement.scrollTop > 100
         ) {
           headerSticky.classList.add('active');
-        } else if (
-          document.body.scrollTop <= 100 ||
-          document.documentElement.scrollTop <= 100
-        ) {
+        } else {
           headerSticky.classList.remove('active');
-        } else if (
+        }
+        if (
           document.body.scrollTop > 300 ||
           document.documentElement.scrollTop > 300
         ) {
