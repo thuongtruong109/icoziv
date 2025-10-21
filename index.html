@@ -494,10 +494,11 @@
         background: rgba(168, 85, 247, 0.1);
       }
       .view-mode-section {
-        flex-direction: column;
-        gap: 0.25rem;
-        padding: 0.75rem;
-        margin: 1rem 0;
+        flex-direction: row;
+          gap: 0.25rem;
+          padding: 0;
+          margin: 0;
+          align-items: center;
       }
 
       .view-mode-section label {
@@ -511,6 +512,52 @@
         background: white;
         min-width: 150px;
       }
+      #paginationControls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem; 
+        margin-top: 1rem;
+        margin-bottom: 0;
+      }
+
+      #paginationControls button {
+        padding: 0.5rem 1rem; 
+        border: 2px solid #6366f1; 
+        border-radius: 6px;
+        background: #ffffff; 
+        cursor: pointer;
+        font-size: 1rem; 
+        font-weight: 600; 
+        color: #6366f1; 
+        transition: all 0.2s ease;
+      }
+      #paginationControls button:hover {
+        background: #6366f1;
+        color: #ffffff; 
+        transform: translateY(-2px); 
+        box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3); 
+      }
+
+      #paginationControls button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        background: #e4e4e7;
+        border-color: #d4d4d8;
+        color: #a1a1aa;
+        transform: none;
+        box-shadow: none;
+      }
+
+      #paginationControls span {
+        font-size: 1rem; 
+          font-weight: 600;
+          color: #09090b;
+          padding: 0.5rem 1rem; 
+          background: #f4f4f5; 
+          border-radius: 6px;
+      }
+
       .icon-card.in-cart .tick-icon {
         display: flex;
         position: absolute;
@@ -1025,10 +1072,7 @@
         <div class="icon-list-main">
           <div class="sticky-controls">
             <div class="search-and-stats">
-              <div
-                class="subheader-search-wrapper"
-                style="position: relative; flex-grow: 1"
-              >
+              <div class="subheader-search-wrapper" style="position: relative; flex-grow: 1">
                 <div class="search-icon" id="searchIcon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -1052,13 +1096,13 @@
                 />
               </div>
             </div>
-          </div>
-          <div class="view-mode-section">
-            <label for="viewModeToggle" style="font-weight: 600; color: #6366f1;">View Mode:</label>
-            <select id="viewModeToggle">
-              <option value="pagination">Pagination</option>
-              <option value="infinite">Infinite Scroll</option>
-            </select>
+            <div class="view-mode-section">
+              <label for="viewModeToggle" style="font-weight: 600; color: #6366f1;">View Mode:</label>
+              <select id="viewModeToggle">
+                <option value="pagination">Pagination</option>
+                <option value="infinite">Infinite Scroll</option>
+              </select>
+            </div>
           </div>
           <div id="paginationControls" style="margin-bottom: 1rem;"></div>
           <div class="icon-grid" id="iconGrid"></div>
