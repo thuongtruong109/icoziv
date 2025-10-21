@@ -1187,65 +1187,78 @@
       }
 
       async function loadIcons() {
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        loadingIndicator.style.display = 'block'; // Show loading indicator
+        const cachedData = getCachedData();
+        if (cachedData) {
+          iconGroups = processJsonData(cachedData);
+          renderIcons();
+          return;
+        }
 
         const ivWordArray = CryptoJS.enc.Hex.parse(
           '00000000000000000000000000000000',
         );
+        let decryptedData = [];
+
         try {
           const response = await fetch(iconDataBaseUrl);
-          if (!response.ok)
-            throw new Error(`Failed to load ${iconDataBaseUrl}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
           const data = await response.json();
 
-          for (const keyHex in data) {
-            const cipherBase64 = data[keyHex];
-            const keyWordArray = CryptoJS.enc.Hex.parse(keyHex);
-            const cipherWords = CryptoJS.enc.Base64.parse(cipherBase64);
+          // Check if data is an object with encrypted keys
+          if (!Array.isArray(data)) {
+            for (const keyHex in data) {
+              const cipherBase64 = data[keyHex];
+              const keyWordArray = CryptoJS.enc.Hex.parse(keyHex);
+              const cipherWords = CryptoJS.enc.Base64.parse(cipherBase64);
 
-            const decrypted = CryptoJS.AES.decrypt(
-              { ciphertext: cipherWords },
-              keyWordArray,
-              {
-                iv: ivWordArray,
-                mode: CryptoJS.mode.CBC,
-                padding: CryptoJS.pad.Pkcs7,
-              },
-            );
+              const decrypted = CryptoJS.AES.decrypt(
+                { ciphertext: cipherWords },
+                keyWordArray,
+                {
+                  iv: ivWordArray,
+                  mode: CryptoJS.mode.CBC,
+                  padding: CryptoJS.pad.Pkcs7,
+                },
+              );
 
-            const plain = decrypted.toString(CryptoJS.enc.Utf8);
-            iconGroups = processJsonData(JSON.parse(plain));
+              const plain = decrypted.toString(CryptoJS.enc.Utf8);
+              try {
+                decryptedData = decryptedData.concat(JSON.parse(plain));
+              } catch (parseError) {
+                console.error(
+                  `Error parsing decrypted JSON for key ${keyHex}:`,
+                  parseError,
+                );
+              }
+            }
+          } else {
+            // If data is already an array, use it directly
+            decryptedData = data;
           }
-          // Check if cached data is available
-          let json = getCachedData();
-          if (!json) {
-            const response = await fetch(iconDataBaseUrl);
-            if (!response.ok) throw new Error('Failed to load icons.json');
-            json = await response.json();
-            setCachedData(json); // Cache the new data
-          }
 
-          iconGroups = processJsonData(json);
+          setCachedData(decryptedData);
+          iconGroups = processJsonData(decryptedData);
+          renderIcons();
         } catch (error) {
           console.error(
             `Error loading or processing ${iconDataBaseUrl}. Check network tab and file location.`,
             error,
           );
-          // Fall back to cached data if fetch fails
-          const cachedData = getCachedData();
-          if (cachedData) {
-            iconGroups = processJsonData(cachedData);
-          } else {
-            iconGroups = {}; // No cache, empty data
-          }
-        } finally {
-          loadingIndicator.style.display = 'none'; // Hide loading indicator
-          document.getElementById('themeToggle').innerHTML = isDark
-            ? sunIcon
-            : moonIcon;
-          renderIcons();
+          // Display empty state if loading fails
+          const grid = document.getElementById('iconGrid');
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+              <div class="empty-icon">${emptySearchIcon}</div>
+              <div class="empty-text">Failed to load icons. Please try again later.</div>
+            </div>
+          `;
         }
+
+        document.getElementById('themeToggle').innerHTML = isDark
+          ? sunIcon
+          : moonIcon;
       }
 
       function getActiveFileForGroup(iconGroup) {
@@ -1325,16 +1338,15 @@
           cartGrid.innerHTML = visibleCartItems
             .map(iconData => {
               const iconUrl = `${base_url_prefix}/${iconData.filename}`;
-
               return `
-                     <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
-                      <div class="icon-preview-wrapper">
-                     <div class="icon-preview">
-                       <img src="${iconUrl}" alt="${iconData.displayName}">
-                     </div>
-                      </div>
-                     </div>
-                     `;
+                <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
+                  <div class="icon-preview-wrapper">
+                    <div class="icon-preview">
+                      <img src="${iconUrl}" alt="${iconData.displayName}">
+                    </div>
+                  </div>
+                </div>
+              `;
             })
             .join('');
         }
@@ -1346,11 +1358,11 @@
 
         if (availableGroups.length === 0) {
           grid.innerHTML = `
-                     <div class="empty-state" style="grid-column: 1/-1;">
-                     <div class="empty-icon">${emptySearchIcon}</div>
-                     <div class="empty-text">No icons found matching "${searchQuery}"</div>
-                     </div>
-                     `;
+            <div class="empty-state" style="grid-column: 1/-1;">
+              <div class="empty-icon">${emptySearchIcon}</div>
+              <div class="empty-text">No icons found matching "${searchQuery}"</div>
+            </div>
+          `;
         } else {
           const visibleMainItems = availableGroups
             .map(getActiveFileForGroup)
@@ -1362,24 +1374,23 @@
               const iconGroup = iconGroups[key];
               const iconUrl = `${base_url_prefix}/${iconData.filename}`;
               const inCartClass = iconGroup.inCart ? 'in-cart' : '';
-
               const tickHtml = iconGroup.inCart
                 ? `<div class="tick-icon">${tickIcon}</div>`
                 : '';
 
               return `
-                     <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
-                      <div class="icon-preview-wrapper">
-                     <div class="icon-preview">
-                       <img src="${iconUrl}" alt="${iconData.displayName}">
-                     </div>
-                     ${tickHtml}
-                      </div>
-                      <div class="icon-info">
-                      <div class="icon-name">${iconData.displayName}</div>
-                      </div>
-                     </div>
-                     `;
+                <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
+                  <div class="icon-preview-wrapper">
+                    <div class="icon-preview">
+                      <img src="${iconUrl}" alt="${iconData.displayName}">
+                    </div>
+                    ${tickHtml}
+                  </div>
+                  <div class="icon-info">
+                    <div class="icon-name">${iconData.displayName}</div>
+                  </div>
+                </div>
+              `;
             })
             .join('');
         }
@@ -1495,7 +1506,6 @@
           .setAttribute('data-full-content', markdownContent);
 
         document.getElementById('copyImageDisplay').textContent = imageContent;
-
         document.getElementById('copyHtmlDisplay').textContent =
           formatPreviewText(htmlContent);
         document.getElementById('copyMarkdownDisplay').textContent =
@@ -1524,8 +1534,8 @@
         isDark = !isDark;
         document.body.classList.toggle('dark', isDark);
         document.getElementById('themeToggle').innerHTML = isDark
-          ? moonIcon
-          : sunIcon;
+          ? sunIcon
+          : moonIcon;
 
         localStorage.setItem(
           'icoziv-dark-mode',
@@ -1584,9 +1594,7 @@
           button.addEventListener('click', event => {
             const targetType = event.target.getAttribute('data-copy-target');
             const displayElement = document.getElementById(
-              `copy${
-                targetType.charAt(0).toUpperCase() + targetType.slice(1)
-              }Display`,
+              `copy${targetType.charAt(0).toUpperCase() + targetType.slice(1)}Display`,
             );
             const content = displayElement.getAttribute('data-full-content');
             copyToClipboard(content);
@@ -1610,12 +1618,10 @@
           document.documentElement.scrollTop > 100
         ) {
           headerSticky.classList.add('active');
-        } else if (
-          document.body.scrollTop <= 100 ||
-          document.documentElement.scrollTop <= 100
-        ) {
+        } else {
           headerSticky.classList.remove('active');
-        } else if (
+        }
+        if (
           document.body.scrollTop > 300 ||
           document.documentElement.scrollTop > 300
         ) {
