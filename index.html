@@ -334,6 +334,22 @@
         align-items: center;
         gap: 0.75rem;
       }
+      .stats {
+        /* UPDATED: Increased font size for better visibility next to search */
+        font-size: 1rem;
+        color: #71717a;
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+      #loadingIndicator {
+        font-size: 1.1rem;
+        font-weight: 500;
+        animation: pulse 1.5s infinite;
+      }
+
+      body.dark #loadingIndicator {
+        color: #a1a1aa;
+      }
       .copy-button {
         padding: 0.4rem 0.75rem;
         font-size: 0.8rem;
@@ -1035,6 +1051,17 @@
               </div>
             </div>
           </div>
+          <div
+            id="loadingIndicator"
+            style="
+              display: none;
+              text-align: center;
+              padding: 1rem;
+              color: #71717a;
+            "
+          >
+            Loading icons...
+          </div>
           <div class="icon-grid" id="iconGrid"></div>
         </div>
       </div>
@@ -1165,6 +1192,9 @@
       }
 
       async function loadIcons() {
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        loadingIndicator.style.display = 'block'; // Show loading indicator
+
         const ivWordArray = CryptoJS.enc.Hex.parse(
           '00000000000000000000000000000000',
         );
@@ -1198,12 +1228,13 @@
             error,
           );
           iconGroups = {};
+        } finally {
+          loadingIndicator.style.display = 'none'; // Hide loading indicator
+          document.getElementById('themeToggle').innerHTML = isDark
+            ? sunIcon
+            : moonIcon;
+          renderIcons();
         }
-
-        document.getElementById('themeToggle').innerHTML = isDark
-          ? sunIcon
-          : moonIcon;
-        renderIcons();
       }
 
       function getActiveFileForGroup(iconGroup) {
