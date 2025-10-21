@@ -2,7 +2,9 @@
 
 Thanks to the following people who have contributed to this project:
 
-| Name   | Contribution      | GitHub                                    |
-| ------ | ----------------- | ----------------------------------------- |
-| User 1 | Add XYZ.svg icons | [User 1 GitHub](https://github.com/user1) |
-| User 2 | Fix bug in ABC    | [User 2 GitHub](https://github.com/user2) |
+| No  | Name                                                  | Contribution                                                                                  |
+| --- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| 1   | [AzabadaudiyaZWS](https://github.com/AzabadaudiyaZWS) | Add back to top button [#3](https://github.com/thuongtruong109/icoziv/pull/3)                 |
+| 2   | [Laura Valencia Gracia](https://github.com/kit57)     | Updated CONTRIBUTING.md path in README [#6](https://github.com/thuongtruong109/icoziv/pull/6) |
+| 3   | [Lfbyte](https://github.com/Lfbyte)                   | Fixed typo of image name in README.md [#7](https://github.com/thuongtruong109/icoziv/pull/7)  |
+| 4   | [K Om Senapati](https://github.com/k0msenapati)       | Add clear cart button [#8](https://github.com/thuongtruong109/icoziv/pull/8)                  |

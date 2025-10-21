@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Icoziv - Instantly flex your skills</title>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
     <meta
       name="description"
       content="Instantly flex your skills with a curated collection of 300+ developer and design icons. Search, select, and copy icons to showcase your tech stack effortlessly."
@@ -14,6 +15,9 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
       }
       body {
         font-family:
@@ -32,6 +36,22 @@
           color 0.3s ease;
         line-height: 1.5;
         min-height: 100vh;
+        position: relative;
+      }
+      body::after {
+        content: '';
+        width: 100%;
+        height: 25vh;
+        position: absolute;
+        display: block;
+        top: 0px;
+        z-index: -1;
+        background-image: linear-gradient(rgba(199, 246, 218, 0.63), #fafafa);
+      }
+      body.dark body::after {
+        height: 0 !important;
+        background-image: none !important;
+        display: hidden !important;
       }
       body.dark {
         background: #0a0a0a;
@@ -114,11 +134,11 @@
       .brand-text {
         font-size: 1.7rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #10b981 0%, #3babf6 50%);
+        background: linear-gradient(135deg, #0ef1a6 0%, #3babf6 70%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.15));
+        text-shadow: 1px 2px 2px rgba(99, 102, 241, 0.25);
         transition: all 0.3s ease;
         font-family: 'Urbanist', 'Poppins', 'Inter', sans-serif;
       }
@@ -266,17 +286,18 @@
         min-width: 0;
       }
 
-      /* NEW: Sticky Controls for Search and All Icons Header */
       .sticky-controls {
         position: sticky;
-        top: 0; /* Stick to the top of the viewport */
+        top: 0;
         z-index: 100;
-        background: #fafafa;
-        padding: 1.5rem 0 1rem; /* Added padding to compensate for sticky bar */
-        margin: -1.5rem 0 0; /* Negative margin to pull it up into the padding area */
+        padding: 0.5rem 0 1rem;
+        margin: 0 0 0;
         transition: background 0.3s ease;
       }
-      body.dark .sticky-controls {
+      .sticky-controls.active {
+        background: #fafafa;
+      }
+      body.dark .sticky-controls.active {
         background: #0a0a0a;
       }
 
@@ -287,7 +308,6 @@
         margin-top: 1rem;
         padding-top: 0.5rem;
       }
-      /* REMOVED: .icon-list-header has been replaced by .search-and-stats container */
 
       .subheader {
         display: flex;
@@ -360,12 +380,11 @@
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
         display: grid;
-        padding-top: 0.5rem; /* compensates for the sticky bar's margin */
+        padding-top: 0.5rem;
       }
       #cartGrid {
         grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
         gap: 0.5rem;
-        /* MODIFICATION 4: Remove all padding from the grid inside cart */
         padding: 0;
       }
       .icon-card {
@@ -738,6 +757,41 @@
         display: flex;
         justify-content: flex-end;
       }
+      .cart-footer {
+        margin-top: 0.75rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .clear-button {
+        padding: 0.3rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #ef4444;
+        background: white;
+        border: 1px dashed #ef4444;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .clear-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(220, 38, 38, 0.18);
+      }
+      .clear-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      body.dark .clear-button {
+        background: #464646da;
+        color: #fff;
+        border: none;
+        padding: 0.4rem;
+      }
       .modal-list {
         display: none;
       }
@@ -780,7 +834,7 @@
         .controls {
           width: 100%;
         }
-        /* Adjusted for mobile: make search full width and stretch wrapper */
+
         .search-and-stats {
           flex-direction: column;
           align-items: stretch;
@@ -805,10 +859,8 @@
           width: 100%;
         }
 
-        /* REMOVED: .subheader-search-wrapper, will be replaced by sticky-controls */
-
         .sticky-controls {
-          padding: 1rem 0 0.5rem;
+          padding: 0.5rem 0 0.5rem;
           margin: -1rem 0 0;
         }
 
@@ -845,15 +897,16 @@
       }
       #backToTopBtn {
         position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 50px;
-        height: 50px;
+        bottom: 1rem;
+        right: 1rem;
+        width: 3rem;
+        height: 3rem;
         z-index: 999;
-        display: none; /* Initially hidden */
+        display: none;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(10px);
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition:
           opacity 0.3s ease,
           visibility 0.3s ease,
@@ -863,7 +916,6 @@
         display: flex;
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
       }
     </style>
   </head>
@@ -891,20 +943,16 @@
               aria-label="GitHub Repository"
             >
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+                viewBox="0 0 256 256"
                 fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M15 22v-4a4.8 4.8 0 0 0-1-3.6c3.25 0 6.8-.7 6.8-7.7A5.5 5.5 0 0 0 20 4.2c.7-2.2 1.3-3.2 1.3-3.2s-2 0-3.3 1.2a11.1 11.1 0 0 0-3.2-.4c-1.6 0-3.2.1-4.7.4a11.1 11.1 0 0 0-3.2.4c-1.3-1.2-3.3-1.2-3.3-1.2s.6 1 1.3 3.2a5.5 5.5 0 0 0 1.6 3.3c0 7 3.5 7.7 6.8 7.7a4.8 4.8 0 0 0-1 3.6v4"
+                  d="M128.001 30C72.7791 30 28 74.7708 28 130.001C28 174.184 56.6533 211.668 96.3867 224.891C101.384 225.817 103.219 222.722 103.219 220.081C103.219 217.696 103.126 209.819 103.083 201.463C75.2631 207.512 69.3927 189.664 69.3927 189.664C64.8437 178.105 58.2894 175.032 58.2894 175.032C49.2163 168.825 58.9733 168.953 58.9733 168.953C69.0151 169.658 74.3026 179.258 74.3026 179.258C83.2217 194.546 97.6965 190.126 103.403 187.571C104.301 181.107 106.892 176.696 109.752 174.199C87.5405 171.67 64.1913 163.095 64.1913 124.778C64.1913 113.86 68.0977 104.939 74.4947 97.9362C73.4564 95.4175 70.0335 85.2465 75.4635 71.4722C75.4635 71.4722 83.8609 68.7845 102.971 81.7226C110.948 79.5069 119.502 78.3958 128.001 78.3577C136.499 78.3958 145.061 79.5069 153.052 81.7226C172.139 68.7845 180.525 71.4722 180.525 71.4722C185.968 85.2465 182.544 95.4175 181.505 97.9362C187.917 104.939 191.797 113.86 191.797 124.778C191.797 163.187 168.403 171.644 146.135 174.119C149.722 177.223 152.918 183.308 152.918 192.638C152.918 206.018 152.802 216.787 152.802 220.081C152.802 222.742 154.602 225.86 159.671 224.878C199.383 211.64 228 174.169 228 130.001C228 74.7708 183.227 30 128.001 30ZM65.4536 172.453C65.2333 172.95 64.4517 173.099 63.7396 172.758C63.0143 172.432 62.6069 171.754 62.8421 171.256C63.0574 170.744 63.8406 170.602 64.5643 170.945C65.2913 171.271 65.7053 171.955 65.4536 172.453ZM70.3725 176.842C69.8956 177.285 68.9633 177.079 68.3307 176.38C67.6766 175.683 67.554 174.751 68.0376 174.302C68.5294 173.86 69.4336 174.067 70.0893 174.764C70.7434 175.47 70.8709 176.395 70.3725 176.842ZM73.7471 182.458C73.1344 182.884 72.1325 182.485 71.5132 181.595C70.9004 180.706 70.9004 179.64 71.5264 179.212C72.1474 178.785 73.1344 179.169 73.762 180.052C74.373 180.956 74.373 182.023 73.7471 182.458ZM79.4542 188.962C78.9061 189.566 77.7386 189.404 76.8841 188.579C76.0098 187.773 75.7663 186.629 76.3161 186.024C76.8709 185.418 78.045 185.589 78.9061 186.407C79.7738 187.211 80.0387 188.364 79.4542 188.962ZM86.8301 191.157C86.5883 191.941 85.4639 192.297 84.3312 191.964C83.2002 191.621 82.46 190.704 82.6885 189.912C82.9237 189.124 84.053 188.753 85.194 189.109C86.3234 189.45 87.0652 190.361 86.8301 191.157ZM95.2242 192.089C95.2523 192.913 94.2919 193.597 93.1029 193.612C91.9073 193.639 90.9402 192.971 90.9269 192.16C90.9269 191.327 91.8659 190.65 93.0615 190.63C94.2505 190.607 95.2242 191.269 95.2242 192.089ZM103.47 191.773C103.613 192.577 102.787 193.404 101.606 193.624C100.445 193.836 99.3702 193.339 99.2229 192.541C99.0788 191.716 99.92 190.89 101.079 190.676C102.262 190.471 103.32 190.955 103.47 191.773Z"
+                  fill="currentColor"
                 />
-                <path d="M9 19c-4.3 1.4-4.3-2.5-4.3-2.5" />
               </svg>
             </a>
 
@@ -919,39 +967,55 @@
       <div class="main-content">
         <div class="cart-section" id="cartSection" style="display: none">
           <div class="subheader">
-            <div class="section-title">Picked</div>
-            <div class="cart-controls">
-              <div class="stats" id="cartStats">0 items</div>
-              <button class="copy-button" id="copyCartButton" disabled>
-                <div
-                  style="
-                    width: 1rem;
-                    height: 1rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                  "
+            <button class="copy-button" id="copyCartButton" disabled>
+              <div
+                style="
+                  width: 1rem;
+                  height: 1rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-                    <path
-                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                    />
-                  </svg>
-                </div>
-                Copy
-              </button>
-            </div>
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                  <path
+                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                  />
+                </svg>
+              </div>
+              Copy
+              <div class="stats" id="cartStats">0 items</div>
+            </button>
+            <button class="clear-button" id="clearCartButton" disabled>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                <path d="M10 11v6"></path>
+                <path d="M14 11v6"></path>
+                <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
           </div>
           <div class="icon-grid" id="cartGrid"></div>
         </div>
@@ -982,7 +1046,7 @@
               <input
                 type="text"
                 id="searchInput"
-                placeholder="Search for 600+ icons (e.g., React, Node, AWS)..."
+                placeholder="Search for 800+ icons (e.g., React, Node, Go)..."
               />
             </div>
           </div>
@@ -1039,8 +1103,8 @@
     <button class="action-button" id="backToTopBtn" title="Go to top">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="30"
-        height="30"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -1059,7 +1123,7 @@
       let isDark = false;
       const base_url_prefix = 'icons';
       const base_url = 'https://i.icoziv.workers.dev';
-      const iconDataBaseUrl = `public/icons.json`;
+      const iconDataBaseUrl = `public/icoziv.json`;
 
       const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
@@ -1081,9 +1145,12 @@
       }
 
       function processJsonData(jsonData) {
+        const dataToProcess = Array.isArray(jsonData)
+          ? jsonData
+          : Object.keys(jsonData);
         const groups = {};
 
-        for (const key in jsonData) {
+        for (const key of dataToProcess) {
           const filenameBase = key.toLowerCase();
 
           let type = 'common';
@@ -1106,20 +1173,11 @@
                 displayName.charAt(0).toUpperCase() + displayName.slice(1),
               inCart: false,
               filenames: {},
-              svgContent: jsonData[key],
+              svgContent: '',
             };
           }
 
           groups[displayName].filenames[type] = filename;
-          if (
-            type === 'common' ||
-            (type === 'dark' && isDark) ||
-            (type === 'light' && !isDark)
-          ) {
-            groups[displayName].svgContent = jsonData[key];
-          } else if (!groups[displayName].svgContent) {
-            groups[displayName].svgContent = jsonData[key];
-          }
         }
 
         return groups;
@@ -1129,15 +1187,36 @@
         const loadingIndicator = document.getElementById('loadingIndicator');
         loadingIndicator.style.display = 'block'; // Show loading indicator
 
+        const ivWordArray = CryptoJS.enc.Hex.parse(
+          '00000000000000000000000000000000',
+        );
         try {
           const response = await fetch(iconDataBaseUrl);
-          if (!response.ok) throw new Error('Failed to load icons.json');
-          const json = await response.json();
+          if (!response.ok)
+            throw new Error(`Failed to load ${iconDataBaseUrl}`);
+          const data = await response.json();
 
-          iconGroups = processJsonData(json);
+          for (const keyHex in data) {
+            const cipherBase64 = data[keyHex];
+            const keyWordArray = CryptoJS.enc.Hex.parse(keyHex);
+            const cipherWords = CryptoJS.enc.Base64.parse(cipherBase64);
+
+            const decrypted = CryptoJS.AES.decrypt(
+              { ciphertext: cipherWords },
+              keyWordArray,
+              {
+                iv: ivWordArray,
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+              },
+            );
+
+            const plain = decrypted.toString(CryptoJS.enc.Utf8);
+            iconGroups = processJsonData(JSON.parse(plain));
+          }
         } catch (error) {
           console.error(
-            'Error loading or processing icons.json. Check network tab and file location.',
+            `Error loading or processing ${iconDataBaseUrl}. Check network tab and file location.`,
             error,
           );
           iconGroups = {};
@@ -1205,6 +1284,7 @@
         const cartGrid = document.getElementById('cartGrid');
         const cartSection = document.getElementById('cartSection');
         const copyButton = document.getElementById('copyCartButton');
+        const clearButton = document.getElementById('clearCartButton');
 
         let cartGroups = groupsArray.filter(group => group.inCart);
         document.getElementById('cartStats').textContent =
@@ -1213,9 +1293,11 @@
         if (cartGroups.length === 0) {
           cartSection.style.display = 'none';
           copyButton.disabled = true;
+          if (clearButton) clearButton.disabled = true;
         } else {
           cartSection.style.display = 'block';
           copyButton.disabled = false;
+          if (clearButton) clearButton.disabled = false;
 
           const visibleCartItems = cartGroups
             .map(getActiveFileForGroup)
@@ -1275,7 +1357,7 @@
                      ${tickHtml}
                       </div>
                       <div class="icon-info">
-                     <div class="icon-name">${iconData.displayName}</div>
+                      <div class="icon-name">${iconData.displayName}</div>
                       </div>
                      </div>
                      `;
@@ -1321,25 +1403,38 @@
           .filter(Boolean);
       }
 
+      function clearCart() {
+        const anyInCart = Object.values(iconGroups).some(g => g.inCart);
+        if (!anyInCart) {
+          showToast('Cart is already empty');
+          return;
+        }
+
+        Object.values(iconGroups).forEach(g => {
+          g.inCart = false;
+        });
+
+        renderIcons();
+        showToast('Cleared all picked icons');
+      }
+
       function generateCopyContent(type, cartData) {
         const iconNames = cartData.map(d => d.displayName).join(',');
 
         const iconFileNamesNormalized = cartData
-          .map(d => getNormalizedIconName(d.filename))
+          .map(d => getNormalizedIconName(d.filename).toLowerCase())
           .join(',');
 
-        const themeQuery = isDark ? '' : '&theme=light';
+        const themeQuery = isDark ? '' : '&t=light';
         const fullImageUrl = `${base_url}/${base_url_prefix}?i=${iconFileNamesNormalized}${themeQuery}`;
-
-        const hrefBaseUrl = base_url;
 
         switch (type) {
           case 'image':
             return fullImageUrl;
           case 'html':
-            return `<a href="${hrefBaseUrl}" title="Open Icoziv"><img src="${fullImageUrl}" alt="skill_dev_tech_icons"></a>`;
+            return `<a href="${base_url}" title="Open Icoziv"><img src="${fullImageUrl}" alt="Icoziv-icons"></a>`;
           case 'markdown':
-            return `[![skill_dev_tech_icons](${fullImageUrl})](${hrefBaseUrl})`;
+            return `[![Icoziv-icons](${fullImageUrl})](${base_url})`;
           default:
             return '';
         }
@@ -1410,14 +1505,35 @@
         isDark = !isDark;
         document.body.classList.toggle('dark', isDark);
         document.getElementById('themeToggle').innerHTML = isDark
-          ? sunIcon
-          : moonIcon;
+          ? moonIcon
+          : sunIcon;
+
+        localStorage.setItem(
+          'icoziv-dark-mode',
+          isDark ? 'enabled' : 'disabled',
+        );
+
         renderIcons();
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('icoziv-dark-mode');
+
+        if (savedTheme === 'enabled') {
+          isDark = true;
+        } else if (savedTheme === 'disabled') {
+          isDark = false;
+        } else {
+          isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
         document.body.classList.toggle('dark', isDark);
+
+        const themeToggleBtn = document.getElementById('themeToggle');
+        if (themeToggleBtn) {
+          themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
+        }
+
         loadIcons();
 
         document
@@ -1459,11 +1575,28 @@
         });
       });
 
-      // Back to Top Button Logic
+      const clearBtn = document.getElementById('clearCartButton');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          clearCart();
+        });
+      }
+
       const backToTopBtn = document.getElementById('backToTopBtn');
+      const headerSticky = document.querySelector('.sticky-controls');
 
       window.onscroll = function () {
         if (
+          document.body.scrollTop > 100 ||
+          document.documentElement.scrollTop > 100
+        ) {
+          headerSticky.classList.add('active');
+        } else if (
+          document.body.scrollTop <= 100 ||
+          document.documentElement.scrollTop <= 100
+        ) {
+          headerSticky.classList.remove('active');
+        } else if (
           document.body.scrollTop > 300 ||
           document.documentElement.scrollTop > 300
         ) {
