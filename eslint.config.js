@@ -20,5 +20,5 @@ export default defineConfig(
       ],
     },
   },
-  globalIgnores(['dist', 'node_modules', 'public', '*.json', 'playground']),
+  globalIgnores(['dist', 'node_modules', 'public', '*.json', 'playground2']),
 );
