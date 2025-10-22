@@ -32,7 +32,7 @@
 ## 📚 Contents
 
 [![About](https://img.shields.io/badge/1.%20About-yellow?style=flat)](#-about)
-[![Example](https://img.shields.io/badge/2.%20Example-blue?style=flat)](#example)
+[![Features](https://img.shields.io/badge/2.%20Features-blue?style=flat)](#features)
 [![Specifying Icons](https://img.shields.io/badge/3.%20Specifying%20Icons-success?style=flat)](#specifying-icons)
 [![Themed Icons](https://img.shields.io/badge/4.%20Themed%20Icons-orange?style=flat)](#themed-icons)
 [![Icons Per Line](https://img.shields.io/badge/5.%20Icons%20Per%20Line-00a6f4?style=flat)](#icons-per-line)
@@ -48,6 +48,18 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 
 <p align="center"><img align="center" src="./.github/assets/example-dark.png#gh-dark-mode-only"/></p>
 <p align="center"><img align="center" src="./.github/assets/example-light.png#gh-light-mode-only"/></p>
+
+## ⚙️ Features
+
+- **Fast and Serverless:** Icoziv is built for speed and efficiency, leveraging serverless architecture for quick icon generation.
+- **Customizable Themes:** Choose between dark and light themes to match your README's style.
+- **Flexible Layouts:** Easily adjust the number of icons per line and their alignment.
+- **Global CDN:** Icons are served from a global CDN for optimal performance.
+- **Extensive Icon Library:** A wide range of technology and skill icons to choose from.
+- **Open Source:** Fully open source, welcoming contributions from the community.
+- **Easy Integration:** Simple URL parameters to customize your icon badges.
+- **Lazy Loading:** Improve initial loading times by lazy loading icons as they come into view.
+- **Pagination:** Implement pagination or infinite scroll for easier navigation through icons.
 
 ## 🏷️ Specifying Icons
 
