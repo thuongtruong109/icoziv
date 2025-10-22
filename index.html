@@ -334,13 +334,6 @@
         align-items: center;
         gap: 0.75rem;
       }
-      .stats {
-        /* UPDATED: Increased font size for better visibility next to search */
-        font-size: 1rem;
-        color: #71717a;
-        font-weight: 500;
-        flex-shrink: 0;
-      }
       #loadingIndicator {
         font-size: 1.1rem;
         font-weight: 500;
@@ -908,6 +901,15 @@
           text-align: right;
           margin-top: 0.5rem;
         }
+        #loadingIndicator {
+          font-size: 1.1rem;
+          font-weight: 500;
+          animation: pulse 1.5s infinite;
+        }
+
+        body.dark #loadingIndicator {
+          color: #a1a1aa;
+        }
         .main-content {
           flex-direction: column;
           gap: 2rem;
@@ -1001,6 +1003,20 @@
         </div>
         <div class="header-right">
           <div class="controls">
+            <a
+              href="/playground/contributors.html"
+              target="_blank"
+              class="action-button github-button"
+              aria-label="Contributors"
+            >
+              <img
+                src="./playground/assets/contributors.svg"
+                alt="Contributors"
+                width="20"
+                height="20"
+              />
+            </a>
+
             <a
               href="https://github.com/thuongtruong109/icoziv"
               target="_blank"
@@ -1127,6 +1143,7 @@
               </select>
             </div>
           </div>
+          <div id="paginationControls" style="margin-bottom: 1rem"></div>
           <div
             id="loadingIndicator"
             style="
@@ -1275,8 +1292,7 @@
 
       async function loadIcons() {
         const loadingIndicator = document.getElementById('loadingIndicator');
-        loadingIndicator.style.display = 'block'; // Show loading indicator
-
+        loadingIndicator.style.display = 'block';
         const ivWordArray = CryptoJS.enc.Hex.parse(
           '00000000000000000000000000000000',
         );
@@ -1311,11 +1327,12 @@
           );
           iconGroups = {};
         } finally {
-          loadingIndicator.style.display = 'none'; // Hide loading indicator
+          loadingIndicator.style.display = 'none';
           document.getElementById('themeToggle').innerHTML = isDark
             ? sunIcon
             : moonIcon;
           renderIcons();
+          renderCart();
         }
       }
 

@@ -130,4 +130,5 @@ dist
 worker/
 .wrangler/
 playground/
+playground2/
 test.html
