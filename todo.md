@@ -8,7 +8,6 @@
 
 ### Demo page:
 
-- [ ] Local cache for icons list
 - [ ] Add panel to adjust perline, border radius, width/height, theme
 - [ ] Split components and logic to multiple importable files (styles, js)
 - [ ] Add showcase page which list web use this library

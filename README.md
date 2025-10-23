@@ -60,6 +60,7 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 - **Easy Integration:** Simple URL parameters to customize your icon badges.
 - **Lazy Loading:** Improve initial loading times by lazy loading icons as they come into view.
 - **Pagination:** Implement pagination or infinite scroll for easier navigation through icons.
+- **Caching:** Utilize local caching to reduce load times for frequently accessed icons.
 
 ## 🏷️ Specifying Icons
 
