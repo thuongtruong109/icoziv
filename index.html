@@ -1232,7 +1232,7 @@
       const paginationControls = document.getElementById('paginationControls');
       const iconGrid = document.querySelector('.icon-grid');
       const CACHE_KEY = 'icoziv_icons_cache';
-      const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+      const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000;
 
       const searchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
       const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
@@ -1248,7 +1248,7 @@
         if (Date.now() - timestamp < CACHE_EXPIRY_MS) {
           return data;
         }
-        localStorage.removeItem(CACHE_KEY); // Expired cache, remove it
+        localStorage.removeItem(CACHE_KEY);
         return null;
       }
 
@@ -1321,20 +1321,21 @@
           renderIcons();
           return;
         }
-
+        console.log(
+          'No valid cache found. Fetching and decrypting icon data...',
+        );
         const ivWordArray = CryptoJS.enc.Hex.parse(
           '00000000000000000000000000000000',
         );
         let decryptedData = [];
-
         try {
           const response = await fetch(iconDataBaseUrl);
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
+          if (!response.ok)
+            throw new Error(
+              `Error: Failed to load ${iconDataBaseUrl} | Status: ${response.status}`,
+            );
           const data = await response.json();
 
-          // Check if data is an object with encrypted keys
           if (!Array.isArray(data)) {
             for (const keyHex in data) {
               const cipherBase64 = data[keyHex];
@@ -1362,19 +1363,16 @@
               }
             }
           } else {
-            // If data is already an array, use it directly
             decryptedData = data;
           }
-
           setCachedData(decryptedData);
           iconGroups = processJsonData(decryptedData);
-          renderIcons();
         } catch (error) {
           console.error(
             `Error loading or processing ${iconDataBaseUrl}. Check network tab and file location.`,
             error,
           );
-          // Display empty state if loading fails
+          iconGroups = {};
           const grid = document.getElementById('iconGrid');
           grid.innerHTML = `
             <div class="empty-state" style="grid-column: 1/-1;">
@@ -1387,6 +1385,7 @@
           document.getElementById('themeToggle').innerHTML = isDark
             ? sunIcon
             : moonIcon;
+          renderIcons();
           renderCart();
         }
       }
@@ -1693,6 +1692,7 @@
           .setAttribute('data-full-content', markdownContent);
 
         document.getElementById('copyImageDisplay').textContent = imageContent;
+
         document.getElementById('copyHtmlDisplay').textContent =
           formatPreviewText(htmlContent);
         document.getElementById('copyMarkdownDisplay').textContent =
@@ -1784,7 +1784,9 @@
           button.addEventListener('click', event => {
             const targetType = event.target.getAttribute('data-copy-target');
             const displayElement = document.getElementById(
-              `copy${targetType.charAt(0).toUpperCase() + targetType.slice(1)}Display`,
+              `copy${
+                targetType.charAt(0).toUpperCase() + targetType.slice(1)
+              }Display`,
             );
             const content = displayElement.getAttribute('data-full-content');
             copyToClipboard(content);
@@ -1808,10 +1810,12 @@
           document.documentElement.scrollTop > 100
         ) {
           headerSticky.classList.add('active');
-        } else {
+        } else if (
+          document.body.scrollTop <= 100 ||
+          document.documentElement.scrollTop <= 100
+        ) {
           headerSticky.classList.remove('active');
-        }
-        if (
+        } else if (
           document.body.scrollTop > 300 ||
           document.documentElement.scrollTop > 300
         ) {
