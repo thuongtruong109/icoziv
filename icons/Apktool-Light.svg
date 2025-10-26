@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="256"
+   height="256"
+   title="Apktool"
+   viewBox="0 0 256 256"
+   fill="none"
+   id="apktool"
+   version="1.1"
+   sodipodi:docname="Apktool-Light.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs33" />
+  <sodipodi:namedview
+     id="namedview33"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.0922216"
+     inkscape:cx="32.262357"
+     inkscape:cy="100.37178"
+     inkscape:window-width="1512"
+     inkscape:window-height="921"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="apktool" />
+  <style
+     id="style1">
+#apktool {
+    rect {fill: #15191C}
+
+    @media (prefers-color-scheme: light) {
+        rect {fill: #F4F2ED}
+    }
+}
+</style>
+  <rect
+     width="256"
+     height="256"
+     rx="40"
+     fill="#15191C"
+     id="rect1"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M112.645 80.6951C112.645 80.6951 100.55 80.6951 85.629 80.6951C70.7084 80.6951 58.6129 80.6951 58.6129 80.6951C58.6129 65.832 70.7084 56.1931 85.629 56.1931C100.55 56.1931 112.645 65.832 112.645 80.6951Z"
+     fill="#AFCC4A"
+     id="path1" />
+  <path
+     d="M71.5161 67.0383H75.5484V71.055H71.5161V67.0383Z"
+     fill="white"
+     id="path2"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M95.7097 67.0383H99.7419V71.055H95.7097V67.0383Z"
+     fill="white"
+     id="path3"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M69.9017 50L76.4391 61.0817L74.3533 62.3027L67.8159 51.221L69.9017 50Z"
+     fill="#AFCC4A"
+     id="path4" />
+  <path
+     d="M101.773 50L95.2352 61.0817L97.3211 62.3027L103.858 51.221L101.773 50Z"
+     fill="#AFCC4A"
+     id="path5" />
+  <path
+     d="M58.6129 82.3018H112.645V116.042H58.6129V82.3018Z"
+     fill="#AFCC4A"
+     id="path6" />
+  <path
+     d="M58.6129 82.3018H83.6129V134.519H58.6129V82.3018Z"
+     fill="#AFCC4A"
+     id="path7" />
+  <path
+     d="M87.6452 82.3018H112.645V134.519H87.6452V82.3018Z"
+     fill="#AFCC4A"
+     id="path8" />
+  <path
+     d="M83.6129 98.3687H87.6452V102.385H83.6129V98.3687Z"
+     fill="white"
+     id="path9"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M87.6452 126.486H112.645V149.783H87.6452V126.486Z"
+     fill="#AFCC4A"
+     id="path10" />
+  <path
+     d="M115.065 82.3018H150.548V98.3687H115.065V82.3018Z"
+     fill="#AFCC4A"
+     id="path11" />
+  <path
+     d="M115.065 92.7453H131.194V149.783H115.065V92.7453Z"
+     fill="#AFCC4A"
+     id="path12" />
+  <path
+     d="M134.419 98.3687L142.484 88.5L150.548 98.3687V130.502H134.419V98.3687Z"
+     fill="#AFCC4A"
+     id="path13" />
+  <path
+     d="M115.065 116.042H150.548V130.502H115.065V116.042Z"
+     fill="#AFCC4A"
+     id="path14" />
+  <path
+     d="M131.194 98.3687H134.419V116.042H131.194V98.3687Z"
+     fill="white"
+     id="path15"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M152.968 82.3018H169.097V149.783H152.968V82.3018Z"
+     fill="#AFCC4A"
+     id="path16" />
+  <path
+     d="M172.323 82.3018H189.258V105.599H172.323V82.3018Z"
+     fill="#AFCC4A"
+     id="path17" />
+  <path
+     d="M165.871 98.3687H182V116.846H165.871V98.3687Z"
+     fill="#AFCC4A"
+     id="path18" />
+  <path
+     d="M172.323 108.812H189.258V148.979H172.323V108.812Z"
+     fill="#AFCC4A"
+     id="path19" />
+  <path
+     d="M57 134.519H93.2903V151.389H57V134.519Z"
+     fill="#11C9B9"
+     id="path20" />
+  <path
+     d="M66.6774 144.963H83.6129V202H66.6774V144.963Z"
+     fill="#11C9B9"
+     id="path21" />
+  <path
+     d="M104.581 144.963H124.742V194.77H104.581V144.963Z"
+     fill="white"
+     id="path22"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M94.9032 185.933H131.194V202H94.9032V185.933Z"
+     fill="#11C9B9"
+     id="path23" />
+  <path
+     d="M94.9032 134.519H131.194V150.586H94.9032V134.519Z"
+     fill="#11C9B9"
+     id="path24" />
+  <path
+     d="M94.9032 144.963H111.839V192.36H94.9032V144.963Z"
+     fill="#11C9B9"
+     id="path25" />
+  <path
+     d="M114.258 144.963H131.194V192.36H114.258V144.963Z"
+     fill="#11C9B9"
+     id="path26" />
+  <path
+     d="M142.484 144.963H162.645V194.77H142.484V144.963Z"
+     fill="white"
+     id="path27"
+     style="fill:#f4f2ed;fill-opacity:1" />
+  <path
+     d="M132.806 185.933H169.097V202H132.806V185.933Z"
+     fill="#11C9B9"
+     id="path28" />
+  <path
+     d="M132.806 134.519H169.097V150.586H132.806V134.519Z"
+     fill="#11C9B9"
+     id="path29" />
+  <path
+     d="m 132.806,144.963 h 16.936 v 47.397 h -16.936 z"
+     fill="#11c9b9"
+     id="path30"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="m 152.161,144.963 h 16.936 v 47.397 h -16.936 z"
+     fill="#11c9b9"
+     id="path31"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     d="M170.71 134.519H188.452V202H170.71V134.519Z"
+     fill="#11C9B9"
+     id="path32" />
+  <path
+     d="M175.548 185.933H207V202H175.548V185.933Z"
+     fill="#11C9B9"
+     id="path33" />
+</svg>
