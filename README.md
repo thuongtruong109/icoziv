@@ -33,13 +33,13 @@
 
 [![About](https://img.shields.io/badge/1.%20About-yellow?style=flat)](#-about)
 [![Features](https://img.shields.io/badge/2.%20Features-blue?style=flat)](#features)
-[![Specifying Icons](https://img.shields.io/badge/3.%20Specifying%20Icons-success?style=flat)](#specifying-icons)
-[![Themed Icons](https://img.shields.io/badge/4.%20Themed%20Icons-orange?style=flat)](#themed-icons)
-[![Icons Per Line](https://img.shields.io/badge/5.%20Icons%20Per%20Line-00a6f4?style=flat)](#icons-per-line)
-[![Centering Icons](https://img.shields.io/badge/6.%20Centering%20Icons-pink?style=flat)](#centering-icons)
-[![API Reference](https://img.shields.io/badge/7.%20API%20Reference-00bba7?style=flat)](#-api-reference)
+[![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#specifying-icons)
+[![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#themed-icons)
+[![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#icons-per-line)
+[![Centering Icons](https://img.shields.io/badge/6.%20Centering-pink?style=flat)](#centering-icons)
+[![API Reference](https://img.shields.io/badge/7.%20API-00bba7?style=flat)](#-api-reference)
 [![Examples](https://img.shields.io/badge/8.%20Examples-9cf?style=flat)](#-example)
-[![Icons List](https://img.shields.io/badge/9.%20Icons%20List-purple?style=flat)](#icons-list)
+[![Icons List](https://img.shields.io/badge/9.%20List-purple?style=flat)](#icons-list)
 
 ## 🧩 About
 
@@ -644,6 +644,359 @@ GET /api/svgs
   </tr>
 </table>
 
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Marketing
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=googleads,facebookads,instagram,tiktok,linkedin,email,hubspot,mailchimp,semrush,ahrefs,canva,notion,analytics"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=googleads,facebookads,instagram,tiktok,linkedin,email,hubspot,mailchimp,semrush,ahrefs,canva,notion,analytics
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=googleads,facebookads,instagram,tiktok,linkedin,email,hubspot,mailchimp,semrush,ahrefs,canva,notion,analytics)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=googleads,facebookads,instagram,tiktok,linkedin,email,hubspot,mailchimp,semrush,ahrefs,canva,notion,analytics"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Cloud
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=aws,azure,gcp,docker,kubernetes,terraform,ansible,cloudflare,heroku,vercel,netlify,linode,scaleway"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=aws,azure,gcp,docker,kubernetes,terraform,ansible,cloudflare,heroku,vercel,netlify,linode,scaleway
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=aws,azure,gcp,docker,kubernetes,terraform,ansible,cloudflare,heroku,vercel,netlify,linode,scaleway)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=aws,azure,gcp,docker,kubernetes,terraform,ansible,cloudflare,heroku,vercel,netlify,linode,scaleway"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Security
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=ssl,firewall,auth0,okta,jwt,oauth2,hash,crypto,snyk,owasp,clamav,malwarebytes,nmap"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=ssl,firewall,auth0,okta,jwt,oauth2,hash,crypto,snyk,owasp,clamav,malwarebytes,nmap
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=ssl,firewall,auth0,okta,jwt,oauth2,hash,crypto,snyk,owasp,clamav,malwarebytes,nmap)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=ssl,firewall,auth0,okta,jwt,oauth2,hash,crypto,snyk,owasp,clamav,malwarebytes,nmap"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Database
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=mysql,postgresql,mongodb,redis,sqlite,firebase,awsrds,aurora,dynamodb,elasticsearch,cassandra,neo4j,mariadb"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=mysql,postgresql,mongodb,redis,sqlite,firebase,awsrds,aurora,dynamodb,elasticsearch,cassandra,neo4j,mariadb
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=mysql,postgresql,mongodb,redis,sqlite,firebase,awsrds,aurora,dynamodb,elasticsearch,cassandra,neo4j,mariadb)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=mysql,postgresql,mongodb,redis,sqlite,firebase,awsrds,aurora,dynamodb,elasticsearch,cassandra,neo4j,mariadb"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Mobile
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=android,ios,flutter,reactnative,xamarin,swift,kotlin,jetpack,expo,cordova,phonegap,unity,appstore,playstore"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=android,ios,flutter,reactnative,xamarin,swift,kotlin,jetpack,expo,cordova,phonegap,unity,appstore,playstore
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=android,ios,flutter,reactnative,xamarin,swift,kotlin,jetpack,expo,cordova,phonegap,unity,appstore,playstore)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=android,ios,flutter,reactnative,xamarin,swift,kotlin,jetpack,expo,cordova,phonegap,unity,appstore,playstore"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Productivity
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=notion,trello,asana,slack,evernote,googlecalendar,zoom,microsoftteams,clickup,jira,confluence,dropbox,onedrive,todoist"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=notion,trello,asana,slack,evernote,googlecalendar,zoom,microsoftteams,clickup,jira,confluence,dropbox,onedrive,todoist
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=notion,trello,asana,slack,evernote,googlecalendar,zoom,microsoftteams,clickup,jira,confluence,dropbox,onedrive,todoist)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=notion,trello,asana,slack,evernote,googlecalendar,zoom,microsoftteams,clickup,jira,confluence,dropbox,onedrive,todoist"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Design Tools
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=figma,sketch,adobephotoshop,illustrator,xd,canva,framer,blender,aftereffects,premiere,coreldraw,inkscape,procreate,affinity,dribbble"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=figma,sketch,adobephotoshop,illustrator,xd,canva,framer,blender,aftereffects,premiere,coreldraw,inkscape,procreate,affinity,dribbble
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=figma,sketch,adobephotoshop,illustrator,xd,canva,framer,blender,aftereffects,premiere,coreldraw,inkscape,procreate,affinity,dribbble)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=figma,sketch,adobephotoshop,illustrator,xd,canva,framer,blender,aftereffects,premiere,coreldraw,inkscape,procreate,affinity,dribbble"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Video / Audio
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=premiere,aftereffects,finalcut,blender,audacity,flstudio,ableton,logicpro,vlc,youtube,spotify,obs,zoom,audition"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=premiere,aftereffects,finalcut,blender,audacity,flstudio,ableton,logicpro,vlc,youtube,spotify,obs,zoom,audition
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=premiere,aftereffects,finalcut,blender,audacity,flstudio,ableton,logicpro,vlc,youtube,spotify,obs,zoom,audition)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=premiere,aftereffects,finalcut,blender,audacity,flstudio,ableton,logicpro,vlc,youtube,spotify,obs,zoom,audition"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ## 📋 Icons List
 
