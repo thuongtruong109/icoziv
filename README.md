@@ -38,7 +38,8 @@
 [![Icons Per Line](https://img.shields.io/badge/5.%20Icons%20Per%20Line-00a6f4?style=flat)](#icons-per-line)
 [![Centering Icons](https://img.shields.io/badge/6.%20Centering%20Icons-pink?style=flat)](#centering-icons)
 [![API Reference](https://img.shields.io/badge/7.%20API%20Reference-00bba7?style=flat)](#-api-reference)
-[![Icons List](https://img.shields.io/badge/8.%20Icons%20List-purple?style=flat)](#icons-list)
+[![Examples](https://img.shields.io/badge/8.%20Examples-9cf?style=flat)](#-example)
+[![Icons List](https://img.shields.io/badge/9.%20Icons%20List-purple?style=flat)](#icons-list)
 
 ## 🧩 About
 
@@ -61,6 +62,7 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 - **Lazy Loading:** Improve initial loading times by lazy loading icons as they come into view.
 - **Pagination:** Implement pagination or infinite scroll for easier navigation through icons.
 - **Caching:** Utilize local caching to reduce load times for frequently accessed icons.
+- **Playground:** Interactive playground to experiment with icon configurations before embedding them in your README.
 
 ## 🏷️ Specifying Icons
 
@@ -178,7 +180,470 @@ GET /api/svgs
 }
 ```
 
-<!-- ## 🔍 Example -->
+## 🔍 Example
+
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Social Media
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=twitter,instagram,facebook,linkedin,tiktok,telegram,discord,reddit,youtube,threads,mastodon" />
+      <details>
+        <summary><strong>Copy code</strong></summary><br/>
+        <ul>
+          <li>Raw Link: <code>https://i.icoziv.workers.dev/icons?i=twitter,instagram,facebook,linkedin,tiktok,telegram,discord,reddit,youtube,threads,mastodon</code></li><br/>
+          <li>Markdown: <code>![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=twitter,instagram,facebook,linkedin,tiktok,telegram,discord,reddit,youtube,threads,mastodon)</code></li><br/>
+          <li>HTML: <code>&lt;img src="https://i.icoziv.workers.dev/icons?i=twitter,instagram,facebook,linkedin,tiktok,telegram,discord,reddit,youtube,threads,mastodon" /&gt;</code></li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      App
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=android,apple,flutter,react,swift,kotlin,typescript,graphql,firebase,appstore,playstore"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=android,apple,flutter,react,swift,kotlin,typescript,graphql,firebase,appstore,playstore
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=android,apple,flutter,react,swift,kotlin,typescript,graphql,firebase,appstore,playstore)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=android,apple,flutter,react,swift,kotlin,typescript,graphql,firebase,appstore,playstore"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Software
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=code,terminal,python,java,nodejs,go,rust,csharp,dotnet,docker,kubernetes,git,github"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=code,terminal,python,java,nodejs,go,rust,csharp,dotnet,docker,kubernetes,git,github
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=code,terminal,python,java,nodejs,go,rust,csharp,dotnet,docker,kubernetes,git,github)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=code,terminal,python,java,nodejs,go,rust,csharp,dotnet,docker,kubernetes,git,github"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Frontend
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=html5,css3,js,typescript,react,nextjs,vue,nuxt,angular,svelte,tailwind,bootstrap,vite,webpack,babel"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=html5,css3,js,typescript,react,nextjs,vue,nuxt,angular,svelte,tailwind,bootstrap,vite,webpack,babel
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=html5,css3,js,typescript,react,nextjs,vue,nuxt,angular,svelte,tailwind,bootstrap,vite,webpack,babel)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=html5,css3,js,typescript,react,nextjs,vue,nuxt,angular,svelte,tailwind,bootstrap,vite,webpack,babel"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Backend
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=nodejs,express,nestjs,python,django,flask,fastapi,go,java,spring,mongodb,postgresql,mysql,redis,docker,nginx"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=nodejs,express,nestjs,python,django,flask,fastapi,go,java,spring,mongodb,postgresql,mysql,redis,docker,nginx
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=nodejs,express,nestjs,python,django,flask,fastapi,go,java,spring,mongodb,postgresql,mysql,redis,docker,nginx)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=nodejs,express,nestjs,python,django,flask,fastapi,go,java,spring,mongodb,postgresql,mysql,redis,docker,nginx"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Designer
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=figma,adobe,illustrator,photoshop,xd,sketch,framer,canva,dribbble,behance,palette,brush,gradient"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=figma,adobe,illustrator,photoshop,xd,sketch,framer,canva,dribbble,behance,palette,brush,gradient
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=figma,adobe,illustrator,photoshop,xd,sketch,framer,canva,dribbble,behance,palette,brush,gradient)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=figma,adobe,illustrator,photoshop,xd,sketch,framer,canva,dribbble,behance,palette,brush,gradient"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      DevOps
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=docker,kubernetes,aws,azure,gcp,terraform,ansible,jenkins,githubactions,gitlab,linux,bash,nginx,cloudflare"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=docker,kubernetes,aws,azure,gcp,terraform,ansible,jenkins,githubactions,gitlab,linux,bash,nginx,cloudflare
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=docker,kubernetes,aws,azure,gcp,terraform,ansible,jenkins,githubactions,gitlab,linux,bash,nginx,cloudflare)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=docker,kubernetes,aws,azure,gcp,terraform,ansible,jenkins,githubactions,gitlab,linux,bash,nginx,cloudflare"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Startup
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=rocket,lightbulb,chart,line,team,notion,slack,figma,github,vercel,netlify,aws,analytics"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=rocket,lightbulb,chart,line,team,notion,slack,figma,github,vercel,netlify,aws,analytics
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=rocket,lightbulb,chart,line,team,notion,slack,figma,github,vercel,netlify,aws,analytics)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=rocket,lightbulb,chart,line,team,notion,slack,figma,github,vercel,netlify,aws,analytics"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Developer Portfolio
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=code,terminal,github,git,linux,react,nextjs,nodejs,typescript,tailwind,vercel,linkedin,twitter,coffee"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=code,terminal,github,git,linux,react,nextjs,nodejs,typescript,tailwind,vercel,linkedin,twitter,coffee
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=code,terminal,github,git,linux,react,nextjs,nodejs,typescript,tailwind,vercel,linkedin,twitter,coffee)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=code,terminal,github,git,linux,react,nextjs,nodejs,typescript,tailwind,vercel,linkedin,twitter,coffee"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Blog
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=markdown,book,pen,calendar,hash,notion,medium,devto,ghost,wordpress,comment,share,readme"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=markdown,book,pen,calendar,hash,notion,medium,devto,ghost,wordpress,comment,share,readme
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=markdown,book,pen,calendar,hash,notion,medium,devto,ghost,wordpress,comment,share,readme)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=markdown,book,pen,calendar,hash,notion,medium,devto,ghost,wordpress,comment,share,readme"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+<table style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <th style="border: 2px solid #333; padding: 8px;" align="center">
+      Data / AI
+    </th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid #999; padding: 8px;">
+      <img src="https://i.icoziv.workers.dev/icons?i=python,numpy,pandas,jupyter,tensorflow,pytorch,scikitlearn,mlflow,fastapi,streamlit,sql,postgresql,azure,gcp"
+      />
+      <details>
+        <summary>
+          <strong>
+            Copy code
+          </strong>
+        </summary>
+        <br/>
+        <ul>
+          <li>
+            Raw Link:
+            <code>
+              https://i.icoziv.workers.dev/icons?i=python,numpy,pandas,jupyter,tensorflow,pytorch,scikitlearn,mlflow,fastapi,streamlit,sql,postgresql,azure,gcp
+            </code>
+          </li>
+          <br/>
+          <li>
+            Markdown:
+            <code>
+              ![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=python,numpy,pandas,jupyter,tensorflow,pytorch,scikitlearn,mlflow,fastapi,streamlit,sql,postgresql,azure,gcp)
+            </code>
+          </li>
+          <br/>
+          <li>
+            HTML:
+            <code>
+              &lt;img src="https://i.icoziv.workers.dev/icons?i=python,numpy,pandas,jupyter,tensorflow,pytorch,scikitlearn,mlflow,fastapi,streamlit,sql,postgresql,azure,gcp"
+              /&gt;
+            </code>
+          </li>
+        </ul>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ## 📋 Icons List
 
