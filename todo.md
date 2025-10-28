@@ -11,8 +11,7 @@
 - [ ] Add panel to adjust perline, border radius, width/height, theme
 - [ ] Split components and logic to multiple importable files (styles, js)
 - [ ] Add showcase page which list web use this library
-- [ ] Add example group icons (e.g. popular frameworks, languages, tools)
-- [ ] Add search by category
+- [ ] Filter group icons by category (e.g. popular frameworks, languages, tools)
 
 ### Documentation:
 
