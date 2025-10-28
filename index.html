@@ -20,7 +20,6 @@
         scroll-behavior: smooth;
       }
 
-      /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
         height: 10px;
@@ -92,7 +91,7 @@
         z-index: -1;
         background-image: linear-gradient(rgba(199, 246, 218, 0.63), #fafafa);
       }
-      body.dark body::after {
+      body.dark::after {
         background-image: linear-gradient(rgba(24, 24, 27, 0.8), #0a0a0a);
       }
       body.dark {
@@ -436,8 +435,8 @@
         box-shadow: 0 2px 8px rgba(168, 85, 247, 0.1);
       }
       .icon-grid {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 0.6rem;
+        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+        gap: 0.5rem;
         display: grid;
         padding-top: 0.5rem;
       }
@@ -542,8 +541,8 @@
         background: transparent;
       }
       .icon-preview {
-        width: 42px;
-        height: 42px;
+        width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2014,7 +2013,7 @@
           .join('');
 
         const cartStats = document.getElementById('cartStats');
-        cartStats.textContent = `${cartData.length} items`;
+        cartStats.textContent = `${cartData.length} icons`;
 
         const copyButton = document.getElementById('copyCartButton');
         copyButton.disabled = cartData.length === 0;
