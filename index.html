@@ -331,8 +331,8 @@
       .sticky-controls {
         position: sticky;
         top: 0;
-        z-index: 100;
-        padding: 1rem 0 1rem;
+        z-index: 50;
+        padding-bottom: 1rem;
         margin: 0;
         transition: background 0.3s ease;
       }
@@ -436,62 +436,87 @@
         box-shadow: 0 2px 8px rgba(168, 85, 247, 0.1);
       }
       .icon-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 0.6rem;
         display: grid;
         padding-top: 0.5rem;
       }
       #cartGrid {
-        grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+        gap: 0.35rem;
         padding: 0;
       }
       .icon-card {
         background: #ffffff;
-        border: 1px solid #e4e4e7;
-        border-radius: 12px;
+        border: 2px solid transparent;
+        border-radius: 10px;
         cursor: pointer;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        overflow: visible;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         padding-top: 100%;
         width: 100%;
         height: 0;
+        isolation: isolate;
       }
       body.dark .icon-card {
         background: #18181b;
-        border-color: #27272a;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        border-color: transparent;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
       }
       .icon-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        z-index: 100;
+        border: 1px solid transparent;
+        background-image:
+          linear-gradient(#ffffff, #ffffff),
+          linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
       }
       body.dark .icon-card:hover {
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        background-image:
+          linear-gradient(#18181b, #18181b),
+          linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
       }
-      .icon-card::after {
-        content: '';
+
+      /* Custom Tooltip */
+      .icon-card::before {
+        content: attr(data-tooltip);
         position: absolute;
-        inset: 0;
-        border-radius: 12px;
-        padding: 1px;
-        background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-        -webkit-mask:
-          linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask:
-          linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        mask-composite: exclude;
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%) translateY(-5px);
+        background: rgba(0, 0, 0, 0.9);
+        color: #ffffff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        white-space: nowrap;
         opacity: 0;
-        transition: opacity 0.25s ease;
+        visibility: hidden;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+        z-index: 99999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       }
-      .icon-card:hover::after {
+
+      .icon-card:hover::before {
         opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
       }
+
+      body.dark .icon-card::before {
+        background: rgba(250, 250, 250, 0.95);
+        color: #09090b;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      }
+
       .icon-preview-wrapper,
       .icon-info {
         position: absolute;
@@ -502,25 +527,23 @@
       }
       .icon-preview-wrapper {
         top: 0;
-        bottom: 2.5rem;
+        bottom: 0;
         padding: 0;
-        background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+        background: transparent;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
+        border-radius: 10px;
       }
       body.dark .icon-preview-wrapper {
-        background: linear-gradient(180deg, #27272a 0%, #18181b 100%);
+        background: transparent;
       }
       .icon-card:hover .icon-preview-wrapper {
-        background: linear-gradient(
-          180deg,
-          rgba(99, 102, 241, 0.05) 0%,
-          rgba(168, 85, 247, 0.03) 100%
-        );
+        background: transparent;
       }
       .icon-preview {
-        width: 56px;
-        height: 56px;
+        width: 42px;
+        height: 42px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -536,28 +559,12 @@
       .icon-card:hover .icon-preview img {
         transform: scale(1.15) rotate(-5deg);
       }
+      /* Icon info - hidden, using tooltip instead */
       .icon-info {
-        height: 2.5rem;
-        position: absolute;
-        bottom: 0;
-        top: auto;
-        padding: 0.25rem 0.5rem;
-        background: #ffffff;
-        justify-content: center;
-      }
-      body.dark .icon-info {
-        background: #18181b;
+        display: none;
       }
       .icon-name {
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #09090b;
-        text-align: center;
-        word-break: break-word;
-        line-height: 1.4;
-      }
-      body.dark .icon-name {
-        color: #fafafa;
+        display: none;
       }
       .icon-card.in-cart .icon-preview-wrapper::before {
         content: '';
@@ -855,7 +862,20 @@
         /* MODIFICATION 4: Removed hover effect */
         transform: none;
         box-shadow: none;
+        background-image: none;
       }
+
+      /* Tooltip for cart items - show at bottom */
+      .icon-card.in-cart-sidebar::before {
+        bottom: auto;
+        top: calc(100% + 8px);
+        transform: translateX(-50%);
+      }
+
+      .icon-card.in-cart-sidebar:hover::before {
+        transform: translateX(-50%);
+      }
+
       .icon-card.in-cart-sidebar .icon-preview-wrapper {
         bottom: 0;
         /* MODIFICATION 4: Removed padding */
@@ -1199,12 +1219,12 @@
           height: 48px;
           transform: none;
         }
+        /* Icon info hidden on mobile too */
         .icon-info {
-          height: 2rem;
-          padding: 0.15rem 0.5rem;
+          display: none;
         }
         .icon-name {
-          font-size: 0.8rem;
+          display: none;
         }
         .empty-state {
           padding: 2rem 1rem;
@@ -1598,30 +1618,31 @@
           const filenameBase = key.toLowerCase();
 
           let type = 'common';
-          let displayName = filenameBase;
+          let displayName = key; // Giữ nguyên tên từ JSON source
           let filename = `${key}.svg`;
 
           if (filenameBase.endsWith('-dark')) {
             type = 'dark';
-            displayName = filenameBase.slice(0, -5);
+            displayName = key.slice(0, -5); // Giữ nguyên case từ JSON
             filename = `${key}.svg`;
           } else if (filenameBase.endsWith('-light')) {
             type = 'light';
-            displayName = filenameBase.slice(0, -6);
+            displayName = key.slice(0, -6); // Giữ nguyên case từ JSON
             filename = `${key}.svg`;
           }
 
-          if (!groups[displayName]) {
-            groups[displayName] = {
-              displayName:
-                displayName.charAt(0).toUpperCase() + displayName.slice(1),
+          const groupKey = displayName.toLowerCase();
+
+          if (!groups[groupKey]) {
+            groups[groupKey] = {
+              displayName: displayName, // Sử dụng tên gốc từ JSON
               inCart: false,
               filenames: {},
               svgContent: '',
             };
           }
 
-          groups[displayName].filenames[type] = filename;
+          groups[groupKey].filenames[type] = filename;
         }
 
         return groups;
@@ -1790,14 +1811,11 @@
               ? 'in-cart'
               : '';
             return `
-            <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')">
+            <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')" data-tooltip="${iconData.displayName}">
               <div class="icon-preview-wrapper">
                 <div class="icon-preview">
                   <img src="${iconUrl}" alt="${iconData.displayName}">
                 </div>
-              </div>
-              <div class="icon-info">
-                <div class="icon-name">${iconData.displayName}</div>
               </div>
               ${inCartClass ? '<div class="tick-icon">' + tickIcon + '</div>' : ''}
             </div>
@@ -1984,7 +2002,7 @@
           .map(iconData => {
             const iconUrl = `${base_url_prefix}/${iconData.filename}`;
             return `
-            <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)">
+            <div class="icon-card in-cart-sidebar" onclick="toggleCart(event, '${iconData.displayName}', true)" data-tooltip="${iconData.displayName}">
               <div class="icon-preview-wrapper">
                 <div class="icon-preview">
                   <img src="${iconUrl}" alt="${iconData.displayName}">
