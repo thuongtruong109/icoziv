@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="antdesign" width="256" height="256" fill="none" title="Ant Design" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+ <style>#antdesign {
+    rect {fill: #15191C}
+
+    @media (prefers-color-scheme: light) {
+        rect {fill: #F4F2ED}
+    }
+}</style>
+ <rect width="256" height="256" rx="40" fill="#f4f2ed"/>
+ <path d="m133.6 53.114 30.036 30.036c2.82 2.82 2.82 7.3905 0 10.209-2.82 2.82-7.391 2.82-10.209 0l-19.827-19.825c-2.82-2.8201-7.39-2.8201-10.208 0l-49.862 49.863c-2.82 2.82-2.82 7.39 0 10.209l49.862 49.862c2.82 2.82 7.39 2.82 10.208 0l19.827-19.827c2.82-2.82 7.39-2.82 10.209 0 2.82 2.82 2.82 7.391 0 10.209l-30.036 30.036c-2.82 2.82-7.39 2.82-10.208 0l-70.281-70.28c-2.82-2.82-2.82-7.391 0-10.209l70.279-70.281c2.82-2.82 7.392-2.82 10.21-0.0015z" fill="url(#linearGradient1)"/>
+ <path d="m173.85 103.57c2.82-2.82 7.39-2.82 10.209 0l19.826 19.827c2.82 2.82 2.82 7.39 0 10.209l-19.826 19.826c-2.82 2.82-7.391 2.82-10.209 0-2.82-2.82-2.82-7.39 0-10.209l9.616-9.616c2.82-2.82 2.82-7.39 0-10.209l-9.616-9.616c-2.82-2.822-2.82-7.392 0-10.212z" fill="url(#linearGradient2)"/>
+ <path d="m128.5 151.36c12.627 0 22.864-10.237 22.864-22.865s-10.237-22.864-22.864-22.864-22.864 10.236-22.864 22.864 10.237 22.865 22.864 22.865zm0-10.981c-6.563 0-11.883-5.321-11.883-11.884s5.32-11.884 11.883-11.884 11.883 5.321 11.883 11.884-5.32 11.884-11.883 11.884z" fill="url(#linearGradient3)"/>
+ <linearGradient id="linearGradient1" x1="239.9" x2="38.39" y1="128.5" y2="128.5" gradientUnits="userSpaceOnUse">
+  <stop stop-color="#47B4E0" offset="0"/>
+  <stop stop-color="#1588E0" offset=".1718"/>
+  <stop stop-color="#6EB4E0" offset="1"/>
+ </linearGradient>
+ <linearGradient id="linearGradient2" x1="128.5" x2="128.5" y1="206" y2="51.002" gradientUnits="userSpaceOnUse">
+  <stop stop-color="#F0776F" offset=".0322"/>
+  <stop stop-color="#F0656F" offset=".5032"/>
+  <stop stop-color="#F0606F" offset="1"/>
+ </linearGradient>
+ <linearGradient id="linearGradient3" x1="128.5" x2="128.5" y1="105.64" y2="151.36" gradientUnits="userSpaceOnUse">
+  <stop stop-color="#F0776F" offset=".0322"/>
+  <stop stop-color="#F0656F" offset=".5032"/>
+  <stop stop-color="#F0606F" offset="1"/>
+ </linearGradient>
+</svg>
