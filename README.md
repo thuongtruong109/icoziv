@@ -1282,7 +1282,9 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 
 We welcome contributions! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details.
 
-View the [contributors](https://thuongtruong109.github.io/icoziv/playground/contributors.html) who made this project possible.
+View the [contributors](https://thuongtruong109.github.io/icoziv/playground/contributors.html) who made this project possible.v
+
+View the [changelog](CHANGELOG.md) for recent changes
 
 ## 💖 Support the Project
 
