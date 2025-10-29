@@ -1284,6 +1284,8 @@ We welcome contributions! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for det
 
 View the [contributors](https://thuongtruong109.github.io/icoziv/playground/contributors.html) who made this project possible.
 
+View the [changelog](CHANGELOG.md) for recent changes
+
 ## 💖 Support the Project
 
 Thank you so much already for using my projects! If you want to go a step further and support my open source work, buy me a coffee:
