@@ -1,3 +1,4 @@
+// Optimized SVG generation with minimal whitespace
 export function generateSvg(
   iconNames: string[],
   icons: Record<string, string>,
@@ -13,18 +14,13 @@ export function generateSvg(
   const scaledHeight = height * scale;
   const scaledWidth = length * scale;
 
-  return `
-  <svg width="${scaledWidth}" height="${scaledHeight}" viewBox="0 0 ${length} ${height}"
-       fill="none" xmlns="http://www.w3.org/2000/svg" version="1.1">
-    ${iconSvgList
-      .map(
-        (i, idx) => `
-      <g transform="translate(${(idx % perLine) * baseSize}, ${
-        Math.floor(idx / perLine) * baseSize
-      })">
-        ${i}
-      </g>`,
-      )
-      .join('')}
-  </svg>`;
+  // Build SVG with minimal whitespace for faster transmission
+  const groups = iconSvgList
+    .map(
+      (i, idx) =>
+        `<g transform="translate(${(idx % perLine) * baseSize},${Math.floor(idx / perLine) * baseSize})">${i}</g>`,
+    )
+    .join('');
+
+  return `<svg width="${scaledWidth}" height="${scaledHeight}" viewBox="0 0 ${length} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg" version="1.1">${groups}</svg>`;
 }

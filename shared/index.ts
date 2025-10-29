@@ -5,19 +5,23 @@ export const THEMES: Theme[] = ['light', 'dark'];
 
 export const CONTENT = {
   JSON: {
-    'content-type': 'application/json;charset=UTF-8',
-    'Cache-Control': 'public, max-age=86400',
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600',
     ETag: '"icons-json-tag"',
+    Vary: 'Accept-Encoding',
   },
   HTML: {
-    'content-type': 'text/html;charset=UTF-8',
-    'Cache-Control': 'public, max-age=86400',
+    'Content-Type': 'text/html;charset=UTF-8',
+    'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600',
     ETag: '"icons-html-tag"',
+    Vary: 'Accept-Encoding',
   },
   SVG: {
-    'content-type': 'image/svg+xml',
-    'Cache-Control': 'public, max-age=86400',
+    'Content-Type': 'image/svg+xml',
+    'Cache-Control':
+      'public, max-age=31536000, immutable, stale-while-revalidate=86400',
     ETag: '"icons-svg-tag"',
+    Vary: 'Accept-Encoding',
   },
 };
 
