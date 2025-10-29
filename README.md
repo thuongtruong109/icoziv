@@ -1022,8 +1022,8 @@ We welcome contributions!
 
 - See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details.
 - Check [todo.md](./todo.md) for ideas on what to work on.
-
-View the [contributors](https://thuongtruong109.github.io/icoziv/playground/contributors.html) who made this project possible.
+- View the [contributors](https://thuongtruong109.github.io/icoziv/playground/contributors.html) who made this project possible.
+- View the [changelog](https://github.com/thuongtruong109/icoziv/blob/main/CHANGELOG.md) for recent changes
 
 ## 🚫 Branding and Intellectual Property
 
