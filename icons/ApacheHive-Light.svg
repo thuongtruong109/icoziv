@@ -1,14 +1,5 @@
 <svg width="256" height="256" title="Apache Hive" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" id="apachehive">
-<style>
-#apachehive {
-    rect {fill: #15191C}
-
-    @media (prefers-color-scheme: light) {
-        rect {fill: #F4F2ED}
-    }
-}
-</style>
-<rect width="256" height="256" rx="40" fill="#15191C"/>
+<rect width="256" height="256" rx="40" fill="#F4F2ED"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M144.703 172.618V206.455H153.011V190.904L154.725 190.936V206.455H163.126V172.618H154.725V185.172H153.011V172.618L144.703 172.618Z" fill="black" stroke="#FDEE21"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M173.465 172.618H165.373V206.455H173.465V172.618Z" fill="black" stroke="#FDEE21"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M174.79 172.618L181.182 206.455H190.829L197.221 172.618H188.632L186.515 187.096C186.338 187.651 185.742 187.651 185.636 187.096L183.52 172.617L174.79 172.618Z" fill="black" stroke="#FDEE21"/>

@@ -22,10 +22,6 @@
 
 ![Hacktoberfest](.github/assets/hacktoberfest-2025.png)
 
-#### How to Contribute
-
-- Check [todo.md](./todo.md) for ideas on what to work on.
-
 > [!IMPORTANT]
 > We'd really appreciate it if you would consider starring our repository! It helps us gain visibility and support the project.
 
@@ -49,8 +45,6 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 
 <p align="center"><img align="center" src="./.github/assets/example-dark.png#gh-dark-mode-only"/></p>
 <p align="center"><img align="center" src="./.github/assets/example-light.png#gh-light-mode-only"/></p>
-
-## ⚙️ Features
 
 ## ⚙️ Features
 
@@ -1009,7 +1003,9 @@ GET /api/svgs
 
 ## 📋 Icons List
 
-Currently, there are over 800+ icons available, and more are being added regularly. You can find the full list of available icons in the [Playground](https://thuongtruong109.github.io/icoziv/).
+Currently, there are over 800+ icons available, and more are being added regularly.
+
+To view full list of all available icons, check out the [Playground](https://thuongtruong109.github.io/icoziv/). It lets you browse, search, and customize icons easily.
 
 ## ⚙️ Technologies
 
@@ -1022,9 +1018,16 @@ Currently, there are over 800+ icons available, and more are being added regular
 
 ## 🤝 Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details.
+We welcome contributions!
+
+- See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details.
+- Check [todo.md](./todo.md) for ideas on what to work on.
 
 View the [contributors](https://thuongtruong109.github.io/icoziv/playground/contributors.html) who made this project possible.
+
+## 🚫 Branding and Intellectual Property
+
+We strive to respect all branding guidelines and intellectual property. If you represent a company whose icon is included in this project and you would like it removed, or if you believe we have used an icon in a way that violates your branding guidelines, please open an issue on this repository detailing your request. We will review your request promptly and take appropriate action. We appreciate your understanding and cooperation.
 
 ## 💖 Support the Project
 

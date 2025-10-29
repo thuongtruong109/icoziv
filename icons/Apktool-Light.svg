@@ -1,14 +1,5 @@
 <svg width="256" height="256" title="Apktool" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" id="apktool">
-<style>
-#apktool {
-    rect {fill: #15191C}
-
-    @media (prefers-color-scheme: light) {
-        rect {fill: #F4F2ED}
-    }
-}
-</style>
-<rect width="256" height="256" rx="40" fill="#15191C"/>
+<rect width="256" height="256" rx="40" fill="#F4F2ED"/>
 <path d="M112.645 80.6951C112.645 80.6951 100.55 80.6951 85.629 80.6951C70.7084 80.6951 58.6129 80.6951 58.6129 80.6951C58.6129 65.832 70.7084 56.1931 85.629 56.1931C100.55 56.1931 112.645 65.832 112.645 80.6951Z" fill="#AFCC4A"/>
 <path d="M71.5161 67.0383H75.5484V71.055H71.5161V67.0383Z" fill="white"/>
 <path d="M95.7097 67.0383H99.7419V71.055H95.7097V67.0383Z" fill="white"/>
