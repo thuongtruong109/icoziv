@@ -129,6 +129,5 @@ dist
 # Cloudflare Worker
 worker/
 .wrangler/
-playground/
 playground2/
 test.html
