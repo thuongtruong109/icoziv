@@ -3,6 +3,9 @@ import { decrypt } from './encrypt.js';
 
 export type IconsMap = Record<string, string>;
 let _iconsCache: IconsMap | null = null;
+let _iconNameListCache: string[] | null = null;
+let _themedIconsCache: Set<string> | null = null;
+let _loadingPromise: Promise<void> | null = null;
 
 function normalizeData(data: unknown): string {
   if (typeof data === 'string') return data;
@@ -15,9 +18,39 @@ function normalizeData(data: unknown): string {
 export async function loadIcons(): Promise<void> {
   if (_iconsCache) return;
 
-  const encryptedString = normalizeData(encryptedFileContent);
-  const decryptedJsonString = await decrypt(encryptedString);
-  _iconsCache = JSON.parse(decryptedJsonString);
+  if (_loadingPromise) return _loadingPromise;
+
+  _loadingPromise = (async () => {
+    try {
+      const encryptedString = normalizeData(encryptedFileContent);
+      const decryptedJsonString = await decrypt(encryptedString);
+      const icons: IconsMap = JSON.parse(decryptedJsonString);
+      _iconsCache = icons;
+
+      const names = new Set<string>();
+      const themed = new Set<string>();
+
+      for (const key of Object.keys(icons)) {
+        const base = key.replace(/-(light|dark)$/, '');
+        names.add(base);
+
+        if (key.includes('-light') || key.includes('-dark')) {
+          themed.add(base);
+        }
+      }
+
+      _iconNameListCache = [...names];
+      _themedIconsCache = themed;
+    } catch (error) {
+      _iconsCache = null;
+      _iconNameListCache = null;
+      _themedIconsCache = null;
+      _loadingPromise = null;
+      throw error;
+    }
+  })();
+
+  return _loadingPromise;
 }
 
 export function getIcons(): IconsMap {
@@ -27,22 +60,28 @@ export function getIcons(): IconsMap {
 }
 
 export function getIconNameList(): string[] {
-  const icons = getIcons();
-  const names = new Set<string>();
-  for (const key of Object.keys(icons)) {
-    const base = key.replace(/-(light|dark)$/, '');
-    names.add(base);
+  if (!_iconNameListCache) {
+    const icons = getIcons();
+    const names = new Set<string>();
+    for (const key of Object.keys(icons)) {
+      const base = key.replace(/-(light|dark)$/, '');
+      names.add(base);
+    }
+    _iconNameListCache = [...names];
   }
-  return [...names];
+  return _iconNameListCache;
 }
 
 export function getThemedIcons(): Set<string> {
-  const icons = getIcons();
-  const themed = new Set<string>();
-  for (const key of Object.keys(icons)) {
-    if (key.includes('-light') || key.includes('-dark')) {
-      themed.add(key.replace(/-(light|dark)$/, ''));
+  if (!_themedIconsCache) {
+    const icons = getIcons();
+    const themed = new Set<string>();
+    for (const key of Object.keys(icons)) {
+      if (key.includes('-light') || key.includes('-dark')) {
+        themed.add(key.replace(/-(light|dark)$/, ''));
+      }
     }
+    _themedIconsCache = themed;
   }
-  return themed;
+  return _themedIconsCache;
 }

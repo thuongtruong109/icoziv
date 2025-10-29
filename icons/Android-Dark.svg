@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    width="256"
    height="256"
@@ -37,7 +36,6 @@
      id="style1">
 #android {
     rect {fill: #15191C}
-
     @media (prefers-color-scheme: light) {
         rect {fill: #F4F2ED}
     }
