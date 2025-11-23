@@ -4,13 +4,13 @@
   [![Website](https://img.shields.io/badge/Playground-121013?style=flat&logo=github&logoColor=white)](https://thuongtruong109.github.io/icoziv)
   ![Icons](public/count.svg)
   ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=Cloudflare&logoColor=white)
-  ![Hacktoberfest](https://img.shields.io/badge/Hacktoberfest%202025-blueviolet?style=flat&logo=hackster&logoColor=white)
-  ![Contribute](https://img.shields.io/badge/Contributions-welcome-violet.svg?style=flat&logo=git)
+  ![Contribute](https://img.shields.io/badge/Contributions-welcome-00a6f4.svg?style=flat&logo=git)
   ![Star](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
+  [![License](https://img.shields.io/badge/MIT%20License-2b9348?style=flat&logo=monkeytie&logoColor=white)](./LICENSE)
 
-  <!-- [![License](https://img.shields.io/badge/MIT%20License-2b9348?style=flat&logo=monkeytie&logoColor=white)](./LICENSE) -->
+   <!-- ![Contribute](https://img.shields.io/badge/Contributions-welcome-violet.svg?style=flat&logo=git) -->
   <!-- <a href="https://github.com/thuongtruong109/icoziv/pulls"><img src="https://img.shields.io/github/issues-pr/thuongtruong109/icoziv" alt="Pull Requests Badge"/></a> -->
-  <!-- <a href="https://github.com/thuongtruong109/icoziv/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/thuongtruong109/icoziv?color=2b9348"></a> -->
+  <!-- <a href="https://github.com/thuongtruong109/icoziv/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/thuongtruong109/icoziv?color=2b9348&logo=git"></a> -->
 
   <img src="./.github/assets/brand.png#gh-dark-mode-only" alt="Brand Dark" />
   <img src="./.github/assets/brand-light.png#gh-light-mode-only" alt="Brand Light" />

@@ -75,7 +75,7 @@ const publicDir = path.join(__dirname, '..', 'public');
 const listData = JSON.parse(JSON.stringify(sortedBases, null, 2)) as string[];
 const count = Array.isArray(listData) ? listData.length : 0;
 
-const label = `${count} icons`;
+const label = `${count}+ icons`;
 const padding = 12;
 const textWidth = label.length * 6.2 + padding;
 const width = Math.round(textWidth);
@@ -92,7 +92,7 @@ const badgeSvg = `
   <clipPath id="r"><rect width="${totalWidth}" height="20" rx="3" fill="#fff"/></clipPath>
   <g clip-path="url(#r)">
     <rect width="24" height="20" fill="#2b9348"/>
-    <image href="${leftIcon}" x="4" y="2" height="15" width="15"/>
+    <image href="${leftIcon}" x="4" y="3" height="14" width="14"/>
     <rect x="24" width="${width}" height="20" fill="#2b9348"/>
     <rect x="24" width="${width}" height="20" fill="url(#s)"/>
   </g>

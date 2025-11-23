@@ -331,7 +331,8 @@
         font-weight: 500;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 0.75rem;
       }
       body.dark .filter-option {
         color: #94a3b8;
@@ -358,6 +359,15 @@
         color: #3b82f6;
         opacity: 0;
         transition: opacity 0.2s ease;
+        margin-left: auto;
+      }
+      .filter-icon-wrapper {
+        width: 24px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
       }
       .filter-option.selected .check-icon {
         opacity: 1;
@@ -1126,7 +1136,7 @@
       .modal-content {
         background: #ffffff;
         border-radius: 12px;
-        padding: 1.5rem;
+        padding: 1.25rem;
         width: 90%;
         max-width: 500px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -1301,187 +1311,404 @@
 
       /* Settings Panel Styles */
       .settings-panel {
-        max-width: 450px;
+        max-width: 480px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(248, 250, 252, 0.95)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        box-shadow:
+          0 25px 50px -12px rgba(0, 0, 0, 0.15),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+        animation: modalSlideIn 0.3s ease-out;
+        padding: 0.5rem;
       }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      body.dark .settings-panel {
+        background: linear-gradient(
+          135deg,
+          rgba(24, 24, 27, 0.95),
+          rgba(39, 39, 42, 0.95)
+        );
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .modal-header {
+        padding: 1rem 1.25rem 0.75rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.05),
+          rgba(168, 85, 247, 0.05)
+        );
+        border-radius: 24px 24px 0 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .modal-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.03),
+          rgba(168, 85, 247, 0.03)
+        );
+        pointer-events: none;
+      }
+
+      body.dark .modal-header {
+        border-color: rgba(148, 163, 184, 0.2);
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.1),
+          rgba(168, 85, 247, 0.1)
+        );
+      }
+
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(135deg, #6366f1, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      body.dark .modal-title {
+        color: #f1f5f9;
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        border: none;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        color: #64748b;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.9);
+        color: #334155;
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      body.dark .modal-close {
+        background: rgba(39, 39, 42, 0.8);
+        color: #94a3b8;
+      }
+
+      body.dark .modal-close:hover {
+        background: rgba(39, 39, 42, 0.9);
+        color: #cbd5e1;
+      }
+
       .settings-group {
-        margin-bottom: 1.5rem;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+        transition: all 0.2s ease;
+        position: relative;
       }
+
+      .settings-group:last-child {
+        border-bottom: none;
+        padding-bottom: 1.5rem;
+      }
+
+      .settings-group:hover {
+        background: rgba(99, 102, 241, 0.02);
+      }
+
+      body.dark .settings-group:hover {
+        background: rgba(168, 85, 247, 0.05);
+      }
+
       .settings-label {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 0.9375rem;
-        font-weight: 600;
-        color: #09090b;
-        margin-bottom: 0.75rem;
-      }
-      body.dark .settings-label {
-        color: #fafafa;
-      }
-      .settings-value {
         font-size: 0.875rem;
-        color: #6366f1;
         font-weight: 600;
+        color: #334155;
+        margin-bottom: 1rem;
+        gap: 0.75rem;
       }
+
+      .settings-label span:first-child svg {
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+      }
+
+      body.dark .settings-label {
+        color: #e2e8f0;
+      }
+
+      .settings-value {
+        font-size: 0.75rem;
+        color: #6366f1;
+        font-weight: 700;
+        background: rgba(99, 102, 241, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        min-width: 2.5rem;
+        text-align: center;
+        transition: all 0.2s ease;
+      }
+
       body.dark .settings-value {
         color: #a855f7;
+        background: rgba(168, 85, 247, 0.15);
       }
-      .settings-description {
-        font-size: 0.8125rem;
-        color: #71717a;
-        margin-bottom: 0.75rem;
-      }
-      body.dark .settings-description {
-        color: #a1a1aa;
-      }
+
       .settings-slider {
         width: 100%;
-        height: 6px;
-        border-radius: 10px;
-        background: #e5e7eb;
+        height: 8px;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #e2e8f0, #f1f5f9);
         outline: none;
         -webkit-appearance: none;
         appearance: none;
         cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
       }
+
+      .settings-slider:hover {
+        background: linear-gradient(90deg, #cbd5e1, #e2e8f0);
+      }
+
       body.dark .settings-slider {
-        background: #3f3f46;
+        background: linear-gradient(90deg, #374151, #4b5563);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
       }
+
+      body.dark .settings-slider:hover {
+        background: linear-gradient(90deg, #4b5563, #6b7280);
+      }
+
       .settings-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        background: linear-gradient(135deg, #6366f1, #a855f7);
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        box-shadow:
+          0 2px 8px rgba(99, 102, 241, 0.3),
+          0 0 0 2px rgba(255, 255, 255, 0.8);
         transition: all 0.2s ease;
+        position: relative;
       }
+
       .settings-slider::-webkit-slider-thumb:hover {
-        transform: scale(1.15);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        transform: scale(1.1);
+        box-shadow:
+          0 4px 12px rgba(99, 102, 241, 0.4),
+          0 0 0 3px rgba(255, 255, 255, 0.9);
       }
+
       body.dark .settings-slider::-webkit-slider-thumb {
-        background: linear-gradient(135deg, #a855f7, #9333ea);
-        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        box-shadow:
+          0 2px 8px rgba(168, 85, 247, 0.3),
+          0 0 0 2px rgba(24, 24, 27, 0.8);
       }
+
       body.dark .settings-slider::-webkit-slider-thumb:hover {
-        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+        box-shadow:
+          0 4px 12px rgba(168, 85, 247, 0.4),
+          0 0 0 3px rgba(24, 24, 27, 0.9);
       }
+
       .settings-slider::-moz-range-thumb {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        background: linear-gradient(135deg, #6366f1, #a855f7);
         cursor: pointer;
-        border: none;
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
         transition: all 0.2s ease;
       }
+
       .settings-slider::-moz-range-thumb:hover {
-        transform: scale(1.15);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
       }
+
       body.dark .settings-slider::-moz-range-thumb {
-        background: linear-gradient(135deg, #a855f7, #9333ea);
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        border-color: rgba(24, 24, 27, 0.8);
         box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
       }
+
       body.dark .settings-slider::-moz-range-thumb:hover {
         box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
       }
-      .theme-toggle-group {
-        display: flex;
+
+      .theme-toggle-group,
+      .display-toggle-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
         gap: 0.75rem;
-        align-items: center;
+        align-items: stretch;
+        justify-items: center;
       }
-      .theme-option {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        border: 2px solid #e5e7eb;
-        border-radius: 10px;
-        background: #ffffff;
+
+      .theme-option,
+      .display-option {
+        padding: 0.25rem 0.75rem;
+        border: 2px solid rgba(148, 163, 184, 0.1);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-align: center;
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         font-weight: 600;
         color: #475569;
         display: flex;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
+        min-height: 40px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
       }
-      body.dark .theme-option {
-        background: #18181b;
-        border-color: #3f3f46;
+
+      .theme-option::before,
+      .display-option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.05),
+          rgba(168, 85, 247, 0.05)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .theme-option:hover,
+      .display-option:hover {
+        border-color: rgba(99, 102, 241, 0.4);
+        background: rgba(255, 255, 255, 0.8);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+      }
+
+      .theme-option:hover::before,
+      .display-option:hover::before {
+        opacity: 1;
+      }
+
+      .theme-option.active,
+      .display-option.active {
+        background: linear-gradient(135deg, #6366f1, #a855f7);
+        border-color: #6366f1;
+        color: #ffffff;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .theme-option.active::before,
+      .display-option.active::before {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.05)
+        );
+        opacity: 1;
+      }
+
+      body.dark .theme-option,
+      body.dark .display-option {
+        background: rgba(39, 39, 42, 0.6);
+        border-color: rgba(148, 163, 184, 0.3);
         color: #94a3b8;
       }
-      .theme-option:hover {
-        border-color: #3b82f6;
-        color: #3b82f6;
+
+      body.dark .theme-option:hover,
+      body.dark .display-option:hover {
+        background: rgba(39, 39, 42, 0.8);
+        border-color: rgba(168, 85, 247, 0.4);
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.15);
       }
-      .theme-option.active {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
-        border-color: #3b82f6;
-        color: #ffffff;
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-      }
-      body.dark .theme-option.active {
-        background: linear-gradient(135deg, #a855f7, #9333ea);
+
+      body.dark .theme-option.active,
+      body.dark .display-option.active {
+        background: linear-gradient(135deg, #a855f7, #ec4899);
         border-color: #a855f7;
-        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
       }
-      .theme-option svg {
+
+      .theme-option svg,
+      .display-option svg {
         width: 1rem;
         height: 1rem;
+        transition: all 0.2s ease;
       }
-      .display-toggle-group {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
+
+      .theme-option.active svg,
+      .display-option.active svg {
+        transform: scale(1.1);
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
       }
-      .display-option {
-        flex: 1;
-        padding: 0.75rem 1rem;
-        border: 2px solid #e5e7eb;
-        border-radius: 10px;
-        background: #ffffff;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #475569;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.25rem;
-      }
-      body.dark .display-option {
-        background: #18181b;
-        border-color: #3f3f46;
-        color: #94a3b8;
-      }
-      .display-option:hover {
-        border-color: #3b82f6;
-        color: #3b82f6;
-      }
-      .display-option.active {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
-        border-color: #3b82f6;
-        color: #ffffff;
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-      }
-      body.dark .display-option.active {
-        background: linear-gradient(135deg, #a855f7, #9333ea);
-        border-color: #a855f7;
-        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
-      }
-      .display-option svg {
-        width: 1.25rem;
-        height: 1.25rem;
+
+      .theme-option span,
+      .display-option span {
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.025em;
       }
       @media (max-width: 768px) {
         .container {
@@ -1627,7 +1854,7 @@
       <header class="header">
         <div class="brand-group">
           <img
-            src="./public/logo.png"
+            src="/public/logo.png"
             alt="Icoziv Logo"
             width="48"
             height="48"
@@ -1640,17 +1867,26 @@
         <div class="header-right">
           <div class="controls">
             <a
-              href="https://thuongtruong109.github.io/icoziv/playground/contributors.html"
+              href="./contributors.html"
               target="_blank"
-              class="action-button github-button"
+              class="action-button"
               aria-label="Contributors"
             >
-              <img
-                src="./playground/assets/contributors.svg"
-                alt="Contributors"
-                width="20"
-                height="20"
-              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 21a8 8 0 0 0-16 0" />
+                <circle cx="10" cy="8" r="5" />
+                <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+              </svg>
             </a>
 
             <a
@@ -1689,12 +1925,12 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
+                <path
+                  d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                />
                 <circle cx="12" cy="12" r="3" />
-                <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3" />
               </svg>
             </button>
-
-            <button class="action-button" id="themeToggle"></button>
           </div>
           <div class="header-info">
             <span>Crafted by Thuong Truong</span>
@@ -1779,6 +2015,23 @@
                 </button>
                 <div class="filter-menu" id="filterMenu">
                   <div class="filter-option selected" data-filter="all">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                      </svg>
+                    </div>
                     <span>All Icons</span>
                     <svg
                       class="check-icon"
@@ -1793,6 +2046,22 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="frameworks">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                        <polyline points="2 17 12 22 22 17" />
+                        <polyline points="2 12 12 17 22 12" />
+                      </svg>
+                    </div>
                     <span>Frameworks</span>
                     <svg
                       class="check-icon"
@@ -1807,6 +2076,25 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="languages">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="m5 8 6 6" />
+                        <path d="m4 14 6-6 2-3" />
+                        <path d="M2 5h12" />
+                        <path d="M7 2h1" />
+                        <path d="m22 22-5-10-5 10" />
+                        <path d="M14 18h6" />
+                      </svg>
+                    </div>
                     <span>Languages</span>
                     <svg
                       class="check-icon"
@@ -1821,6 +2109,22 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="tools">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                        />
+                      </svg>
+                    </div>
                     <span>Tools & IDEs</span>
                     <svg
                       class="check-icon"
@@ -1835,6 +2139,22 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="databases">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <ellipse cx="12" cy="5" rx="9" ry="3" />
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                        <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+                      </svg>
+                    </div>
                     <span>Databases</span>
                     <svg
                       class="check-icon"
@@ -1849,6 +2169,22 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="cloud">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
+                        />
+                      </svg>
+                    </div>
                     <span>Cloud & DevOps</span>
                     <svg
                       class="check-icon"
@@ -1863,6 +2199,28 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="mobile">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="5"
+                          y="2"
+                          width="14"
+                          height="20"
+                          rx="2"
+                          ry="2"
+                        />
+                        <path d="M12 18h.01" />
+                      </svg>
+                    </div>
                     <span>Mobile</span>
                     <svg
                       class="check-icon"
@@ -1877,6 +2235,22 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="css">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"
+                        />
+                      </svg>
+                    </div>
                     <span>CSS & UI</span>
                     <svg
                       class="check-icon"
@@ -1891,6 +2265,24 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="testing">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M7 13h10" />
+                        <path d="M7 17h10" />
+                        <path
+                          d="M9 21c-3.87 0-7-2.69-7-6V9h6v3H4a2 2 0 0 0 2 2v5c0 1.66 1.34 3 3 3s3-1.34 3-3V5c0-1.66 1.34-3 3-3s3 1.34 3 3v10c0 1.66 1.34 3 3 3s3-1.34 3-3v-5a2 2 0 0 0 2-2h-4V9h6v6c0 3.31-3.13 6-7 6-1.93 0-3.68-.79-4.95-2.05C11.68 20.21 9.93 21 8 21Z"
+                        />
+                      </svg>
+                    </div>
                     <span>Testing</span>
                     <svg
                       class="check-icon"
@@ -1905,6 +2297,23 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="devops">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <path
+                          d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                        />
+                      </svg>
+                    </div>
                     <span>DevOps & CI/CD</span>
                     <svg
                       class="check-icon"
@@ -1919,6 +2328,23 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="cms">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path
+                          d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                        />
+                      </svg>
+                    </div>
                     <span>CMS</span>
                     <svg
                       class="check-icon"
@@ -1933,6 +2359,24 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="ecommerce">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="8" cy="21" r="1" />
+                        <circle cx="19" cy="21" r="1" />
+                        <path
+                          d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+                        />
+                      </svg>
+                    </div>
                     <span>E-commerce</span>
                     <svg
                       class="check-icon"
@@ -1947,6 +2391,29 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="design">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"
+                        />
+                        <path d="m14 7 3 3" />
+                        <path d="M5 6v4" />
+                        <path d="M19 14v4" />
+                        <path d="M10 2v2" />
+                        <path d="M7 8H3" />
+                        <path d="M21 16h-4" />
+                        <path d="M11 3H9" />
+                      </svg>
+                    </div>
                     <span>Design & 3D</span>
                     <svg
                       class="check-icon"
@@ -1961,6 +2428,25 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="ai">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"
+                        />
+                        <path d="M8 16h.01" />
+                        <path d="M12 16h.01" />
+                        <path d="M16 16h.01" />
+                      </svg>
+                    </div>
                     <span>AI & ML</span>
                     <svg
                       class="check-icon"
@@ -1975,6 +2461,28 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="blockchain">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="3"
+                          y="11"
+                          width="18"
+                          height="11"
+                          rx="2"
+                          ry="2"
+                        />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                    </div>
                     <span>Blockchain & Web3</span>
                     <svg
                       class="check-icon"
@@ -1989,6 +2497,29 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="os">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="2"
+                          y="3"
+                          width="20"
+                          height="14"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
+                      </svg>
+                    </div>
                     <span>Operating Systems</span>
                     <svg
                       class="check-icon"
@@ -2003,6 +2534,27 @@
                     </svg>
                   </div>
                   <div class="filter-option" data-filter="runtime">
+                    <div class="filter-icon-wrapper">
+                      <svg
+                        class="filter-icon"
+                        style="width: 16px; height: 16px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                        />
+                        <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
+                        <polyline points="7.5 19.79 7.5 14.6 3 12" />
+                        <polyline points="21 12 16.5 14.6 16.5 19.79" />
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                        <line x1="12" y1="22.08" x2="12" y2="12" />
+                      </svg>
+                    </div>
                     <span>Runtime & Package Managers</span>
                     <svg
                       class="check-icon"
@@ -2026,8 +2578,8 @@
                 <div class="search-icon" id="searchIcon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -2171,11 +2723,23 @@
 
         <div class="settings-group">
           <div class="settings-label">
-            <span>Icons Per Page</span>
+            <span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              Icons Per Page
+            </span>
             <span class="settings-value" id="perlineValue">50</span>
-          </div>
-          <div class="settings-description">
-            Adjust the number of icons displayed per page
           </div>
           <input
             type="range"
@@ -2190,9 +2754,23 @@
 
         <div class="settings-group">
           <div class="settings-label">
-            <span>Theme</span>
+            <span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="5"></circle>
+                <path
+                  d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+                ></path>
+              </svg>
+              Theme
+            </span>
           </div>
-          <div class="settings-description">Choose your preferred theme</div>
           <div class="theme-toggle-group">
             <button
               class="theme-option"
@@ -2218,7 +2796,7 @@
                 <path d="m6.34 17.66-1.41 1.41" />
                 <path d="m19.07 4.93-1.41 1.41" />
               </svg>
-              Light
+              <span>Light</span>
             </button>
             <button class="theme-option" id="darkThemeOption" data-theme="dark">
               <svg
@@ -2232,7 +2810,7 @@
               >
                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
               </svg>
-              Dark
+              <span>Dark</span>
             </button>
             <button
               class="theme-option active"
@@ -2251,17 +2829,27 @@
                 <circle cx="12" cy="12" r="4" />
                 <path d="M12 8a2 2 0 1 0 4 4" />
               </svg>
-              Auto
+              <span>Auto</span>
             </button>
           </div>
         </div>
 
         <div class="settings-group">
           <div class="settings-label">
-            <span>Display Name</span>
-          </div>
-          <div class="settings-description">
-            Choose how to display icon names
+            <span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              Display Name
+            </span>
           </div>
           <div class="display-toggle-group">
             <button class="display-option active" data-display="tooltip">
@@ -2324,7 +2912,7 @@
       let searchQuery = '';
       let isDark = false;
       let currentFilter = 'all';
-      const base_url_prefix = 'icons';
+      const base_url_prefix = '../icons';
       const base_url = 'https://i.icoziv.workers.dev';
       const iconDataBaseUrl = `public/icoziv.json`;
       let viewMode = 'pagination';
@@ -2892,9 +3480,6 @@
           `;
         } finally {
           loadingIndicator.style.display = 'none';
-          document.getElementById('themeToggle').innerHTML = isDark
-            ? sunIcon
-            : moonIcon;
           renderIcons();
           renderCart();
         }
@@ -3084,10 +3669,33 @@
               renderIcons();
               setTimeout(() => {
                 isLoading = false;
+                // Tiếp tục load nếu vẫn chưa có scrollbar
+                checkAndLoadMore();
               }, 100);
             }
           }
         });
+      }
+
+      // Kiểm tra và tự động load thêm nếu chưa có scrollbar
+      function checkAndLoadMore() {
+        if (viewMode !== 'infinite') return;
+
+        const hasScrollbar = document.body.scrollHeight > window.innerHeight;
+        const groupsArray =
+          Object.values(iconGroups).filter(isIconGroupVisible);
+        const totalVisible = groupsArray.length;
+        const totalPages = Math.ceil(totalVisible / itemsPerPage);
+
+        if (!hasScrollbar && currentPage < totalPages) {
+          // Chưa có scrollbar và còn trang để load
+          currentPage++;
+          renderIcons();
+          // Kiểm tra lại sau khi render
+          setTimeout(() => {
+            checkAndLoadMore();
+          }, 100);
+        }
       }
 
       // Custom Dropdown Handler
@@ -3128,6 +3736,13 @@
           viewMode = value;
           currentPage = 1;
           renderIcons();
+
+          // Kiểm tra và load thêm nếu infinite scroll mode
+          if (viewMode === 'infinite') {
+            setTimeout(() => {
+              checkAndLoadMore();
+            }, 100);
+          }
 
           // Update back to top button visibility
           const backToTopBtn = document.getElementById('backToTopBtn');
@@ -3317,9 +3932,6 @@
       function toggleTheme() {
         isDark = !isDark;
         document.body.classList.toggle('dark', isDark);
-        document.getElementById('themeToggle').innerHTML = isDark
-          ? sunIcon
-          : moonIcon;
 
         localStorage.setItem(
           'icoziv-dark-mode',
@@ -3341,9 +3953,6 @@
         }
 
         document.body.classList.toggle('dark', isDark);
-        document.getElementById('themeToggle').innerHTML = isDark
-          ? sunIcon
-          : moonIcon;
 
         // Update theme options
         document.querySelectorAll('.theme-option').forEach(opt => {
@@ -3416,11 +4025,6 @@
 
         document.body.classList.toggle('dark', isDark);
 
-        const themeToggleBtn = document.getElementById('themeToggle');
-        if (themeToggleBtn) {
-          themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
-        }
-
         // Update theme option buttons
         document.querySelectorAll('.theme-option').forEach(opt => {
           opt.classList.toggle('active', opt.dataset.theme === themePreference);
@@ -3430,15 +4034,18 @@
         setupInfiniteScroll();
 
         document
-          .getElementById('themeToggle')
-          .addEventListener('click', toggleTheme);
-
-        document
           .getElementById('searchInput')
           .addEventListener('input', event => {
             searchQuery = event.target.value;
             currentPage = 1;
             renderIcons();
+
+            // Kiểm tra và load thêm nếu infinite scroll mode
+            if (viewMode === 'infinite') {
+              setTimeout(() => {
+                checkAndLoadMore();
+              }, 100);
+            }
           });
 
         // Filter Dropdown Handler
@@ -3481,6 +4088,13 @@
             currentFilter = filterValue;
             currentPage = 1;
             renderIcons();
+
+            // Kiểm tra và load thêm nếu infinite scroll mode
+            if (viewMode === 'infinite') {
+              setTimeout(() => {
+                checkAndLoadMore();
+              }, 100);
+            }
 
             // Close dropdown
             filterDropdown.classList.remove('open');
@@ -3545,6 +4159,13 @@
           currentPage = 1;
           renderIcons();
           showToast(`Items per page set to ${itemsPerPage}`);
+
+          // Kiểm tra và load thêm nếu infinite scroll mode
+          if (viewMode === 'infinite') {
+            setTimeout(() => {
+              checkAndLoadMore();
+            }, 100);
+          }
         });
 
         // Theme options
