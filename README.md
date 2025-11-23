@@ -16,11 +16,11 @@
   <img src="./.github/assets/brand-light.png#gh-light-mode-only" alt="Brand Light" />
 </div>
 
-## 🐱‍💻 Hacktoberfest 2025
+<!-- ## 🐱‍💻 Hacktoberfest 2025
 
 > 💡 This project is participating in Hacktoberfest 2025! We're excited to welcome contributions from the community. Feel free to open pull requests to add new icons or improve the project. Let's make it even better together!
 
-![Hacktoberfest](.github/assets/hacktoberfest-2025.png)
+![Hacktoberfest](.github/assets/hacktoberfest-2025.png) -->
 
 > [!IMPORTANT]
 > We'd really appreciate it if you would consider starring our repository! It helps us gain visibility and support the project.
@@ -48,24 +48,26 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 
 ## ⚙️ Features
 
-- **Fast and Serverless:** Built for speed and efficiency, leveraging serverless architecture for instant icon generation.
-- **Global CDN & Smart Routing:** Icons are served from Cloudflare's global CDN with Smart Placement for optimal edge routing and low latency worldwide.
-- **Immutable Content:** SVG icons are cached indefinitely with the `immutable` flag, ensuring unchanged assets are always served instantly from edge caches.
-- **Stale-While-Revalidate:** Stale content is served immediately while the cache updates in the background, minimizing latency on cache misses.
-- **CDN-Friendly & Conditional Headers:** Optimized for Cloudflare's CDN infrastructure with advanced cache-control, ETag, and If-None-Match support for efficient conditional requests (304 Not Modified).
-- **CORS Support:** Cross-origin resource sharing enabled for seamless caching and embedding across domains.
-- **Compression:** Automatic gzip/brotli compression via Accept-Encoding negotiation for reduced payload sizes.
-- **Resource Limits:** Predictable performance with CPU time limits and resource caps at the edge.
-- **Customizable Themes:** Choose between dark and light themes to match your README's style.
-- **Flexible Layouts:** Easily adjust the number of icons per line and their alignment.
-- **Extensive Icon Library:** A wide range of technology and skill icons to choose from.
-- **Open Source:** Fully open source, welcoming contributions from the community.
-- **Easy Integration:** Simple URL parameters to customize your icon badges.
-- **Lazy Loading:** Improve initial loading times by lazy loading icons as they come into view.
-- **Pagination:** Implement pagination or infinite scroll for easier navigation through icons.
-- **Playground:** Interactive playground to experiment with icon configurations before embedding them in your README.
-- **API Access:** Comprehensive API for fetching icon lists and SVG data programmatically.
-- **Minified Output:** Icons are delivered as lightweight SVGs for crisp visuals and minimal load times.
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Fast and Serverless:** Built for speed and efficiency, leveraging serverless architecture for instant icon generation.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Global CDN & Smart Routing:** Icons are served from Cloudflare's global CDN with Smart Placement for optimal edge routing and low latency worldwide.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Immutable Content:** SVG icons are cached indefinitely with the `immutable` flag, ensuring unchanged assets are always served instantly from edge caches.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Stale-While-Revalidate:** Stale content is served immediately while the cache updates in the background, minimizing latency on cache misses.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **CDN-Friendly & Conditional Headers:** Optimized for Cloudflare's CDN infrastructure with advanced cache-control, ETag, and If-None-Match support for efficient conditional requests (304 Not Modified).<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **CORS Support:** Cross-origin resource sharing enabled for seamless caching and embedding across domains.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Compression:** Automatic gzip/brotli compression via Accept-Encoding negotiation for reduced payload sizes.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Resource Limits:** Predictable performance with CPU time limits and resource caps at the edge.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Customizable Themes:** Choose between dark and light themes to match your README's style.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Flexible Layouts:** Easily adjust the number of icons per line and their alignment.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Extensive Icon Library:** A wide range of technology and skill icons to choose from.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Open Source:** Fully open source, welcoming contributions from the community.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Easy Integration:** Simple URL parameters to customize your icon badges.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Lazy Loading:** Improve initial loading times by lazy loading icons as they come into view.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Pagination:** Implement pagination or infinite scroll for easier navigation through icons.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Playground:** Interactive playground to experiment with icon configurations before embedding them in your README.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **API Access:** Comprehensive API for fetching icon lists and SVG data programmatically.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Minified Output:** Icons are delivered as lightweight SVGs for crisp visuals and minimal load times.<br/>
+<img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Classify:** Icons are organized into categories for easier selection and discovery.<br/>
+
 
 ## 🏷️ Specifying Icons
 

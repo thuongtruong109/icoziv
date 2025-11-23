@@ -668,6 +668,12 @@
         overflow: hidden;
         border-radius: 10px;
       }
+      .icon-card.show-name-inside .icon-preview-wrapper {
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.25rem;
+        padding: 0.5rem;
+      }
       body.dark .icon-preview-wrapper {
         background: transparent;
       }
@@ -683,6 +689,10 @@
         position: relative;
         transform: translateY(0);
       }
+      .icon-card.show-name-inside .icon-preview {
+        width: 32px;
+        height: 32px;
+      }
       .icon-preview img {
         max-width: 100%;
         max-height: 100%;
@@ -697,6 +707,25 @@
         display: none;
       }
       .icon-name {
+        display: none;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: #52525b;
+        text-align: center;
+        padding: 0 0.25rem;
+        margin-top: 0.125rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+      }
+      body.dark .icon-name {
+        color: #a1a1aa;
+      }
+      .icon-card.show-name-inside .icon-name {
+        display: block;
+      }
+      .icon-card.show-name-inside::before {
         display: none;
       }
       .icon-card.in-cart .icon-preview-wrapper::before {
@@ -1269,6 +1298,191 @@
       .modal-copy-btn {
         display: none;
       }
+
+      /* Settings Panel Styles */
+      .settings-panel {
+        max-width: 450px;
+      }
+      .settings-group {
+        margin-bottom: 1.5rem;
+      }
+      .settings-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: #09090b;
+        margin-bottom: 0.75rem;
+      }
+      body.dark .settings-label {
+        color: #fafafa;
+      }
+      .settings-value {
+        font-size: 0.875rem;
+        color: #6366f1;
+        font-weight: 600;
+      }
+      body.dark .settings-value {
+        color: #a855f7;
+      }
+      .settings-description {
+        font-size: 0.8125rem;
+        color: #71717a;
+        margin-bottom: 0.75rem;
+      }
+      body.dark .settings-description {
+        color: #a1a1aa;
+      }
+      .settings-slider {
+        width: 100%;
+        height: 6px;
+        border-radius: 10px;
+        background: #e5e7eb;
+        outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+      }
+      body.dark .settings-slider {
+        background: #3f3f46;
+      }
+      .settings-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        transition: all 0.2s ease;
+      }
+      .settings-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      }
+      body.dark .settings-slider::-webkit-slider-thumb {
+        background: linear-gradient(135deg, #a855f7, #9333ea);
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+      }
+      body.dark .settings-slider::-webkit-slider-thumb:hover {
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+      }
+      .settings-slider::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        transition: all 0.2s ease;
+      }
+      .settings-slider::-moz-range-thumb:hover {
+        transform: scale(1.15);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      }
+      body.dark .settings-slider::-moz-range-thumb {
+        background: linear-gradient(135deg, #a855f7, #9333ea);
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+      }
+      body.dark .settings-slider::-moz-range-thumb:hover {
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+      }
+      .theme-toggle-group {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+      }
+      .theme-option {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: #ffffff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #475569;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      body.dark .theme-option {
+        background: #18181b;
+        border-color: #3f3f46;
+        color: #94a3b8;
+      }
+      .theme-option:hover {
+        border-color: #3b82f6;
+        color: #3b82f6;
+      }
+      .theme-option.active {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border-color: #3b82f6;
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      }
+      body.dark .theme-option.active {
+        background: linear-gradient(135deg, #a855f7, #9333ea);
+        border-color: #a855f7;
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+      }
+      .theme-option svg {
+        width: 1rem;
+        height: 1rem;
+      }
+      .display-toggle-group {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .display-option {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        background: #ffffff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #475569;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+      }
+      body.dark .display-option {
+        background: #18181b;
+        border-color: #3f3f46;
+        color: #94a3b8;
+      }
+      .display-option:hover {
+        border-color: #3b82f6;
+        color: #3b82f6;
+      }
+      .display-option.active {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        border-color: #3b82f6;
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      }
+      body.dark .display-option.active {
+        background: linear-gradient(135deg, #a855f7, #9333ea);
+        border-color: #a855f7;
+        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+      }
+      .display-option svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
       @media (max-width: 768px) {
         .container {
           padding: 1.5rem 1rem;
@@ -1458,6 +1672,27 @@
                 />
               </svg>
             </a>
+
+            <button
+              class="action-button"
+              id="settingsButton"
+              aria-label="Settings"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3" />
+              </svg>
+            </button>
 
             <button class="action-button" id="themeToggle"></button>
           </div>
@@ -1926,6 +2161,146 @@
         </div>
       </div>
     </section>
+
+    <section class="modal-overlay" id="settingsModal">
+      <div class="modal-content settings-panel">
+        <div class="modal-header">
+          <div class="modal-title">Settings</div>
+          <button class="modal-close" id="closeSettingsModal">&times;</button>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-label">
+            <span>Icons Per Page</span>
+            <span class="settings-value" id="perlineValue">50</span>
+          </div>
+          <div class="settings-description">
+            Adjust the number of icons displayed per page
+          </div>
+          <input
+            type="range"
+            id="perlineSlider"
+            class="settings-slider"
+            min="20"
+            max="100"
+            step="10"
+            value="50"
+          />
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-label">
+            <span>Theme</span>
+          </div>
+          <div class="settings-description">Choose your preferred theme</div>
+          <div class="theme-toggle-group">
+            <button
+              class="theme-option"
+              id="lightThemeOption"
+              data-theme="light"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2" />
+                <path d="M12 20v2" />
+                <path d="m4.93 4.93 1.41 1.41" />
+                <path d="m17.66 17.66 1.41 1.41" />
+                <path d="M2 12h2" />
+                <path d="M20 12h2" />
+                <path d="m6.34 17.66-1.41 1.41" />
+                <path d="m19.07 4.93-1.41 1.41" />
+              </svg>
+              Light
+            </button>
+            <button class="theme-option" id="darkThemeOption" data-theme="dark">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+              Dark
+            </button>
+            <button
+              class="theme-option active"
+              id="autoThemeOption"
+              data-theme="auto"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 8a2 2 0 1 0 4 4" />
+              </svg>
+              Auto
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <div class="settings-label">
+            <span>Display Name</span>
+          </div>
+          <div class="settings-description">
+            Choose how to display icon names
+          </div>
+          <div class="display-toggle-group">
+            <button class="display-option active" data-display="tooltip">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                />
+              </svg>
+              <span>Tooltip</span>
+            </button>
+            <button class="display-option" data-display="inside">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="M7 7h.01" />
+                <path d="M7 12h10" />
+                <path d="M7 17h10" />
+              </svg>
+              <span>Inside</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="toast" id="toast"></div>
     <button class="action-button" id="backToTopBtn" title="Go to top">
       <svg
@@ -1954,7 +2329,9 @@
       const iconDataBaseUrl = `public/icoziv.json`;
       let viewMode = 'pagination';
       let currentPage = 1;
-      const itemsPerPage = 50;
+      let itemsPerPage = 50;
+      let themePreference = 'auto'; // 'light', 'dark', or 'auto'
+      let displayNameMode = 'tooltip'; // 'tooltip' or 'inside'
       const viewModeToggle = document.getElementById('viewModeToggle');
       const paginationControls = document.getElementById('paginationControls');
       const iconGrid = document.querySelector('.icon-grid');
@@ -2619,12 +2996,15 @@
               .inCart
               ? 'in-cart'
               : '';
+            const displayClass =
+              displayNameMode === 'inside' ? 'show-name-inside' : '';
             return `
-            <div class="icon-card ${inCartClass}" onclick="toggleCart(event, '${iconData.displayName}')" data-tooltip="${iconData.displayName}">
+            <div class="icon-card ${inCartClass} ${displayClass}" onclick="toggleCart(event, '${iconData.displayName}')" data-tooltip="${iconData.displayName}">
               <div class="icon-preview-wrapper">
                 <div class="icon-preview">
                   <img src="${iconUrl}" alt="${iconData.displayName}">
                 </div>
+                ${displayNameMode === 'inside' ? `<div class="icon-name">${iconData.displayName}</div>` : ''}
               </div>
               ${inCartClass ? '<div class="tick-icon">' + tickIcon + '</div>' : ''}
             </div>
@@ -2950,15 +3330,88 @@
         renderCart();
       }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = localStorage.getItem('icoziv-dark-mode');
+      function applyTheme(theme) {
+        themePreference = theme;
+        localStorage.setItem('icoziv-theme-preference', theme);
 
-        if (savedTheme === 'enabled') {
-          isDark = true;
-        } else if (savedTheme === 'disabled') {
-          isDark = false;
-        } else {
+        if (theme === 'auto') {
           isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } else {
+          isDark = theme === 'dark';
+        }
+
+        document.body.classList.toggle('dark', isDark);
+        document.getElementById('themeToggle').innerHTML = isDark
+          ? sunIcon
+          : moonIcon;
+
+        // Update theme options
+        document.querySelectorAll('.theme-option').forEach(opt => {
+          opt.classList.toggle('active', opt.dataset.theme === theme);
+        });
+
+        renderIcons();
+        renderCart();
+      }
+
+      function openSettingsModal() {
+        const modal = document.getElementById('settingsModal');
+        const perlineSlider = document.getElementById('perlineSlider');
+        const perlineValue = document.getElementById('perlineValue');
+
+        perlineSlider.value = itemsPerPage;
+        perlineValue.textContent = itemsPerPage;
+
+        modal.classList.add('open');
+      }
+
+      function closeSettingsModal() {
+        document.getElementById('settingsModal').classList.remove('open');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Load theme preference
+        const savedThemePreference = localStorage.getItem(
+          'icoziv-theme-preference',
+        );
+        if (savedThemePreference) {
+          themePreference = savedThemePreference;
+        }
+
+        // Load items per page setting
+        const savedItemsPerPage = localStorage.getItem('icoziv-items-per-page');
+        if (savedItemsPerPage) {
+          itemsPerPage = parseInt(savedItemsPerPage, 10);
+        }
+
+        // Load display name mode
+        const savedDisplayMode = localStorage.getItem(
+          'icoziv-display-name-mode',
+        );
+        if (savedDisplayMode) {
+          displayNameMode = savedDisplayMode;
+        }
+
+        // Apply theme
+        if (themePreference === 'auto') {
+          isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        } else if (themePreference === 'light') {
+          isDark = false;
+        } else if (themePreference === 'dark') {
+          isDark = true;
+        } else {
+          // Fallback to old system
+          const savedTheme = localStorage.getItem('icoziv-dark-mode');
+          if (savedTheme === 'enabled') {
+            isDark = true;
+            themePreference = 'dark';
+          } else if (savedTheme === 'disabled') {
+            isDark = false;
+            themePreference = 'light';
+          } else {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            themePreference = 'auto';
+          }
         }
 
         document.body.classList.toggle('dark', isDark);
@@ -2967,6 +3420,11 @@
         if (themeToggleBtn) {
           themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
         }
+
+        // Update theme option buttons
+        document.querySelectorAll('.theme-option').forEach(opt => {
+          opt.classList.toggle('active', opt.dataset.theme === themePreference);
+        });
 
         loadIcons();
         setupInfiniteScroll();
@@ -3054,6 +3512,73 @@
             const content = displayElement.getAttribute('data-full-content');
             copyToClipboard(content);
           });
+        });
+
+        // Settings button
+        document
+          .getElementById('settingsButton')
+          .addEventListener('click', openSettingsModal);
+        document
+          .getElementById('closeSettingsModal')
+          .addEventListener('click', closeSettingsModal);
+
+        // Settings modal overlay click
+        document
+          .getElementById('settingsModal')
+          .addEventListener('click', event => {
+            if (event.target === event.currentTarget) {
+              closeSettingsModal();
+            }
+          });
+
+        // Perline slider
+        const perlineSlider = document.getElementById('perlineSlider');
+        const perlineValue = document.getElementById('perlineValue');
+
+        perlineSlider.addEventListener('input', e => {
+          perlineValue.textContent = e.target.value;
+        });
+
+        perlineSlider.addEventListener('change', e => {
+          itemsPerPage = parseInt(e.target.value, 10);
+          localStorage.setItem('icoziv-items-per-page', itemsPerPage);
+          currentPage = 1;
+          renderIcons();
+          showToast(`Items per page set to ${itemsPerPage}`);
+        });
+
+        // Theme options
+        document.querySelectorAll('.theme-option').forEach(option => {
+          option.addEventListener('click', () => {
+            const theme = option.dataset.theme;
+            applyTheme(theme);
+            showToast(`Theme set to ${theme}`);
+          });
+        });
+
+        // Display name options
+        document.querySelectorAll('.display-option').forEach(option => {
+          option.addEventListener('click', () => {
+            const mode = option.dataset.display;
+            displayNameMode = mode;
+            localStorage.setItem('icoziv-display-name-mode', mode);
+
+            // Update UI
+            document.querySelectorAll('.display-option').forEach(opt => {
+              opt.classList.toggle('active', opt.dataset.display === mode);
+            });
+
+            renderIcons();
+            showToast(`Display mode set to ${mode}`);
+          });
+        });
+
+        // Update display option buttons on load
+        document.querySelectorAll('.display-option').forEach(opt => {
+          opt.classList.toggle(
+            'active',
+            opt.dataset.display === displayNameMode,
+          );
         });
       });
 

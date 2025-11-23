@@ -13,7 +13,6 @@
 - [ ] Add panel to adjust setting parameters
 - [ ] Split components and logic to multiple importable files (styles, js)
 - [ ] Add showcase page which list web use this library
-- [ ] Filter group icons by category (e.g. popular frameworks, languages, tools)
 - [ ] Fetch used language from GitHub user
 
 ### Documentation:
