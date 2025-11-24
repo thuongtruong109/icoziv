@@ -9,6 +9,17 @@ export function normalizePath(pathname: string): string {
   return pathname.replace(/^\/|\/$/g, '');
 }
 
+// Cache for parsed icon parameters
+const _parseCache = new Map<string, string[]>();
+const MAX_PARSE_CACHE_SIZE = 50;
+
+/**
+ * Clear the parse cache. Useful for testing or memory management.
+ */
+export function clearParseCache(): void {
+  _parseCache.clear();
+}
+
 export function parseIconsParam(
   param: string | null,
   theme: Theme,
@@ -17,6 +28,12 @@ export function parseIconsParam(
   themedIcons: Set<string>,
 ): string[] {
   if (!param) return [];
+
+  // Check cache
+  const cacheKey = `${param}-${theme}`;
+  if (_parseCache.has(cacheKey)) {
+    return _parseCache.get(cacheKey)!;
+  }
 
   const requested =
     param === 'all'
@@ -51,6 +68,15 @@ export function parseIconsParam(
       out.push(finalName);
     }
   }
+
+  // Cache the result (with LRU-like behavior)
+  if (_parseCache.size >= MAX_PARSE_CACHE_SIZE) {
+    const firstKey = _parseCache.keys().next().value;
+    if (firstKey) {
+      _parseCache.delete(firstKey);
+    }
+  }
+  _parseCache.set(cacheKey, out);
 
   return out;
 }

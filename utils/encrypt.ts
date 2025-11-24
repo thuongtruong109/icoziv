@@ -5,6 +5,9 @@ const ALGORITHM_WEB = { name: 'AES-GCM', length: 256 }; // AES-CBC
 const KEY_USAGE_ENCRYPT: KeyUsage[] = ['encrypt'];
 const KEY_USAGE_DECRYPT: KeyUsage[] = ['decrypt'];
 
+// Cache CryptoKeys to avoid repeated imports
+const _keyCache = new Map<string, CryptoKey>();
+
 const arrayBufferToBase64 = (buffer: ArrayBuffer): string => {
   const bytes = new Uint8Array(buffer);
   let bin = '';
@@ -23,8 +26,23 @@ const hexToArrayBuffer = (hex: string): ArrayBuffer =>
   new Uint8Array(hex.match(/.{1,2}/g)?.map(b => parseInt(b, 16)) ?? []).buffer;
 
 async function getKey(keyHex: string, usage: KeyUsage[]): Promise<CryptoKey> {
+  const cacheKey = `${keyHex}-${usage.join(',')}`;
+
+  if (_keyCache.has(cacheKey)) {
+    return _keyCache.get(cacheKey)!;
+  }
+
   const keyBuffer = hexToArrayBuffer(keyHex);
-  return crypto.subtle.importKey('raw', keyBuffer, ALGORITHM_WEB, false, usage);
+  const key = await crypto.subtle.importKey(
+    'raw',
+    keyBuffer,
+    ALGORITHM_WEB,
+    false,
+    usage,
+  );
+  _keyCache.set(cacheKey, key);
+
+  return key;
 }
 
 function hasCompressionStream(): boolean {

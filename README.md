@@ -1011,7 +1011,7 @@ To view full list of all available icons, check out the [Playground](https://thu
 
 ## ⚙️ Technologies
 
-- Cloudflare Workers + CDN Cachingfor hosting the icon API.
+- Cloudflare Workers + CDN caching for hosting the icon APIs.
 - JSON → GZIP + GCM/AES CBC 256 + Base64 encoding for efficient and secure icon data transmission.
 - TypeScript for type-safe development.
 - Node.js for fallback server-side JavaScript execution.

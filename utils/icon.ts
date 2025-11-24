@@ -29,17 +29,23 @@ export async function loadIcons(): Promise<void> {
 
       const names = new Set<string>();
       const themed = new Set<string>();
+      const keys = Object.keys(icons);
 
-      for (const key of Object.keys(icons)) {
-        const base = key.replace(/-(light|dark)$/, '');
-        names.add(base);
+      // Optimized: single pass through keys with regex check
+      for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const match = key.match(/^(.+)-(light|dark)$/);
 
-        if (key.includes('-light') || key.includes('-dark')) {
+        if (match) {
+          const base = match[1];
+          names.add(base);
           themed.add(base);
+        } else {
+          names.add(key);
         }
       }
 
-      _iconNameListCache = [...names];
+      _iconNameListCache = Array.from(names);
       _themedIconsCache = themed;
     } catch (error) {
       _iconsCache = null;
@@ -61,27 +67,14 @@ export function getIcons(): IconsMap {
 
 export function getIconNameList(): string[] {
   if (!_iconNameListCache) {
-    const icons = getIcons();
-    const names = new Set<string>();
-    for (const key of Object.keys(icons)) {
-      const base = key.replace(/-(light|dark)$/, '');
-      names.add(base);
-    }
-    _iconNameListCache = [...names];
+    throw new Error('⚠️ Icons not loaded. Call await loadIcons() first.');
   }
   return _iconNameListCache;
 }
 
 export function getThemedIcons(): Set<string> {
   if (!_themedIconsCache) {
-    const icons = getIcons();
-    const themed = new Set<string>();
-    for (const key of Object.keys(icons)) {
-      if (key.includes('-light') || key.includes('-dark')) {
-        themed.add(key.replace(/-(light|dark)$/, ''));
-      }
-    }
-    _themedIconsCache = themed;
+    throw new Error('⚠️ Icons not loaded. Call await loadIcons() first.');
   }
   return _themedIconsCache;
 }
