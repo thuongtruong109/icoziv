@@ -68,7 +68,6 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 <img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Minified Output:** Icons are delivered as lightweight SVGs for crisp visuals and minimal load times.<br/>
 <img src="https://static.vecteezy.com/system/resources/previews/010/151/789/original/tick-icon-accept-approve-sign-design-free-png.png" alt="tick" width="12" height="12" /> **Classify:** Icons are organized into categories for easier selection and discovery.<br/>
 
-
 ## 🏷️ Specifying Icons
 
 Copy and paste the code block below into your readme to add the skills icon element!
