@@ -7,3 +7,7 @@ compatibility_flags = [ "nodejs_compat" ]
 
 [placement]
 mode = "smart"
+
+[[kv_namespaces]]
+binding = "ICONS_KV"
+id = "7415439862844521bf9d339ee641b2c4"

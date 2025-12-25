@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "build": "bun run cmd/build.ts",
-    "deploy": "bun run build && wrangler deploy",
+    "kv:init": "wrangler kv namespace create ICONS_KV",
+    "kv:push": "wrangler kv key put icons --binding ICONS_KV --path dist/icons.bin --remote",
+    "deploy": "bun run build && bun run kv:push && wrangler deploy",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --check .",
@@ -19,6 +21,7 @@
     "list": "bun run cmd/list.ts"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251225.0",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
     "@vitest/ui": "^3.2.4",

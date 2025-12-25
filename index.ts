@@ -45,6 +45,7 @@ function enhanceResponseHeaders(
 
 async function handleRequest(
   request: Request,
+  env: Env,
   _ctx: { waitUntil?: (promise: Promise<unknown>) => void },
 ): Promise<Response> {
   if (request.method === 'OPTIONS') {
@@ -58,7 +59,9 @@ async function handleRequest(
     });
   }
 
-  await loadIcons();
+  console.log('bindings:', Object.keys(env));
+
+  await loadIcons(env);
 
   const icons = getIcons();
   const iconNameList = getIconNameList();
@@ -139,11 +142,11 @@ async function handleRequest(
 export default {
   async fetch(
     request: Request,
-    _env: unknown,
+    env: Env,
     ctx: { waitUntil: (promise: Promise<unknown>) => void },
   ): Promise<Response> {
     try {
-      const response = await handleRequest(request, ctx);
+      const response = await handleRequest(request, env, ctx);
 
       const url = new URL(request.url);
       if (request.method === 'GET' && !url.pathname.includes('redirect')) {
