@@ -14,6 +14,16 @@ vi.mock('../utils/encrypt.js', () => ({
   },
 }));
 
+const mockKV = {
+  get: vi.fn(async (_key: string) => {
+    return 'FAKE_ENCRYPTED_DATA';
+  }),
+};
+
+const mockEnv = {
+  ICONS_KV: mockKV,
+};
+
 import {
   isValidTheme,
   normalizePath,
@@ -28,7 +38,7 @@ import type { Theme } from '../types/index.js';
 
 describe('utils', () => {
   beforeAll(async () => {
-    await loadIcons();
+    await loadIcons(mockEnv);
   });
 
   it('should validate themes correctly', () => {

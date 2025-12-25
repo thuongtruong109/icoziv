@@ -24,13 +24,23 @@ vi.mock('../utils/encrypt.js', () => ({
     }),
 }));
 
+const mockKV = {
+  get: vi.fn(async (_key: string) => {
+    return 'FAKE_ENCRYPTED_DATA';
+  }),
+};
+
+const mockEnv = {
+  ICONS_KV: mockKV,
+};
+
 describe('utils', () => {
   let icons: Record<string, string>;
   let iconNameList: string[];
   let themedIcons: Set<string>;
 
   beforeAll(async () => {
-    await loadIcons();
+    await loadIcons(mockEnv);
     icons = getIcons();
     iconNameList = getIconNameList();
     themedIcons = getThemedIcons();

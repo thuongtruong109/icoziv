@@ -8,12 +8,6 @@ let _themedIconsCache: Set<string> | null = null;
 let _loadingPromise: Promise<void> | null = null;
 
 export async function loadIcons(env: Env): Promise<void> {
-  console.log(
-    'typeof env:',
-    typeof env,
-    'keys:',
-    env ? Object.keys(env as any) : null,
-  );
   if (_iconsCache) return;
   if (_loadingPromise) return _loadingPromise;
 
