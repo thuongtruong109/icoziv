@@ -3737,39 +3737,32 @@
         }
       });
 
-      // Handle option selection
       dropdownOptions.forEach(option => {
         option.addEventListener('click', () => {
           const value = option.getAttribute('data-value');
           const text = option.querySelector('span').textContent;
 
-          // Update UI
           dropdownLabel.textContent = text;
           dropdownOptions.forEach(opt => opt.classList.remove('selected'));
           option.classList.add('selected');
 
-          // Sync with hidden select
           viewModeToggle.value = value;
 
-          // Trigger change event
           viewMode = value;
           currentPage = 1;
           renderIcons();
 
-          // Kiểm tra và load thêm nếu infinite scroll mode
           if (viewMode === 'infinite') {
             setTimeout(() => {
               checkAndLoadMore();
             }, 100);
           }
 
-          // Update back to top button visibility
           const backToTopBtn = document.getElementById('backToTopBtn');
           if (viewMode !== 'infinite') {
             backToTopBtn.classList.remove('show');
           }
 
-          // Close dropdown
           customDropdown.classList.remove('open');
         });
       });
@@ -3873,7 +3866,7 @@
           .join(',');
 
         const themeQuery = isDark ? '' : '&t=light';
-        const fullImageUrl = `${base_url}/${base_url_prefix}?i=${iconFileNamesNormalized}${themeQuery}`;
+        const fullImageUrl = `${base_url}/icons?i=${iconFileNamesNormalized}${themeQuery}`;
 
         switch (type) {
           case 'image':
