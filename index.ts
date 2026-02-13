@@ -59,7 +59,7 @@ async function handleRequest(
     });
   }
 
-  console.log('bindings:', Object.keys(env));
+  // console.log('bindings:', Object.keys(env));
 
   await loadIcons(env);
 

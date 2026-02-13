@@ -163,7 +163,7 @@
             >
               <div class="icon-preview-wrapper">
                 <img
-                  :src="`https://skillicons.dev/icons?i=${icon}`"
+                  :src="`https://raw.githubusercontent.com/thuongtruong109/icoziv/main/icons/${icon}`"
                   :alt="icon"
                 />
               </div>
@@ -363,7 +363,7 @@
             >
               <div class="icon-preview-wrapper">
                 <img
-                  :src="`https://skillicons.dev/icons?i=${icon}`"
+                  :src="`https://raw.githubusercontent.com/thuongtruong109/icoziv/main/icons/${icon}`"
                   :alt="icon"
                 />
                 <span class="icon-name">{{ icon }}</span>
@@ -1245,55 +1245,28 @@ function processJsonData(jsonData) {
   const dataToProcess = Array.isArray(jsonData)
     ? jsonData
     : Object.keys(jsonData);
-  const groups = {};
+  const icons = {};
 
   for (const key of dataToProcess) {
-    const filenameBase = key.toLowerCase();
-    let type = 'common';
-    let displayName = key;
-    let filename = `${key}.svg`;
-
-    if (filenameBase.endsWith('-dark')) {
-      type = 'dark';
-      displayName = key.slice(0, -5);
-      filename = `${key}.svg`;
-    } else if (filenameBase.endsWith('-light')) {
-      type = 'light';
-      displayName = key.slice(0, -6);
-      filename = `${key}.svg`;
-    }
-
-    const groupKey = displayName.toLowerCase();
-
-    if (!groups[groupKey]) {
-      groups[groupKey] = {
-        displayName: displayName,
-        inCart: false,
-        filenames: {},
-        svgContent: '',
-      };
-    }
-
-    groups[groupKey].filenames[type] = filename;
+    const filename = `${key}.svg`;
+    icons[filename] = {
+      filename: filename,
+      displayName: key,
+      category: 'other',
+    };
 
     // Assign category based on predefined categories
-    if (!groups[groupKey].category) {
-      for (const [categoryName, categoryIcons] of Object.entries(
-        iconCategories,
-      )) {
-        if (categoryIcons.includes(displayName.toLowerCase())) {
-          groups[groupKey].category = categoryName;
-          break;
-        }
-      }
-      // Default category if not found
-      if (!groups[groupKey].category) {
-        groups[groupKey].category = 'other';
+    for (const [categoryName, categoryIcons] of Object.entries(
+      iconCategories,
+    )) {
+      if (categoryIcons.includes(key.toLowerCase())) {
+        icons[filename].category = categoryName;
+        break;
       }
     }
   }
 
-  return groups;
+  return icons;
 }
 
 async function initData() {
@@ -2141,13 +2114,13 @@ input[type='text']::placeholder {
   box-shadow: 0 2px 8px rgba(168, 85, 247, 0.1);
 }
 .icon-grid {
-  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
   gap: 0.5rem;
   display: grid;
   padding-top: 0.5rem;
 }
 #cartGrid {
-  grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
   gap: 0.35rem;
   padding: 0;
 }
@@ -2233,7 +2206,7 @@ input[type='text']::placeholder {
 .icon-preview-wrapper {
   top: 0;
   bottom: 0;
-  padding: 0;
+  padding: 0.5rem;
   background: transparent;
   align-items: center;
   justify-content: center;
@@ -2244,7 +2217,7 @@ input[type='text']::placeholder {
   flex-direction: column;
   justify-content: center;
   gap: 0.25rem;
-  padding: 0.5rem;
+  padding: 0.375rem;
 }
 .dark .icon-preview-wrapper {
   background: transparent;
@@ -2253,8 +2226,8 @@ input[type='text']::placeholder {
   background: transparent;
 }
 .icon-preview {
-  width: 36px;
-  height: 36px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2262,12 +2235,13 @@ input[type='text']::placeholder {
   transform: translateY(0);
 }
 .icon-card.show-name-inside .icon-preview {
-  width: 32px;
-  height: 32px;
+  width: 16px;
+  height: 16px;
 }
 .icon-preview img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 20%;
+  max-height: 20%;
+  margin: 0.25rem;
   transition: all 0.25s ease;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
 }
@@ -2594,12 +2568,12 @@ input[type='text']::placeholder {
 
 .icon-card.in-cart-sidebar .icon-preview-wrapper {
   bottom: 0;
-  padding: 0;
+  padding: 0.1875rem;
   background: transparent;
 }
 .icon-card.in-cart-sidebar .icon-preview {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 }
 .icon-card.in-cart-sidebar:hover .icon-preview img {
   transform: scale(1.05);
