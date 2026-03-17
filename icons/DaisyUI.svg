@@ -1,4 +1,5 @@
-<svg aria-label="daisyUI logomark" viewBox="0 0 450 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg aria-label="daisyUI logomark" viewBox="0 0 256 256" width="256" height="256" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <g transform="scale(0.5688888889)">
   <g data-name="bg">
     <g opacity="0.7">
       <path d="M148.425 40.1667C142.7 48.5988 138.15 58.3812 135.152 69.5141C126.533 101.527 101.527 126.533 69.5137 135.153C58.3806 138.15 48.5979 142.7 40.1656 148.426C28.2144 85.9133 85.9125 28.2153 148.425 40.1667Z" fill="#FFD819"/>
@@ -65,4 +66,5 @@
       <stop offset="1" stop-color="#FFA573"/>
     </radialGradient>
   </defs>
+  </g>
 </svg>
