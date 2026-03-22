@@ -17,7 +17,7 @@
 
 ### Documentation:
 
-- [ ] Add localization translation md page
+- [ ] Add localization for README.md page
 - [ ] Add examples for popular stacks
 - [ ] Add FAQ section
 

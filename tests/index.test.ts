@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { describe, it, expect, beforeAll, vi } from 'vitest';
 import {
   isValidTheme,
   normalizePath,
@@ -11,7 +11,6 @@ import {
 } from '../utils/index.js';
 import { shortNames, THEMES } from '../shared/index.js';
 
-import { vi } from 'vitest';
 vi.mock('../utils/encrypt.js', () => ({
   decrypt: async () =>
     JSON.stringify({

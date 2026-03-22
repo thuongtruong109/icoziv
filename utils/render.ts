@@ -1,15 +1,10 @@
-// SVG cache for memoization
 const _svgCache = new Map<string, string>();
 const MAX_CACHE_SIZE = 100;
 
-/**
- * Clear the SVG cache. Useful for testing or memory management.
- */
 export function clearSvgCache(): void {
   _svgCache.clear();
 }
 
-// Optimized SVG generation with minimal whitespace and memoization
 export function generateSvg(
   iconNames: string[],
   icons: Record<string, string>,
@@ -18,7 +13,6 @@ export function generateSvg(
   margin = 44,
   scale = 48 / (300 - 44),
 ): string {
-  // Create cache key from parameters
   const cacheKey = `${iconNames.join(',')}-${perLine}-${baseSize}-${margin}-${scale}`;
 
   if (_svgCache.has(cacheKey)) {

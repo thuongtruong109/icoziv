@@ -8,8 +8,6 @@
   ![Star](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
   [![License](https://img.shields.io/badge/MIT%20License-2b9348?style=flat&logo=monkeytie&logoColor=white)](./LICENSE)
 
-   <!-- ![Contribute](https://img.shields.io/badge/Contributions-welcome-violet.svg?style=flat&logo=git) -->
-  <!-- <a href="https://github.com/thuongtruong109/icoziv/pulls"><img src="https://img.shields.io/github/issues-pr/thuongtruong109/icoziv" alt="Pull Requests Badge"/></a> -->
   <!-- <a href="https://github.com/thuongtruong109/icoziv/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/thuongtruong109/icoziv?color=2b9348&logo=git"></a> -->
 
   <img src="./.github/assets/brand.png#gh-dark-mode-only" alt="Brand Dark" />
@@ -28,14 +26,15 @@
 ## 📚 Contents
 
 [![About](https://img.shields.io/badge/1.%20About-yellow?style=flat)](#-about)
-[![Features](https://img.shields.io/badge/2.%20Features-blue?style=flat)](#features)
-[![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#specifying-icons)
-[![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#themed-icons)
-[![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#icons-per-line)
-[![Centering Icons](https://img.shields.io/badge/6.%20Centering-pink?style=flat)](#centering-icons)
+[![Features](https://img.shields.io/badge/2.%20Features-blue?style=flat)](#-features)
+[![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#-specifying-icons)
+[![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#-themed-icons)
+[![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#-icons-per-line)
+[![Centering Icons](https://img.shields.io/badge/6.%20Centering-pink?style=flat)](#-centering-icons)
 [![API Reference](https://img.shields.io/badge/7.%20API-00bba7?style=flat)](#-api-reference)
 [![Examples](https://img.shields.io/badge/8.%20Examples-9cf?style=flat)](#-example)
-[![Icons List](https://img.shields.io/badge/9.%20List-purple?style=flat)](#icons-list)
+[![Support](https://img.shields.io/badge/9.%20Support-Ff0000?style=flat)](#-support)
+[![Showcase](https://img.shields.io/badge/10.%20Showcase-purple?style=flat)](#-showcase)
 
 ## 🧩 About
 
@@ -1004,7 +1003,7 @@ GET /api/svgs
 
 ## 📋 Icons List
 
-Currently, there are over 800+ icons available, and more are being added regularly.
+Currently, there are over 1000+ icons available, and more are being added regularly.
 
 To view full list of all available icons, check out the [Playground](https://thuongtruong109.github.io/icoziv/). It lets you browse, search, and customize icons easily.
 
@@ -1042,3 +1041,77 @@ To support the project directly, feel free to open issues for icon suggestions, 
 ## 📜 License
 
 This project is licensed under the [MIT LICENSE](LICENSE). Copyright (c) Thuong Truong 2025.
+
+## 👥 Showcase
+
+> 🥇 If you have a public project that uses Icoziv icons, please share it with us! We would love to see how you're using the icons and feature your project here.
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/kessbrekker">
+        <img src="https://github.com/kessbrekker.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>kessbrekker</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/talison-cardoso">
+        <img src="https://github.com/talison-cardoso.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>talison-cardoso</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tutttuwi">
+        <img src="https://github.com/tutttuwi.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>tutttuwi</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/OfficialDiLi">
+        <img src="https://github.com/OfficialDiLi.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>OfficialDiLi</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/whateveriiwant">
+        <img src="https://github.com/whateveriiwant.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>whateveriiwant</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jda0">
+        <img src="https://github.com/jda0.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>jda0</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/m-nadra">
+        <img src="https://github.com/m-nadra.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>m-nadra</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tomasbures93">
+        <img src="https://github.com/tomasbures93.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>tomasbures93</b></sub>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/2754github">
+        <img src="https://github.com/2754github.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>2754github</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>

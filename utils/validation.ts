@@ -9,13 +9,9 @@ export function normalizePath(pathname: string): string {
   return pathname.replace(/^\/|\/$/g, '');
 }
 
-// Cache for parsed icon parameters
 const _parseCache = new Map<string, string[]>();
 const MAX_PARSE_CACHE_SIZE = 50;
 
-/**
- * Clear the parse cache. Useful for testing or memory management.
- */
 export function clearParseCache(): void {
   _parseCache.clear();
 }
