@@ -9,6 +9,41 @@ export function normalizePath(pathname: string): string {
   return pathname.replace(/^\/|\/$/g, '');
 }
 
+export type BackgroundParam = {
+  type: 'color' | 'image';
+  value: string;
+};
+
+function normalizeHexColor(raw: string): string | null {
+  const match = raw.match(
+    /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/,
+  );
+  if (!match) return null;
+  return `#${match[1].toLowerCase()}`;
+}
+
+function isSafeUrl(raw: string): boolean {
+  if (/[\s"'<>]/.test(raw)) return false;
+  return /^https?:\/\//i.test(raw) || /^data:image\//i.test(raw);
+}
+
+export function parseBackgroundParam(
+  param: string | null,
+): BackgroundParam | null {
+  if (!param) return null;
+  const trimmed = param.trim();
+  if (!trimmed) return null;
+
+  const hex = normalizeHexColor(trimmed);
+  if (hex) return { type: 'color', value: hex };
+
+  if (isSafeUrl(trimmed)) {
+    return { type: 'image', value: trimmed };
+  }
+
+  return null;
+}
+
 const _parseCache = new Map<string, string[]>();
 const MAX_PARSE_CACHE_SIZE = 50;
 
