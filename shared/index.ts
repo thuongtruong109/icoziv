@@ -28,6 +28,8 @@ export const CONTENT = {
 export const ERRORS = {
   INVALID_THEME: `Theme must be ${THEMES.join(' or ')}`,
   INVALID_PERLINE: 'Icons per line must be a number between 1 and 50',
+  INVALID_PADDING: 'Padding must be a number between 0 and 200',
+  INVALID_BG: 'Background must be a hex color or an image URL',
   NO_ICON_PARAM: 'You must specify ?i=icon1,icon2 or i=all',
   NO_ICONS_FOUND: 'No valid icons found from the given parameters',
   NOT_FOUND: 'Not found',

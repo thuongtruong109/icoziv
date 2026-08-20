@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 // ✅ Mock decrypt() để không cần icons.bin thật
 vi.mock('../utils/encrypt.js', () => ({
@@ -24,17 +24,18 @@ const mockEnv = {
   ICONS_KV: mockKV,
 };
 
-import {
-  isValidTheme,
-  normalizePath,
-  parseIconsParam,
-  generateSvg,
-  loadIcons,
-  getIcons,
-  getIconNameList,
-  getThemedIcons,
-} from '../utils/index.js';
 import type { Theme } from '../types/index.js';
+import {
+  generateSvg,
+  getIconNameList,
+  getIcons,
+  getThemedIcons,
+  isValidTheme,
+  loadIcons,
+  normalizePath,
+  parseBackgroundParam,
+  parseIconsParam,
+} from '../utils/index.js';
 
 describe('utils', () => {
   beforeAll(async () => {
@@ -116,6 +117,19 @@ describe('utils', () => {
     );
 
     expect(result).toEqual([]);
+  });
+
+  it('should parse background color and image', () => {
+    const hex = parseBackgroundParam('#A1B2C3');
+    expect(hex).toEqual({ type: 'color', value: '#a1b2c3' });
+
+    const img = parseBackgroundParam('https://example.com/bg.png');
+    expect(img).toEqual({ type: 'image', value: 'https://example.com/bg.png' });
+  });
+
+  it('should reject invalid background values', () => {
+    const invalid = parseBackgroundParam('javascript:alert(1)');
+    expect(invalid).toBeNull();
   });
 
   it('should generate valid svg output', () => {

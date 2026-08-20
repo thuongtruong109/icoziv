@@ -1116,11 +1116,18 @@ We strive to respect all branding guidelines and intellectual property. If you r
         <sub><b>yur1freitas</b></sub>
       </a>
     </td>
-     <td align="center">
+    <td align="center">
       <a href="https://github.com/Arjun6472">
         <img src="https://github.com/Arjun6472.png?size=100" width="50" height="50" style="border-radius:50%;" />
         <br />
         <sub><b>Arjun6472</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Abdulquddus-Nuhu">
+        <img src="https://github.com/Abdulquddus-Nuhu.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>Abdulquddus-Nuhu</b></sub>
       </a>
     </td>
   </tr>
