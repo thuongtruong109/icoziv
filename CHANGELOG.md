@@ -4,12 +4,15 @@
 
 - Custom hex color and HTTPS image backgrounds for generated SVGs
 - Pixel-based padding controls in the API and playground
+- Complete demo badge builder with independent badge theme, icons-per-line,
+  live preview, reset, and copy-ready URL, Markdown, and HTML output
 - Endpoint and rendering coverage for customization options
 
 ### Fixed
 
 - Generate representation-specific ETags for SVG and JSON responses
 - Make the `padding` query value match rendered output pixels
+- Normalize themed demo filenames before generating API URLs
 
 #### 1.0.0 (2025-10-29)
 

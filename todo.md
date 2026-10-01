@@ -11,7 +11,7 @@
 
 ### Demo page:
 
-- [x] Add panel to adjust background and padding parameters
+- [x] Add a complete badge builder for all current API parameters with live preview
 - [ ] Split components and logic to multiple importable files (styles, js)
 - [ ] Add showcase page which list web use this library
 - [ ] Fetch used language from GitHub user

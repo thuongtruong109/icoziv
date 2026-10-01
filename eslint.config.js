@@ -23,6 +23,7 @@ export default defineConfig(
   globalIgnores([
     '**/dist/**',
     '**/node_modules/**',
+    '.wrangler/**',
     'public/**',
     '*.json',
     'playground2/**',

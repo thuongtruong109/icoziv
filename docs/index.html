@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Icoziv - Instantly flex your skills</title>
     <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+    <script src="./badge-customization.js?v=2"></script>
     <meta
       name="description"
       content="Instantly flex your skills through edge-fast icons"
     />
-    <link rel="shortcut icon" href="/public/logo.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="https://raw.githubusercontent.com/thuongtruong109/icoziv/main/public/logo.png"
+      type="image/png"
+    />
     <style>
       * {
         margin: 0;
@@ -1593,6 +1598,140 @@
         gap: 0.75rem;
       }
 
+      .settings-panel {
+        max-width: 560px;
+        max-height: min(90vh, 760px);
+        overflow-y: auto;
+      }
+
+      .badge-theme-toggle-group {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+      }
+
+      .badge-theme-option {
+        min-height: 38px;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.65);
+        color: #475569;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+        transition: all 0.2s ease;
+      }
+
+      .badge-theme-option:hover {
+        border-color: rgba(99, 102, 241, 0.55);
+        transform: translateY(-1px);
+      }
+
+      .badge-theme-option.active {
+        border-color: #6366f1;
+        background: linear-gradient(135deg, #6366f1, #a855f7);
+        color: #ffffff;
+      }
+
+      body.dark .badge-theme-option {
+        border-color: rgba(148, 163, 184, 0.3);
+        background: rgba(39, 39, 42, 0.75);
+        color: #cbd5e1;
+      }
+
+      body.dark .badge-theme-option.active {
+        border-color: #a855f7;
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        color: #ffffff;
+      }
+
+      .settings-preview-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #475569;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      body.dark .settings-preview-heading {
+        color: #cbd5e1;
+      }
+
+      .settings-reset {
+        border: 0;
+        background: transparent;
+        color: #6366f1;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 700;
+      }
+
+      body.dark .settings-reset {
+        color: #c084fc;
+      }
+
+      .badge-preview-frame {
+        min-height: 96px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+        padding: 1rem;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 12px;
+        background-color: rgba(248, 250, 252, 0.85);
+        background-image:
+          linear-gradient(
+            45deg,
+            rgba(148, 163, 184, 0.12) 25%,
+            transparent 25%
+          ),
+          linear-gradient(
+            -45deg,
+            rgba(148, 163, 184, 0.12) 25%,
+            transparent 25%
+          ),
+          linear-gradient(
+            45deg,
+            transparent 75%,
+            rgba(148, 163, 184, 0.12) 75%
+          ),
+          linear-gradient(
+            -45deg,
+            transparent 75%,
+            rgba(148, 163, 184, 0.12) 75%
+          );
+        background-position:
+          0 0,
+          0 8px,
+          8px -8px,
+          -8px 0;
+        background-size: 16px 16px;
+      }
+
+      body.dark .badge-preview-frame {
+        border-color: rgba(148, 163, 184, 0.2);
+        background-color: rgba(15, 23, 42, 0.75);
+      }
+
+      .badge-preview-frame img {
+        display: block;
+        max-width: 100%;
+        max-height: 220px;
+      }
+
+      .badge-preview-frame p {
+        margin: 0;
+        color: #64748b;
+        font-size: 0.75rem;
+        text-align: center;
+      }
+
+      .copy-preview-frame {
+        margin-bottom: 1rem;
+      }
+
       .settings-field {
         display: grid;
         gap: 0.4rem;
@@ -2767,7 +2906,16 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="modal-title">Copy Picked Icons</div>
-          <button class="modal-close" id="closeModal">&times;</button>
+          <button
+            class="modal-close"
+            id="closeModal"
+            aria-label="Close copy dialog"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="badge-preview-frame copy-preview-frame">
+          <img id="copyBadgePreview" alt="Generated Icoziv badge preview" />
         </div>
         <div class="copy-field-group">
           <label class="copy-field-label">Copy image URL</label>
@@ -2809,7 +2957,13 @@
       <div class="modal-content settings-panel">
         <div class="modal-header">
           <div class="modal-title">Settings</div>
-          <button class="modal-close" id="closeSettingsModal">&times;</button>
+          <button
+            class="modal-close"
+            id="closeSettingsModal"
+            aria-label="Close settings dialog"
+          >
+            &times;
+          </button>
         </div>
 
         <div class="settings-group">
@@ -2828,7 +2982,7 @@
                 <rect x="14" y="14" width="7" height="7"></rect>
                 <rect x="3" y="14" width="7" height="7"></rect>
               </svg>
-              Icons Per Page
+              Browse Page Size
             </span>
             <span class="settings-value" id="perlineValue">50</span>
           </div>
@@ -2859,7 +3013,7 @@
                   d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
                 ></path>
               </svg>
-              Theme
+              Interface Theme
             </span>
           </div>
           <div class="theme-toggle-group">
@@ -2999,6 +3153,39 @@
             </span>
           </div>
           <div class="customization-fields">
+            <div class="settings-field">
+              <span>Badge Theme</span>
+              <div class="badge-theme-toggle-group">
+                <button
+                  type="button"
+                  class="badge-theme-option"
+                  data-badge-theme="dark"
+                >
+                  Dark
+                </button>
+                <button
+                  type="button"
+                  class="badge-theme-option"
+                  data-badge-theme="light"
+                >
+                  Light
+                </button>
+              </div>
+            </div>
+            <div class="settings-field-heading">
+              <span>Icons Per Line</span>
+              <span class="settings-value" id="badgePerLineValue">15</span>
+            </div>
+            <input
+              id="badgePerLineSlider"
+              class="settings-slider"
+              type="range"
+              aria-label="Icons per line"
+              min="1"
+              max="50"
+              step="1"
+              value="15"
+            />
             <label class="settings-field" for="backgroundInput">
               <span>Background</span>
               <input
@@ -3026,6 +3213,25 @@
               step="1"
               value="0"
             />
+            <div class="settings-preview-heading">
+              <span>Live Preview</span>
+              <button
+                type="button"
+                class="settings-reset"
+                id="resetBadgeSettings"
+              >
+                Reset
+              </button>
+            </div>
+            <div class="badge-preview-frame" id="settingsPreviewFrame">
+              <img
+                id="settingsBadgePreview"
+                alt="Generated Icoziv badge preview"
+              />
+              <p id="settingsPreviewEmpty">
+                Pick at least one icon to preview.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -3062,8 +3268,12 @@
       let itemsPerPage = 50;
       let themePreference = 'auto'; // 'light', 'dark', or 'auto'
       let displayNameMode = 'tooltip'; // 'tooltip' or 'inside'
-      let customBackground = '';
-      let customPadding = 0;
+      const badgeTools = globalThis.IcozivBadgeCustomization;
+      const initialBadgeSettings = badgeTools.loadSettings(localStorage);
+      let badgeTheme = initialBadgeSettings.theme;
+      let badgePerLine = initialBadgeSettings.perLine;
+      let customBackground = initialBadgeSettings.background;
+      let customPadding = initialBadgeSettings.padding;
       const viewModeToggle = document.getElementById('viewModeToggle');
       const paginationControls = document.getElementById('paginationControls');
       const iconGrid = document.querySelector('.icon-grid');
@@ -3965,6 +4175,7 @@
 
         const cartSection = document.getElementById('cartSection');
         cartSection.style.display = cartData.length > 0 ? 'block' : 'none';
+        updateBadgePreview();
       }
 
       function clearCart() {
@@ -3983,32 +4194,60 @@
         showToast('Cleared all picked icons');
       }
 
+      function getBadgeSettings() {
+        return {
+          theme: badgeTheme,
+          perLine: badgePerLine,
+          background: customBackground,
+          padding: customPadding,
+        };
+      }
+
+      function persistBadgeSettings() {
+        const saved = badgeTools.saveSettings(localStorage, getBadgeSettings());
+        badgeTheme = saved.theme;
+        badgePerLine = saved.perLine;
+        customBackground = saved.background;
+        customPadding = saved.padding;
+      }
+
+      function generateBadgeUrl(cartData = getCartIconData()) {
+        return badgeTools.buildBadgeUrl({
+          baseUrl: base_url,
+          icons: cartData.map(icon => icon.filename),
+          ...getBadgeSettings(),
+        });
+      }
+
       function generateCopyContent(type, cartData) {
-        const iconNames = cartData.map(d => d.displayName).join(',');
+        const snippets = badgeTools.buildSnippets(
+          generateBadgeUrl(cartData),
+          base_url,
+        );
+        return snippets[type] || '';
+      }
 
-        const iconFileNamesNormalized = cartData
-          .map(d => getNormalizedIconName(d.filename).toLowerCase())
-          .join(',');
+      function updateBadgePreview() {
+        const imageUrl = generateBadgeUrl();
+        const settingsPreview = document.getElementById('settingsBadgePreview');
+        const emptyState = document.getElementById('settingsPreviewEmpty');
+        const copyPreview = document.getElementById('copyBadgePreview');
 
-        const params = new URLSearchParams({ i: iconFileNamesNormalized });
-        if (!isDark) params.set('t', 'light');
-        if (customBackground.trim()) {
-          params.set('bg', customBackground.trim());
+        if (settingsPreview && emptyState) {
+          settingsPreview.hidden = !imageUrl;
+          emptyState.hidden = Boolean(imageUrl);
+          emptyState.textContent = badgeTools.isValidBackground(
+            customBackground,
+          )
+            ? 'Pick at least one icon to preview.'
+            : 'Fix the custom background to restore the preview.';
+          if (imageUrl) settingsPreview.src = imageUrl;
+          else settingsPreview.removeAttribute('src');
         }
-        if (customPadding > 0) {
-          params.set('padding', String(customPadding));
-        }
-        const fullImageUrl = `${base_url}/icons?${params.toString()}`;
 
-        switch (type) {
-          case 'image':
-            return fullImageUrl;
-          case 'html':
-            return `<a href="${base_url}" title="Open Icoziv"><img src="${fullImageUrl}" alt="Icoziv-icons"></a>`;
-          case 'markdown':
-            return `[![Icoziv-icons](${fullImageUrl})](${base_url})`;
-          default:
-            return '';
+        if (copyPreview) {
+          if (imageUrl) copyPreview.src = imageUrl;
+          else copyPreview.removeAttribute('src');
         }
       }
 
@@ -4058,6 +4297,7 @@
         document.getElementById('copyMarkdownDisplay').textContent =
           formatPreviewText(markdownContent);
 
+        updateBadgePreview();
         modal.classList.add('open');
       }
 
@@ -4112,21 +4352,7 @@
       }
 
       function isValidBackground(value) {
-        const trimmed = value.trim();
-        if (!trimmed) return true;
-        if (
-          /^#?([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(trimmed)
-        ) {
-          return true;
-        }
-        if (trimmed.length > 2048) return false;
-
-        try {
-          const url = new URL(trimmed);
-          return url.protocol === 'https:' && !url.username && !url.password;
-        } catch {
-          return false;
-        }
+        return badgeTools.isValidBackground(value);
       }
 
       function updateBackgroundValidity() {
@@ -4134,24 +4360,53 @@
         const error = document.getElementById('backgroundError');
         const invalid = !isValidBackground(input.value);
         input.classList.toggle('invalid', invalid);
+        input.setAttribute('aria-invalid', String(invalid));
         error.classList.toggle('visible', invalid);
+        updateBadgePreview();
         return !invalid;
+      }
+
+      function syncBadgeControls() {
+        const badgePerLineSlider =
+          document.getElementById('badgePerLineSlider');
+        const badgePerLineValue = document.getElementById('badgePerLineValue');
+        const backgroundInput = document.getElementById('backgroundInput');
+        const paddingSlider = document.getElementById('paddingSlider');
+        const paddingValue = document.getElementById('paddingValue');
+
+        badgePerLineSlider.value = badgePerLine;
+        badgePerLineValue.textContent = badgePerLine;
+        backgroundInput.value = customBackground;
+        paddingSlider.value = customPadding;
+        paddingValue.textContent = `${customPadding}px`;
+        document.querySelectorAll('.badge-theme-option').forEach(option => {
+          option.classList.toggle(
+            'active',
+            option.dataset.badgeTheme === badgeTheme,
+          );
+        });
+        updateBackgroundValidity();
+      }
+
+      function resetBadgeCustomization() {
+        const defaults = badgeTools.DEFAULTS;
+        badgeTheme = defaults.theme;
+        badgePerLine = defaults.perLine;
+        customBackground = defaults.background;
+        customPadding = defaults.padding;
+        persistBadgeSettings();
+        syncBadgeControls();
+        showToast('Badge settings reset');
       }
 
       function openSettingsModal() {
         const modal = document.getElementById('settingsModal');
         const perlineSlider = document.getElementById('perlineSlider');
         const perlineValue = document.getElementById('perlineValue');
-        const backgroundInput = document.getElementById('backgroundInput');
-        const paddingSlider = document.getElementById('paddingSlider');
-        const paddingValue = document.getElementById('paddingValue');
 
         perlineSlider.value = itemsPerPage;
         perlineValue.textContent = itemsPerPage;
-        backgroundInput.value = customBackground;
-        paddingSlider.value = customPadding;
-        paddingValue.textContent = `${customPadding}px`;
-        updateBackgroundValidity();
+        syncBadgeControls();
 
         modal.classList.add('open');
       }
@@ -4182,19 +4437,6 @@
         if (savedDisplayMode) {
           displayNameMode = savedDisplayMode;
         }
-
-        customBackground =
-          localStorage.getItem('icoziv-custom-background') || '';
-        const savedPadding = Number.parseInt(
-          localStorage.getItem('icoziv-custom-padding') || '0',
-          10,
-        );
-        customPadding =
-          Number.isInteger(savedPadding) &&
-          savedPadding >= 0 &&
-          savedPadding <= 200
-            ? savedPadding
-            : 0;
 
         // Apply theme
         if (themePreference === 'auto') {
@@ -4363,11 +4605,30 @@
           }
         });
 
+        const badgePerLineSlider =
+          document.getElementById('badgePerLineSlider');
+        const badgePerLineValue = document.getElementById('badgePerLineValue');
+        badgePerLineSlider.addEventListener('input', event => {
+          badgePerLine = Number.parseInt(event.target.value, 10);
+          badgePerLineValue.textContent = badgePerLine;
+          persistBadgeSettings();
+          updateBadgePreview();
+        });
+
+        document.querySelectorAll('.badge-theme-option').forEach(option => {
+          option.addEventListener('click', () => {
+            badgeTheme = option.dataset.badgeTheme;
+            persistBadgeSettings();
+            syncBadgeControls();
+            showToast(`Badge theme set to ${badgeTheme}`);
+          });
+        });
+
         const backgroundInput = document.getElementById('backgroundInput');
         backgroundInput.value = customBackground;
         backgroundInput.addEventListener('input', event => {
           customBackground = event.target.value;
-          localStorage.setItem('icoziv-custom-background', customBackground);
+          persistBadgeSettings();
           updateBackgroundValidity();
         });
 
@@ -4378,8 +4639,13 @@
         paddingSlider.addEventListener('input', event => {
           customPadding = Number.parseInt(event.target.value, 10);
           paddingValue.textContent = `${customPadding}px`;
-          localStorage.setItem('icoziv-custom-padding', String(customPadding));
+          persistBadgeSettings();
+          updateBadgePreview();
         });
+
+        document
+          .getElementById('resetBadgeSettings')
+          .addEventListener('click', resetBadgeCustomization);
 
         // Theme options
         document.querySelectorAll('.theme-option').forEach(option => {
@@ -4414,6 +4680,7 @@
             opt.dataset.display === displayNameMode,
           );
         });
+        syncBadgeControls();
       });
 
       const clearBtn = document.getElementById('clearCartButton');
