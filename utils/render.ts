@@ -1,4 +1,4 @@
-import type { BackgroundParam } from './validation.js';
+import type { BackgroundParam } from '../types/index.js';
 
 const _svgCache = new Map<string, string>();
 const MAX_CACHE_SIZE = 100;
@@ -16,6 +16,10 @@ function escapeAttr(value: string): string {
     .replace(/'/g, '&#39;');
 }
 
+function formatNumber(value: number): string {
+  return Number(value.toFixed(4)).toString();
+}
+
 export function generateSvg(
   iconNames: string[],
   icons: Record<string, string>,
@@ -31,33 +35,33 @@ export function generateSvg(
   if (_svgCache.has(cacheKey)) {
     return _svgCache.get(cacheKey)!;
   }
-  const scaledPadding = padding * 10;
+  const viewBoxPadding = padding / scale;
   const iconSvgList = iconNames.map(i => icons[i]).filter(Boolean);
   const contentWidth =
     Math.min(perLine * baseSize, iconNames.length * baseSize) - margin;
   const contentHeight =
     Math.ceil(iconSvgList.length / perLine) * baseSize - margin;
-  const paddedWidth = contentWidth + scaledPadding * 2;
-  const paddedHeight = contentHeight + scaledPadding * 2;
-  const scaledHeight = paddedHeight * scale;
-  const scaledWidth = paddedWidth * scale;
+  const paddedWidth = contentWidth + viewBoxPadding * 2;
+  const paddedHeight = contentHeight + viewBoxPadding * 2;
+  const renderedHeight = contentHeight * scale + padding * 2;
+  const renderedWidth = contentWidth * scale + padding * 2;
 
   const groups = iconSvgList
     .map(
       (i, idx) =>
-        `<g transform="translate(${scaledPadding + (idx % perLine) * baseSize},${scaledPadding + Math.floor(idx / perLine) * baseSize})">${i}</g>`,
+        `<g transform="translate(${formatNumber(viewBoxPadding + (idx % perLine) * baseSize)},${formatNumber(viewBoxPadding + Math.floor(idx / perLine) * baseSize)})">${i}</g>`,
     )
     .join('');
 
   let backgroundMarkup = '';
   if (background?.type === 'color') {
-    backgroundMarkup = `<rect width="${paddedWidth}" height="${paddedHeight}" fill="${escapeAttr(background.value)}"/>`;
+    backgroundMarkup = `<rect width="${formatNumber(paddedWidth)}" height="${formatNumber(paddedHeight)}" fill="${escapeAttr(background.value)}"/>`;
   } else if (background?.type === 'image') {
     const href = escapeAttr(background.value);
-    backgroundMarkup = `<image href="${href}" x="0" y="0" width="${paddedWidth}" height="${paddedHeight}" preserveAspectRatio="xMidYMid slice"/>`;
+    backgroundMarkup = `<image href="${href}" x="0" y="0" width="${formatNumber(paddedWidth)}" height="${formatNumber(paddedHeight)}" preserveAspectRatio="xMidYMid slice"/>`;
   }
 
-  const svg = `<svg width="${scaledWidth}" height="${scaledHeight}" viewBox="0 0 ${paddedWidth} ${paddedHeight}" fill="none" xmlns="http://www.w3.org/2000/svg" version="1.1">${backgroundMarkup}${groups}</svg>`;
+  const svg = `<svg width="${formatNumber(renderedWidth)}" height="${formatNumber(renderedHeight)}" viewBox="0 0 ${formatNumber(paddedWidth)} ${formatNumber(paddedHeight)}" fill="none" xmlns="http://www.w3.org/2000/svg" version="1.1">${backgroundMarkup}${groups}</svg>`;
 
   // Cache the result (with LRU-like behavior)
   if (_svgCache.size >= MAX_CACHE_SIZE) {

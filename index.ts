@@ -7,23 +7,19 @@ import {
 } from './shared/index.js';
 
 import {
+  contentResponse,
   errorResponse,
   generateSvg,
   getIconNameList,
   getIcons,
   getThemedIcons,
   isValidTheme,
-  jsonResponse,
   loadIcons,
   normalizePath,
   parseBackgroundParam,
   parseIconsParam,
+  parsePaddingParam,
 } from './utils/index.js';
-
-function checkETag(request: Request, etag: string): boolean {
-  const ifNoneMatch = request.headers.get('If-None-Match');
-  return ifNoneMatch === etag;
-}
 
 function enhanceResponseHeaders(
   response: Response,
@@ -92,8 +88,8 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
-      const padding = Number(searchParams.get('padding') || 0);
-      if (Number.isNaN(padding) || padding < 0 || padding > 200) {
+      const padding = parsePaddingParam(searchParams.get('padding'));
+      if (padding === null) {
         const errResponse = errorResponse(ERRORS.INVALID_PADDING);
         return enhanceResponseHeaders(errResponse, 3600);
       }
@@ -117,11 +113,6 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
-      const etag = CONTENT.SVG.ETag || '"icons-svg-tag"';
-      if (checkETag(request, etag)) {
-        return new Response(null, { status: 304, headers: { ETag: etag } });
-      }
-
       const svg = generateSvg(
         iconNames,
         icons,
@@ -131,27 +122,25 @@ async function handleRequest(
         44,
         padding,
       );
-      const response = new Response(svg, { headers: CONTENT.SVG });
+      const response = await contentResponse(request, svg, CONTENT.SVG);
       return enhanceResponseHeaders(response, 31536000);
     }
 
     case 'api/icons': {
-      const etag = CONTENT.JSON.ETag || '"icons-json-tag"';
-      if (checkETag(request, etag)) {
-        return new Response(null, { status: 304, headers: { ETag: etag } });
-      }
-
-      const response = jsonResponse(iconNameList);
+      const response = await contentResponse(
+        request,
+        JSON.stringify(iconNameList),
+        CONTENT.JSON,
+      );
       return enhanceResponseHeaders(response, 86400);
     }
 
     case 'api/svgs': {
-      const etag = CONTENT.JSON.ETag || '"icons-json-tag"';
-      if (checkETag(request, etag)) {
-        return new Response(null, { status: 304, headers: { ETag: etag } });
-      }
-
-      const response = jsonResponse(icons);
+      const response = await contentResponse(
+        request,
+        JSON.stringify(icons),
+        CONTENT.JSON,
+      );
       return enhanceResponseHeaders(response, 86400);
     }
 

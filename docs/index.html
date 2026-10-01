@@ -1588,6 +1588,79 @@
         box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
       }
 
+      .customization-fields {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .settings-field {
+        display: grid;
+        gap: 0.4rem;
+        color: #475569;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .settings-field-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #475569;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .settings-input {
+        width: 100%;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.75);
+        color: #0f172a;
+        font: inherit;
+        padding: 0.65rem 0.75rem;
+        outline: none;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .settings-input:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+      }
+
+      .settings-input.invalid {
+        border-color: #ef4444;
+      }
+
+      .settings-error {
+        display: none;
+        margin: -0.35rem 0 0;
+        color: #dc2626;
+        font-size: 0.7rem;
+        line-height: 1.4;
+      }
+
+      .settings-error.visible {
+        display: block;
+      }
+
+      body.dark .settings-field,
+      body.dark .settings-field-heading {
+        color: #cbd5e1;
+      }
+
+      body.dark .settings-input {
+        border-color: rgba(148, 163, 184, 0.3);
+        background: rgba(39, 39, 42, 0.75);
+        color: #f8fafc;
+      }
+
+      body.dark .settings-input:focus {
+        border-color: #a855f7;
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+      }
+
       .theme-toggle-group,
       .display-toggle-group {
         display: grid;
@@ -2905,6 +2978,56 @@
             </button>
           </div>
         </div>
+
+        <div class="settings-group">
+          <div class="settings-label">
+            <span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 3v18" />
+                <path d="M3 12h18" />
+                <path d="m5 5 14 14" />
+                <path d="m19 5-14 14" />
+              </svg>
+              Badge Customization
+            </span>
+          </div>
+          <div class="customization-fields">
+            <label class="settings-field" for="backgroundInput">
+              <span>Background</span>
+              <input
+                id="backgroundInput"
+                class="settings-input"
+                type="text"
+                maxlength="2048"
+                placeholder="#0f172a or https://example.com/bg.png"
+              />
+            </label>
+            <p class="settings-error" id="backgroundError">
+              Use a hex color or an HTTPS image URL without credentials.
+            </p>
+            <div class="settings-field-heading">
+              <span>Padding</span>
+              <span class="settings-value" id="paddingValue">0px</span>
+            </div>
+            <input
+              id="paddingSlider"
+              class="settings-slider"
+              type="range"
+              aria-label="Padding"
+              min="0"
+              max="200"
+              step="1"
+              value="0"
+            />
+          </div>
+        </div>
       </div>
     </section>
     <div class="toast" id="toast"></div>
@@ -2939,6 +3062,8 @@
       let itemsPerPage = 50;
       let themePreference = 'auto'; // 'light', 'dark', or 'auto'
       let displayNameMode = 'tooltip'; // 'tooltip' or 'inside'
+      let customBackground = '';
+      let customPadding = 0;
       const viewModeToggle = document.getElementById('viewModeToggle');
       const paginationControls = document.getElementById('paginationControls');
       const iconGrid = document.querySelector('.icon-grid');
@@ -3865,8 +3990,15 @@
           .map(d => getNormalizedIconName(d.filename).toLowerCase())
           .join(',');
 
-        const themeQuery = isDark ? '' : '&t=light';
-        const fullImageUrl = `${base_url}/icons?i=${iconFileNamesNormalized}${themeQuery}`;
+        const params = new URLSearchParams({ i: iconFileNamesNormalized });
+        if (!isDark) params.set('t', 'light');
+        if (customBackground.trim()) {
+          params.set('bg', customBackground.trim());
+        }
+        if (customPadding > 0) {
+          params.set('padding', String(customPadding));
+        }
+        const fullImageUrl = `${base_url}/icons?${params.toString()}`;
 
         switch (type) {
           case 'image':
@@ -3898,6 +4030,10 @@
 
         if (cartData.length === 0) {
           showToast('Cart is empty. Nothing to copy.');
+          return;
+        }
+        if (!isValidBackground(customBackground)) {
+          showToast('Fix the custom background before copying.');
           return;
         }
 
@@ -3975,13 +4111,47 @@
         renderCart();
       }
 
+      function isValidBackground(value) {
+        const trimmed = value.trim();
+        if (!trimmed) return true;
+        if (
+          /^#?([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(trimmed)
+        ) {
+          return true;
+        }
+        if (trimmed.length > 2048) return false;
+
+        try {
+          const url = new URL(trimmed);
+          return url.protocol === 'https:' && !url.username && !url.password;
+        } catch {
+          return false;
+        }
+      }
+
+      function updateBackgroundValidity() {
+        const input = document.getElementById('backgroundInput');
+        const error = document.getElementById('backgroundError');
+        const invalid = !isValidBackground(input.value);
+        input.classList.toggle('invalid', invalid);
+        error.classList.toggle('visible', invalid);
+        return !invalid;
+      }
+
       function openSettingsModal() {
         const modal = document.getElementById('settingsModal');
         const perlineSlider = document.getElementById('perlineSlider');
         const perlineValue = document.getElementById('perlineValue');
+        const backgroundInput = document.getElementById('backgroundInput');
+        const paddingSlider = document.getElementById('paddingSlider');
+        const paddingValue = document.getElementById('paddingValue');
 
         perlineSlider.value = itemsPerPage;
         perlineValue.textContent = itemsPerPage;
+        backgroundInput.value = customBackground;
+        paddingSlider.value = customPadding;
+        paddingValue.textContent = `${customPadding}px`;
+        updateBackgroundValidity();
 
         modal.classList.add('open');
       }
@@ -4012,6 +4182,19 @@
         if (savedDisplayMode) {
           displayNameMode = savedDisplayMode;
         }
+
+        customBackground =
+          localStorage.getItem('icoziv-custom-background') || '';
+        const savedPadding = Number.parseInt(
+          localStorage.getItem('icoziv-custom-padding') || '0',
+          10,
+        );
+        customPadding =
+          Number.isInteger(savedPadding) &&
+          savedPadding >= 0 &&
+          savedPadding <= 200
+            ? savedPadding
+            : 0;
 
         // Apply theme
         if (themePreference === 'auto') {
@@ -4178,6 +4361,24 @@
               checkAndLoadMore();
             }, 100);
           }
+        });
+
+        const backgroundInput = document.getElementById('backgroundInput');
+        backgroundInput.value = customBackground;
+        backgroundInput.addEventListener('input', event => {
+          customBackground = event.target.value;
+          localStorage.setItem('icoziv-custom-background', customBackground);
+          updateBackgroundValidity();
+        });
+
+        const paddingSlider = document.getElementById('paddingSlider');
+        const paddingValue = document.getElementById('paddingValue');
+        paddingSlider.value = customPadding;
+        paddingValue.textContent = `${customPadding}px`;
+        paddingSlider.addEventListener('input', event => {
+          customPadding = Number.parseInt(event.target.value, 10);
+          paddingValue.textContent = `${customPadding}px`;
+          localStorage.setItem('icoziv-custom-padding', String(customPadding));
         });
 
         // Theme options

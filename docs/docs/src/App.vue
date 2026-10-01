@@ -679,6 +679,56 @@
             </button>
           </div>
         </div>
+
+        <div class="settings-group">
+          <div class="settings-label">
+            <span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 3v18" />
+                <path d="M3 12h18" />
+                <path d="m5 5 14 14" />
+                <path d="m19 5-14 14" />
+              </svg>
+              Badge Customization
+            </span>
+          </div>
+          <div class="customization-fields">
+            <label class="settings-field">
+              <span>Background</span>
+              <input
+                v-model.trim="customBackground"
+                class="settings-input"
+                :class="{ invalid: backgroundError }"
+                type="text"
+                maxlength="2048"
+                placeholder="#0f172a or https://example.com/bg.png"
+              />
+            </label>
+            <p v-if="backgroundError" class="settings-error">
+              Use a hex color or an HTTPS image URL without credentials.
+            </p>
+            <div class="settings-field-heading">
+              <span>Padding</span>
+              <span class="settings-value">{{ customPadding }}px</span>
+            </div>
+            <input
+              v-model.number="customPadding"
+              class="settings-slider"
+              type="range"
+              aria-label="Padding"
+              min="0"
+              max="200"
+              step="1"
+            />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -711,6 +761,18 @@ const themePreference = ref(
 );
 const displayNameMode = ref(
   localStorage.getItem('icoziv-display-name-mode') || 'tooltip',
+);
+const customBackground = ref(
+  localStorage.getItem('icoziv-custom-background') || '',
+);
+const storedPadding = Number.parseInt(
+  localStorage.getItem('icoziv-custom-padding') || '0',
+  10,
+);
+const customPadding = ref(
+  Number.isInteger(storedPadding) && storedPadding >= 0 && storedPadding <= 200
+    ? storedPadding
+    : 0,
 );
 const showCopyModal = ref(false);
 const showSettingsModal = ref(false);
@@ -1134,6 +1196,14 @@ const iconCategories = {
 // Watchers
 watch(isDarkMode, val => localStorage.setItem('darkMode', val));
 
+watch(customBackground, value => {
+  localStorage.setItem('icoziv-custom-background', value);
+});
+
+watch(customPadding, value => {
+  localStorage.setItem('icoziv-custom-padding', String(value));
+});
+
 watch(searchQuery, () => {
   currentPage.value = 1;
 });
@@ -1219,6 +1289,21 @@ const totalPages = computed(() => {
 
 const hasNextPage = computed(() => currentPage.value < totalPages.value);
 const hasPrevPage = computed(() => currentPage.value > 1);
+const backgroundError = computed(() => {
+  const value = customBackground.value.trim();
+  if (!value) return false;
+  if (/^#?([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) {
+    return false;
+  }
+  if (value.length > 2048) return true;
+
+  try {
+    const url = new URL(value);
+    return url.protocol !== 'https:' || Boolean(url.username || url.password);
+  } catch {
+    return true;
+  }
+});
 
 // Functions
 function getCachedData() {
@@ -1419,6 +1504,10 @@ function openCopyModal() {
     showToastMessage('Cart is empty. Nothing to copy.');
     return;
   }
+  if (backgroundError.value) {
+    showToastMessage('Fix the custom background before copying.');
+    return;
+  }
   showCopyModal.value = true;
 }
 
@@ -1442,9 +1531,18 @@ function setDisplayMode(mode) {
 }
 
 function generateImageUrl() {
-  if (cart.value.length === 0) return '';
-  const themeQuery = isDarkMode.value ? '' : '&t=light';
-  return `${base_url}/icons?i=${cart.value.join(',')}${themeQuery}`;
+  if (cart.value.length === 0 || backgroundError.value) return '';
+
+  const params = new URLSearchParams({ i: cart.value.join(',') });
+  if (!isDarkMode.value) params.set('t', 'light');
+  if (customBackground.value.trim()) {
+    params.set('bg', customBackground.value.trim());
+  }
+  if (customPadding.value > 0) {
+    params.set('padding', String(customPadding.value));
+  }
+
+  return `${base_url}/icons?${params.toString()}`;
 }
 
 function generateMarkdown() {
@@ -3092,6 +3190,74 @@ input[type='text']::placeholder {
 .settings-slider::-moz-range-thumb:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.customization-fields {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.settings-field {
+  display: grid;
+  gap: 0.4rem;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.settings-field-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.settings-input {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #0f172a;
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.settings-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.settings-input.invalid {
+  border-color: #ef4444;
+}
+
+.settings-error {
+  margin: -0.35rem 0 0;
+  color: #dc2626;
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.dark .settings-field,
+.dark .settings-field-heading {
+  color: #cbd5e1;
+}
+
+.dark .settings-input {
+  border-color: rgba(148, 163, 184, 0.3);
+  background: rgba(39, 39, 42, 0.75);
+  color: #f8fafc;
+}
+
+.dark .settings-input:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
 }
 
 .dark .settings-slider::-moz-range-thumb {

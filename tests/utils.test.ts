@@ -35,6 +35,8 @@ import {
   normalizePath,
   parseBackgroundParam,
   parseIconsParam,
+  parsePaddingParam,
+  requestMatchesEtag,
 } from '../utils/index.js';
 
 describe('utils', () => {
@@ -128,8 +130,20 @@ describe('utils', () => {
   });
 
   it('should reject invalid background values', () => {
-    const invalid = parseBackgroundParam('javascript:alert(1)');
-    expect(invalid).toBeNull();
+    expect(parseBackgroundParam('javascript:alert(1)')).toBeNull();
+    expect(parseBackgroundParam('http://example.com/bg.png')).toBeNull();
+    expect(parseBackgroundParam('data:image/png;base64,abc')).toBeNull();
+    expect(parseBackgroundParam('https://user:pass@example.com/bg')).toBeNull();
+  });
+
+  it('should parse padding as whole output pixels', () => {
+    expect(parsePaddingParam(null)).toBe(0);
+    expect(parsePaddingParam('0')).toBe(0);
+    expect(parsePaddingParam('200')).toBe(200);
+    expect(parsePaddingParam('1.5')).toBeNull();
+    expect(parsePaddingParam('1e2')).toBeNull();
+    expect(parsePaddingParam('-1')).toBeNull();
+    expect(parsePaddingParam('201')).toBeNull();
   });
 
   it('should generate valid svg output', () => {
@@ -144,6 +158,52 @@ describe('utils', () => {
     expect(svg).toContain('viewBox=');
     expect(svg).toContain('<path id="js"/>');
     expect(svg).toContain('<path id="ts"/>');
+  });
+
+  it('should render background and padding in output pixels', () => {
+    const icons = { javascript: '<path id="js"/>' };
+    const svg = generateSvg(
+      ['javascript'],
+      icons,
+      1,
+      { type: 'color', value: '#abc' },
+      300,
+      44,
+      10,
+    );
+
+    expect(svg).toContain('width="68" height="68"');
+    expect(svg).toContain('viewBox="0 0 362.6667 362.6667"');
+    expect(svg).toContain(
+      '<rect width="362.6667" height="362.6667" fill="#abc"/>',
+    );
+    expect(svg).toContain('transform="translate(53.3333,53.3333)"');
+  });
+
+  it('should escape image URL attributes', () => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      { type: 'image', value: 'https://example.com/bg.png?x=1&y=2' },
+    );
+
+    expect(svg).toContain('href="https://example.com/bg.png?x=1&amp;y=2"');
+  });
+
+  it('should match strong and weak conditional ETags', () => {
+    const etag = '"sha256-test"';
+    expect(
+      requestMatchesEtag(
+        new Request('https://example.com', {
+          headers: { 'If-None-Match': `"other", W/${etag}` },
+        }),
+        etag,
+      ),
+    ).toBe(true);
+    expect(requestMatchesEtag(new Request('https://example.com'), etag)).toBe(
+      false,
+    );
   });
 
   it('should load and return icons from cache', async () => {
