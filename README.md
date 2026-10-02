@@ -30,11 +30,12 @@
 [![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#-specifying-icons)
 [![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#-themed-icons)
 [![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#-icons-per-line)
-[![Centering Icons](https://img.shields.io/badge/6.%20Centering-pink?style=flat)](#-centering-icons)
-[![API Reference](https://img.shields.io/badge/7.%20API-00bba7?style=flat)](#-api-reference)
-[![Examples](https://img.shields.io/badge/8.%20Examples-9cf?style=flat)](#-example)
-[![Support](https://img.shields.io/badge/9.%20Support-Ff0000?style=flat)](#-support)
-[![Showcase](https://img.shields.io/badge/10.%20Showcase-purple?style=flat)](#-showcase)
+[![Custom Background](https://img.shields.io/badge/6.%20Background-6366f1?style=flat)](#-custom-background-and-padding)
+[![Centering Icons](https://img.shields.io/badge/7.%20Centering-pink?style=flat)](#-centering-icons)
+[![API Reference](https://img.shields.io/badge/8.%20API-00bba7?style=flat)](#-api-reference)
+[![Examples](https://img.shields.io/badge/9.%20Examples-9cf?style=flat)](#-example)
+[![Support](https://img.shields.io/badge/10.%20Support-Ff0000?style=flat)](#-support)
+[![Showcase](https://img.shields.io/badge/11.%20Showcase-purple?style=flat)](#-showcase)
 
 ## 🧩 About
 
@@ -107,6 +108,28 @@ Change the `&perline=3` to any number between 1 and 50.
 
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
 
+## 🖼️ Custom Background and Padding
+
+Add a background with the optional `bg` parameter. It accepts a 3, 4, 6, or
+8-digit hex color, with or without `#`, or an HTTPS image URL. Use `padding` to
+add 0–200 pixels around the generated icon grid.
+
+**Color background with 12px padding:**
+
+```md
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&bg=0f172a&padding=12)](https://github.com/thuongtruong109/icoziv)
+```
+
+For an image background, URL-encode the complete image URL so characters such
+as `?`, `&`, and `#` remain part of the `bg` value:
+
+```text
+GET /icons?i=js,ts&bg=https%3A%2F%2Fexample.com%2Fbackground.png&padding=12
+```
+
+Image backgrounds are referenced by the generated SVG rather than embedded.
+The image host must remain available and allow the target platform to load it.
+
 ## 📐 Centering Icons
 
 Want to center the icons in your readme? The SVGs are automatically resized, so you can do it the same way you'd normally center an image.
@@ -137,12 +160,13 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 |-----------|-------|-------------|----------|---------|
 | `icons`   | `i`   | Comma-separated list of icon names                | Yes      | /       |
 | `theme`   | `t`   | Theme - `dark` (default) or `light`               | No       | dark    |
-| `perline` |       | Number of icons per line (1-50)                          | No       | 15      |
-| `radius`  |       | Icon(s) corner radius (value between 25 and 85)   | No       | 40      |
+| `perline` |       | Number of icons per line (1-50)                   | No       | 15      |
+| `bg`      |       | Hex color or URL-encoded HTTPS image URL          | No       | transparent |
+| `padding` |       | Whole pixels around the icon grid (0-200)         | No       | 0       |
 
 **Example:**
 ```
-GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4
+GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4&bg=0f172a&padding=12
 ```
 
 **Response:** SVG image
@@ -1033,7 +1057,13 @@ We strive to respect all branding guidelines and intellectual property. If you r
 
 ## 👥 Showcase
 
-> 🥇 If you have a public project that uses Icoziv icons, please share it with us! We would love to see how you're using the icons and feature your project here.
+> 🥇 Using Icoziv in your GitHub profile or a public project? Share your link in GitHub Discussions and you may be featured here.
+
+<p align="center">
+  <a href="https://github.com/thuongtruong109/icoziv/discussions/new/choose">
+    <img alt="Share your Icoziv profile in GitHub Discussions" src="https://img.shields.io/badge/Share_your_profile-Join_the_showcase-635BFF?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
 
 <table>
   <tr>
@@ -1116,11 +1146,55 @@ We strive to respect all branding guidelines and intellectual property. If you r
         <sub><b>yur1freitas</b></sub>
       </a>
     </td>
-     <td align="center">
-      <a href="https://github.com/Arjun6472">
-        <img src="https://github.com/Arjun6472.png?size=100" width="50" height="50" style="border-radius:50%;" />
+    <td align="center">
+      <a href="https://github.com/eduardogazolla">
+        <img src="https://github.com/eduardogazolla.png?size=100" width="50" height="50" style="border-radius:50%;" />
         <br />
-        <sub><b>Arjun6472</b></sub>
+        <sub><b>eduardogazolla</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/AngeloMaverick">
+        <img src="https://github.com/AngeloMaverick.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>AngeloMaverick</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/remBits">
+        <img src="https://github.com/remBits.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>remBits</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/elianbarrios">
+        <img src="https://github.com/elianbarrios.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>elianbarrios</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Abdulquddus-Nuhu">
+        <img src="https://github.com/Abdulquddus-Nuhu.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>Abdulquddus-Nuhu</b></sub>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/whskee">
+        <img src="https://github.com/whskee.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>whskee</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/helios-ryuu">
+        <img src="https://github.com/helios-ryuu.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>helios-ryuu</b></sub>
       </a>
     </td>
   </tr>

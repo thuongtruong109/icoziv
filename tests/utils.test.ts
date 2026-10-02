@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 // ✅ Mock decrypt() để không cần icons.bin thật
 vi.mock('../utils/encrypt.js', () => ({
@@ -24,17 +24,20 @@ const mockEnv = {
   ICONS_KV: mockKV,
 };
 
-import {
-  isValidTheme,
-  normalizePath,
-  parseIconsParam,
-  generateSvg,
-  loadIcons,
-  getIcons,
-  getIconNameList,
-  getThemedIcons,
-} from '../utils/index.js';
 import type { Theme } from '../types/index.js';
+import {
+  generateSvg,
+  getIconNameList,
+  getIcons,
+  getThemedIcons,
+  isValidTheme,
+  loadIcons,
+  normalizePath,
+  parseBackgroundParam,
+  parseIconsParam,
+  parsePaddingParam,
+  requestMatchesEtag,
+} from '../utils/index.js';
 
 describe('utils', () => {
   beforeAll(async () => {
@@ -118,6 +121,31 @@ describe('utils', () => {
     expect(result).toEqual([]);
   });
 
+  it('should parse background color and image', () => {
+    const hex = parseBackgroundParam('#A1B2C3');
+    expect(hex).toEqual({ type: 'color', value: '#a1b2c3' });
+
+    const img = parseBackgroundParam('https://example.com/bg.png');
+    expect(img).toEqual({ type: 'image', value: 'https://example.com/bg.png' });
+  });
+
+  it('should reject invalid background values', () => {
+    expect(parseBackgroundParam('javascript:alert(1)')).toBeNull();
+    expect(parseBackgroundParam('http://example.com/bg.png')).toBeNull();
+    expect(parseBackgroundParam('data:image/png;base64,abc')).toBeNull();
+    expect(parseBackgroundParam('https://user:pass@example.com/bg')).toBeNull();
+  });
+
+  it('should parse padding as whole output pixels', () => {
+    expect(parsePaddingParam(null)).toBe(0);
+    expect(parsePaddingParam('0')).toBe(0);
+    expect(parsePaddingParam('200')).toBe(200);
+    expect(parsePaddingParam('1.5')).toBeNull();
+    expect(parsePaddingParam('1e2')).toBeNull();
+    expect(parsePaddingParam('-1')).toBeNull();
+    expect(parsePaddingParam('201')).toBeNull();
+  });
+
   it('should generate valid svg output', () => {
     const icons = {
       javascript: '<path id="js"/>',
@@ -130,6 +158,52 @@ describe('utils', () => {
     expect(svg).toContain('viewBox=');
     expect(svg).toContain('<path id="js"/>');
     expect(svg).toContain('<path id="ts"/>');
+  });
+
+  it('should render background and padding in output pixels', () => {
+    const icons = { javascript: '<path id="js"/>' };
+    const svg = generateSvg(
+      ['javascript'],
+      icons,
+      1,
+      { type: 'color', value: '#abc' },
+      300,
+      44,
+      10,
+    );
+
+    expect(svg).toContain('width="68" height="68"');
+    expect(svg).toContain('viewBox="0 0 362.6667 362.6667"');
+    expect(svg).toContain(
+      '<rect width="362.6667" height="362.6667" fill="#abc"/>',
+    );
+    expect(svg).toContain('transform="translate(53.3333,53.3333)"');
+  });
+
+  it('should escape image URL attributes', () => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      { type: 'image', value: 'https://example.com/bg.png?x=1&y=2' },
+    );
+
+    expect(svg).toContain('href="https://example.com/bg.png?x=1&amp;y=2"');
+  });
+
+  it('should match strong and weak conditional ETags', () => {
+    const etag = '"sha256-test"';
+    expect(
+      requestMatchesEtag(
+        new Request('https://example.com', {
+          headers: { 'If-None-Match': `"other", W/${etag}` },
+        }),
+        etag,
+      ),
+    ).toBe(true);
+    expect(requestMatchesEtag(new Request('https://example.com'), etag)).toBe(
+      false,
+    );
   });
 
   it('should load and return icons from cache', async () => {

@@ -20,5 +20,15 @@ export default defineConfig(
       ],
     },
   },
-  globalIgnores(['dist', 'node_modules', 'public', '*.json', 'playground2']),
+  globalIgnores([
+    '**/dist/**',
+    '**/.next/**',
+    '**/node_modules/**',
+    '**/out/**',
+    '**/next-env.d.ts',
+    '.wrangler/**',
+    'public/**',
+    '*.json',
+    'playground2/**',
+  ]),
 );

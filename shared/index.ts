@@ -7,20 +7,17 @@ export const CONTENT = {
   JSON: {
     'Content-Type': 'application/json;charset=UTF-8',
     'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600',
-    ETag: '"icons-json-tag"',
     Vary: 'Accept-Encoding',
   },
   HTML: {
     'Content-Type': 'text/html;charset=UTF-8',
     'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600',
-    ETag: '"icons-html-tag"',
     Vary: 'Accept-Encoding',
   },
   SVG: {
     'Content-Type': 'image/svg+xml',
     'Cache-Control':
       'public, max-age=31536000, immutable, stale-while-revalidate=86400',
-    ETag: '"icons-svg-tag"',
     Vary: 'Accept-Encoding',
   },
 };
@@ -28,6 +25,8 @@ export const CONTENT = {
 export const ERRORS = {
   INVALID_THEME: `Theme must be ${THEMES.join(' or ')}`,
   INVALID_PERLINE: 'Icons per line must be a number between 1 and 50',
+  INVALID_PADDING: 'Padding must be a whole number of pixels between 0 and 200',
+  INVALID_BG: 'Background must be a hex color or an HTTPS image URL',
   NO_ICON_PARAM: 'You must specify ?i=icon1,icon2 or i=all',
   NO_ICONS_FOUND: 'No valid icons found from the given parameters',
   NOT_FOUND: 'Not found',

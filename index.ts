@@ -7,22 +7,19 @@ import {
 } from './shared/index.js';
 
 import {
-  loadIcons,
-  getIcons,
+  contentResponse,
+  errorResponse,
+  generateSvg,
   getIconNameList,
+  getIcons,
   getThemedIcons,
   isValidTheme,
+  loadIcons,
   normalizePath,
+  parseBackgroundParam,
   parseIconsParam,
-  generateSvg,
-  errorResponse,
-  jsonResponse,
+  parsePaddingParam,
 } from './utils/index.js';
-
-function checkETag(request: Request, etag: string): boolean {
-  const ifNoneMatch = request.headers.get('If-None-Match');
-  return ifNoneMatch === etag;
-}
 
 function enhanceResponseHeaders(
   response: Response,
@@ -91,6 +88,18 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
+      const padding = parsePaddingParam(searchParams.get('padding'));
+      if (padding === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_PADDING);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
+      const background = parseBackgroundParam(searchParams.get('bg'));
+      if (searchParams.has('bg') && !background) {
+        const errResponse = errorResponse(ERRORS.INVALID_BG);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
       const iconNames = parseIconsParam(
         iconParam,
         themeParam,
@@ -104,33 +113,34 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
-      const etag = CONTENT.SVG.ETag || '"icons-svg-tag"';
-      if (checkETag(request, etag)) {
-        return new Response(null, { status: 304, headers: { ETag: etag } });
-      }
-
-      const svg = generateSvg(iconNames, icons, perLine);
-      const response = new Response(svg, { headers: CONTENT.SVG });
+      const svg = generateSvg(
+        iconNames,
+        icons,
+        perLine,
+        background,
+        300,
+        44,
+        padding,
+      );
+      const response = await contentResponse(request, svg, CONTENT.SVG);
       return enhanceResponseHeaders(response, 31536000);
     }
 
     case 'api/icons': {
-      const etag = CONTENT.JSON.ETag || '"icons-json-tag"';
-      if (checkETag(request, etag)) {
-        return new Response(null, { status: 304, headers: { ETag: etag } });
-      }
-
-      const response = jsonResponse(iconNameList);
+      const response = await contentResponse(
+        request,
+        JSON.stringify(iconNameList),
+        CONTENT.JSON,
+      );
       return enhanceResponseHeaders(response, 86400);
     }
 
     case 'api/svgs': {
-      const etag = CONTENT.JSON.ETag || '"icons-json-tag"';
-      if (checkETag(request, etag)) {
-        return new Response(null, { status: 304, headers: { ETag: etag } });
-      }
-
-      const response = jsonResponse(icons);
+      const response = await contentResponse(
+        request,
+        JSON.stringify(icons),
+        CONTENT.JSON,
+      );
       return enhanceResponseHeaders(response, 86400);
     }
 
@@ -153,11 +163,13 @@ export default {
         const cacheKey = new Request(url.toString(), request);
         const cache =
           (caches as unknown as { default: Cache }).default || caches;
-        ctx.waitUntil(
-          (cache as Cache).put(cacheKey, response.clone()).catch(() => {
-            // Silently ignore cache errors
-          }),
-        );
+        if (response.status >= 200 && response.status < 300) {
+          ctx.waitUntil(
+            (cache as Cache).put(cacheKey, response.clone()).catch(() => {
+              // Silently ignore cache errors
+            }),
+          );
+        }
       }
 
       return response;

@@ -1,5 +1,5 @@
 import { CONTENT } from '../shared/index.js';
-import { Theme } from '../types/index.js';
+import type { Theme } from '../types/index.js';
 
 export function isValidTheme(theme: string, themes: Theme[]): theme is Theme {
   return themes.includes(theme as Theme);
