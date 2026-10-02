@@ -1,9 +1,32 @@
-import { GapLevel, Theme } from '../types/index.js';
+import {
+  BorderRadiusLevel,
+  BorderStyle,
+  BorderWidthLevel,
+  GapLevel,
+  Theme,
+} from '../types/index.js';
 
 export const ICONS_PER_LINE = 15;
 export const THEMES: Theme[] = ['light', 'dark'];
 export const DEFAULT_GAP: GapLevel = 'sm';
 export const GAP_LEVELS: GapLevel[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+export const DEFAULT_BORDER_WIDTH: BorderWidthLevel = 'none';
+export const DEFAULT_BORDER_COLOR = 'transparent';
+export const DEFAULT_BORDER_STYLE: BorderStyle = 'solid';
+export const DEFAULT_BORDER_RADIUS: BorderRadiusLevel = 'none';
+export const BORDER_WIDTH_LEVELS: BorderWidthLevel[] = [
+  'thin',
+  'medium',
+  'bold',
+];
+export const BORDER_STYLES: BorderStyle[] = ['solid', 'dashed', 'dotted'];
+export const BORDER_RADIUS_LEVELS: BorderRadiusLevel[] = [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+];
 
 export const CONTENT = {
   JSON: {
@@ -28,6 +51,11 @@ export const ERRORS = {
   INVALID_THEME: `Theme must be ${THEMES.join(' or ')}`,
   INVALID_PERLINE: 'Icons per line must be a number between 1 and 50',
   INVALID_GAP: `Gap must be ${GAP_LEVELS.join(', ')}`,
+  INVALID_BORDER_WIDTH: `Border must be ${BORDER_WIDTH_LEVELS.join(', ')}`,
+  INVALID_BORDER_STYLE: `Border style must be ${BORDER_STYLES.join(', ')}`,
+  INVALID_BORDER_RADIUS: `Rounded must be ${BORDER_RADIUS_LEVELS.join(', ')}`,
+  INVALID_BORDER_COLOR:
+    'Border color must be transparent or a 3, 4, 6, or 8-digit hex color',
   INVALID_PADDING: 'Padding must be a whole number of pixels between 0 and 200',
   INVALID_BG: 'Background must be a hex color or an HTTPS image URL',
   NO_ICON_PARAM: 'You must specify ?i=icon1,icon2 or i=all',

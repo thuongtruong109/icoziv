@@ -17,6 +17,10 @@ import {
   loadIcons,
   normalizePath,
   parseBackgroundParam,
+  parseBorderColorParam,
+  parseBorderRadiusParam,
+  parseBorderStyleParam,
+  parseBorderWidthParam,
   parseGapParam,
   parseIconsParam,
   parsePaddingParam,
@@ -101,6 +105,39 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
+      const borderWidth = parseBorderWidthParam(searchParams.get('border'));
+      if (borderWidth === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_BORDER_WIDTH);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
+      const borderColor = parseBorderColorParam(
+        searchParams.get('bordercolor') ?? searchParams.get('borderColor'),
+      );
+      if (borderColor === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_BORDER_COLOR);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
+      const borderStyle = parseBorderStyleParam(
+        searchParams.get('borderstyle') ?? searchParams.get('borderStyle'),
+      );
+      if (borderStyle === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_BORDER_STYLE);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
+      const borderRadius = parseBorderRadiusParam(
+        searchParams.get('rounded') ??
+          searchParams.get('radius') ??
+          searchParams.get('borderradius') ??
+          searchParams.get('borderRadius'),
+      );
+      if (borderRadius === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_BORDER_RADIUS);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
       const background = parseBackgroundParam(searchParams.get('bg'));
       if (searchParams.has('bg') && !background) {
         const errResponse = errorResponse(ERRORS.INVALID_BG);
@@ -122,6 +159,10 @@ async function handleRequest(
 
       const svg = generateSvg(iconNames, icons, perLine, {
         background,
+        borderColor,
+        borderRadius,
+        borderStyle,
+        borderWidth,
         gap,
         padding,
       });

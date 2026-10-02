@@ -30,7 +30,7 @@
 [![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#-specifying-icons)
 [![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#-themed-icons)
 [![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#-icons-per-line)
-[![Customization](https://img.shields.io/badge/6.%20Customization-6366f1?style=flat)](#-custom-background-padding-and-gap)
+[![Customization](https://img.shields.io/badge/6.%20Customization-6366f1?style=flat)](#-custom-background-padding-gap-border-and-corners)
 [![Centering Icons](https://img.shields.io/badge/7.%20Centering-pink?style=flat)](#-centering-icons)
 [![API Reference](https://img.shields.io/badge/8.%20API-00bba7?style=flat)](#-api-reference)
 [![Examples](https://img.shields.io/badge/9.%20Examples-9cf?style=flat)](#-example)
@@ -108,7 +108,7 @@ Change the `&perline=3` to any number between 1 and 50.
 
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
 
-## 🖼️ Custom Background, Padding, and Gap
+## 🖼️ Custom Background, Padding, Gap, Border, and Corners
 
 Add a background with the optional `bg` parameter. It accepts a 3, 4, 6, or
 8-digit hex color, with or without `#`, or an HTTPS image URL. Use `padding` to
@@ -117,6 +117,16 @@ add 0–200 pixels around the generated icon grid.
 Use `gap` to control the spacing between icons with one of five semantic levels:
 `xs`, `sm`, `md`, `lg`, or `xl`. The default is `sm`, which preserves the
 original Icoziv spacing.
+
+Use `border` to add an outer border with `thin` (1px), `medium` (2px), or
+`bold` (3px). Set its color with `bordercolor` using `transparent` or a 3, 4,
+6, or 8-digit hex color. Without these parameters, the border remains 0px and
+transparent. Use `borderstyle` to switch between `solid`, `dashed`, and
+`dotted`; its default is `solid`.
+
+Use `rounded` to clip the entire badge to semantic corner-radius presets:
+`xs` (2px), `sm` (4px), `md` (8px), `lg` (12px), or `xl` (16px). Without
+this parameter, the radius remains 0px.
 
 **Color background with 12px padding:**
 
@@ -135,6 +145,12 @@ GET /icons?i=js,ts&bg=https%3A%2F%2Fexample.com%2Fbackground.png&padding=12
 
 ```md
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&gap=lg)](https://github.com/thuongtruong109/icoziv)
+```
+
+**Medium red dashed border with large rounded corners:**
+
+```md
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&padding=8&rounded=lg&border=medium&borderstyle=dashed&bordercolor=ef4444)](https://github.com/thuongtruong109/icoziv)
 ```
 
 Image backgrounds are referenced by the generated SVG rather than embedded.
@@ -172,12 +188,16 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 | `theme`   | `t`   | Theme - `dark` (default) or `light`               | No       | dark    |
 | `perline` |       | Number of icons per line (1-50)                   | No       | 15      |
 | `gap`     |       | Icon spacing: `xs`, `sm`, `md`, `lg`, or `xl`    | No       | sm      |
+| `border`  |       | Border width: `thin`, `medium`, or `bold`         | No       | 0px     |
+| `borderstyle` |   | Border style: `solid`, `dashed`, or `dotted`      | No       | solid   |
+| `bordercolor` |   | Transparent or hex border color                   | No       | transparent |
+| `rounded` |       | Corner radius: `xs`, `sm`, `md`, `lg`, or `xl`    | No       | 0px     |
 | `bg`      |       | Hex color or URL-encoded HTTPS image URL          | No       | transparent |
 | `padding` |       | Whole pixels around the icon grid (0-200)         | No       | 0       |
 
 **Example:**
 ```
-GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4&gap=md&bg=0f172a&padding=12
+GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4&gap=md&bg=0f172a&padding=12&rounded=lg&border=medium&borderstyle=dashed&bordercolor=ef4444
 ```
 
 **Response:** SVG image

@@ -6,7 +6,9 @@
 - [ ] Rate limiting for fair usage
 - [x] Add background color/image and pixel padding customization
 - [x] Add semantic gap presets (xs, sm, md, lg, xl)
-- [ ] Add more customization options (e.g. border, shadow, layout (grid/circle/wave/stagger/random), format (png/svg/webp))
+- [x] Add border width, style, and custom color controls
+- [x] Add semantic corner-radius presets (xs, sm, md, lg, xl)
+- [ ] Add more customization options (e.g. shadow, layout (grid/circle/wave/stagger/random), format (png/svg/webp))
 - [ ] Support grouping (&i=frontend:react,vue,angular|backend:nodejs,express|devops:docker,aws)
 - [ ] Add label (“Powered by Icoziv”)
 

@@ -1708,6 +1708,10 @@ select:focus-visible {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.choice-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .choice-card {
   display: flex;
   min-height: 38px;
@@ -1737,6 +1741,24 @@ select:focus-visible {
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
+.border-style-preview {
+  flex-direction: column;
+  gap: 5px;
+}
+
+.border-style-preview i {
+  width: min(64px, 80%);
+  border-top: 2px solid currentColor;
+}
+
+.border-style-preview--dashed i {
+  border-top-style: dashed;
+}
+
+.border-style-preview--dotted i {
+  border-top-style: dotted;
+}
+
 .range-field,
 .text-field {
   display: grid;
@@ -1744,7 +1766,7 @@ select:focus-visible {
 }
 
 .range-stack,
-.background-picker {
+.color-picker {
   display: grid;
   gap: 14px;
 }
@@ -1800,14 +1822,14 @@ select:focus-visible {
   color: var(--danger);
 }
 
-.background-presets {
+.color-presets {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 7px;
 }
 
-.background-swatch {
+.color-swatch {
   position: relative;
   display: grid;
   width: 31px;
@@ -1825,21 +1847,21 @@ select:focus-visible {
     transform 140ms ease;
 }
 
-.background-swatch:hover {
+.color-swatch:hover {
   transform: translateY(-1px) scale(1.04);
 }
 
-.background-swatch.is-light {
+.color-swatch.is-light {
   color: #334155;
 }
 
-.background-swatch.is-selected {
+.color-swatch.is-selected {
   box-shadow:
     0 0 0 2px var(--surface),
     0 0 0 4px var(--primary);
 }
 
-.background-swatch--transparent {
+.color-swatch--transparent {
   overflow: hidden;
   background:
     linear-gradient(
@@ -1894,12 +1916,12 @@ select:focus-visible {
   border-radius: 6px;
 }
 
-.background-value-field {
+.color-value-field {
   padding-top: 2px;
   border-top: 1px solid var(--border);
 }
 
-.background-value-field > span {
+.color-value-field > span {
   padding-top: 9px;
 }
 

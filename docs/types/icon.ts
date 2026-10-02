@@ -1,5 +1,8 @@
 export type IconTheme = 'light' | 'dark';
 export type BadgeGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type BadgeBorderWidth = 'none' | 'thin' | 'medium' | 'bold';
+export type BadgeBorderStyle = 'solid' | 'dashed' | 'dotted';
+export type BadgeBorderRadius = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ThemePreference = IconTheme | 'system';
 export type DisplayNameMode = 'tooltip' | 'inside';
 export type ViewMode = 'pagination' | 'infinite';
@@ -33,6 +36,10 @@ export interface BadgeSettings {
   theme: IconTheme;
   perLine: number;
   gap: BadgeGap;
+  borderWidth: BadgeBorderWidth;
+  borderColor: string;
+  borderStyle: BadgeBorderStyle;
+  borderRadius: BadgeBorderRadius;
   background: string;
   padding: number;
 }

@@ -1,4 +1,10 @@
-import type { BadgeGap, IconCategory } from '@/types/icon';
+import type {
+  BadgeBorderRadius,
+  BadgeBorderStyle,
+  BadgeBorderWidth,
+  BadgeGap,
+  IconCategory,
+} from '@/types/icon';
 
 export const BADGE_BASE_URL = 'https://i.icoziv.workers.dev';
 export const ICON_ASSET_BASE_URL =
@@ -8,6 +14,36 @@ export const REPOSITORY_URL = 'https://github.com/thuongtruong109/icoziv';
 export const LOGO_URL =
   'https://raw.githubusercontent.com/thuongtruong109/icoziv/main/public/logo.png';
 export const BADGE_GAP_OPTIONS: BadgeGap[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+export const BADGE_BORDER_WIDTH_OPTIONS: Array<{
+  value: BadgeBorderWidth;
+  label: string;
+  pixels: number;
+}> = [
+  { value: 'none', label: 'None', pixels: 0 },
+  { value: 'thin', label: 'Thin', pixels: 1 },
+  { value: 'medium', label: 'Medium', pixels: 2 },
+  { value: 'bold', label: 'Bold', pixels: 3 },
+];
+export const BADGE_BORDER_STYLE_OPTIONS: Array<{
+  value: BadgeBorderStyle;
+  label: string;
+}> = [
+  { value: 'solid', label: 'Solid' },
+  { value: 'dashed', label: 'Dashed' },
+  { value: 'dotted', label: 'Dotted' },
+];
+export const BADGE_BORDER_RADIUS_OPTIONS: Array<{
+  value: BadgeBorderRadius;
+  label: string;
+  pixels: number;
+}> = [
+  { value: 'none', label: 'None', pixels: 0 },
+  { value: 'xs', label: 'XS', pixels: 2 },
+  { value: 'sm', label: 'SM', pixels: 4 },
+  { value: 'md', label: 'MD', pixels: 8 },
+  { value: 'lg', label: 'LG', pixels: 12 },
+  { value: 'xl', label: 'XL', pixels: 16 },
+];
 
 export const DEMO_ICONS = [
   'reactjs',

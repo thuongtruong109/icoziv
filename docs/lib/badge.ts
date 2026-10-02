@@ -1,5 +1,14 @@
-import { BADGE_BASE_URL, BADGE_GAP_OPTIONS } from './constants';
+import {
+  BADGE_BASE_URL,
+  BADGE_BORDER_RADIUS_OPTIONS,
+  BADGE_BORDER_STYLE_OPTIONS,
+  BADGE_BORDER_WIDTH_OPTIONS,
+  BADGE_GAP_OPTIONS,
+} from './constants';
 import type {
+  BadgeBorderRadius,
+  BadgeBorderStyle,
+  BadgeBorderWidth,
   BadgeGap,
   BadgeSettings,
   BadgeSnippets,
@@ -11,6 +20,10 @@ export const DEFAULT_BADGE_SETTINGS: BadgeSettings = {
   theme: 'dark',
   perLine: 15,
   gap: 'sm',
+  borderWidth: 'none',
+  borderColor: '',
+  borderStyle: 'solid',
+  borderRadius: 'none',
   background: '',
   padding: 0,
 };
@@ -34,6 +47,29 @@ function parseGap(value: unknown): BadgeGap {
   return BADGE_GAP_OPTIONS.includes(gap) ? gap : DEFAULT_BADGE_SETTINGS.gap;
 }
 
+function parseBorderWidth(value: unknown): BadgeBorderWidth {
+  const borderWidth = String(value ?? '').toLowerCase() as BadgeBorderWidth;
+  return BADGE_BORDER_WIDTH_OPTIONS.some(option => option.value === borderWidth)
+    ? borderWidth
+    : DEFAULT_BADGE_SETTINGS.borderWidth;
+}
+
+function parseBorderStyle(value: unknown): BadgeBorderStyle {
+  const borderStyle = String(value ?? '').toLowerCase() as BadgeBorderStyle;
+  return BADGE_BORDER_STYLE_OPTIONS.some(option => option.value === borderStyle)
+    ? borderStyle
+    : DEFAULT_BADGE_SETTINGS.borderStyle;
+}
+
+function parseBorderRadius(value: unknown): BadgeBorderRadius {
+  const borderRadius = String(value ?? '').toLowerCase() as BadgeBorderRadius;
+  return BADGE_BORDER_RADIUS_OPTIONS.some(
+    option => option.value === borderRadius,
+  )
+    ? borderRadius
+    : DEFAULT_BADGE_SETTINGS.borderRadius;
+}
+
 export function normalizeBadgeSettings(
   settings: BadgeSettingsInput = {},
 ): BadgeSettings {
@@ -46,6 +82,10 @@ export function normalizeBadgeSettings(
       DEFAULT_BADGE_SETTINGS.perLine,
     ),
     gap: parseGap(settings.gap),
+    borderWidth: parseBorderWidth(settings.borderWidth),
+    borderColor: String(settings.borderColor ?? '').trim(),
+    borderStyle: parseBorderStyle(settings.borderStyle),
+    borderRadius: parseBorderRadius(settings.borderRadius),
     background: String(settings.background ?? '').trim(),
     padding: parseInteger(
       settings.padding,
@@ -82,6 +122,15 @@ export function isValidBackground(value: string): boolean {
   }
 }
 
+export function isValidBorderColor(value: string): boolean {
+  const color = value.trim();
+  return (
+    !color ||
+    color.toLowerCase() === 'transparent' ||
+    /^#?([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(color)
+  );
+}
+
 export function buildBadgeUrl(
   icons: string[],
   settings: BadgeSettings,
@@ -90,7 +139,8 @@ export function buildBadgeUrl(
   const normalizedSettings = normalizeBadgeSettings(settings);
   if (
     !normalizedIcons.length ||
-    !isValidBackground(normalizedSettings.background)
+    !isValidBackground(normalizedSettings.background) ||
+    !isValidBorderColor(normalizedSettings.borderColor)
   ) {
     return '';
   }
@@ -107,6 +157,21 @@ export function buildBadgeUrl(
   }
   if (normalizedSettings.padding > 0) {
     params.set('padding', String(normalizedSettings.padding));
+  }
+  if (normalizedSettings.borderRadius !== 'none') {
+    params.set('rounded', normalizedSettings.borderRadius);
+  }
+  if (normalizedSettings.borderWidth !== 'none') {
+    params.set('border', normalizedSettings.borderWidth);
+    if (normalizedSettings.borderStyle !== 'solid') {
+      params.set('borderstyle', normalizedSettings.borderStyle);
+    }
+    if (
+      normalizedSettings.borderColor &&
+      normalizedSettings.borderColor.toLowerCase() !== 'transparent'
+    ) {
+      params.set('bordercolor', normalizedSettings.borderColor);
+    }
   }
 
   return `${BADGE_BASE_URL}/icons?${params.toString()}`;

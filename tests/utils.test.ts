@@ -34,6 +34,10 @@ import {
   loadIcons,
   normalizePath,
   parseBackgroundParam,
+  parseBorderColorParam,
+  parseBorderRadiusParam,
+  parseBorderStyleParam,
+  parseBorderWidthParam,
   parseGapParam,
   parseIconsParam,
   parsePaddingParam,
@@ -154,6 +158,36 @@ describe('utils', () => {
     expect(parseGapParam('wide')).toBeNull();
   });
 
+  it('should parse semantic border widths with none as the default', () => {
+    expect(parseBorderWidthParam(null)).toBe('none');
+    expect(parseBorderWidthParam('')).toBe('none');
+    expect(parseBorderWidthParam('BOLD')).toBe('bold');
+    expect(parseBorderWidthParam('wide')).toBeNull();
+  });
+
+  it('should normalize border colors with transparent as the default', () => {
+    expect(parseBorderColorParam(null)).toBe('transparent');
+    expect(parseBorderColorParam('transparent')).toBe('transparent');
+    expect(parseBorderColorParam('#ABC')).toBe('#abc');
+    expect(parseBorderColorParam('red')).toBeNull();
+    expect(parseBorderColorParam('https://example.com')).toBeNull();
+  });
+
+  it('should parse CSS-like border styles with solid as the default', () => {
+    expect(parseBorderStyleParam(null)).toBe('solid');
+    expect(parseBorderStyleParam('')).toBe('solid');
+    expect(parseBorderStyleParam('DASHED')).toBe('dashed');
+    expect(parseBorderStyleParam('dotted')).toBe('dotted');
+    expect(parseBorderStyleParam('double')).toBeNull();
+  });
+
+  it('should parse semantic corner radii with none as the default', () => {
+    expect(parseBorderRadiusParam(null)).toBe('none');
+    expect(parseBorderRadiusParam('')).toBe('none');
+    expect(parseBorderRadiusParam('XL')).toBe('xl');
+    expect(parseBorderRadiusParam('round')).toBeNull();
+  });
+
   it('should generate valid svg output', () => {
     const icons = {
       javascript: '<path id="js"/>',
@@ -181,6 +215,114 @@ describe('utils', () => {
       '<rect width="362.6667" height="362.6667" fill="#abc"/>',
     );
     expect(svg).toContain('transform="translate(53.3333,53.3333)"');
+  });
+
+  it.each([
+    ['none', '48'],
+    ['thin', '50'],
+    ['medium', '52'],
+    ['bold', '54'],
+  ] as const)('renders the %s border width', (borderWidth, expectedSize) => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      { borderColor: '#ef4444', borderWidth },
+    );
+
+    expect(svg).toContain(`width="${expectedSize}" height="${expectedSize}"`);
+  });
+
+  it('renders the border outside padding without shrinking content', () => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      {
+        background: { type: 'color', value: '#abc' },
+        borderColor: '#ef4444',
+        borderWidth: 'medium',
+        padding: 10,
+      },
+    );
+
+    expect(svg).toContain('width="72" height="72"');
+    expect(svg).toContain('viewBox="0 0 384 384"');
+    expect(svg).toContain('<rect width="384" height="384" fill="#abc"/>');
+    expect(svg).toContain('transform="translate(64,64)"');
+    expect(svg).toContain(
+      '<rect x="5.3333" y="5.3333" width="373.3333" height="373.3333" fill="none" stroke="#ef4444" stroke-width="10.6667"/>',
+    );
+  });
+
+  it.each([
+    ['solid', 'stroke-width="10.6667"/>'],
+    ['dashed', 'stroke-dasharray="42.6667 21.3333"'],
+    ['dotted', 'stroke-dasharray="0 26.6667" stroke-linecap="round"'],
+  ] as const)('renders the %s border style', (borderStyle, expectedMarkup) => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      {
+        borderColor: '#ef4444',
+        borderStyle,
+        borderWidth: 'medium',
+      },
+    );
+
+    expect(svg).toContain(expectedMarkup);
+  });
+
+  it.each([
+    ['xs', '10.6667'],
+    ['sm', '21.3333'],
+    ['md', '42.6667'],
+    ['lg', '64'],
+    ['xl', '85.3333'],
+  ] as const)('clips content with the %s corner radius', (borderRadius, rx) => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      {
+        background: { type: 'image', value: 'https://example.com/bg.png' },
+        borderRadius,
+      },
+    );
+
+    expect(svg).toContain(
+      `<clipPath id="badge-rounded-clip"><rect width="256" height="256" rx="${rx}"/></clipPath>`,
+    );
+    expect(svg).toContain('<g clip-path="url(#badge-rounded-clip)">');
+  });
+
+  it('matches the outer corner radius when a border is present', () => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+      {
+        borderColor: '#ef4444',
+        borderRadius: 'md',
+        borderWidth: 'medium',
+      },
+    );
+
+    expect(svg).toContain(
+      '<rect x="5.3333" y="5.3333" width="266.6667" height="266.6667" rx="37.3333" fill="none"',
+    );
+  });
+
+  it('does not emit rounded markup by default', () => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+    );
+
+    expect(svg).not.toContain('badge-rounded-clip');
+    expect(svg).not.toContain(' rx=');
   });
 
   it.each([

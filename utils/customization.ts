@@ -1,5 +1,21 @@
-import { DEFAULT_GAP, GAP_LEVELS } from '../shared/index.js';
-import type { BackgroundParam, GapLevel } from '../types/index.js';
+import {
+  BORDER_RADIUS_LEVELS,
+  BORDER_STYLES,
+  BORDER_WIDTH_LEVELS,
+  DEFAULT_BORDER_COLOR,
+  DEFAULT_BORDER_RADIUS,
+  DEFAULT_BORDER_STYLE,
+  DEFAULT_BORDER_WIDTH,
+  DEFAULT_GAP,
+  GAP_LEVELS,
+} from '../shared/index.js';
+import type {
+  BackgroundParam,
+  BorderRadiusLevel,
+  BorderStyle,
+  BorderWidthLevel,
+  GapLevel,
+} from '../types/index.js';
 
 export const MAX_PADDING = 200;
 export const MAX_BACKGROUND_URL_LENGTH = 2048;
@@ -53,4 +69,40 @@ export function parseGapParam(param: string | null): GapLevel | null {
 
   const normalized = param.trim().toLowerCase() as GapLevel;
   return GAP_LEVELS.includes(normalized) ? normalized : null;
+}
+
+export function parseBorderWidthParam(
+  param: string | null,
+): BorderWidthLevel | null {
+  if (param === null || param.trim() === '') return DEFAULT_BORDER_WIDTH;
+
+  const normalized = param.trim().toLowerCase() as BorderWidthLevel;
+  return BORDER_WIDTH_LEVELS.includes(normalized) ? normalized : null;
+}
+
+export function parseBorderColorParam(param: string | null): string | null {
+  if (param === null || param.trim() === '') return DEFAULT_BORDER_COLOR;
+
+  const normalized = param.trim().toLowerCase();
+  if (normalized === DEFAULT_BORDER_COLOR) return DEFAULT_BORDER_COLOR;
+
+  return normalizeHexColor(normalized);
+}
+
+export function parseBorderStyleParam(
+  param: string | null,
+): BorderStyle | null {
+  if (param === null || param.trim() === '') return DEFAULT_BORDER_STYLE;
+
+  const normalized = param.trim().toLowerCase() as BorderStyle;
+  return BORDER_STYLES.includes(normalized) ? normalized : null;
+}
+
+export function parseBorderRadiusParam(
+  param: string | null,
+): BorderRadiusLevel | null {
+  if (param === null || param.trim() === '') return DEFAULT_BORDER_RADIUS;
+
+  const normalized = param.trim().toLowerCase() as BorderRadiusLevel;
+  return BORDER_RADIUS_LEVELS.includes(normalized) ? normalized : null;
 }

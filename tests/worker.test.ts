@@ -65,8 +65,54 @@ describe('worker customization', () => {
     expect(largeSvg).toContain('translate(388,0)');
   });
 
+  it('renders border width and color in output pixels', async () => {
+    const response = await request(
+      '/icons?i=javascript&border=bold&bordercolor=%23ABC',
+    );
+    const svg = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(svg).toContain('width="54" height="54"');
+    expect(svg).toContain('transform="translate(16,16)"');
+    expect(svg).toContain('stroke="#abc"');
+    expect(svg).toContain('stroke-width="16"');
+  });
+
+  it('renders dashed and dotted border styles', async () => {
+    const dashed = await request(
+      '/icons?i=javascript&border=medium&borderstyle=dashed&bordercolor=abc',
+    );
+    const dotted = await request(
+      '/icons?i=javascript&border=medium&borderstyle=dotted&bordercolor=abc',
+    );
+
+    expect(await dashed.text()).toContain('stroke-dasharray="42.6667 21.3333"');
+    expect(await dotted.text()).toContain(
+      'stroke-dasharray="0 26.6667" stroke-linecap="round"',
+    );
+  });
+
+  it('renders rounded content and border corners', async () => {
+    const response = await request(
+      '/icons?i=javascript&bg=abc&rounded=lg&border=medium&bordercolor=ef4444',
+    );
+    const svg = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(svg).toContain(
+      '<clipPath id="badge-rounded-clip"><rect width="277.3333" height="277.3333" rx="64"/></clipPath>',
+    );
+    expect(svg).toContain(
+      'width="266.6667" height="266.6667" rx="58.6667" fill="none"',
+    );
+  });
+
   it.each([
     ['/icons?i=javascript&gap=wide', 'Gap must be'],
+    ['/icons?i=javascript&border=wide', 'Border must be'],
+    ['/icons?i=javascript&borderstyle=double', 'Border style must be'],
+    ['/icons?i=javascript&rounded=round', 'Rounded must be'],
+    ['/icons?i=javascript&bordercolor=red', 'Border color must be'],
     ['/icons?i=javascript&padding=1.5', 'Padding must be'],
     ['/icons?i=javascript&padding=201', 'Padding must be'],
     [

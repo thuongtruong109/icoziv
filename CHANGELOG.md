@@ -6,6 +6,10 @@
 - Pixel-based padding controls in the API and playground
 - Semantic icon gap presets (`xs`, `sm`, `md`, `lg`, and `xl`) with the
   existing spacing preserved as the `sm` default
+- Optional outer borders with `thin`, `medium`, and `bold` widths plus custom
+  transparent or hex colors and `solid`, `dashed`, or `dotted` styles
+- Semantic corner-radius presets (`xs`, `sm`, `md`, `lg`, and `xl`) that clip
+  badge backgrounds, images, icons, and borders consistently
 - Complete demo badge builder with independent badge theme, icons-per-line,
   live preview, reset, and copy-ready URL, Markdown, and HTML output
 - Endpoint and rendering coverage for customization options
