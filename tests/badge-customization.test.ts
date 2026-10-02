@@ -7,12 +7,13 @@ describe('demo badge customization', () => {
     const url = buildBadgeUrl(['JavaScript.svg', 'typescript-light.svg'], {
       theme: 'light',
       perLine: 2,
+      gap: 'lg',
       background: '#0f172a',
       padding: 12,
     });
 
     expect(url).toBe(
-      'https://i.icoziv.workers.dev/icons?i=javascript%2Ctypescript&t=light&perline=2&bg=%230f172a&padding=12',
+      'https://i.icoziv.workers.dev/icons?i=javascript%2Ctypescript&t=light&perline=2&gap=lg&bg=%230f172a&padding=12',
     );
   });
 
@@ -21,6 +22,7 @@ describe('demo badge customization', () => {
       buildBadgeUrl(icons, {
         theme: 'dark',
         perLine: 15,
+        gap: 'sm',
         background,
         padding: 0,
       });
@@ -35,12 +37,14 @@ describe('demo badge customization', () => {
       normalizeBadgeSettings({
         theme: 'auto',
         perLine: '99',
+        gap: 'huge',
         background: ' #abc ',
         padding: '-1',
       }),
     ).toEqual({
       theme: 'dark',
       perLine: 15,
+      gap: 'sm',
       background: '#abc',
       padding: 0,
     });

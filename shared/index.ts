@@ -1,7 +1,9 @@
-import { Theme } from '../types/index.js';
+import { GapLevel, Theme } from '../types/index.js';
 
 export const ICONS_PER_LINE = 15;
 export const THEMES: Theme[] = ['light', 'dark'];
+export const DEFAULT_GAP: GapLevel = 'sm';
+export const GAP_LEVELS: GapLevel[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export const CONTENT = {
   JSON: {
@@ -25,6 +27,7 @@ export const CONTENT = {
 export const ERRORS = {
   INVALID_THEME: `Theme must be ${THEMES.join(' or ')}`,
   INVALID_PERLINE: 'Icons per line must be a number between 1 and 50',
+  INVALID_GAP: `Gap must be ${GAP_LEVELS.join(', ')}`,
   INVALID_PADDING: 'Padding must be a whole number of pixels between 0 and 200',
   INVALID_BG: 'Background must be a hex color or an HTTPS image URL',
   NO_ICON_PARAM: 'You must specify ?i=icon1,icon2 or i=all',

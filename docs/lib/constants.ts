@@ -1,4 +1,4 @@
-import type { IconCategory } from '@/types/icon';
+import type { BadgeGap, IconCategory } from '@/types/icon';
 
 export const BADGE_BASE_URL = 'https://i.icoziv.workers.dev';
 export const ICON_ASSET_BASE_URL =
@@ -7,6 +7,7 @@ export const ICON_DATA_PATH = '/icoziv.json';
 export const REPOSITORY_URL = 'https://github.com/thuongtruong109/icoziv';
 export const LOGO_URL =
   'https://raw.githubusercontent.com/thuongtruong109/icoziv/main/public/logo.png';
+export const BADGE_GAP_OPTIONS: BadgeGap[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export const DEMO_ICONS = [
   'reactjs',

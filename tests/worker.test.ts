@@ -51,7 +51,22 @@ describe('worker customization', () => {
     expect(svg).toContain('fill="#abc"');
   });
 
+  it('renders semantic icon gap levels with sm as the default', async () => {
+    const defaultResponse = await request('/icons?i=javascript,typescript');
+    const defaultSvg = await defaultResponse.text();
+    const largeResponse = await request(
+      '/icons?i=javascript,typescript&gap=xl',
+    );
+    const largeSvg = await largeResponse.text();
+
+    expect(defaultSvg).toContain('width="104.25"');
+    expect(defaultSvg).toContain('translate(300,0)');
+    expect(largeSvg).toContain('width="120.75"');
+    expect(largeSvg).toContain('translate(388,0)');
+  });
+
   it.each([
+    ['/icons?i=javascript&gap=wide', 'Gap must be'],
     ['/icons?i=javascript&padding=1.5', 'Padding must be'],
     ['/icons?i=javascript&padding=201', 'Padding must be'],
     [

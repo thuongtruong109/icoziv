@@ -1,4 +1,5 @@
-import type { BackgroundParam } from '../types/index.js';
+import { DEFAULT_GAP, GAP_LEVELS } from '../shared/index.js';
+import type { BackgroundParam, GapLevel } from '../types/index.js';
 
 export const MAX_PADDING = 200;
 export const MAX_BACKGROUND_URL_LENGTH = 2048;
@@ -45,4 +46,11 @@ export function parsePaddingParam(param: string | null): number | null {
   return Number.isSafeInteger(padding) && padding <= MAX_PADDING
     ? padding
     : null;
+}
+
+export function parseGapParam(param: string | null): GapLevel | null {
+  if (param === null || param.trim() === '') return DEFAULT_GAP;
+
+  const normalized = param.trim().toLowerCase() as GapLevel;
+  return GAP_LEVELS.includes(normalized) ? normalized : null;
 }

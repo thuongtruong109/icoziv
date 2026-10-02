@@ -17,6 +17,7 @@ import {
   loadIcons,
   normalizePath,
   parseBackgroundParam,
+  parseGapParam,
   parseIconsParam,
   parsePaddingParam,
 } from './utils/index.js';
@@ -94,6 +95,12 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
+      const gap = parseGapParam(searchParams.get('gap'));
+      if (gap === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_GAP);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
       const background = parseBackgroundParam(searchParams.get('bg'));
       if (searchParams.has('bg') && !background) {
         const errResponse = errorResponse(ERRORS.INVALID_BG);
@@ -113,15 +120,11 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
-      const svg = generateSvg(
-        iconNames,
-        icons,
-        perLine,
+      const svg = generateSvg(iconNames, icons, perLine, {
         background,
-        300,
-        44,
+        gap,
         padding,
-      );
+      });
       const response = await contentResponse(request, svg, CONTENT.SVG);
       return enhanceResponseHeaders(response, 31536000);
     }

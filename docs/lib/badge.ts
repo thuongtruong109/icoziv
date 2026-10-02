@@ -1,5 +1,6 @@
-import { BADGE_BASE_URL } from './constants';
+import { BADGE_BASE_URL, BADGE_GAP_OPTIONS } from './constants';
 import type {
+  BadgeGap,
   BadgeSettings,
   BadgeSnippets,
   IconGroup,
@@ -9,6 +10,7 @@ import type {
 export const DEFAULT_BADGE_SETTINGS: BadgeSettings = {
   theme: 'dark',
   perLine: 15,
+  gap: 'sm',
   background: '',
   padding: 0,
 };
@@ -27,6 +29,11 @@ function parseInteger(
     : fallback;
 }
 
+function parseGap(value: unknown): BadgeGap {
+  const gap = String(value ?? '').toLowerCase() as BadgeGap;
+  return BADGE_GAP_OPTIONS.includes(gap) ? gap : DEFAULT_BADGE_SETTINGS.gap;
+}
+
 export function normalizeBadgeSettings(
   settings: BadgeSettingsInput = {},
 ): BadgeSettings {
@@ -38,6 +45,7 @@ export function normalizeBadgeSettings(
       50,
       DEFAULT_BADGE_SETTINGS.perLine,
     ),
+    gap: parseGap(settings.gap),
     background: String(settings.background ?? '').trim(),
     padding: parseInteger(
       settings.padding,
@@ -91,6 +99,7 @@ export function buildBadgeUrl(
     i: normalizedIcons.join(','),
     t: normalizedSettings.theme,
     perline: String(normalizedSettings.perLine),
+    gap: normalizedSettings.gap,
   });
 
   if (normalizedSettings.background) {

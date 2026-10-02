@@ -1,4 +1,24 @@
-import type { BackgroundParam } from '../types/index.js';
+import { DEFAULT_GAP } from '../shared/index.js';
+import type { BackgroundParam, GapLevel } from '../types/index.js';
+
+const ICON_VIEWBOX_SIZE = 256;
+const OUTPUT_ICON_SIZE = 48;
+const OUTPUT_SCALE = OUTPUT_ICON_SIZE / ICON_VIEWBOX_SIZE;
+
+// The existing 44-unit spacing is `sm`; the other levels scale around it.
+const GAP_VIEWBOX_UNITS: Record<GapLevel, number> = {
+  xs: 22,
+  sm: 44,
+  md: 66,
+  lg: 88,
+  xl: 132,
+};
+
+export interface SvgRenderOptions {
+  background?: BackgroundParam | null;
+  gap?: GapLevel;
+  padding?: number;
+}
 
 const _svgCache = new Map<string, string>();
 const MAX_CACHE_SIZE = 100;
@@ -24,32 +44,33 @@ export function generateSvg(
   iconNames: string[],
   icons: Record<string, string>,
   perLine: number,
-  background: BackgroundParam | null = null,
-  baseSize = 300,
-  margin = 44,
-  padding = 0,
-  scale = 48 / (300 - 44),
+  options: SvgRenderOptions = {},
 ): string {
-  const cacheKey = `${iconNames.join(',')}-${perLine}-${background?.type || 'none'}-${background?.value || 'none'}-${baseSize}-${margin}-${padding}-${scale}`;
+  const { background = null, gap = DEFAULT_GAP, padding = 0 } = options;
+  const gapUnits = GAP_VIEWBOX_UNITS[gap];
+  const iconStep = ICON_VIEWBOX_SIZE + gapUnits;
+  const cacheKey = `${iconNames.join(',')}-${perLine}-${background?.type || 'none'}-${background?.value || 'none'}-${gap}-${padding}`;
 
   if (_svgCache.has(cacheKey)) {
     return _svgCache.get(cacheKey)!;
   }
-  const viewBoxPadding = padding / scale;
+  const viewBoxPadding = padding / OUTPUT_SCALE;
   const iconSvgList = iconNames.map(i => icons[i]).filter(Boolean);
+  const columns = Math.min(perLine, iconSvgList.length);
+  const rows = Math.ceil(iconSvgList.length / perLine);
   const contentWidth =
-    Math.min(perLine * baseSize, iconNames.length * baseSize) - margin;
+    columns * ICON_VIEWBOX_SIZE + Math.max(0, columns - 1) * gapUnits;
   const contentHeight =
-    Math.ceil(iconSvgList.length / perLine) * baseSize - margin;
+    rows * ICON_VIEWBOX_SIZE + Math.max(0, rows - 1) * gapUnits;
   const paddedWidth = contentWidth + viewBoxPadding * 2;
   const paddedHeight = contentHeight + viewBoxPadding * 2;
-  const renderedHeight = contentHeight * scale + padding * 2;
-  const renderedWidth = contentWidth * scale + padding * 2;
+  const renderedHeight = contentHeight * OUTPUT_SCALE + padding * 2;
+  const renderedWidth = contentWidth * OUTPUT_SCALE + padding * 2;
 
   const groups = iconSvgList
     .map(
       (i, idx) =>
-        `<g transform="translate(${formatNumber(viewBoxPadding + (idx % perLine) * baseSize)},${formatNumber(viewBoxPadding + Math.floor(idx / perLine) * baseSize)})">${i}</g>`,
+        `<g transform="translate(${formatNumber(viewBoxPadding + (idx % perLine) * iconStep)},${formatNumber(viewBoxPadding + Math.floor(idx / perLine) * iconStep)})">${i}</g>`,
     )
     .join('');
 

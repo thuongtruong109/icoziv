@@ -34,6 +34,7 @@ import {
   loadIcons,
   normalizePath,
   parseBackgroundParam,
+  parseGapParam,
   parseIconsParam,
   parsePaddingParam,
   requestMatchesEtag,
@@ -146,6 +147,13 @@ describe('utils', () => {
     expect(parsePaddingParam('201')).toBeNull();
   });
 
+  it('should parse semantic icon gaps with sm as the default', () => {
+    expect(parseGapParam(null)).toBe('sm');
+    expect(parseGapParam('')).toBe('sm');
+    expect(parseGapParam('XL')).toBe('xl');
+    expect(parseGapParam('wide')).toBeNull();
+  });
+
   it('should generate valid svg output', () => {
     const icons = {
       javascript: '<path id="js"/>',
@@ -162,15 +170,10 @@ describe('utils', () => {
 
   it('should render background and padding in output pixels', () => {
     const icons = { javascript: '<path id="js"/>' };
-    const svg = generateSvg(
-      ['javascript'],
-      icons,
-      1,
-      { type: 'color', value: '#abc' },
-      300,
-      44,
-      10,
-    );
+    const svg = generateSvg(['javascript'], icons, 1, {
+      background: { type: 'color', value: '#abc' },
+      padding: 10,
+    });
 
     expect(svg).toContain('width="68" height="68"');
     expect(svg).toContain('viewBox="0 0 362.6667 362.6667"');
@@ -180,12 +183,54 @@ describe('utils', () => {
     expect(svg).toContain('transform="translate(53.3333,53.3333)"');
   });
 
+  it.each([
+    ['xs', '100.125', '278'],
+    ['sm', '104.25', '300'],
+    ['md', '108.375', '322'],
+    ['lg', '112.5', '344'],
+    ['xl', '120.75', '388'],
+  ] as const)(
+    'renders the %s semantic gap level',
+    (gap, expectedWidth, expectedStep) => {
+      const icons = {
+        javascript: '<path id="js"/>',
+        typescript: '<path id="ts"/>',
+      };
+
+      const svg = generateSvg(['javascript', 'typescript'], icons, 2, {
+        gap,
+      });
+
+      expect(svg).toContain(`width="${expectedWidth}"`);
+      expect(svg).toContain(`translate(${expectedStep},0)`);
+    },
+  );
+
+  it('preserves sm as the default gap', () => {
+    const svg = generateSvg(
+      ['javascript', 'typescript'],
+      {
+        javascript: '<path id="js"/>',
+        typescript: '<path id="ts"/>',
+      },
+      2,
+    );
+
+    expect(svg).toContain('width="104.25"');
+    expect(svg).toContain('translate(300,0)');
+  });
+
   it('should escape image URL attributes', () => {
     const svg = generateSvg(
       ['javascript'],
       { javascript: '<path id="js"/>' },
       1,
-      { type: 'image', value: 'https://example.com/bg.png?x=1&y=2' },
+      {
+        background: {
+          type: 'image',
+          value: 'https://example.com/bg.png?x=1&y=2',
+        },
+      },
     );
 
     expect(svg).toContain('href="https://example.com/bg.png?x=1&amp;y=2"');

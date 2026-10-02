@@ -1,4 +1,5 @@
 export type IconTheme = 'light' | 'dark';
+export type BadgeGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ThemePreference = IconTheme | 'system';
 export type DisplayNameMode = 'tooltip' | 'inside';
 export type ViewMode = 'pagination' | 'infinite';
@@ -31,6 +32,7 @@ export interface IconGroup {
 export interface BadgeSettings {
   theme: IconTheme;
   perLine: number;
+  gap: BadgeGap;
   background: string;
   padding: number;
 }

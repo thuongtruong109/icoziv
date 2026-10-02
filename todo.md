@@ -5,7 +5,8 @@
 - [ ] **HTTP/3 Support**: Enable QUIC protocol for faster connections
 - [ ] Rate limiting for fair usage
 - [x] Add background color/image and pixel padding customization
-- [ ] Add more customization options (e.g. gap, border, shadow, layout (grid/circle/wave/stagger/random), format (png/svg/webp))
+- [x] Add semantic gap presets (xs, sm, md, lg, xl)
+- [ ] Add more customization options (e.g. border, shadow, layout (grid/circle/wave/stagger/random), format (png/svg/webp))
 - [ ] Support grouping (&i=frontend:react,vue,angular|backend:nodejs,express|devops:docker,aws)
 - [ ] Add label (“Powered by Icoziv”)
 

@@ -30,7 +30,7 @@
 [![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#-specifying-icons)
 [![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#-themed-icons)
 [![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#-icons-per-line)
-[![Custom Background](https://img.shields.io/badge/6.%20Background-6366f1?style=flat)](#-custom-background-and-padding)
+[![Customization](https://img.shields.io/badge/6.%20Customization-6366f1?style=flat)](#-custom-background-padding-and-gap)
 [![Centering Icons](https://img.shields.io/badge/7.%20Centering-pink?style=flat)](#-centering-icons)
 [![API Reference](https://img.shields.io/badge/8.%20API-00bba7?style=flat)](#-api-reference)
 [![Examples](https://img.shields.io/badge/9.%20Examples-9cf?style=flat)](#-example)
@@ -108,11 +108,15 @@ Change the `&perline=3` to any number between 1 and 50.
 
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
 
-## 🖼️ Custom Background and Padding
+## 🖼️ Custom Background, Padding, and Gap
 
 Add a background with the optional `bg` parameter. It accepts a 3, 4, 6, or
 8-digit hex color, with or without `#`, or an HTTPS image URL. Use `padding` to
 add 0–200 pixels around the generated icon grid.
+
+Use `gap` to control the spacing between icons with one of five semantic levels:
+`xs`, `sm`, `md`, `lg`, or `xl`. The default is `sm`, which preserves the
+original Icoziv spacing.
 
 **Color background with 12px padding:**
 
@@ -125,6 +129,12 @@ as `?`, `&`, and `#` remain part of the `bg` value:
 
 ```text
 GET /icons?i=js,ts&bg=https%3A%2F%2Fexample.com%2Fbackground.png&padding=12
+```
+
+**Large icon gap:**
+
+```md
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&gap=lg)](https://github.com/thuongtruong109/icoziv)
 ```
 
 Image backgrounds are referenced by the generated SVG rather than embedded.
@@ -161,12 +171,13 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 | `icons`   | `i`   | Comma-separated list of icon names                | Yes      | /       |
 | `theme`   | `t`   | Theme - `dark` (default) or `light`               | No       | dark    |
 | `perline` |       | Number of icons per line (1-50)                   | No       | 15      |
+| `gap`     |       | Icon spacing: `xs`, `sm`, `md`, `lg`, or `xl`    | No       | sm      |
 | `bg`      |       | Hex color or URL-encoded HTTPS image URL          | No       | transparent |
 | `padding` |       | Whole pixels around the icon grid (0-200)         | No       | 0       |
 
 **Example:**
 ```
-GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4&bg=0f172a&padding=12
+GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4&gap=md&bg=0f172a&padding=12
 ```
 
 **Response:** SVG image

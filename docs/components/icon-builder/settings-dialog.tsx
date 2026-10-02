@@ -5,6 +5,7 @@ import { Check, Moon, Palette, RotateCcw, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
 import { isValidBackground } from '@/lib/badge';
+import { BADGE_GAP_OPTIONS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { BadgeSettings } from '@/types/icon';
 
@@ -114,6 +115,31 @@ export function BadgeSettingsDialog({
                   value={badgeSettings.padding}
                 />
               </label>
+              <div className="range-field">
+                <span>
+                  Icon gap <strong>{badgeSettings.gap.toUpperCase()}</strong>
+                </span>
+                <div
+                  aria-label="Icon gap"
+                  className="choice-grid choice-grid--five"
+                  role="group"
+                >
+                  {BADGE_GAP_OPTIONS.map(gap => (
+                    <button
+                      aria-pressed={badgeSettings.gap === gap}
+                      className={cn(
+                        'choice-card',
+                        badgeSettings.gap === gap && 'is-active',
+                      )}
+                      key={gap}
+                      onClick={() => patchSettings({ gap })}
+                      type="button"
+                    >
+                      {gap.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 

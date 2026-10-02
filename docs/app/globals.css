@@ -1704,6 +1704,10 @@ select:focus-visible {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.choice-grid--five {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .choice-card {
   display: flex;
   min-height: 38px;
