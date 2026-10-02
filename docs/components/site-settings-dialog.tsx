@@ -30,11 +30,7 @@ export function SiteSettingsDialog({
   themePreference,
 }: SiteSettingsDialogProps) {
   return (
-    <Dialog
-      onClose={onClose}
-      open={open}
-      title="Website preferences"
-    >
+    <Dialog onClose={onClose} open={open} title="Website preferences">
       <div className="settings-form">
         <section className="setting-section">
           <div className="setting-heading">

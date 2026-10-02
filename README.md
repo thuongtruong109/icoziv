@@ -1057,7 +1057,13 @@ We strive to respect all branding guidelines and intellectual property. If you r
 
 ## 👥 Showcase
 
-> 🥇 If you have a public project that uses Icoziv icons, please share it with us! We would love to see how you're using the icons and feature your project here.
+> 🥇 Using Icoziv in your GitHub profile or a public project? Share your link in GitHub Discussions and you may be featured here.
+
+<p align="center">
+  <a href="https://github.com/thuongtruong109/icoziv/discussions/new/choose">
+    <img alt="Share your Icoziv profile in GitHub Discussions" src="https://img.shields.io/badge/Share_your_profile-Join_the_showcase-635BFF?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
 
 <table>
   <tr>
@@ -1141,10 +1147,31 @@ We strive to respect all branding guidelines and intellectual property. If you r
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/Arjun6472">
-        <img src="https://github.com/Arjun6472.png?size=100" width="50" height="50" style="border-radius:50%;" />
+      <a href="https://github.com/eduardogazolla">
+        <img src="https://github.com/eduardogazolla.png?size=100" width="50" height="50" style="border-radius:50%;" />
         <br />
-        <sub><b>Arjun6472</b></sub>
+        <sub><b>eduardogazolla</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/AngeloMaverick">
+        <img src="https://github.com/AngeloMaverick.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>AngeloMaverick</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/remBits">
+        <img src="https://github.com/remBits.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>remBits</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/elianbarrios">
+        <img src="https://github.com/elianbarrios.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>elianbarrios</b></sub>
       </a>
     </td>
     <td align="center">
@@ -1152,6 +1179,22 @@ We strive to respect all branding guidelines and intellectual property. If you r
         <img src="https://github.com/Abdulquddus-Nuhu.png?size=100" width="50" height="50" style="border-radius:50%;" />
         <br />
         <sub><b>Abdulquddus-Nuhu</b></sub>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/whskee">
+        <img src="https://github.com/whskee.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>whskee</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/helios-ryuu">
+        <img src="https://github.com/helios-ryuu.png?size=100" width="50" height="50" style="border-radius:50%;" />
+        <br />
+        <sub><b>helios-ryuu</b></sub>
       </a>
     </td>
   </tr>

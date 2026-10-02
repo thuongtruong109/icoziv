@@ -20,6 +20,7 @@ import {
   buildBadgeSnippets,
   buildBadgeUrl,
   DEFAULT_BADGE_SETTINGS,
+  normalizeBadgeSettings,
   resolveIconFilename,
   selectedIconNames,
 } from '@/lib/badge';
@@ -89,10 +90,7 @@ export function IconBuilder() {
             setDisplayMode(stored.displayMode);
           }
           if (stored.badgeSettings) {
-            setBadgeSettings({
-              ...DEFAULT_BADGE_SETTINGS,
-              ...stored.badgeSettings,
-            });
+            setBadgeSettings(normalizeBadgeSettings(stored.badgeSettings));
           }
         }
       } catch {
@@ -180,10 +178,7 @@ export function IconBuilder() {
     imageUrl: getIconUrl(icon, resolvedTheme),
   }));
 
-  const closeBadgeSettings = useCallback(
-    () => setBadgeSettingsOpen(false),
-    [],
-  );
+  const closeBadgeSettings = useCallback(() => setBadgeSettingsOpen(false), []);
   const closeSiteSettings = useCallback(() => setSiteSettingsOpen(false), []);
   const closeCopy = useCallback(() => setCopyOpen(false), []);
 

@@ -1,14 +1,10 @@
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-beforeAll(async () => {
-  await import('../docs/badge-customization.js');
-});
+import { buildBadgeUrl, normalizeBadgeSettings } from '../docs/lib/badge';
 
 describe('demo badge customization', () => {
   it('normalizes icon filenames and emits every API option', () => {
-    const url = globalThis.IcozivBadgeCustomization.buildBadgeUrl({
-      baseUrl: 'https://i.icoziv.workers.dev/',
-      icons: ['JavaScript.svg', 'typescript-light.svg'],
+    const url = buildBadgeUrl(['JavaScript.svg', 'typescript-light.svg'], {
       theme: 'light',
       perLine: 2,
       background: '#0f172a',
@@ -22,9 +18,7 @@ describe('demo badge customization', () => {
 
   it('rejects unsafe backgrounds and empty icon selections', () => {
     const build = (background: string, icons = ['react']) =>
-      globalThis.IcozivBadgeCustomization.buildBadgeUrl({
-        baseUrl: 'https://i.icoziv.workers.dev',
-        icons,
+      buildBadgeUrl(icons, {
         theme: 'dark',
         perLine: 15,
         background,
@@ -37,20 +31,14 @@ describe('demo badge customization', () => {
   });
 
   it('clamps invalid persisted settings to API defaults', () => {
-    const storage = {
-      getItem(key: string) {
-        return (
-          {
-            'icoziv-badge-theme': 'auto',
-            'icoziv-badge-per-line': '99',
-            'icoziv-custom-background': ' #abc ',
-            'icoziv-custom-padding': '-1',
-          }[key] ?? null
-        );
-      },
-    } as Storage;
-
-    expect(globalThis.IcozivBadgeCustomization.loadSettings(storage)).toEqual({
+    expect(
+      normalizeBadgeSettings({
+        theme: 'auto',
+        perLine: '99',
+        background: ' #abc ',
+        padding: '-1',
+      }),
+    ).toEqual({
       theme: 'dark',
       perLine: 15,
       background: '#abc',

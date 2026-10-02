@@ -153,9 +153,7 @@ export function BadgeSettingsDialog({
                       title={preset.label}
                       type="button"
                     >
-                      {selected ? (
-                        <Check aria-hidden="true" size={14} />
-                      ) : null}
+                      {selected ? <Check aria-hidden="true" size={14} /> : null}
                     </button>
                   );
                 })}

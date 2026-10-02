@@ -1846,10 +1846,10 @@ select:focus-visible {
       transparent 57%
     ),
     repeating-conic-gradient(
-      color-mix(in srgb, var(--foreground) 10%, var(--surface)) 0 25%,
-      var(--surface) 0 50%
-    )
-    50% / 10px 10px;
+        color-mix(in srgb, var(--foreground) 10%, var(--surface)) 0 25%,
+        var(--surface) 0 50%
+      )
+      50% / 10px 10px;
   color: var(--foreground);
 }
 

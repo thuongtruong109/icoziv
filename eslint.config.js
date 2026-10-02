@@ -22,7 +22,10 @@ export default defineConfig(
   },
   globalIgnores([
     '**/dist/**',
+    '**/.next/**',
     '**/node_modules/**',
+    '**/out/**',
+    '**/next-env.d.ts',
     '.wrangler/**',
     'public/**',
     '*.json',

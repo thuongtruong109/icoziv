@@ -1,10 +1,10 @@
-import { BADGE_BASE_URL } from '@/lib/constants';
+import { BADGE_BASE_URL } from './constants';
 import type {
   BadgeSettings,
   BadgeSnippets,
   IconGroup,
   IconTheme,
-} from '@/types/icon';
+} from '../types/icon';
 
 export const DEFAULT_BADGE_SETTINGS: BadgeSettings = {
   theme: 'dark',
@@ -12,6 +12,41 @@ export const DEFAULT_BADGE_SETTINGS: BadgeSettings = {
   background: '',
   padding: 0,
 };
+
+type BadgeSettingsInput = Partial<Record<keyof BadgeSettings, unknown>>;
+
+function parseInteger(
+  value: unknown,
+  minimum: number,
+  maximum: number,
+  fallback: number,
+): number {
+  const parsed = Number.parseInt(String(value ?? ''), 10);
+  return Number.isInteger(parsed) && parsed >= minimum && parsed <= maximum
+    ? parsed
+    : fallback;
+}
+
+export function normalizeBadgeSettings(
+  settings: BadgeSettingsInput = {},
+): BadgeSettings {
+  return {
+    theme: settings.theme === 'light' ? 'light' : 'dark',
+    perLine: parseInteger(
+      settings.perLine,
+      1,
+      50,
+      DEFAULT_BADGE_SETTINGS.perLine,
+    ),
+    background: String(settings.background ?? '').trim(),
+    padding: parseInteger(
+      settings.padding,
+      0,
+      200,
+      DEFAULT_BADGE_SETTINGS.padding,
+    ),
+  };
+}
 
 export function normalizeIconName(value: string): string {
   return value
@@ -44,21 +79,25 @@ export function buildBadgeUrl(
   settings: BadgeSettings,
 ): string {
   const normalizedIcons = icons.map(normalizeIconName).filter(Boolean);
-  if (!normalizedIcons.length || !isValidBackground(settings.background)) {
+  const normalizedSettings = normalizeBadgeSettings(settings);
+  if (
+    !normalizedIcons.length ||
+    !isValidBackground(normalizedSettings.background)
+  ) {
     return '';
   }
 
   const params = new URLSearchParams({
     i: normalizedIcons.join(','),
-    t: settings.theme,
-    perline: String(Math.min(50, Math.max(1, settings.perLine))),
+    t: normalizedSettings.theme,
+    perline: String(normalizedSettings.perLine),
   });
 
-  if (settings.background.trim()) {
-    params.set('bg', settings.background.trim());
+  if (normalizedSettings.background) {
+    params.set('bg', normalizedSettings.background);
   }
-  if (settings.padding > 0) {
-    params.set('padding', String(Math.min(200, settings.padding)));
+  if (normalizedSettings.padding > 0) {
+    params.set('padding', String(normalizedSettings.padding));
   }
 
   return `${BADGE_BASE_URL}/icons?${params.toString()}`;

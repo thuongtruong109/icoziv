@@ -7,10 +7,7 @@ interface MobileStackBarProps {
   selectedCount: number;
 }
 
-export function MobileStackBar({
-  onOpen,
-  selectedCount,
-}: MobileStackBarProps) {
+export function MobileStackBar({ onOpen, selectedCount }: MobileStackBarProps) {
   if (!selectedCount) return null;
 
   return (

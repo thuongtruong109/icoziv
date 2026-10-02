@@ -1,6 +1,7 @@
 public/
 dist/
 node_modules/
+**/next-env.d.ts
 README.md
 .DS_Store
 playground2/
