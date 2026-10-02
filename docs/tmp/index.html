@@ -2060,6 +2060,7 @@
         visibility: visible;
       }
     </style>
+    <link rel="stylesheet" href="./modern-theme.css?v=2" />
   </head>
   <body>
     <section class="container">
@@ -2167,6 +2168,66 @@
           </div>
         </div>
       </header>
+
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="hero-eyebrow">
+            <span class="hero-dot" aria-hidden="true"></span>
+            Open-source icon badge builder
+          </div>
+          <h1 id="hero-title">
+            Build a tech stack badge that feels like yours.
+          </h1>
+          <p>
+            Find your tools, shape every detail, and copy a production-ready
+            badge in seconds.
+          </p>
+        </div>
+        <div class="hero-showcase">
+          <div class="hero-preview-card">
+            <div class="hero-preview-header">
+              <div class="hero-preview-title">
+                <span class="preview-live-dot" aria-hidden="true"></span>
+                Live badge preview
+              </div>
+              <span class="hero-preview-mode" id="mainPreviewMode"
+                >Example</span
+              >
+            </div>
+            <div class="hero-preview-canvas">
+              <img
+                id="mainBadgePreview"
+                src="https://i.icoziv.workers.dev/icons?i=reactjs%2Ctypescript%2Cnodejs%2Cdocker%2Cpostgresql&t=dark&perline=5"
+                alt="Live Icoziv badge preview"
+              />
+            </div>
+            <div class="hero-preview-footer">
+              <span id="mainPreviewStatus">Pick icons to make it yours</span>
+              <button
+                class="hero-preview-action"
+                id="heroCustomizeButton"
+                type="button"
+              >
+                Customize
+              </button>
+            </div>
+          </div>
+          <div class="hero-metrics" aria-label="Project highlights">
+            <div class="hero-metric">
+              <strong>1,000+</strong>
+              <span>icons</span>
+            </div>
+            <div class="hero-metric">
+              <strong>SVG</strong>
+              <span>crisp output</span>
+            </div>
+            <div class="hero-metric">
+              <strong>Edge</strong>
+              <span>fast delivery</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div class="main-content">
         <div class="cart-section" id="cartSection" style="display: none">
@@ -3262,6 +3323,13 @@
       const base_url_prefix =
         'https://raw.githubusercontent.com/thuongtruong109/icoziv/main/icons';
       const base_url = 'https://i.icoziv.workers.dev';
+      const mainPreviewIcons = [
+        'reactjs',
+        'typescript',
+        'nodejs',
+        'docker',
+        'postgresql',
+      ];
       const iconDataBaseUrl = `https://raw.githubusercontent.com/thuongtruong109/icoziv/refs/heads/main/public/icoziv.json`;
       let viewMode = 'pagination';
       let currentPage = 1;
@@ -4219,6 +4287,19 @@
         });
       }
 
+      function generateDemoBadgeUrl() {
+        return badgeTools.buildBadgeUrl({
+          baseUrl: base_url,
+          icons: mainPreviewIcons,
+          theme: badgeTheme,
+          perLine: mainPreviewIcons.length,
+          background: badgeTools.isValidBackground(customBackground)
+            ? customBackground
+            : '',
+          padding: customPadding,
+        });
+      }
+
       function generateCopyContent(type, cartData) {
         const snippets = badgeTools.buildSnippets(
           generateBadgeUrl(cartData),
@@ -4228,10 +4309,30 @@
       }
 
       function updateBadgePreview() {
-        const imageUrl = generateBadgeUrl();
+        const cartData = getCartIconData();
+        const imageUrl = generateBadgeUrl(cartData);
+        const mainPreviewUrl = imageUrl || generateDemoBadgeUrl();
+        const mainPreview = document.getElementById('mainBadgePreview');
+        const mainPreviewMode = document.getElementById('mainPreviewMode');
+        const mainPreviewStatus = document.getElementById('mainPreviewStatus');
         const settingsPreview = document.getElementById('settingsBadgePreview');
         const emptyState = document.getElementById('settingsPreviewEmpty');
         const copyPreview = document.getElementById('copyBadgePreview');
+
+        if (mainPreview) {
+          mainPreview.src = mainPreviewUrl;
+          mainPreview
+            .closest('.hero-preview-card')
+            ?.classList.toggle('is-live', Boolean(imageUrl));
+        }
+        if (mainPreviewMode) {
+          mainPreviewMode.textContent = imageUrl ? 'Your stack' : 'Example';
+        }
+        if (mainPreviewStatus) {
+          mainPreviewStatus.textContent = imageUrl
+            ? `${cartData.length} ${cartData.length === 1 ? 'icon' : 'icons'} selected`
+            : 'Pick icons to make it yours';
+        }
 
         if (settingsPreview && emptyState) {
           settingsPreview.hidden = !imageUrl;
@@ -4568,6 +4669,9 @@
         // Settings button
         document
           .getElementById('settingsButton')
+          .addEventListener('click', openSettingsModal);
+        document
+          .getElementById('heroCustomizeButton')
           .addEventListener('click', openSettingsModal);
         document
           .getElementById('closeSettingsModal')
