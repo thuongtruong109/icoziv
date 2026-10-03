@@ -105,6 +105,20 @@ Thank you for your interest in contributing! This guide covers setup, developmen
 bun run build
 ```
 
+## HTTP/3 deployment verification
+
+HTTP/3 is managed by Cloudflare's edge. See the [HTTP/3 guide](../docs/http3.md)
+for custom-domain configuration and verification requirements.
+
+With an HTTP/3-enabled curl build, check the public API after deployment:
+
+```bash
+bun run check:http3
+```
+
+This is a live network check, separate from the unit tests. It fails when curl
+cannot establish HTTP/3 or the endpoint does not return a successful response.
+
 ## 🧹 Lint & Format
 
 - **Lint code:**

@@ -50,6 +50,7 @@ Simply specify the technologies you use, and get a professional-looking SVG badg
 
 <img src="./public/check.svg" alt="tick" width="12" height="12" /> **Fast and Serverless:** Built for speed and efficiency, leveraging serverless architecture for instant icon generation.<br/>
 <img src="./public/check.svg" alt="tick" width="12" height="12" /> **Global CDN & Smart Routing:** Icons are served from Cloudflare's global CDN with Smart Placement for optimal edge routing and low latency worldwide.<br/>
+<img src="./public/check.svg" alt="tick" width="12" height="12" /> **HTTP/3 (QUIC):** Cloudflare manages HTTP/3 at the edge for compatible clients and networks. See the [configuration and verification guide](docs/http3.md).<br/>
 <img src="./public/check.svg" alt="tick" width="12" height="12" /> **Immutable Content:** SVG icons are cached indefinitely with the `immutable` flag, ensuring unchanged assets are always served instantly from edge caches.<br/>
 <img src="./public/check.svg" alt="tick" width="12" height="12" /> **Stale-While-Revalidate:** Stale content is served immediately while the cache updates in the background, minimizing latency on cache misses.<br/>
 <img src="./public/check.svg" alt="tick" width="12" height="12" /> **CDN-Friendly & Conditional Headers:** Optimized for Cloudflare's CDN infrastructure with advanced cache-control, ETag, and If-None-Match support for efficient conditional requests (304 Not Modified).<br/>

@@ -2,6 +2,8 @@ name = "i"
 main = "index.ts"
 compatibility_date = "2025-10-01"
 workers_dev = true
+# Cloudflare's edge manages HTTP/3/QUIC; see docs/http3.md for configuration
+# and verification. There is no Worker-level protocol switch here.
 account_id = "b19946d3edbafe04ab6c83e3c5084b3a"
 compatibility_flags = [ "nodejs_compat" ]
 

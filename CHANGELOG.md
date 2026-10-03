@@ -17,6 +17,8 @@
 - Complete demo badge builder with independent badge theme, icons-per-line,
   live preview, reset, and copy-ready URL, Markdown, and HTML output
 - Endpoint and rendering coverage for customization options
+- HTTP/3 edge configuration guidance and a strict `check:http3` deployment
+  check that rejects fallback to earlier HTTP versions
 
 ### Fixed
 

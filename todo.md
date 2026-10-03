@@ -16,7 +16,7 @@
 ### Demo page:
 
 - [x] Add a complete badge builder for all current API parameters with live preview
-- [ ] Add showcase page which list web use this library
+- [ ] Add showcase page which list users who use this library
 - [ ] Fetch used language from GitHub user
 
 ### Documentation:
