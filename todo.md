@@ -10,13 +10,12 @@
 - [x] Add semantic corner-radius presets (xs, sm, md, lg, xl)
 - [x] Add per-icon shadow presets (xs, sm, md, lg, xl)
 - [ ] Add more customization options (e.g. layout (grid/circle/wave/stagger/random), format (png/svg/webp))
-- [ ] Support grouping (&i=frontend:react,vue,angular|backend:nodejs,express|devops:docker,aws)
+- [x] Support labeled groups with card, label, and divider presentations
 - [ ] Add label (“Powered by Icoziv”)
 
 ### Demo page:
 
 - [x] Add a complete badge builder for all current API parameters with live preview
-- [ ] Split components and logic to multiple importable files (styles, js)
 - [ ] Add showcase page which list web use this library
 - [ ] Fetch used language from GitHub user
 

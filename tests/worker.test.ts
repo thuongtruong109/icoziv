@@ -121,12 +121,37 @@ describe('worker customization', () => {
     );
   });
 
+  it('renders labeled icon groups as separate cards', async () => {
+    const response = await request(
+      '/icons?i=Back-end%3Ajavascript%7CFront-end%3Atypescript&t=light',
+    );
+    const svg = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(svg).toContain('Back-end</text>');
+    expect(svg).toContain('Front-end</text>');
+    expect(svg.match(/fill="#f8fafc" stroke="#cbd5e1"/g)).toHaveLength(2);
+  });
+
+  it('escapes custom group labels in SVG output', async () => {
+    const response = await request(
+      '/icons?i=Front+%26+%3Cscript%3E%3Ajavascript',
+    );
+    const svg = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(svg).toContain('Front &amp; &lt;script&gt;</text>');
+    expect(svg).not.toContain('<script>');
+  });
+
   it.each([
     ['/icons?i=javascript&gap=wide', 'Gap must be'],
     ['/icons?i=javascript&border=wide', 'Border must be'],
     ['/icons?i=javascript&borderstyle=double', 'Border style must be'],
     ['/icons?i=javascript&rounded=round', 'Rounded must be'],
     ['/icons?i=javascript&shadow=heavy', 'Shadow must be'],
+    ['/icons?i=javascript&groupstyle=tiles', 'Group style must be'],
+    ['/icons?i=Back-end%3Ajavascript%7Ctypescript', 'Groups must use'],
     ['/icons?i=javascript&bordercolor=red', 'Border color must be'],
     ['/icons?i=javascript&padding=1.5', 'Padding must be'],
     ['/icons?i=javascript&padding=201', 'Padding must be'],

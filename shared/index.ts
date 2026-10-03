@@ -3,6 +3,7 @@ import {
   BorderStyle,
   BorderWidthLevel,
   GapLevel,
+  GroupStyle,
   ShadowLevel,
   Theme,
 } from '../types/index.js';
@@ -16,6 +17,7 @@ export const DEFAULT_BORDER_COLOR = 'transparent';
 export const DEFAULT_BORDER_STYLE: BorderStyle = 'solid';
 export const DEFAULT_BORDER_RADIUS: BorderRadiusLevel = 'none';
 export const DEFAULT_SHADOW: ShadowLevel = 'none';
+export const DEFAULT_GROUP_STYLE: GroupStyle = 'card';
 export const BORDER_WIDTH_LEVELS: BorderWidthLevel[] = [
   'thin',
   'medium',
@@ -30,6 +32,7 @@ export const BORDER_RADIUS_LEVELS: BorderRadiusLevel[] = [
   'xl',
 ];
 export const SHADOW_LEVELS: ShadowLevel[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+export const GROUP_STYLES: GroupStyle[] = ['card', 'label', 'divider'];
 
 export const CONTENT = {
   JSON: {
@@ -58,6 +61,9 @@ export const ERRORS = {
   INVALID_BORDER_STYLE: `Border style must be ${BORDER_STYLES.join(', ')}`,
   INVALID_BORDER_RADIUS: `Rounded must be ${BORDER_RADIUS_LEVELS.join(', ')}`,
   INVALID_SHADOW: `Shadow must be ${SHADOW_LEVELS.join(', ')}`,
+  INVALID_GROUP_STYLE: `Group style must be ${GROUP_STYLES.join(', ')}`,
+  INVALID_GROUPS:
+    'Groups must use Label:icon1,icon2 separated by | with labels up to 40 characters',
   INVALID_BORDER_COLOR:
     'Border color must be transparent or a 3, 4, 6, or 8-digit hex color',
   INVALID_PADDING: 'Padding must be a whole number of pixels between 0 and 200',

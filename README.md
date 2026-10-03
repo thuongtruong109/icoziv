@@ -30,7 +30,7 @@
 [![Specifying Icons](https://img.shields.io/badge/3.%20Specifying-success?style=flat)](#-specifying-icons)
 [![Themed Icons](https://img.shields.io/badge/4.%20Themed-orange?style=flat)](#-themed-icons)
 [![Icons Per Line](https://img.shields.io/badge/5.%20Per%20Line-00a6f4?style=flat)](#-icons-per-line)
-[![Customization](https://img.shields.io/badge/6.%20Customization-6366f1?style=flat)](#-custom-background-padding-gap-border-corners-and-icon-shadows)
+[![Customization](https://img.shields.io/badge/6.%20Customization-6366f1?style=flat)](#-custom-background-padding-gap-border-corners-icon-shadows-and-groups)
 [![Centering Icons](https://img.shields.io/badge/7.%20Centering-pink?style=flat)](#-centering-icons)
 [![API Reference](https://img.shields.io/badge/8.%20API-00bba7?style=flat)](#-api-reference)
 [![Examples](https://img.shields.io/badge/9.%20Examples-9cf?style=flat)](#-example)
@@ -108,7 +108,7 @@ Change the `&perline=3` to any number between 1 and 50.
 
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=aws,gcp,azure,react,vue,flutter&perline=3)](https://github.com/thuongtruong109/icoziv)
 
-## 🖼️ Custom Background, Padding, Gap, Border, Corners, and Icon Shadows
+## 🖼️ Custom Background, Padding, Gap, Border, Corners, Icon Shadows, and Groups
 
 Add a background with the optional `bg` parameter. It accepts a 3, 4, 6, or
 8-digit hex color, with or without `#`, or an HTTPS image URL. Use `padding` to
@@ -132,7 +132,16 @@ Use `shadow` to add a separate drop shadow to every icon with `xs`, `sm`, `md`,
 `lg`, or `xl`. The background and outer border are never shadowed. Without this
 parameter, icons render without shadows.
 
+Create labeled groups directly in `i` with
+`Label:icon1,icon2|Another label:icon3,icon4`. Group labels may contain spaces
+and Unicode characters, and each label can be up to 40 characters. `perline`
+limits the icons per row inside each group. Use `groupstyle=card` (default),
+`label`, or `divider` to change the presentation. Flat `i=js,ts` URLs continue
+to render exactly as before.
+
 **Color background with 12px padding:**
+
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&bg=0f172a&padding=12)](https://github.com/thuongtruong109/icoziv)
 
 ```md
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&bg=0f172a&padding=12)](https://github.com/thuongtruong109/icoziv)
@@ -147,11 +156,15 @@ GET /icons?i=js,ts&bg=https%3A%2F%2Fexample.com%2Fbackground.png&padding=12
 
 **Large icon gap:**
 
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&gap=lg)](https://github.com/thuongtruong109/icoziv)
+
 ```md
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&gap=lg)](https://github.com/thuongtruong109/icoziv)
 ```
 
 **Medium red dashed border with large rounded corners:**
+
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&padding=8&rounded=lg&border=medium&borderstyle=dashed&bordercolor=ef4444)](https://github.com/thuongtruong109/icoziv)
 
 ```md
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&padding=8&rounded=lg&border=medium&borderstyle=dashed&bordercolor=ef4444)](https://github.com/thuongtruong109/icoziv)
@@ -159,8 +172,34 @@ GET /icons?i=js,ts&bg=https%3A%2F%2Fexample.com%2Fbackground.png&padding=12
 
 **Large shadow on each icon:**
 
+[![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&gap=lg&shadow=lg)](https://github.com/thuongtruong109/icoziv)
+
 ```md
 [![Icoziv Skills](https://i.icoziv.workers.dev/icons?i=js,ts,react&gap=lg&shadow=lg)](https://github.com/thuongtruong109/icoziv)
+```
+
+**Card groups:**
+
+[![Icoziv grouped skills](https://i.icoziv.workers.dev/icons?i=Back-end%3Anodejs,mongodb%7CFront-end%3Ahtml,css%7COthers%3Agit,github&t=light&gap=xs&groupstyle=card)](https://github.com/thuongtruong109/icoziv)
+
+```md
+[![Icoziv grouped skills](https://i.icoziv.workers.dev/icons?i=Back-end%3Anodejs,mongodb%7CFront-end%3Ahtml,css%7COthers%3Agit,github&t=light&gap=xs&groupstyle=card)](https://github.com/thuongtruong109/icoziv)
+```
+
+**Label groups:**
+
+[![Icoziv grouped skills](https://i.icoziv.workers.dev/icons?i=Back-end%3Anodejs,mongodb%7CFront-end%3Ahtml,css%7COthers%3Agit,github&t=light&gap=xs&groupstyle=label)](https://github.com/thuongtruong109/icoziv)
+
+```md
+[![Icoziv grouped skills](https://i.icoziv.workers.dev/icons?i=Back-end%3Anodejs,mongodb%7CFront-end%3Ahtml,css%7COthers%3Agit,github&t=light&gap=xs&groupstyle=label)](https://github.com/thuongtruong109/icoziv)
+```
+
+**Divider groups:**
+
+[![Icoziv grouped skills](https://i.icoziv.workers.dev/icons?i=Back-end%3Anodejs,mongodb%7CFront-end%3Ahtml,css%7COthers%3Agit,github&t=light&gap=xs&groupstyle=divider)](https://github.com/thuongtruong109/icoziv)
+
+```md
+[![Icoziv grouped skills](https://i.icoziv.workers.dev/icons?i=Back-end%3Anodejs,mongodb%7CFront-end%3Ahtml,css%7COthers%3Agit,github&t=light&gap=xs&groupstyle=divider)](https://github.com/thuongtruong109/icoziv)
 ```
 
 Image backgrounds are referenced by the generated SVG rather than embedded.
@@ -203,12 +242,13 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 | `bordercolor` |   | Transparent or hex border color                   | No       | transparent |
 | `rounded` |       | Corner radius: `xs`, `sm`, `md`, `lg`, or `xl`    | No       | 0px     |
 | `shadow`  |       | Per-icon shadow: `xs`, `sm`, `md`, `lg`, or `xl`  | No       | none    |
+| `groupstyle` |    | Group style: `card`, `label`, or `divider`         | No       | card    |
 | `bg`      |       | Hex color or URL-encoded HTTPS image URL          | No       | transparent |
 | `padding` |       | Whole pixels around the icon grid (0-200)         | No       | 0       |
 
 **Example:**
 ```
-GET /icons?i=javascript,typescript,react,vue&theme=dark&perline=4&gap=md&shadow=md&bg=0f172a&padding=12&rounded=lg&border=medium&borderstyle=dashed&bordercolor=ef4444
+GET /icons?i=Languages:javascript,typescript|Frameworks:react,vue&theme=dark&perline=4&gap=md&groupstyle=card&shadow=md&bg=0f172a&padding=12&rounded=lg&border=medium&borderstyle=dashed&bordercolor=ef4444
 ```
 
 **Response:** SVG image

@@ -12,6 +12,8 @@
   badge backgrounds, images, icons, and borders consistently
 - Per-icon shadow presets (`xs`, `sm`, `md`, `lg`, and `xl`) that leave the
   shared background and outer border untouched
+- Labeled icon groups with `card`, `label`, and `divider` presentations plus
+  automatic category grouping in the playground
 - Complete demo badge builder with independent badge theme, icons-per-line,
   live preview, reset, and copy-ready URL, Markdown, and HTML output
 - Endpoint and rendering coverage for customization options

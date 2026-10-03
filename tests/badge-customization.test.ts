@@ -1,24 +1,37 @@
 import { describe, expect, it } from 'vitest';
 
-import { buildBadgeUrl, normalizeBadgeSettings } from '../docs/lib/badge';
+import {
+  buildBadgeUrl,
+  DEFAULT_BADGE_SETTINGS,
+  normalizeBadgeSettings,
+} from '../docs/lib/badge';
+import { groupSelectedIcons } from '../docs/lib/groups';
 
 describe('demo badge customization', () => {
   it('normalizes icon filenames and emits every API option', () => {
-    const url = buildBadgeUrl(['JavaScript.svg', 'typescript-light.svg'], {
-      theme: 'light',
-      perLine: 2,
-      gap: 'lg',
-      borderWidth: 'bold',
-      borderColor: '#ef4444',
-      borderStyle: 'dashed',
-      borderRadius: 'lg',
-      shadow: 'xl',
-      background: '#0f172a',
-      padding: 12,
-    });
+    const url = buildBadgeUrl(
+      ['JavaScript.svg', 'typescript-light.svg'],
+      {
+        theme: 'light',
+        perLine: 2,
+        gap: 'lg',
+        borderWidth: 'bold',
+        borderColor: '#ef4444',
+        borderStyle: 'dashed',
+        borderRadius: 'lg',
+        shadow: 'xl',
+        groupStyle: 'divider',
+        background: '#0f172a',
+        padding: 12,
+      },
+      [
+        { label: 'Front end', icons: ['JavaScript.svg'] },
+        { label: 'Back-end', icons: ['typescript-light.svg'] },
+      ],
+    );
 
     expect(url).toBe(
-      'https://i.icoziv.workers.dev/icons?i=javascript%2Ctypescript&t=light&perline=2&gap=lg&bg=%230f172a&padding=12&rounded=lg&shadow=xl&border=bold&borderstyle=dashed&bordercolor=%23ef4444',
+      'https://i.icoziv.workers.dev/icons?i=Front+end%3Ajavascript%7CBack-end%3Atypescript&t=light&perline=2&gap=lg&bg=%230f172a&padding=12&rounded=lg&shadow=xl&groupstyle=divider&border=bold&borderstyle=dashed&bordercolor=%23ef4444',
     );
   });
 
@@ -33,6 +46,7 @@ describe('demo badge customization', () => {
         borderStyle: 'solid',
         borderRadius: 'none',
         shadow: 'none',
+        groupStyle: 'none',
         background,
         padding: 0,
       });
@@ -52,6 +66,7 @@ describe('demo badge customization', () => {
       borderStyle: 'solid' as const,
       borderRadius: 'none' as const,
       shadow: 'none' as const,
+      groupStyle: 'none' as const,
       background: '',
       padding: 0,
     };
@@ -62,6 +77,7 @@ describe('demo badge customization', () => {
     expect(defaultUrl).not.toContain('borderstyle=');
     expect(defaultUrl).not.toContain('rounded=');
     expect(defaultUrl).not.toContain('shadow=');
+    expect(defaultUrl).not.toContain('groupstyle=');
     expect(
       buildBadgeUrl(['react'], {
         ...settings,
@@ -82,6 +98,7 @@ describe('demo badge customization', () => {
         borderStyle: 'double',
         borderRadius: 'huge',
         shadow: 'huge',
+        groupStyle: 'tiles',
         background: ' #abc ',
         padding: '-1',
       }),
@@ -94,8 +111,47 @@ describe('demo badge customization', () => {
       borderStyle: 'solid',
       borderRadius: 'none',
       shadow: 'none',
+      groupStyle: 'none',
       background: '#abc',
       padding: 0,
     });
+  });
+
+  it('groups selected icons by category while preserving selection order', () => {
+    expect(
+      groupSelectedIcons([
+        {
+          key: 'react',
+          displayName: 'React',
+          category: 'frameworks',
+          variants: { common: 'react.svg' },
+        },
+        {
+          key: 'typescript',
+          displayName: 'TypeScript',
+          category: 'languages',
+          variants: { common: 'typescript.svg' },
+        },
+        {
+          key: 'vue',
+          displayName: 'Vue',
+          category: 'frameworks',
+          variants: { common: 'vue.svg' },
+        },
+      ]),
+    ).toEqual([
+      { label: 'Frameworks', icons: ['React', 'Vue'] },
+      { label: 'Languages', icons: ['TypeScript'] },
+    ]);
+  });
+
+  it('rejects reserved separators in custom group labels', () => {
+    expect(
+      buildBadgeUrl(
+        ['react'],
+        { ...DEFAULT_BADGE_SETTINGS, groupStyle: 'card' },
+        [{ label: 'Front:end', icons: ['react'] }],
+      ),
+    ).toBe('');
   });
 });

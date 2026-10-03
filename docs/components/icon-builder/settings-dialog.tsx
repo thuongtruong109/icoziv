@@ -11,6 +11,7 @@ import {
   BADGE_BORDER_STYLE_OPTIONS,
   BADGE_BORDER_WIDTH_OPTIONS,
   BADGE_GAP_OPTIONS,
+  BADGE_GROUP_STYLE_OPTIONS,
   BADGE_SHADOW_OPTIONS,
 } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -100,6 +101,38 @@ export function BadgeSettingsDialog({
                   </button>
                 ))}
               </div>
+            </div>
+          </section>
+
+          <section className="setting-section">
+            <div className="setting-heading">
+              <h3>Groups</h3>
+              <p>
+                Arrange selected icons by catalog category. Custom labels are
+                also supported through the API.
+              </p>
+            </div>
+            <div
+              aria-label="Group presentation"
+              className="choice-grid"
+              role="group"
+            >
+              {BADGE_GROUP_STYLE_OPTIONS.map(option => (
+                <button
+                  aria-pressed={badgeSettings.groupStyle === option.value}
+                  className={cn(
+                    'choice-card choice-card--stacked',
+                    badgeSettings.groupStyle === option.value && 'is-active',
+                  )}
+                  key={option.value}
+                  onClick={() => patchSettings({ groupStyle: option.value })}
+                  title={option.description}
+                  type="button"
+                >
+                  <strong>{option.label}</strong>
+                  <small>{option.description}</small>
+                </button>
+              ))}
             </div>
           </section>
 

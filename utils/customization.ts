@@ -7,8 +7,10 @@ import {
   DEFAULT_BORDER_STYLE,
   DEFAULT_BORDER_WIDTH,
   DEFAULT_GAP,
+  DEFAULT_GROUP_STYLE,
   DEFAULT_SHADOW,
   GAP_LEVELS,
+  GROUP_STYLES,
   SHADOW_LEVELS,
 } from '../shared/index.js';
 import type {
@@ -17,6 +19,7 @@ import type {
   BorderStyle,
   BorderWidthLevel,
   GapLevel,
+  GroupStyle,
   ShadowLevel,
 } from '../types/index.js';
 
@@ -115,4 +118,11 @@ export function parseShadowParam(param: string | null): ShadowLevel | null {
 
   const normalized = param.trim().toLowerCase() as ShadowLevel;
   return SHADOW_LEVELS.includes(normalized) ? normalized : null;
+}
+
+export function parseGroupStyleParam(param: string | null): GroupStyle | null {
+  if (param === null || param.trim() === '') return DEFAULT_GROUP_STYLE;
+
+  const normalized = param.trim().toLowerCase() as GroupStyle;
+  return GROUP_STYLES.includes(normalized) ? normalized : null;
 }

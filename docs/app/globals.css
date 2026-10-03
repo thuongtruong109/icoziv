@@ -1741,6 +1741,24 @@ select:focus-visible {
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
+.choice-card--stacked {
+  min-height: 58px;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.choice-card--stacked small {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.choice-card--stacked.is-active small {
+  color: inherit;
+}
+
 .border-style-preview {
   flex-direction: column;
   gap: 5px;

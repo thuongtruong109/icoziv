@@ -4,6 +4,7 @@ export type BadgeBorderWidth = 'none' | 'thin' | 'medium' | 'bold';
 export type BadgeBorderStyle = 'solid' | 'dashed' | 'dotted';
 export type BadgeBorderRadius = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type BadgeShadow = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type BadgeGroupStyle = 'none' | 'card' | 'label' | 'divider';
 export type ThemePreference = IconTheme | 'system';
 export type DisplayNameMode = 'tooltip' | 'inside';
 export type ViewMode = 'pagination' | 'infinite';
@@ -33,6 +34,11 @@ export interface IconGroup {
   variants: IconVariants;
 }
 
+export interface BadgeIconGroup {
+  label: string;
+  icons: string[];
+}
+
 export interface BadgeSettings {
   theme: IconTheme;
   perLine: number;
@@ -42,6 +48,7 @@ export interface BadgeSettings {
   borderStyle: BadgeBorderStyle;
   borderRadius: BadgeBorderRadius;
   shadow: BadgeShadow;
+  groupStyle: BadgeGroupStyle;
   background: string;
   padding: number;
 }

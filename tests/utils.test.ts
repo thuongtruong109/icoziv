@@ -39,6 +39,8 @@ import {
   parseBorderStyleParam,
   parseBorderWidthParam,
   parseGapParam,
+  parseGroupStyleParam,
+  parseIconGroupsParam,
   parseIconsParam,
   parsePaddingParam,
   parseShadowParam,
@@ -127,6 +129,65 @@ describe('utils', () => {
     expect(result).toEqual([]);
   });
 
+  it('should parse labeled icon groups with aliases and explicit themes', () => {
+    const iconNameList = ['javascript', 'typescript', 'golang', 'nestjs'];
+    const themedIcons = new Set(['javascript', 'nestjs']);
+    const shortNamesMock = { js: 'javascript', ts: 'typescript' };
+
+    expect(
+      parseIconGroupsParam(
+        'Back-end:js,ts|Front end:nestjs-light,unknown',
+        'dark',
+        iconNameList,
+        shortNamesMock,
+        themedIcons,
+      ),
+    ).toEqual([
+      {
+        label: 'Back-end',
+        iconNames: ['javascript-dark', 'typescript'],
+      },
+      { label: 'Front end', iconNames: ['nestjs-light'] },
+    ]);
+  });
+
+  it('should preserve flat syntax and reject malformed groups', () => {
+    const iconNameList = ['javascript', 'typescript'];
+    const themedIcons = new Set<string>();
+    const aliases = { js: 'javascript', ts: 'typescript' };
+
+    expect(
+      parseIconGroupsParam('js,ts', 'dark', iconNameList, aliases, themedIcons),
+    ).toEqual([]);
+    expect(
+      parseIconGroupsParam(
+        'Back-end:js|typescript',
+        'dark',
+        iconNameList,
+        aliases,
+        themedIcons,
+      ),
+    ).toBeNull();
+    expect(
+      parseIconGroupsParam(
+        'Back-end::js',
+        'dark',
+        iconNameList,
+        aliases,
+        themedIcons,
+      ),
+    ).toBeNull();
+    expect(
+      parseIconGroupsParam(
+        Array.from({ length: 13 }, (_, index) => `Group ${index}:js`).join('|'),
+        'dark',
+        iconNameList,
+        aliases,
+        themedIcons,
+      ),
+    ).toBeNull();
+  });
+
   it('should parse background color and image', () => {
     const hex = parseBackgroundParam('#A1B2C3');
     expect(hex).toEqual({ type: 'color', value: '#a1b2c3' });
@@ -194,6 +255,14 @@ describe('utils', () => {
     expect(parseShadowParam('')).toBe('none');
     expect(parseShadowParam('XL')).toBe('xl');
     expect(parseShadowParam('heavy')).toBeNull();
+  });
+
+  it('should parse group presentation styles with card as the default', () => {
+    expect(parseGroupStyleParam(null)).toBe('card');
+    expect(parseGroupStyleParam('')).toBe('card');
+    expect(parseGroupStyleParam('LABEL')).toBe('label');
+    expect(parseGroupStyleParam('divider')).toBe('divider');
+    expect(parseGroupStyleParam('tiles')).toBeNull();
   });
 
   it('should generate valid svg output', () => {
@@ -376,6 +445,66 @@ describe('utils', () => {
 
     expect(svg).not.toContain('icon-shadow-');
     expect(svg).not.toContain('<feDropShadow');
+  });
+
+  it.each([
+    ['card', 'fill="#f8fafc" stroke="#cbd5e1"'],
+    ['label', '<line x1="21.3333" y1="85.3333"'],
+    ['divider', 'stroke="#cbd5e1" stroke-width="5.3333"'],
+  ] as const)(
+    'renders grouped icons with the %s style',
+    (groupStyle, chrome) => {
+      const icons = {
+        javascript: '<path id="js"/>',
+        typescript: '<path id="ts"/>',
+        golang: '<path id="go"/>',
+      };
+      const svg = generateSvg(
+        ['javascript', 'typescript', 'golang'],
+        icons,
+        2,
+        {
+          groupStyle,
+          iconGroups: [
+            {
+              label: 'Back & <end>',
+              iconNames: ['javascript', 'typescript'],
+            },
+            { label: 'Other', iconNames: ['golang'] },
+          ],
+          theme: 'light',
+        },
+      );
+
+      expect(svg).toContain('width="174.25" height="70"');
+      expect(svg).toContain('Back &amp; &lt;end&gt;</text>');
+      expect(svg).toContain(chrome);
+      expect(svg).toContain('<path id="js"/>');
+      expect(svg).toContain('<path id="go"/>');
+    },
+  );
+
+  it('wraps icons inside each group according to perline', () => {
+    const svg = generateSvg(
+      ['javascript', 'typescript', 'golang'],
+      {
+        javascript: '<path id="js"/>',
+        typescript: '<path id="ts"/>',
+        golang: '<path id="go"/>',
+      },
+      2,
+      {
+        iconGroups: [
+          {
+            label: 'Languages',
+            iconNames: ['javascript', 'typescript', 'golang'],
+          },
+        ],
+      },
+    );
+
+    expect(svg).toContain('height="126.25"');
+    expect(svg).toContain('transform="translate(21.3333,396)"');
   });
 
   it.each([

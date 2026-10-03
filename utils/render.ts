@@ -4,6 +4,7 @@ import {
   DEFAULT_BORDER_STYLE,
   DEFAULT_BORDER_WIDTH,
   DEFAULT_GAP,
+  DEFAULT_GROUP_STYLE,
   DEFAULT_SHADOW,
 } from '../shared/index.js';
 import type {
@@ -12,8 +13,12 @@ import type {
   BorderStyle,
   BorderWidthLevel,
   GapLevel,
+  GroupStyle,
+  IconRenderGroup,
   ShadowLevel,
+  Theme,
 } from '../types/index.js';
+import { buildGroupedIconLayout } from './group-layout.js';
 
 const ICON_VIEWBOX_SIZE = 256;
 const OUTPUT_ICON_SIZE = 48;
@@ -66,8 +71,11 @@ export interface SvgRenderOptions {
   borderStyle?: BorderStyle;
   borderWidth?: BorderWidthLevel;
   gap?: GapLevel;
+  groupStyle?: GroupStyle;
+  iconGroups?: IconRenderGroup[];
   padding?: number;
   shadow?: ShadowLevel;
+  theme?: Theme;
 }
 
 const _svgCache = new Map<string, string>();
@@ -135,8 +143,11 @@ export function generateSvg(
     borderStyle = DEFAULT_BORDER_STYLE,
     borderWidth = DEFAULT_BORDER_WIDTH,
     gap = DEFAULT_GAP,
+    groupStyle = DEFAULT_GROUP_STYLE,
+    iconGroups = [],
     padding = 0,
     shadow = DEFAULT_SHADOW,
+    theme = 'dark',
   } = options;
   const gapUnits = GAP_VIEWBOX_UNITS[gap];
   const iconStep = ICON_VIEWBOX_SIZE + gapUnits;
@@ -144,19 +155,35 @@ export function generateSvg(
   const borderUnits = borderPixels / OUTPUT_SCALE;
   const radiusPixels = BORDER_RADIUS_PIXELS[borderRadius];
   const radiusUnits = radiusPixels / OUTPUT_SCALE;
-  const cacheKey = `${iconNames.join(',')}-${perLine}-${background?.type || 'none'}-${background?.value || 'none'}-${gap}-${padding}-${borderWidth}-${borderColor}-${borderStyle}-${borderRadius}-${shadow}`;
+  const groupingCacheKey = iconGroups.length
+    ? `${groupStyle}-${theme}-${JSON.stringify(iconGroups)}`
+    : 'flat';
+  const cacheKey = `${iconNames.join(',')}-${perLine}-${background?.type || 'none'}-${background?.value || 'none'}-${gap}-${padding}-${borderWidth}-${borderColor}-${borderStyle}-${borderRadius}-${shadow}-${groupingCacheKey}`;
 
   if (_svgCache.has(cacheKey)) {
     return _svgCache.get(cacheKey)!;
   }
   const viewBoxPadding = padding / OUTPUT_SCALE;
   const iconSvgList = iconNames.map(i => icons[i]).filter(Boolean);
+  const iconShadowAttribute =
+    shadow === 'none' ? '' : ` filter="url(#icon-shadow-${shadow})"`;
+  const groupedLayout = iconGroups.length
+    ? buildGroupedIconLayout(iconGroups, icons, {
+        gapUnits,
+        groupStyle,
+        iconFilterAttribute: iconShadowAttribute,
+        perLine,
+        theme,
+      })
+    : null;
   const columns = Math.min(perLine, iconSvgList.length);
   const rows = Math.ceil(iconSvgList.length / perLine);
-  const contentWidth =
-    columns * ICON_VIEWBOX_SIZE + Math.max(0, columns - 1) * gapUnits;
-  const contentHeight =
-    rows * ICON_VIEWBOX_SIZE + Math.max(0, rows - 1) * gapUnits;
+  const contentWidth = groupedLayout
+    ? groupedLayout.width
+    : columns * ICON_VIEWBOX_SIZE + Math.max(0, columns - 1) * gapUnits;
+  const contentHeight = groupedLayout
+    ? groupedLayout.height
+    : rows * ICON_VIEWBOX_SIZE + Math.max(0, rows - 1) * gapUnits;
   const canvasWidth = contentWidth + (viewBoxPadding + borderUnits) * 2;
   const canvasHeight = contentHeight + (viewBoxPadding + borderUnits) * 2;
   const renderedHeight =
@@ -164,15 +191,14 @@ export function generateSvg(
   const renderedWidth =
     contentWidth * OUTPUT_SCALE + (padding + borderPixels) * 2;
   const contentOffset = viewBoxPadding + borderUnits;
-  const iconShadowAttribute =
-    shadow === 'none' ? '' : ` filter="url(#icon-shadow-${shadow})"`;
-
-  const groups = iconSvgList
-    .map(
-      (i, idx) =>
-        `<g${iconShadowAttribute} transform="translate(${formatNumber(contentOffset + (idx % perLine) * iconStep)},${formatNumber(contentOffset + Math.floor(idx / perLine) * iconStep)})">${i}</g>`,
-    )
-    .join('');
+  const iconsMarkup = groupedLayout
+    ? `<g transform="translate(${formatNumber(contentOffset)},${formatNumber(contentOffset)})">${groupedLayout.markup}</g>`
+    : iconSvgList
+        .map(
+          (i, idx) =>
+            `<g${iconShadowAttribute} transform="translate(${formatNumber(contentOffset + (idx % perLine) * iconStep)},${formatNumber(contentOffset + Math.floor(idx / perLine) * iconStep)})">${i}</g>`,
+        )
+        .join('');
 
   let backgroundMarkup = '';
   if (background?.type === 'color') {
@@ -195,7 +221,7 @@ export function generateSvg(
     : '';
 
   const contentMarkup = buildRoundedContentMarkup(
-    `${backgroundMarkup}${groups}`,
+    `${backgroundMarkup}${iconsMarkup}`,
     canvasWidth,
     canvasHeight,
     radiusUnits,

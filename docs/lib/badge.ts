@@ -4,6 +4,7 @@ import {
   BADGE_BORDER_STYLE_OPTIONS,
   BADGE_BORDER_WIDTH_OPTIONS,
   BADGE_GAP_OPTIONS,
+  BADGE_GROUP_STYLE_OPTIONS,
   BADGE_SHADOW_OPTIONS,
 } from './constants';
 import type {
@@ -11,6 +12,8 @@ import type {
   BadgeBorderStyle,
   BadgeBorderWidth,
   BadgeGap,
+  BadgeGroupStyle,
+  BadgeIconGroup,
   BadgeSettings,
   BadgeShadow,
   BadgeSnippets,
@@ -27,6 +30,7 @@ export const DEFAULT_BADGE_SETTINGS: BadgeSettings = {
   borderStyle: 'solid',
   borderRadius: 'none',
   shadow: 'none',
+  groupStyle: 'none',
   background: '',
   padding: 0,
 };
@@ -80,6 +84,13 @@ function parseShadow(value: unknown): BadgeShadow {
     : DEFAULT_BADGE_SETTINGS.shadow;
 }
 
+function parseGroupStyle(value: unknown): BadgeGroupStyle {
+  const groupStyle = String(value ?? '').toLowerCase() as BadgeGroupStyle;
+  return BADGE_GROUP_STYLE_OPTIONS.some(option => option.value === groupStyle)
+    ? groupStyle
+    : DEFAULT_BADGE_SETTINGS.groupStyle;
+}
+
 export function normalizeBadgeSettings(
   settings: BadgeSettingsInput = {},
 ): BadgeSettings {
@@ -97,6 +108,7 @@ export function normalizeBadgeSettings(
     borderStyle: parseBorderStyle(settings.borderStyle),
     borderRadius: parseBorderRadius(settings.borderRadius),
     shadow: parseShadow(settings.shadow),
+    groupStyle: parseGroupStyle(settings.groupStyle),
     background: String(settings.background ?? '').trim(),
     padding: parseInteger(
       settings.padding,
@@ -142,14 +154,40 @@ export function isValidBorderColor(value: string): boolean {
   );
 }
 
+function isValidGroupLabel(label: string): boolean {
+  return (
+    label.length > 0 &&
+    label.length <= 40 &&
+    !Array.from(label).some(character => {
+      const code = character.charCodeAt(0);
+      return (
+        code <= 31 || code === 127 || character === '|' || character === ':'
+      );
+    })
+  );
+}
+
 export function buildBadgeUrl(
   icons: string[],
   settings: BadgeSettings,
+  groups: BadgeIconGroup[] = [],
 ): string {
   const normalizedIcons = icons.map(normalizeIconName).filter(Boolean);
   const normalizedSettings = normalizeBadgeSettings(settings);
+  const normalizedGroups = groups
+    .map(group => ({
+      label: group.label.trim().replace(/\s+/g, ' '),
+      icons: group.icons.map(normalizeIconName).filter(Boolean),
+    }))
+    .filter(group => group.icons.length);
+  const validGroups = normalizedGroups.every(group =>
+    isValidGroupLabel(group.label),
+  );
+  const grouped =
+    normalizedSettings.groupStyle !== 'none' && normalizedGroups.length > 0;
   if (
     !normalizedIcons.length ||
+    (grouped && !validGroups) ||
     !isValidBackground(normalizedSettings.background) ||
     !isValidBorderColor(normalizedSettings.borderColor)
   ) {
@@ -157,7 +195,11 @@ export function buildBadgeUrl(
   }
 
   const params = new URLSearchParams({
-    i: normalizedIcons.join(','),
+    i: grouped
+      ? normalizedGroups
+          .map(group => `${group.label}:${group.icons.join(',')}`)
+          .join('|')
+      : normalizedIcons.join(','),
     t: normalizedSettings.theme,
     perline: String(normalizedSettings.perLine),
     gap: normalizedSettings.gap,
@@ -174,6 +216,9 @@ export function buildBadgeUrl(
   }
   if (normalizedSettings.shadow !== 'none') {
     params.set('shadow', normalizedSettings.shadow);
+  }
+  if (grouped && normalizedSettings.groupStyle !== 'card') {
+    params.set('groupstyle', normalizedSettings.groupStyle);
   }
   if (normalizedSettings.borderWidth !== 'none') {
     params.set('border', normalizedSettings.borderWidth);

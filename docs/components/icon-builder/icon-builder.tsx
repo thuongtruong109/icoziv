@@ -29,6 +29,7 @@ import {
   ICON_ASSET_BASE_URL,
   REPOSITORY_URL,
 } from '@/lib/constants';
+import { groupSelectedIcons } from '@/lib/groups';
 import type {
   BadgeSettings,
   DisplayNameMode,
@@ -170,7 +171,8 @@ export function IconBuilder() {
   }, [currentPage, filteredIcons, viewMode, visibleCount]);
 
   const selectedNames = selectedIconNames(selectedIcons);
-  const badgeUrl = buildBadgeUrl(selectedNames, badgeSettings);
+  const badgeGroups = groupSelectedIcons(selectedIcons);
+  const badgeUrl = buildBadgeUrl(selectedNames, badgeSettings, badgeGroups);
   const snippets = buildBadgeSnippets(badgeUrl);
 
   const selectedIconsWithUrls = selectedIcons.map(icon => ({

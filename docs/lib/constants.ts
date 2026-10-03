@@ -3,6 +3,7 @@ import type {
   BadgeBorderStyle,
   BadgeBorderWidth,
   BadgeGap,
+  BadgeGroupStyle,
   BadgeShadow,
   IconCategory,
 } from '@/types/icon';
@@ -55,6 +56,24 @@ export const BADGE_SHADOW_OPTIONS: Array<{
   { value: 'md', label: 'MD' },
   { value: 'lg', label: 'LG' },
   { value: 'xl', label: 'XL' },
+];
+export const BADGE_GROUP_STYLE_OPTIONS: Array<{
+  value: BadgeGroupStyle;
+  label: string;
+  description: string;
+}> = [
+  { value: 'none', label: 'None', description: 'One continuous icon grid' },
+  {
+    value: 'card',
+    label: 'Card',
+    description: 'Framed groups with label pills',
+  },
+  { value: 'label', label: 'Label', description: 'Headings with subtle rules' },
+  {
+    value: 'divider',
+    label: 'Divider',
+    description: 'Compact groups with separators',
+  },
 ];
 
 export const DEMO_ICONS = [

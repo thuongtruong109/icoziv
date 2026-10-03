@@ -22,6 +22,8 @@ import {
   parseBorderStyleParam,
   parseBorderWidthParam,
   parseGapParam,
+  parseGroupStyleParam,
+  parseIconGroupsParam,
   parseIconsParam,
   parsePaddingParam,
   parseShadowParam,
@@ -112,6 +114,14 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
+      const groupStyle = parseGroupStyleParam(
+        searchParams.get('groupstyle') ?? searchParams.get('groupStyle'),
+      );
+      if (groupStyle === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_GROUP_STYLE);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
       const borderWidth = parseBorderWidthParam(searchParams.get('border'));
       if (borderWidth === null) {
         const errResponse = errorResponse(ERRORS.INVALID_BORDER_WIDTH);
@@ -151,13 +161,27 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
-      const iconNames = parseIconsParam(
+      const iconGroups = parseIconGroupsParam(
         iconParam,
         themeParam,
         iconNameList,
         shortNames,
         themedIcons,
       );
+      if (iconGroups === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_GROUPS);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
+      const iconNames = iconGroups.length
+        ? iconGroups.flatMap(group => group.iconNames)
+        : parseIconsParam(
+            iconParam,
+            themeParam,
+            iconNameList,
+            shortNames,
+            themedIcons,
+          );
 
       if (!iconNames.length) {
         const errResponse = errorResponse(ERRORS.NO_ICONS_FOUND);
@@ -171,8 +195,11 @@ async function handleRequest(
         borderStyle,
         borderWidth,
         gap,
+        groupStyle,
+        iconGroups,
         padding,
         shadow,
+        theme: themeParam,
       });
       const response = await contentResponse(request, svg, CONTENT.SVG);
       return enhanceResponseHeaders(response, 31536000);

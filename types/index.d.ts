@@ -10,6 +10,13 @@ export type BorderRadiusLevel = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type ShadowLevel = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
+export type GroupStyle = 'card' | 'label' | 'divider';
+
+export interface IconRenderGroup {
+  label: string;
+  iconNames: string[];
+}
+
 export type BackgroundParam = {
   type: 'color' | 'image';
   value: string;
