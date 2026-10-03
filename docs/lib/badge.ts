@@ -4,6 +4,7 @@ import {
   BADGE_BORDER_STYLE_OPTIONS,
   BADGE_BORDER_WIDTH_OPTIONS,
   BADGE_GAP_OPTIONS,
+  BADGE_SHADOW_OPTIONS,
 } from './constants';
 import type {
   BadgeBorderRadius,
@@ -11,6 +12,7 @@ import type {
   BadgeBorderWidth,
   BadgeGap,
   BadgeSettings,
+  BadgeShadow,
   BadgeSnippets,
   IconGroup,
   IconTheme,
@@ -24,6 +26,7 @@ export const DEFAULT_BADGE_SETTINGS: BadgeSettings = {
   borderColor: '',
   borderStyle: 'solid',
   borderRadius: 'none',
+  shadow: 'none',
   background: '',
   padding: 0,
 };
@@ -70,6 +73,13 @@ function parseBorderRadius(value: unknown): BadgeBorderRadius {
     : DEFAULT_BADGE_SETTINGS.borderRadius;
 }
 
+function parseShadow(value: unknown): BadgeShadow {
+  const shadow = String(value ?? '').toLowerCase() as BadgeShadow;
+  return BADGE_SHADOW_OPTIONS.some(option => option.value === shadow)
+    ? shadow
+    : DEFAULT_BADGE_SETTINGS.shadow;
+}
+
 export function normalizeBadgeSettings(
   settings: BadgeSettingsInput = {},
 ): BadgeSettings {
@@ -86,6 +96,7 @@ export function normalizeBadgeSettings(
     borderColor: String(settings.borderColor ?? '').trim(),
     borderStyle: parseBorderStyle(settings.borderStyle),
     borderRadius: parseBorderRadius(settings.borderRadius),
+    shadow: parseShadow(settings.shadow),
     background: String(settings.background ?? '').trim(),
     padding: parseInteger(
       settings.padding,
@@ -160,6 +171,9 @@ export function buildBadgeUrl(
   }
   if (normalizedSettings.borderRadius !== 'none') {
     params.set('rounded', normalizedSettings.borderRadius);
+  }
+  if (normalizedSettings.shadow !== 'none') {
+    params.set('shadow', normalizedSettings.shadow);
   }
   if (normalizedSettings.borderWidth !== 'none') {
     params.set('border', normalizedSettings.borderWidth);

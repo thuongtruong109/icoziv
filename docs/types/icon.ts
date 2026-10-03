@@ -3,6 +3,7 @@ export type BadgeGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type BadgeBorderWidth = 'none' | 'thin' | 'medium' | 'bold';
 export type BadgeBorderStyle = 'solid' | 'dashed' | 'dotted';
 export type BadgeBorderRadius = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type BadgeShadow = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ThemePreference = IconTheme | 'system';
 export type DisplayNameMode = 'tooltip' | 'inside';
 export type ViewMode = 'pagination' | 'infinite';
@@ -40,6 +41,7 @@ export interface BadgeSettings {
   borderColor: string;
   borderStyle: BadgeBorderStyle;
   borderRadius: BadgeBorderRadius;
+  shadow: BadgeShadow;
   background: string;
   padding: number;
 }

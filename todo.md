@@ -8,7 +8,8 @@
 - [x] Add semantic gap presets (xs, sm, md, lg, xl)
 - [x] Add border width, style, and custom color controls
 - [x] Add semantic corner-radius presets (xs, sm, md, lg, xl)
-- [ ] Add more customization options (e.g. shadow, layout (grid/circle/wave/stagger/random), format (png/svg/webp))
+- [x] Add per-icon shadow presets (xs, sm, md, lg, xl)
+- [ ] Add more customization options (e.g. layout (grid/circle/wave/stagger/random), format (png/svg/webp))
 - [ ] Support grouping (&i=frontend:react,vue,angular|backend:nodejs,express|devops:docker,aws)
 - [ ] Add label (“Powered by Icoziv”)
 

@@ -3,6 +3,7 @@ import {
   BorderStyle,
   BorderWidthLevel,
   GapLevel,
+  ShadowLevel,
   Theme,
 } from '../types/index.js';
 
@@ -14,6 +15,7 @@ export const DEFAULT_BORDER_WIDTH: BorderWidthLevel = 'none';
 export const DEFAULT_BORDER_COLOR = 'transparent';
 export const DEFAULT_BORDER_STYLE: BorderStyle = 'solid';
 export const DEFAULT_BORDER_RADIUS: BorderRadiusLevel = 'none';
+export const DEFAULT_SHADOW: ShadowLevel = 'none';
 export const BORDER_WIDTH_LEVELS: BorderWidthLevel[] = [
   'thin',
   'medium',
@@ -27,6 +29,7 @@ export const BORDER_RADIUS_LEVELS: BorderRadiusLevel[] = [
   'lg',
   'xl',
 ];
+export const SHADOW_LEVELS: ShadowLevel[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export const CONTENT = {
   JSON: {
@@ -54,6 +57,7 @@ export const ERRORS = {
   INVALID_BORDER_WIDTH: `Border must be ${BORDER_WIDTH_LEVELS.join(', ')}`,
   INVALID_BORDER_STYLE: `Border style must be ${BORDER_STYLES.join(', ')}`,
   INVALID_BORDER_RADIUS: `Rounded must be ${BORDER_RADIUS_LEVELS.join(', ')}`,
+  INVALID_SHADOW: `Shadow must be ${SHADOW_LEVELS.join(', ')}`,
   INVALID_BORDER_COLOR:
     'Border color must be transparent or a 3, 4, 6, or 8-digit hex color',
   INVALID_PADDING: 'Padding must be a whole number of pixels between 0 and 200',

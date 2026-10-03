@@ -12,12 +12,13 @@ describe('demo badge customization', () => {
       borderColor: '#ef4444',
       borderStyle: 'dashed',
       borderRadius: 'lg',
+      shadow: 'xl',
       background: '#0f172a',
       padding: 12,
     });
 
     expect(url).toBe(
-      'https://i.icoziv.workers.dev/icons?i=javascript%2Ctypescript&t=light&perline=2&gap=lg&bg=%230f172a&padding=12&rounded=lg&border=bold&borderstyle=dashed&bordercolor=%23ef4444',
+      'https://i.icoziv.workers.dev/icons?i=javascript%2Ctypescript&t=light&perline=2&gap=lg&bg=%230f172a&padding=12&rounded=lg&shadow=xl&border=bold&borderstyle=dashed&bordercolor=%23ef4444',
     );
   });
 
@@ -31,6 +32,7 @@ describe('demo badge customization', () => {
         borderColor: '',
         borderStyle: 'solid',
         borderRadius: 'none',
+        shadow: 'none',
         background,
         padding: 0,
       });
@@ -49,6 +51,7 @@ describe('demo badge customization', () => {
       borderColor: '',
       borderStyle: 'solid' as const,
       borderRadius: 'none' as const,
+      shadow: 'none' as const,
       background: '',
       padding: 0,
     };
@@ -58,6 +61,7 @@ describe('demo badge customization', () => {
     expect(defaultUrl).not.toContain('bordercolor=');
     expect(defaultUrl).not.toContain('borderstyle=');
     expect(defaultUrl).not.toContain('rounded=');
+    expect(defaultUrl).not.toContain('shadow=');
     expect(
       buildBadgeUrl(['react'], {
         ...settings,
@@ -77,6 +81,7 @@ describe('demo badge customization', () => {
         borderColor: ' transparent ',
         borderStyle: 'double',
         borderRadius: 'huge',
+        shadow: 'huge',
         background: ' #abc ',
         padding: '-1',
       }),
@@ -88,6 +93,7 @@ describe('demo badge customization', () => {
       borderColor: 'transparent',
       borderStyle: 'solid',
       borderRadius: 'none',
+      shadow: 'none',
       background: '#abc',
       padding: 0,
     });

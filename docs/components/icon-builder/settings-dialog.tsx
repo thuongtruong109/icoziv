@@ -11,6 +11,7 @@ import {
   BADGE_BORDER_STYLE_OPTIONS,
   BADGE_BORDER_WIDTH_OPTIONS,
   BADGE_GAP_OPTIONS,
+  BADGE_SHADOW_OPTIONS,
 } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { BadgeSettings } from '@/types/icon';
@@ -73,6 +74,32 @@ export function BadgeSettingsDialog({
                   {theme === 'light' ? 'Light icons' : 'Dark icons'}
                 </button>
               ))}
+            </div>
+            <div className="range-field">
+              <span>
+                Icon shadow
+                <strong>{badgeSettings.shadow.toUpperCase()}</strong>
+              </span>
+              <div
+                aria-label="Icon shadow"
+                className="choice-grid choice-grid--three"
+                role="group"
+              >
+                {BADGE_SHADOW_OPTIONS.map(option => (
+                  <button
+                    aria-pressed={badgeSettings.shadow === option.value}
+                    className={cn(
+                      'choice-card',
+                      badgeSettings.shadow === option.value && 'is-active',
+                    )}
+                    key={option.value}
+                    onClick={() => patchSettings({ shadow: option.value })}
+                    type="button"
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
 

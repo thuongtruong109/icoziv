@@ -24,6 +24,7 @@ import {
   parseGapParam,
   parseIconsParam,
   parsePaddingParam,
+  parseShadowParam,
 } from './utils/index.js';
 
 function enhanceResponseHeaders(
@@ -105,6 +106,12 @@ async function handleRequest(
         return enhanceResponseHeaders(errResponse, 3600);
       }
 
+      const shadow = parseShadowParam(searchParams.get('shadow'));
+      if (shadow === null) {
+        const errResponse = errorResponse(ERRORS.INVALID_SHADOW);
+        return enhanceResponseHeaders(errResponse, 3600);
+      }
+
       const borderWidth = parseBorderWidthParam(searchParams.get('border'));
       if (borderWidth === null) {
         const errResponse = errorResponse(ERRORS.INVALID_BORDER_WIDTH);
@@ -165,6 +172,7 @@ async function handleRequest(
         borderWidth,
         gap,
         padding,
+        shadow,
       });
       const response = await contentResponse(request, svg, CONTENT.SVG);
       return enhanceResponseHeaders(response, 31536000);
@@ -188,8 +196,19 @@ async function handleRequest(
       return enhanceResponseHeaders(response, 86400);
     }
 
-    default:
-      return Response.redirect('https://thuongtruong109.github.io/icoziv', 302);
+    default: {
+      const response = await contentResponse(
+        request,
+        JSON.stringify({
+          status: 200,
+          message:
+            'Welcome to Icoziv! Please visit <a href="https://thuongtruong109.github.io/icoziv" target="_blank" rel="noopener noreferrer">playground</a> for getting started.',
+        }),
+        CONTENT.HTML,
+      );
+
+      return enhanceResponseHeaders(response, 86400);
+    }
   }
 }
 

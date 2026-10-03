@@ -41,6 +41,7 @@ import {
   parseGapParam,
   parseIconsParam,
   parsePaddingParam,
+  parseShadowParam,
   requestMatchesEtag,
 } from '../utils/index.js';
 
@@ -188,6 +189,13 @@ describe('utils', () => {
     expect(parseBorderRadiusParam('round')).toBeNull();
   });
 
+  it('should parse semantic icon shadows with none as the default', () => {
+    expect(parseShadowParam(null)).toBe('none');
+    expect(parseShadowParam('')).toBe('none');
+    expect(parseShadowParam('XL')).toBe('xl');
+    expect(parseShadowParam('heavy')).toBeNull();
+  });
+
   it('should generate valid svg output', () => {
     const icons = {
       javascript: '<path id="js"/>',
@@ -323,6 +331,51 @@ describe('utils', () => {
 
     expect(svg).not.toContain('badge-rounded-clip');
     expect(svg).not.toContain(' rx=');
+  });
+
+  it.each([
+    ['xs', '5.3333', '2.6667', '0.18'],
+    ['sm', '5.3333', '5.3333', '0.2'],
+    ['md', '10.6667', '10.6667', '0.22'],
+    ['lg', '21.3333', '21.3333', '0.24'],
+    ['xl', '42.6667', '42.6667', '0.28'],
+  ] as const)(
+    'renders the %s shadow on every icon group',
+    (shadow, offsetY, blur, opacity) => {
+      const svg = generateSvg(
+        ['javascript', 'typescript'],
+        {
+          javascript: '<path id="js"/>',
+          typescript: '<path id="ts"/>',
+        },
+        2,
+        {
+          background: { type: 'color', value: '#abc' },
+          shadow,
+        },
+      );
+
+      expect(svg).toContain(
+        `<filter id="icon-shadow-${shadow}" x="-256" y="-256" width="768" height="768" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="${offsetY}" stdDeviation="${blur}" flood-color="#000000" flood-opacity="${opacity}"/></filter>`,
+      );
+      expect(
+        svg.match(new RegExp(`filter="url\\(#icon-shadow-${shadow}\\)"`, 'g')),
+      ).toHaveLength(2);
+      expect(svg).toContain(
+        '<rect width="556" height="256" fill="#abc"/><g filter=',
+      );
+    },
+  );
+
+  it('does not emit icon shadow markup by default', () => {
+    const svg = generateSvg(
+      ['javascript'],
+      { javascript: '<path id="js"/>' },
+      1,
+    );
+
+    expect(svg).not.toContain('icon-shadow-');
+    expect(svg).not.toContain('<feDropShadow');
   });
 
   it.each([

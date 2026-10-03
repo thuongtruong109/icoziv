@@ -7,7 +7,9 @@ import {
   DEFAULT_BORDER_STYLE,
   DEFAULT_BORDER_WIDTH,
   DEFAULT_GAP,
+  DEFAULT_SHADOW,
   GAP_LEVELS,
+  SHADOW_LEVELS,
 } from '../shared/index.js';
 import type {
   BackgroundParam,
@@ -15,6 +17,7 @@ import type {
   BorderStyle,
   BorderWidthLevel,
   GapLevel,
+  ShadowLevel,
 } from '../types/index.js';
 
 export const MAX_PADDING = 200;
@@ -105,4 +108,11 @@ export function parseBorderRadiusParam(
 
   const normalized = param.trim().toLowerCase() as BorderRadiusLevel;
   return BORDER_RADIUS_LEVELS.includes(normalized) ? normalized : null;
+}
+
+export function parseShadowParam(param: string | null): ShadowLevel | null {
+  if (param === null || param.trim() === '') return DEFAULT_SHADOW;
+
+  const normalized = param.trim().toLowerCase() as ShadowLevel;
+  return SHADOW_LEVELS.includes(normalized) ? normalized : null;
 }

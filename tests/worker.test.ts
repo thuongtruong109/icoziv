@@ -107,11 +107,26 @@ describe('worker customization', () => {
     );
   });
 
+  it('renders shadow on each icon without shadowing the background', async () => {
+    const response = await request(
+      '/icons?i=javascript,typescript&bg=abc&shadow=lg',
+    );
+    const svg = await response.text();
+
+    expect(response.status).toBe(200);
+    expect(svg).toContain('<filter id="icon-shadow-lg"');
+    expect(svg.match(/filter="url\(#icon-shadow-lg\)"/g)).toHaveLength(2);
+    expect(svg).toContain(
+      '<rect width="556" height="256" fill="#abc"/><g filter=',
+    );
+  });
+
   it.each([
     ['/icons?i=javascript&gap=wide', 'Gap must be'],
     ['/icons?i=javascript&border=wide', 'Border must be'],
     ['/icons?i=javascript&borderstyle=double', 'Border style must be'],
     ['/icons?i=javascript&rounded=round', 'Rounded must be'],
+    ['/icons?i=javascript&shadow=heavy', 'Shadow must be'],
     ['/icons?i=javascript&bordercolor=red', 'Border color must be'],
     ['/icons?i=javascript&padding=1.5', 'Padding must be'],
     ['/icons?i=javascript&padding=201', 'Padding must be'],

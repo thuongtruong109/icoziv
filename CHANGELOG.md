@@ -10,6 +10,8 @@
   transparent or hex colors and `solid`, `dashed`, or `dotted` styles
 - Semantic corner-radius presets (`xs`, `sm`, `md`, `lg`, and `xl`) that clip
   badge backgrounds, images, icons, and borders consistently
+- Per-icon shadow presets (`xs`, `sm`, `md`, `lg`, and `xl`) that leave the
+  shared background and outer border untouched
 - Complete demo badge builder with independent badge theme, icons-per-line,
   live preview, reset, and copy-ready URL, Markdown, and HTML output
 - Endpoint and rendering coverage for customization options

@@ -4,6 +4,7 @@ import {
   DEFAULT_BORDER_STYLE,
   DEFAULT_BORDER_WIDTH,
   DEFAULT_GAP,
+  DEFAULT_SHADOW,
 } from '../shared/index.js';
 import type {
   BackgroundParam,
@@ -11,6 +12,7 @@ import type {
   BorderStyle,
   BorderWidthLevel,
   GapLevel,
+  ShadowLevel,
 } from '../types/index.js';
 
 const ICON_VIEWBOX_SIZE = 256;
@@ -42,6 +44,21 @@ const BORDER_RADIUS_PIXELS: Record<BorderRadiusLevel, number> = {
   xl: 16,
 };
 
+interface IconShadowPreset {
+  blur: number;
+  offsetY: number;
+  opacity: number;
+}
+
+const ICON_SHADOW_PRESETS: Record<ShadowLevel, IconShadowPreset> = {
+  none: { blur: 0, offsetY: 0, opacity: 0 },
+  xs: { blur: 0.5, offsetY: 1, opacity: 0.18 },
+  sm: { blur: 1, offsetY: 1, opacity: 0.2 },
+  md: { blur: 2, offsetY: 2, opacity: 0.22 },
+  lg: { blur: 4, offsetY: 4, opacity: 0.24 },
+  xl: { blur: 8, offsetY: 8, opacity: 0.28 },
+};
+
 export interface SvgRenderOptions {
   background?: BackgroundParam | null;
   borderColor?: string;
@@ -50,6 +67,7 @@ export interface SvgRenderOptions {
   borderWidth?: BorderWidthLevel;
   gap?: GapLevel;
   padding?: number;
+  shadow?: ShadowLevel;
 }
 
 const _svgCache = new Map<string, string>();
@@ -97,6 +115,13 @@ function buildRoundedContentMarkup(
   return `<defs><clipPath id="badge-rounded-clip"><rect width="${formatNumber(canvasWidth)}" height="${formatNumber(canvasHeight)}" rx="${radius}"/></clipPath></defs><g clip-path="url(#badge-rounded-clip)">${content}</g>`;
 }
 
+function buildIconShadowFilter(shadow: ShadowLevel): string {
+  if (shadow === 'none') return '';
+
+  const preset = ICON_SHADOW_PRESETS[shadow];
+  return `<defs><filter id="icon-shadow-${shadow}" x="-256" y="-256" width="768" height="768" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="${formatNumber(preset.offsetY / OUTPUT_SCALE)}" stdDeviation="${formatNumber(preset.blur / OUTPUT_SCALE)}" flood-color="#000000" flood-opacity="${preset.opacity}"/></filter></defs>`;
+}
+
 export function generateSvg(
   iconNames: string[],
   icons: Record<string, string>,
@@ -111,6 +136,7 @@ export function generateSvg(
     borderWidth = DEFAULT_BORDER_WIDTH,
     gap = DEFAULT_GAP,
     padding = 0,
+    shadow = DEFAULT_SHADOW,
   } = options;
   const gapUnits = GAP_VIEWBOX_UNITS[gap];
   const iconStep = ICON_VIEWBOX_SIZE + gapUnits;
@@ -118,7 +144,7 @@ export function generateSvg(
   const borderUnits = borderPixels / OUTPUT_SCALE;
   const radiusPixels = BORDER_RADIUS_PIXELS[borderRadius];
   const radiusUnits = radiusPixels / OUTPUT_SCALE;
-  const cacheKey = `${iconNames.join(',')}-${perLine}-${background?.type || 'none'}-${background?.value || 'none'}-${gap}-${padding}-${borderWidth}-${borderColor}-${borderStyle}-${borderRadius}`;
+  const cacheKey = `${iconNames.join(',')}-${perLine}-${background?.type || 'none'}-${background?.value || 'none'}-${gap}-${padding}-${borderWidth}-${borderColor}-${borderStyle}-${borderRadius}-${shadow}`;
 
   if (_svgCache.has(cacheKey)) {
     return _svgCache.get(cacheKey)!;
@@ -138,11 +164,13 @@ export function generateSvg(
   const renderedWidth =
     contentWidth * OUTPUT_SCALE + (padding + borderPixels) * 2;
   const contentOffset = viewBoxPadding + borderUnits;
+  const iconShadowAttribute =
+    shadow === 'none' ? '' : ` filter="url(#icon-shadow-${shadow})"`;
 
   const groups = iconSvgList
     .map(
       (i, idx) =>
-        `<g transform="translate(${formatNumber(contentOffset + (idx % perLine) * iconStep)},${formatNumber(contentOffset + Math.floor(idx / perLine) * iconStep)})">${i}</g>`,
+        `<g${iconShadowAttribute} transform="translate(${formatNumber(contentOffset + (idx % perLine) * iconStep)},${formatNumber(contentOffset + Math.floor(idx / perLine) * iconStep)})">${i}</g>`,
     )
     .join('');
 
@@ -172,8 +200,9 @@ export function generateSvg(
     canvasHeight,
     radiusUnits,
   );
+  const shadowMarkup = buildIconShadowFilter(shadow);
 
-  const svg = `<svg width="${formatNumber(renderedWidth)}" height="${formatNumber(renderedHeight)}" viewBox="0 0 ${formatNumber(canvasWidth)} ${formatNumber(canvasHeight)}" fill="none" xmlns="http://www.w3.org/2000/svg" version="1.1">${contentMarkup}${borderMarkup}</svg>`;
+  const svg = `<svg width="${formatNumber(renderedWidth)}" height="${formatNumber(renderedHeight)}" viewBox="0 0 ${formatNumber(canvasWidth)} ${formatNumber(canvasHeight)}" fill="none" xmlns="http://www.w3.org/2000/svg" version="1.1">${shadowMarkup}${contentMarkup}${borderMarkup}</svg>`;
 
   // Cache the result (with LRU-like behavior)
   if (_svgCache.size >= MAX_CACHE_SIZE) {

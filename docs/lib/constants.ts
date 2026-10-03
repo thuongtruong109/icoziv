@@ -3,6 +3,7 @@ import type {
   BadgeBorderStyle,
   BadgeBorderWidth,
   BadgeGap,
+  BadgeShadow,
   IconCategory,
 } from '@/types/icon';
 
@@ -43,6 +44,17 @@ export const BADGE_BORDER_RADIUS_OPTIONS: Array<{
   { value: 'md', label: 'MD', pixels: 8 },
   { value: 'lg', label: 'LG', pixels: 12 },
   { value: 'xl', label: 'XL', pixels: 16 },
+];
+export const BADGE_SHADOW_OPTIONS: Array<{
+  value: BadgeShadow;
+  label: string;
+}> = [
+  { value: 'none', label: 'None' },
+  { value: 'xs', label: 'XS' },
+  { value: 'sm', label: 'SM' },
+  { value: 'md', label: 'MD' },
+  { value: 'lg', label: 'LG' },
+  { value: 'xl', label: 'XL' },
 ];
 
 export const DEMO_ICONS = [
