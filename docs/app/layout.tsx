@@ -51,7 +51,8 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body>
+      {/* Browser extensions may add body attributes before React hydrates. */}
+      <body suppressHydrationWarning>
         <Script id="icoziv-theme" strategy="beforeInteractive">
           {themeScript}
         </Script>

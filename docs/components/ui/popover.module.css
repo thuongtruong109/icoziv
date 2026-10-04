@@ -1,0 +1,46 @@
+.root {
+  position: relative;
+  display: flex;
+}
+
+.panel {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 12px);
+  right: -4px;
+  width: min(340px, calc(100vw - 28px));
+  max-height: calc(100dvh - 92px);
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  outline: 0;
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  animation: dropdown-in 150ms ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 720;
+}
+
+.header button {
+  width: 28px;
+  height: 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}

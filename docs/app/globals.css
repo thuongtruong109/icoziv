@@ -211,6 +211,10 @@ select:focus-visible {
   gap: 24px;
 }
 
+.site-header {
+  z-index: 50;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -810,15 +814,18 @@ select:focus-visible {
   z-index: 30;
   top: 12px;
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) 176px auto auto;
+  grid-template-areas: 'detect search category view';
+  grid-template-columns: auto minmax(200px, 1fr) 176px auto;
   align-items: center;
   gap: 9px;
-  padding: 9px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--background) 82%, transparent);
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.toolbar-github.button {
+  grid-area: detect;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .search-field,
@@ -834,6 +841,7 @@ select:focus-visible {
 }
 
 .search-field {
+  grid-area: search;
   gap: 9px;
   padding: 0 10px 0 12px;
 }
@@ -893,6 +901,7 @@ select:focus-visible {
 }
 
 .category-select {
+  grid-area: category;
   position: relative;
   min-width: 0;
 }
@@ -1010,28 +1019,16 @@ select:focus-visible {
   }
 }
 
-.toolbar-count {
-  display: grid;
-  min-width: 68px;
-  justify-items: end;
-  line-height: 1.05;
-}
-
-.toolbar-count strong {
-  font-size: 12px;
-}
-
-.toolbar-count span {
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 8.5px;
-  text-transform: uppercase;
+.library-toolbar > .segmented {
+  grid-area: view;
+  justify-self: end;
 }
 
 .segmented {
   display: flex;
   height: 40px;
-  padding: 0;
+  gap: 2px;
+  padding: 3px;
   border: 0;
   border-radius: 11px;
   background: var(--surface);
@@ -1039,9 +1036,9 @@ select:focus-visible {
 }
 
 .segmented .button {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
 }
 
 .segmented .button.is-active {
@@ -1354,17 +1351,21 @@ select:focus-visible {
   object-fit: contain;
 }
 
-.stack-primary,
-.stack-secondary {
+.stack-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.stack-actions .button {
   width: 100%;
+  gap: 6px;
+  padding: 0 8px;
+  font-size: 11px;
 }
 
-.stack-primary svg:last-child {
-  margin-left: auto;
-}
-
-.stack-secondary {
-  margin-top: 4px;
+.stack-actions svg {
+  flex: none;
 }
 
 .stack-selection-heading {
@@ -1606,8 +1607,10 @@ select:focus-visible {
 }
 
 .dialog-panel {
+  display: flex;
   width: min(560px, 100%);
-  max-height: min(820px, calc(100vh - 48px));
+  max-height: min(820px, calc(100dvh - 48px));
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--border-strong);
   border-radius: 22px;
@@ -1630,6 +1633,7 @@ select:focus-visible {
 
 .dialog-header {
   display: flex;
+  flex: none;
   align-items: start;
   justify-content: space-between;
   gap: 20px;
@@ -1652,9 +1656,11 @@ select:focus-visible {
 }
 
 .dialog-content {
-  max-height: calc(100vh - 155px);
+  min-height: 0;
+  flex: 1 1 auto;
   overflow: auto;
-  padding: 20px 22px 22px;
+  overscroll-behavior: contain;
+  padding: 20px 22px 24px;
 }
 
 .settings-grid {
@@ -1667,6 +1673,17 @@ select:focus-visible {
 .settings-form {
   display: grid;
   gap: 10px;
+}
+
+.site-preferences-form {
+  display: grid;
+  gap: 18px;
+}
+
+.site-preferences-form .setting-section {
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .setting-section {
@@ -2415,11 +2432,10 @@ select:focus-visible {
   }
 
   .library-toolbar {
-    grid-template-columns: minmax(0, 1fr) 150px auto;
-  }
-
-  .toolbar-count {
-    display: none;
+    grid-template-areas:
+      'detect search'
+      'category view';
+    grid-template-columns: auto minmax(0, 1fr);
   }
 
   .builder-layout {
@@ -2533,10 +2549,6 @@ select:focus-visible {
     gap: 2px;
   }
 
-  .site-header .header-nav-group {
-    display: none;
-  }
-
   .hero {
     gap: 48px;
     padding-top: 44px;
@@ -2598,12 +2610,6 @@ select:focus-visible {
 
   .library-toolbar {
     top: 6px;
-    grid-template-columns: 1fr auto;
-    padding: 7px;
-  }
-
-  .search-field {
-    grid-column: 1 / -1;
   }
 
   .search-field kbd {
@@ -2690,13 +2696,12 @@ select:focus-visible {
   .dialog-panel,
   .dialog-panel--wide {
     width: 100%;
-    max-height: calc(100vh - 16px);
+    max-height: calc(100dvh - 16px);
     border-radius: 22px 22px 0 0;
   }
 
   .dialog-content {
-    max-height: calc(100vh - 140px);
-    padding: 16px;
+    padding: 16px 16px calc(24px + env(safe-area-inset-bottom));
   }
 
   .choice-grid--three {

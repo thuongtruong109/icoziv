@@ -1,4 +1,4 @@
-import { ArrowUpRight, Copy, Palette, Trash2, X } from 'lucide-react';
+import { Copy, Palette, Trash2, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import type { IconGroup } from '@/types/icon';
@@ -33,19 +33,16 @@ export function SelectedStack({
               <img alt="Current generated badge" src={imageUrl} />
             ) : null}
           </div>
-          <Button className="stack-primary" onClick={onCopy} variant="primary">
-            <Copy aria-hidden="true" size={16} />
-            Copy &amp; embed
-            <ArrowUpRight aria-hidden="true" size={15} />
-          </Button>
-          <Button
-            className="stack-secondary"
-            onClick={onCustomize}
-            variant="ghost"
-          >
-            <Palette aria-hidden="true" size={16} />
-            Customize badge
-          </Button>
+          <div className="stack-actions">
+            <Button onClick={onCopy} variant="primary" size="sm">
+              <Copy aria-hidden="true" size={15} />
+              Copy &amp; embed
+            </Button>
+            <Button onClick={onCustomize} variant="secondary" size="sm">
+              <Palette aria-hidden="true" size={15} />
+              Customize badge
+            </Button>
+          </div>
 
           <div className="stack-selection-heading">
             <span className="stack-selection-title">

@@ -2,6 +2,9 @@
 
 ### Added
 
+- GitHub username import in the badge builder, with automatic icon selection
+  from public repository languages, framework topics, and dependency manifests
+- Cancellable, cached GitHub scans with explicit coverage and partial-result notices
 - Custom hex color and HTTPS image backgrounds for generated SVGs
 - Pixel-based padding controls in the API and playground
 - Semantic icon gap presets (`xs`, `sm`, `md`, `lg`, and `xl`) with the
@@ -22,6 +25,14 @@
 
 ### Fixed
 
+- Keep GitHub import in a toolbar dialog instead of taking up library space
+- Show the available icon count in the search placeholder
+- Handle browser-extension attributes on the body hydration boundary
+- Simplify the library toolbar and group website preferences with header navigation
+- Open website preferences in an anchored popover with keyboard and outside-click dismissal
+- Align Copy & embed and Customize badge in one row in the selected-stack panel
+- Show the back-to-top control only after scrolling and inset view-mode backgrounds
+- Keep dialog content within the panel height with accessible bottom padding
 - Generate representation-specific ETags for SVG and JSON responses
 - Make the `padding` query value match rendered output pixels
 - Normalize themed demo filenames before generating API URLs

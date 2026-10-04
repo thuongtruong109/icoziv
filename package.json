@@ -20,7 +20,8 @@
     "check": "bun run lint && bun run format && vitest",
     "check:http3": "bun run cmd/check-http3.ts",
     "check:fix": "bun run lint:fix && bun run format:fix",
-    "list": "bun run cmd/list.ts"
+    "list": "bun run cmd/list.ts",
+    "web": "cd docs && npm run dev"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20251225.0",

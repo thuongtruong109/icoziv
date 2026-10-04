@@ -17,12 +17,12 @@
 
 - [x] Add a complete badge builder for all current API parameters with live preview
 - [ ] Add showcase page which list users who use this library
-- [ ] Fetch used language from GitHub user
+- [x] Fetch languages and declared frameworks from public GitHub repositories
 
 ### Documentation:
 
 - [ ] Add localization for README.md page
-- [ ] Add examples for popular stacks
+- [x] Add examples for popular stacks
 - [ ] Add FAQ section
 
 ### Icons:

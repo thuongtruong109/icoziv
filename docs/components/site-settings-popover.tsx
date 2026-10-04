@@ -1,17 +1,15 @@
 'use client';
 
-import { Laptop, Moon, Sun } from 'lucide-react';
+import { Laptop, Moon, Settings2, Sun } from 'lucide-react';
 
-import { Dialog } from '@/components/ui/dialog';
+import { Popover } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import type { DisplayNameMode, ThemePreference } from '@/types/icon';
 
-interface SiteSettingsDialogProps {
+interface SiteSettingsPopoverProps {
   displayMode: DisplayNameMode;
-  onClose: () => void;
   onDisplayModeChange: (mode: DisplayNameMode) => void;
   onThemeChange: (theme: ThemePreference) => void;
-  open: boolean;
   themePreference: ThemePreference;
 }
 
@@ -21,27 +19,30 @@ const themeOptions = [
   { value: 'system', label: 'System', icon: Laptop },
 ] as const;
 
-export function SiteSettingsDialog({
+export function SiteSettingsPopover({
   displayMode,
-  onClose,
   onDisplayModeChange,
   onThemeChange,
-  open,
   themePreference,
-}: SiteSettingsDialogProps) {
+}: SiteSettingsPopoverProps) {
   return (
-    <Dialog onClose={onClose} open={open} title="Website preferences">
-      <div className="settings-form">
+    <Popover
+      title="Website preferences"
+      trigger={<Settings2 aria-hidden="true" size={17} />}
+      triggerClassName="header-tool-button"
+      triggerLabel="Open website preferences"
+    >
+      <div className="site-preferences-form">
         <section className="setting-section">
           <div className="setting-heading">
             <h3>Interface theme</h3>
-            <p>Choose how the website looks on this device.</p>
           </div>
           <div className="choice-grid choice-grid--three">
             {themeOptions.map(option => {
               const Icon = option.icon;
               return (
                 <button
+                  aria-pressed={themePreference === option.value}
                   className={cn(
                     'choice-card',
                     themePreference === option.value && 'is-active',
@@ -61,10 +62,10 @@ export function SiteSettingsDialog({
         <section className="setting-section">
           <div className="setting-heading">
             <h3>Icon labels</h3>
-            <p>Show icon names inside cards or only while hovering.</p>
           </div>
           <div className="choice-grid">
             <button
+              aria-pressed={displayMode === 'tooltip'}
               className={cn(
                 'choice-card',
                 displayMode === 'tooltip' && 'is-active',
@@ -75,6 +76,7 @@ export function SiteSettingsDialog({
               Hover tooltip
             </button>
             <button
+              aria-pressed={displayMode === 'inside'}
               className={cn(
                 'choice-card',
                 displayMode === 'inside' && 'is-active',
@@ -87,6 +89,6 @@ export function SiteSettingsDialog({
           </div>
         </section>
       </div>
-    </Dialog>
+    </Popover>
   );
 }

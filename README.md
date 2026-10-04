@@ -43,6 +43,13 @@
 
 Simply specify the technologies you use, and get a professional-looking SVG badge that automatically adapts to your README's theme.
 
+> [!TIP]
+> **Build your badge from GitHub.**
+>
+> [**Try GitHub stack import in the playground →**](https://thuongtruong109.github.io/icoziv/#library)
+>
+> Click **Detect from GitHub** before the search field, enter your username, and click **Fetch & select** to automatically select languages and declared frameworks from your public repositories. Customize the badge, then copy its Markdown into your README. No login required.
+
 <p align="center"><img align="center" src="./.github/assets/example-dark.png#gh-dark-mode-only"/></p>
 <p align="center"><img align="center" src="./.github/assets/example-light.png#gh-light-mode-only"/></p>
 

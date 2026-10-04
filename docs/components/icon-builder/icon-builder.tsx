@@ -1,9 +1,11 @@
 'use client';
 
-import { AlertTriangle, ArrowUp, LoaderCircle, SearchX } from 'lucide-react';
+import { AlertTriangle, LoaderCircle, SearchX } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { BackToTop } from '@/components/back-to-top';
 import { CopyDialog } from '@/components/icon-builder/copy-dialog';
+import { GitHubImportDialog } from '@/components/icon-builder/github-import-dialog';
 import { IconCard } from '@/components/icon-builder/icon-card';
 import { LibraryToolbar } from '@/components/icon-builder/library-toolbar';
 import { MobileStackBar } from '@/components/icon-builder/mobile-stack-bar';
@@ -12,7 +14,6 @@ import { SelectedStack } from '@/components/icon-builder/selected-stack';
 import { BadgeSettingsDialog } from '@/components/icon-builder/settings-dialog';
 import { Toast } from '@/components/icon-builder/toast';
 import { SiteHeader } from '@/components/site-header';
-import { SiteSettingsDialog } from '@/components/site-settings-dialog';
 import { Button } from '@/components/ui/button';
 import { useIconCatalog } from '@/hooks/use-icon-catalog';
 import { useTheme } from '@/hooks/use-theme';
@@ -63,8 +64,8 @@ export function IconBuilder() {
     DEFAULT_BADGE_SETTINGS,
   );
   const [badgeSettingsOpen, setBadgeSettingsOpen] = useState(false);
-  const [siteSettingsOpen, setSiteSettingsOpen] = useState(false);
   const [copyOpen, setCopyOpen] = useState(false);
+  const [gitHubImportOpen, setGitHubImportOpen] = useState(false);
   const [toast, setToast] = useState('');
   const [hydrated, setHydrated] = useState(false);
   const infiniteSentinel = useRef<HTMLDivElement>(null);
@@ -181,8 +182,16 @@ export function IconBuilder() {
   }));
 
   const closeBadgeSettings = useCallback(() => setBadgeSettingsOpen(false), []);
-  const closeSiteSettings = useCallback(() => setSiteSettingsOpen(false), []);
   const closeCopy = useCallback(() => setCopyOpen(false), []);
+  const closeGitHubImport = useCallback(() => setGitHubImportOpen(false), []);
+
+  const importGitHubIcons = useCallback((keys: string[]) => {
+    setSelectedKeys(keys);
+    setQuery('');
+    setCategory('all');
+    setCurrentPage(1);
+    setVisibleCount(INFINITE_CHUNK);
+  }, []);
 
   function toggleIcon(icon: IconGroup) {
     setSelectedKeys(current =>
@@ -244,10 +253,10 @@ export function IconBuilder() {
       <div className="ambient ambient--two" />
       <div className="page-container">
         <SiteHeader
+          displayMode={displayMode}
           iconCount={icons.length}
-          onOpenSettings={() => setSiteSettingsOpen(true)}
+          onDisplayModeChange={setDisplayMode}
           preference={preference}
-          resolvedTheme={resolvedTheme}
           setPreference={setPreference}
         />
 
@@ -255,11 +264,12 @@ export function IconBuilder() {
           <section className="builder-section" id="library">
             <LibraryToolbar
               category={category}
+              iconCount={icons.length}
               onCategoryChange={changeCategory}
+              onOpenGitHubImport={() => setGitHubImportOpen(true)}
               onQueryChange={changeQuery}
               onViewModeChange={changeViewMode}
               query={query}
-              resultCount={filteredIcons.length}
               viewMode={viewMode}
             />
 
@@ -379,22 +389,16 @@ export function IconBuilder() {
         </footer>
       </div>
 
-      <Button
-        aria-label="Back to top"
-        className="back-to-top"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        size="icon"
-      >
-        <ArrowUp size={17} />
-      </Button>
+      <BackToTop />
 
-      <SiteSettingsDialog
-        displayMode={displayMode}
-        onClose={closeSiteSettings}
-        onDisplayModeChange={setDisplayMode}
-        onThemeChange={setPreference}
-        open={siteSettingsOpen}
-        themePreference={preference}
+      <GitHubImportDialog
+        disabled={isLoading || Boolean(error) || !hydrated}
+        icons={icons}
+        onClose={closeGitHubImport}
+        onImport={importGitHubIcons}
+        onToggle={toggleIcon}
+        open={gitHubImportOpen}
+        selectedKeys={selectedKeys}
       />
       <BadgeSettingsDialog
         badgeSettings={badgeSettings}

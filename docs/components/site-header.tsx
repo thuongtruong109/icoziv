@@ -1,29 +1,27 @@
 'use client';
 
-import { GitFork, Info, Moon, Settings2, Sun, Users } from 'lucide-react';
+import { Info, Users } from 'lucide-react';
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
-import { REPOSITORY_URL, withBasePath } from '@/lib/constants';
-import type { IconTheme, ThemePreference } from '@/types/icon';
+import { SiteSettingsPopover } from '@/components/site-settings-popover';
+import { withBasePath } from '@/lib/constants';
+import type { DisplayNameMode, ThemePreference } from '@/types/icon';
 
 interface SiteHeaderProps {
   iconCount: number;
-  onOpenSettings: () => void;
+  displayMode: DisplayNameMode;
+  onDisplayModeChange: (mode: DisplayNameMode) => void;
   preference: ThemePreference;
-  resolvedTheme: IconTheme;
   setPreference: (preference: ThemePreference) => void;
 }
 
 export function SiteHeader({
   iconCount,
-  onOpenSettings,
+  displayMode,
+  onDisplayModeChange,
   preference,
-  resolvedTheme,
   setPreference,
 }: SiteHeaderProps) {
-  const nextTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
-
   return (
     <header className="site-header">
       <Link aria-label="Icoziv home" className="brand" href="/">
@@ -43,50 +41,24 @@ export function SiteHeader({
 
       <nav aria-label="Primary navigation" className="header-actions">
         <div className="header-nav-group">
-          <Link className="header-link" href="/about">
+          <Link aria-label="About" className="header-link" href="/about">
             <Info aria-hidden="true" size={15} />
             <span>About</span>
           </Link>
-          <Link className="header-link" href="/contributors">
+          <Link
+            aria-label="People"
+            className="header-link"
+            href="/contributors"
+          >
             <Users aria-hidden="true" size={15} />
             <span>People</span>
           </Link>
-        </div>
-        <div className="header-tool-group">
-          <a
-            aria-label="Open Icoziv on GitHub"
-            className="header-tool-button"
-            href={REPOSITORY_URL}
-            rel="noreferrer"
-            target="_blank"
-            title="GitHub"
-          >
-            <GitFork aria-hidden="true" size={17} />
-          </a>
-          <Button
-            aria-label={`Use ${nextTheme} theme. Current preference: ${preference}`}
-            className="header-tool-button"
-            onClick={() => setPreference(nextTheme)}
-            size="icon"
-            title={`Use ${nextTheme} theme`}
-            variant="ghost"
-          >
-            {resolvedTheme === 'dark' ? (
-              <Sun aria-hidden="true" size={17} />
-            ) : (
-              <Moon aria-hidden="true" size={17} />
-            )}
-          </Button>
-          <Button
-            aria-label="Open website preferences"
-            className="header-tool-button"
-            onClick={onOpenSettings}
-            size="icon"
-            title="Website preferences"
-            variant="ghost"
-          >
-            <Settings2 aria-hidden="true" size={17} />
-          </Button>
+          <SiteSettingsPopover
+            displayMode={displayMode}
+            onDisplayModeChange={onDisplayModeChange}
+            onThemeChange={setPreference}
+            themePreference={preference}
+          />
         </div>
       </nav>
     </header>
