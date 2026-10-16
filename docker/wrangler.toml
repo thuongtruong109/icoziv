@@ -1,0 +1,9 @@
+name = "icoziv-local"
+main = "../index.ts"
+compatibility_date = "2025-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+# This namespace is local to the Compose volume. No Cloudflare account is used.
+[[kv_namespaces]]
+binding = "ICONS_KV"
+id = "00000000000000000000000000000001"

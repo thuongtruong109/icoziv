@@ -2,6 +2,10 @@
 
 ### Added
 
+- GitHub Actions workflow to verify the Worker API and publish its versioned
+  image to GHCR as `ghcr.io/<owner>/<repo>` with a build cache
+- Docker Compose stack with a static web server, local Worker API, bundled icons,
+  health checks, and automatic local KV initialization
 - GitHub username import in the badge builder, with automatic icon selection
   from public repository languages, framework topics, and dependency manifests
 - Cancellable, cached GitHub scans with explicit coverage and partial-result notices

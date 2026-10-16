@@ -8,8 +8,11 @@ import type {
   IconCategory,
 } from '@/types/icon';
 
-export const BADGE_BASE_URL = 'https://i.icoziv.workers.dev';
+export const BADGE_BASE_URL = (
+  process.env.NEXT_PUBLIC_BADGE_BASE_URL || 'https://i.icoziv.workers.dev'
+).replace(/\/$/, '');
 export const ICON_ASSET_BASE_URL =
+  process.env.NEXT_PUBLIC_ICON_ASSET_BASE_URL ||
   'https://raw.githubusercontent.com/thuongtruong109/icoziv/main/icons';
 export const ICON_DATA_PATH = '/icoziv.json';
 export const REPOSITORY_URL = 'https://github.com/thuongtruong109/icoziv';

@@ -11,6 +11,13 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Docker Compose
+
+From the repository root, run `docker compose up --build -d --wait`, then open
+[the local playground](http://localhost:8080). This runs the web app and Worker
+API together, including local icon assets and automatically initialized KV.
+See [the Docker guide](../docker/README.md) for ports, logs, and shutdown commands.
+
 ## Import a GitHub stack
 
 Choose **Detect from GitHub** before the search field, enter a username in

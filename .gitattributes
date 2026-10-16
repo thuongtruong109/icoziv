@@ -9,6 +9,7 @@
 *.vue text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+*.sh text eol=lf
 
 # Preserve the repository's existing README line endings to avoid a noisy rewrite.
 README.md -text -eol whitespace=cr-at-eol

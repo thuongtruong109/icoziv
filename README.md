@@ -1115,6 +1115,18 @@ To view full list of all available icons, check out the [Playground](https://thu
 - ESLint and Prettier for code quality and formatting.
 - Vitest for testing
 
+## 🐳 Docker Compose
+
+Run the playground and badge API locally with Docker Desktop or Docker Engine with Compose:
+
+```bash
+docker compose up --build -d --wait
+```
+
+Open [http://localhost:8080](http://localhost:8080). Icons are bundled locally and the Worker KV is initialized automatically; no Cloudflare account is required. See the [Docker guide](docker/README.md) for configuration, logs, and shutdown commands.
+
+The [container workflow](.github/workflows/containers.yml) verifies the API before publishing only the Worker image to GHCR on `main` and version tags. See the [GHCR instructions](docker/README.md#build-and-publish-to-ghcr) to run the published Worker API image.
+
 ## 🤝 Contributing
 
 We welcome contributions!
